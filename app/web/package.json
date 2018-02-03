@@ -1,0 +1,37 @@
+{
+  "name": "lego",
+  "version": "1.0.0",
+  "description": "乐高系统",
+  "main": "index.js",
+  "scripts": {
+    "mock": "concurrently --raw --kill-others \"npm run dev:mock\" \"npm run serve\"",
+    "dev": "concurrently --raw --kill-others \"npm run dev:watch\" \"npm run serve\"",
+    "serve": "cross-env SERVER_ENV=local jfet server -l -s",
+    "serve:build": "cross-env SERVER_ENV=build jfet server -s -c ../../release",
+    "dev:watch": "cross-env BUILD_ENV=local jfet build -w",
+    "dev:mock": "cross-env BUILD_ENV=mock jfet build -w",
+    "build:test": "cross-env BUILD_ENV=test jfet build",
+    "build:prod": "cross-env BUILD_ENV=prod jfet build",
+    "build:pack": "cross-env BUILD_ENV=pack PACK_ENV=prod jfet build",
+    "build:packtest": "cross-env BUILD_ENV=pack PACK_ENV=test jfet build",
+    "pack:prod": "cross-env PACK_ENV=prod jfet pack",
+    "pack:test": "cross-env PACK_ENV=test jfet pack",
+    "image": "jfet image --min",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "kardel.chen@jyblife.com",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.15.3",
+    "clipboard": "^1.7.1",
+    "element-ui": "^2.0.11",
+    "nprogress": "^0.2.0",
+    "sha1": "^1.1.1",
+    "vue": "^2.5.0",
+    "vue-router": "^2.5.3"
+  },
+  "devDependencies": {
+    "fs-extra": "^5.0.0"
+  }
+}

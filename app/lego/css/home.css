@@ -1,0 +1,52 @@
+/* body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,form,fieldset,legend,button,input,textarea,th,td {
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline
+} */
+
+body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,form,fieldset,legend,button,input,textarea {
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline
+}
+img {
+    border: 0 none;
+    vertical-align: top
+}
+i,em {
+    font-style: normal
+}
+ol,ul {
+    list-style: none
+}
+input,select,button,h1,h2,h3,h4,h5,h6 {font-size: 100%;}
+table {border-collapse: collapse;border-spacing: 0}
+a,a:visited {text-decoration: none;color: #333;}
+.textCenter{text-align:center}
+.dsn{display:none}
+.redTip{color:#f00;font-size:12px;}
+
+
+.homeTopHead{
+    background-color:rgb(237,108,68);
+    line-height:50px;height:50px;
+}
+.sysName{
+    color: white;padding: 0 30px;font-size: 18px;
+    letter-spacing:2px;
+}
+.logout{float: right;margin-right: 20px;font-size: 15px;}
+.logout .user{color:#fff;padding:0 10px}
+.exitBtn{background:url(../image/icon_exit.png) no-repeat;width:25px;height:25px;display:inline-block;
+vertical-align:middle;
+}
+
+.searchBox{background-color:#fff;padding-top:10px;}
+.searchBox ul{list-style:none}
+.searchBox ul:after{clear:both;content:"";display:block}
+.searchBox ul li{float:left;padding:0 5px}
+
+.search-list td .img,
+.search-list td .text{float:left;}
+.search-list td .img img{width: 50px;}
+.search-list td .text{padding: 5px 10px;}

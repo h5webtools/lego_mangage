@@ -1,0 +1,184 @@
+<style>
+    body {
+        line-height: 1.6;
+        word-wrap: break-word;
+        word-break: break-all;
+        -webkit-text-size-adjust: none;
+        background-color: #f5f5f5;
+        font-family: ff-tisa-web-pro-1, ff-tisa-web-pro-2, Lucida Grande, Hiragino Sans GB, Hiragino Sans GB W3;
+    }
+    
+    .coupon_res_001 .ui-top-tips {
+        font-size: 20px
+    }
+    
+    .coupon_res_001 .ui-text-999 {
+        color: #999!important;
+    }
+    
+    .coupon_res_001 .ui-mt-middle {
+        margin-top: 20px;
+    }
+    
+    .coupon_res_001 .ui-ta-c {
+        text-align: center;
+    }
+    
+    .coupon_res_001 .mod-cft-wrap {
+        margin: 0 1rem;
+    }
+    
+    .coupon_res_001 .ui-text-333 {
+        color: #333!important;
+    }
+    
+    .coupon_res_001 .ui-ta-c {
+        text-align: center;
+    }
+    
+    .coupon_res_001 .mod-cft-wrap {
+        margin: 0 1rem;
+    }
+    
+    .coupon_res_001 .ui-text-333 {
+        color: #333!important;
+    }
+    
+    .coupon_res_001 .ui-ta-c {
+        text-align: center;
+    }
+    
+    .coupon_res_001 .mod-cft-wrap .coupon_wrap {
+        width: 175px;
+        height: 180px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .coupon_res_001 .ui-ov-h {
+        overflow: hidden;
+    }
+    
+    .coupon_res_001 .ui-mt-standard {
+        margin-top: 35px;
+    }
+    
+    .coupon_res_001 .ui-p-r {
+        position: relative;
+    }
+    
+    .coupon_res_001 .mod-cft-wrap .coupon_wrap img {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .coupon_res_001 .ui-red-bag {
+        width: 180px;
+    }
+    
+    .coupon_res_001 img,
+    .coupon_res_001 textarea {
+        vertical-align: top;
+    }
+    
+    .coupon_res_001 .mod-cft-wrap .coupon_wrap .coupon_text {
+        position: absolute;
+        top: 80px;
+        left: -10px;
+        width: 100%;
+        line-height: 100%;
+        font-size: 52px;
+        color: #ff0;
+        -webkit-transform: rotate(31deg);
+        transform: rotate(31deg);
+    }
+    
+    .coupon_res_001 .ui-text-strong {
+        font-weight: 700;
+    }
+    
+    .coupon_res_001 .ui-ta-c {
+        text-align: center;
+    }
+    
+    .coupon_res_001 .ui-pt-large {
+        padding-top: 20px;
+    }
+    
+    .coupon_res_001 .ui-mb-small {
+        margin-bottom: 10px;
+    }
+    
+    .coupon_res_001 .ui-mt-standard {
+        margin-top: 35px;
+    }
+    
+    .coupon_res_001 .coupon_res_btn {
+        display: block;
+        background-color: #f60;
+        color: #fff;
+        border-radius: .1rem;
+        font-size: .24rem;
+        height: .86rem;
+        line-height: .86rem;
+        width: 100%;
+    }
+    
+    .coupon_res_001 .ui-mt-small {
+        margin-top: 10px;
+    }
+    
+    .coupon_res_001 a {
+        background: 0 0;
+        text-decoration: none;
+        color: #333;
+    }
+    .coupon_res_001 .ui-text-small {
+        font-size: 12px;
+    }
+</style>
+
+
+<!-- 模块标题，支持填写副标题跳转链接   addRd(data.tourl,data.ptag)-->
+<template class="showTemplate">
+    <commontag uid="commontag" v-bind:params="data" inline-template>
+        <div class="coupon_res_001">
+            <template v-if="true">
+                <p class="ui-mt-middle ui-ta-c ui-text-999 ui-top-tips" id="main_text">{{params.desone}}</p>
+                <div class="mod-cft-wrap ui-ta-c ui-text-333">
+                    <div class="ui-p-r ui-ov-h coupon_wrap ui-mt-standard">
+                        <img class="ui-red-bag" src="http://mat.jtjr99.com/static/style/act/publish/img/cft11/wxhk_coupon.png">
+                        <div class="coupon_text ui-text-strong ui-ta-c">
+                            <span>{{params.couponvalue}}</span>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="ui-mt-standard ui-pt-large ui-text-small ui-mb-small">
+                            {{params.destwo}}</p>
+                        <a id="btn" :href="params.jumpurl" class="coupon_res_btn ui-mt-small">{{params.jumpdes}}</a>
+                    </div>
+                </div>
+            </template>
+
+        </div>
+
+    </commontag>
+</template>
+
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExt">
+    var com_ext = {}
+
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+    var com_extend = []
+
+</script>
+
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {};
+
+</script>

@@ -1,0 +1,88 @@
+
+@import 'assets/sass/common.scss';
+@import '../../node_modules/nprogress/nprogress.css';   // Progress 进度条 样式
+
+#app {
+  min-height: 100%;
+}
+
+.layout-main {
+  min-height: 100vh;
+  display: flex;
+  align-items: stretch;
+  .aside-wrap {
+    width: 200px;
+    min-height: 100vh;
+    background-color: #545c64;
+    overflow-x: hidden;
+    // flex-grow: 0;
+    transition: all 0.3s ease;
+    .el-menu {
+      border-right: 0;
+      .glyphicon {
+        vertical-align: baseline;
+        margin-right: 5px;
+        width: 24px;
+        text-align: center;
+        color: #fff;
+        top: 2px;
+      }
+    }
+    .menu-indent {
+      text-indent: 20px;
+    }
+  }
+  .main-wrap {
+    min-height: 100vh;
+    width: calc(100% - 200px);
+    flex-grow: 1;
+    .app-header {
+      height: 40px;
+      background-color: #eef1f6;
+      width: 100%;
+      line-height: 40px;
+      padding: 0 20px;
+      font-size: 0;
+      box-sizing: border-box;
+      .el-breadcrumb {
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+    .app-main {
+      padding: 20px;
+      box-sizing: border-box;
+    }
+  }
+}
+
+a {
+  outline: none;
+  &:hover {
+    outline: none;
+  }
+  &:active {
+    outline: none;
+  }
+  &:focus {
+    outline: none;
+  }
+}
+
+.menu-link {
+  display: block;
+  text-indent: 20px;
+  outline: none;
+}
+
+.user-info {
+  font-size: 12px;
+}
+
+.el-table__body-wrapper {
+  overflow-x: hidden;
+  .el-table__expanded-cell[class*=cell] {
+    background-color: #e5e5e5;
+    padding: 20px 30px;
+  }
+}

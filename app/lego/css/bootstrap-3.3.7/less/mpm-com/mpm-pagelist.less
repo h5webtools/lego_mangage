@@ -1,0 +1,41 @@
+.mpm-pagelist{
+    
+    font-size: 13px;
+    color: #666666;
+    
+    a{
+        color: #666666;
+    }
+    
+    tbody td{
+        vertical-align: middle!important;
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    
+    .img-btn{
+        position: relative;
+        img{
+            width: 25px;
+            height: 25px;
+            margin-right: 8px;
+        }
+        
+        span{
+            position: absolute;
+            font-size: 10px;
+            display: inline-block;
+            top: -18px;
+            width: 50px;
+            height: 0;
+            line-height: 15px;
+            transition: .3s ease;
+            overflow: hidden;
+        }
+    }
+    
+    .img-btn:hover span,.img-btn.hover span{
+        height: 15px;
+    }
+}

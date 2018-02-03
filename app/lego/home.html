@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>加油宝页面配置平台</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+  <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+  <meta HTTP-EQUIV="Expires" CONTENT="0">
+  <link href="css/bootstrap-3.3.7/bootstrap.css?v=20170210" rel="stylesheet" type="text/css">
+  <style type="text/css">
+    .copylist-warp {
+      width: 100%;
+      overflow-y: auto;
+      max-height: 370px;
+    }
+  </style>
+</head>
+
+<body class="yscroll-fix">
+  <div class="navbar navbar-default navbar-fixed-top" id="mpm_nav">
+    <div class="container">
+      <div class="navbar-header">
+        <a href="javascript:;" class="navbar-brand">加油宝页面配置平台</a>
+        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+      </div>
+      <div class="navbar-collapse collapse" id="navbar-main">
+        <ul class="nav navbar-nav">
+          <li>
+            <a href="home.html">新建页面</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.LegoPageConfig = {
+      isPower: 0
+    }
+  </script>
+  <div class="home-content">
+    <div class="container">
+      <div class="mpm-notice-wrap">
+        <div class="notice">
+          <img src="image/notice_clip.png" class="clip clip-left" />
+          <img src="image/notice_clip.png" class="clip clip-right" />
+          <div id="notice" v-html="notice">
+            公告加载中...
+          </div>
+        </div>
+      </div>
+
+      <div class="mpm-template-wrap clearfix" id="pageTemplates">
+        <ul class="list-unstyled clearfix">
+          <li class="template-item">
+            <img src="image/template_new.png" class="template-img" />
+            <div class="template-desc">
+              创建空白页面。可自由添加组件，选择样式。
+            </div>
+            <a class="mask-new" href="edit.html">
+              <div class="template-btn-warp">
+                <span class="template-new-btn">创建新页面 </span>
+                <img src="image/template_new_icon.png" alt="" />
+              </div>
+            </a>
+          </li>
+
+          <li class="template-item" @click="copyPage()" data-toggle="modal" data-target="#myModal">
+            <img src="image/template_new.png" class="template-img" />
+            <div class="template-desc">
+              复制已有的页面，只更改链接，内容一样。
+            </div>
+            <a class="mask-new" href="javascript:;">
+              <div class="template-btn-warp">
+                <span class="template-new-btn">复制页面 </span>
+                <img src="image/copy_page.png" alt="" />
+              </div>
+            </a>
+          </li>
+
+          <template v-for="item in list">
+						<li class="template-item">
+							<img :src="item.t_thumb" class="template-img" />
+							<div class="template-desc" v-text="item.t_desc" :title="item.t_desc">
+
+							</div>
+							<div class="mask">
+								<div class="template-btn-warp">
+									<a :href="item.t_pageurl||'javascript:;'" class="btn btn-warning template-btn" target="_blank">预览模板</a>
+									<a :href="'edit.html?tid='+item.t_id" class="btn btn-warning template-btn">使用模板</a>
+								</div>
+							</div>
+						</li>
+					</template>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" id="js_mod_close_btn" data-dismiss="modal" aria-hidden="true">
+                      ×
+                    </button>
+          <h4 class="modal-title" id="myModalLabel">复制页面</h4>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal">
+            <input type="hidden" name="" id="js_mod_id" value="7">
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="page_path">*路径</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="page_path" data-validate="required" placeholder="路径名称，比如sina0709">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="page_id">*pageID</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="page_id" data-validate="required" placeholder="原页面的pageID">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" id="js_mod_cancel_btn" data-dismiss="modal">关闭</button>
+          <button type="button" id="js_mod_submit_btn" class="btn btn-primary">去复制</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <footer class="home-footer">
+    <div class="container">
+      <hr>
+      <ul class="list-inline text-center mb0">
+        <li>@加油宝H5开发组</li>
+      </ul>
+    </div>
+  </footer>
+
+  <script type="text/javascript" src="js/lib/sea.js"></script>
+  <script type="text/javascript" src="js/lib/seajs-text.js"></script>
+  <script type="text/javascript">
+    seajs.use('./js/main.home.js?v=20171029', function(m) {
+      m.main()
+    });
+  </script>
+</body>
+
+</html>

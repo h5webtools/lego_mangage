@@ -1,0 +1,281 @@
+<style>
+    /* 弹框公共 */
+
+    .overlay {
+        background-color: #000;
+        filter: alpha(opacity=60);
+        opacity: 0.6;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        position: fixed;
+        z-index: 1024;
+        -webkit-backface-visibility: hidden;
+        font-size: 0.26rem;
+        line-height: 1.2;
+        color: #333;
+    }
+
+    .mod-dialog {
+        border-radius: 3px;
+        width: 90%;
+        position: fixed;
+        top: 25%;
+        left: 50%;
+        -webkit-transform: translateX(-50%);
+        transform: translateX(-50%);
+        z-index: 8888;
+        overflow: hidden;
+        font-size: 0.36rem;
+        line-height: 1.2;
+        color: #333;
+    }
+
+    .ui-mb-20 {
+        margin-bottom: 0.2rem;
+    }
+
+    .mod-dialog .dialog-title {
+        background-color: #fff;
+        padding-top: 0.2rem;
+        padding-bottom: 0.2rem;
+        text-align: center;
+        position: relative;
+        border-bottom: 1px solid #e6e6e6;
+        color: #333;
+    }
+
+    .ui-bb-n {
+        border-bottom: none !important;
+    }
+
+    .mod-dialog .dialog-content {
+        box-sizing: border-box;
+        overflow: hidden;
+        background-color: #fff;
+    }
+    /* 弹框公共 */
+    /* 确认框 */
+
+    .comm-padding {
+        padding-left: 0.3rem;
+        padding-right: 0.3rem;
+    }
+
+    .ui-pb-60 {
+        padding-bottom: 0.6rem;
+    }
+
+    .ui-mt-90 {
+        margin-top: 0.9rem;
+    }
+
+    .ui-ta-c {
+        text-align: center;
+    }
+
+    .f-36 {
+        font-size: 0.36rem;
+    }
+
+    p {
+        margin: 0;
+        padding: 0;
+        font-size: 100%;
+    }
+
+    .f-54 {
+        font-size: 0.54rem;
+    }
+
+    .ui-mt-10 {
+        margin-top: 0.1rem;
+    }
+
+    .f-36 {
+        font-size: 0.36rem;
+    }
+
+    .ui-mt-10 {
+        margin-top: 0.1rem;
+    }
+
+    .mod-btn2 {
+        display: -webkit-box;
+        -webkit-box-pack: center;
+        -webkit-box-align: center;
+        -webkit-box-pack: justify;
+    }
+
+    .mod-btn2 div:nth-child(1) {
+        width: 45%;
+    }
+
+    .mod-btn2 .btn {
+        height: 0.86rem;
+        line-height: 0.86rem;
+        background: #FF6E34;
+        color: #fff;
+        margin-right: 5%;
+        border-radius: 0.05rem;
+    }
+
+    .mod-btn2 div {
+        -webkit-box-flex: 1;
+        position: relative;
+    }
+
+    .ui-mt-100 {
+        margin-top: 1rem;
+    }
+
+    .mod-btn2 .btn:last-child {
+        margin-right: 0;
+    }
+
+    .mod-btn2 div:nth-child(2) {
+        width: 45%;
+    }
+    /* 确认框 */
+    /* 结果框 */
+
+    .f-44 {
+        font-size: 0.44rem;
+    }
+
+    .ui-ta-c {
+        text-align: center;
+    }
+
+    .f-28 {
+        font-size: 0.28rem;
+    }
+
+    .ui-mt-10 {
+        margin-top: 0.1rem;
+    }
+
+    .mod-btn {
+        display: block;
+        background-color: #FF6E34;
+        text-align: center;
+        color: #fff;
+        position: relative;
+        border-radius: 3px;
+        height: 0.86rem;
+        line-height: 0.86rem;
+        width: 100%;
+    }
+
+    .ui-mt-100 {
+        margin-top: 1rem;
+    }
+    /* 结果框 */
+
+.lego-jybexchange-show2  .prd-content {
+    background: #fff;
+    padding-left: .25rem;
+    padding-right: .25rem;
+    overflow: hidden;
+    padding-bottom: .35rem;
+}
+.lego-jybexchange-show2 .ui-ta-c {
+    text-align: center;
+}
+.lego-jybexchange-show2 .color-7d87aa {
+    color: #7d87aa;
+}
+.lego-jybexchange-show2 .f-22 {
+    font-size: 0.22rem;
+}
+.lego-jybexchange-show2 .ui-mt-25 {
+    margin-top: 0.25rem;
+}
+.lego-jybexchange-show2 p{
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+}
+.lego-jybexchange-show2  .prd-box {
+    float: left;
+    width: 48%;
+    background: #f5f7ff;
+    margin-right: 4%;
+}
+.lego-jybexchange-show2 .ui-pt-50 {
+    padding-top: 0.5rem;
+}
+.lego-jybexchange-show2 .ui-mt-35 {
+    margin-top: 0.35rem;
+}
+.lego-jybexchange-show2 prd-status1 {
+    background: -webkit-gradient(linear, left top, right top, from(#966be4), to(#d257e8));
+    background: -webkit-linear-gradient(left, #966be4, #d257e8);
+    background: -o-linear-gradient(left, #966be4, #d257e8);
+    background: linear-gradient(left, #966be4, #d257e8);
+}
+.lego-jybexchange-show2 .mod-btn {
+    width: 1.88rem;
+    height: .65rem;
+    line-height: .65rem;
+    border-radius: .65rem;
+    margin: .2rem auto;
+    color: #fff;
+}
+.lego-jybexchange-show2 .prd-status2 {
+    background: #b5b2cf;
+}
+.lego-jybexchange-show2 .prd-box:nth-child(even) {
+    margin-right: 0;
+}
+</style>
+
+
+<template class="showTemplate">
+    <jybexchange uid="uid" v-bind:params="data" inline-template>
+        <div class="lego-jybexchange-show2" v-bind:style="{paddingLeft:params.LRpadding+'rem', paddingRight:params.LRpadding+'rem'}">
+                <template v-if="true">
+            <div class="prd-content ui-ta-c" v-bind:style="{background:params.bgcolor}">
+                <p class="f-22 color-7d87aa ui-mt-25">已购买:{{data.buycount}}元</p>
+                <div class="ui-ta-c color-7d87aa f-22">
+                    <div class="prd-box ui-mt-25" v-for="(item , index) in params.exchangeItem">
+                        <p class="ui-pt-50 ui-ta-c"><img :src="item.awardImg" alt="" width="70%"></p>
+                        <p class="f-22 ui-mt-35">{{item.topDes}}</p>
+                        <p>{{item.exchangeDes}}</p>
+
+                        <template v-if="data.timeFlag==false">
+                            <p class="mod-btn prd-status2" :type="params.actType" :flag="index+1">未到兑换时间</p>
+                        </template>
+                        <template v-if="data.timeFlag==true">
+                            <p class="mod-btn prd-status2" :type="params.actType" :flag="index+1" v-if="item.awardFlag == 2 && data.exchangeFlag == false">立即兑换</p>
+                            <p class="mod-btn prd-status1" :type="params.actType" :flag="index+1" v-on:click="toexchange($event)" v-if="item.awardFlag == 2 && data.exchangeFlag == true">立即兑换</p>
+                            <p class="mod-btn prd-status2" :type="params.actType" :flag="index+1" v-if="item.awardFlag == 1">已兑换</p>
+                            <p class="mod-btn prd-status2" :type="params.actType" :flag="index+1" v-if="item.awardFlag == 0">未满额</p>
+                        </template>
+                    </div>
+                </div>
+            </div>
+                </template>
+        </div>
+
+    </jybexchange>
+</template>
+
+
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExt">
+    var com_ext = {}
+
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+    var com_extend = []
+
+</script>
+
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {};
+
+</script>

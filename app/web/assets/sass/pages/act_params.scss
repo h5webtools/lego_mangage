@@ -1,0 +1,28 @@
+.act_params {
+  .params-translate {
+    padding: 20px;
+  }
+  
+  .el-collapse {
+    .el-collapse-item__header {
+      font-weight: 600;
+      color: #f60;
+      font-size: 14px;
+    }
+  }
+  
+  .operate-wrap {
+    border-bottom: 5px dashed #e5e5e5;
+    border-top: 5px dashed #e5e5e5;
+    border-bottom: 5px dashed #e5e5e5;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #f6f6f6;
+  }
+  
+  .desc-text {
+    color: #999;
+    font-size: 12px;
+    margin-bottom: 20px;
+  }
+}

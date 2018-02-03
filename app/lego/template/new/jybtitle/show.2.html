@@ -1,0 +1,42 @@
+<style>
+.lego-jybtitle-show2 .color-content {
+    color: #562713;
+    text-align: center;
+    line-height: 1.2;
+}  
+.lego-jybtitle-show2 .f-26 {
+    font-size: .26rem;
+} 
+.lego-jybtitle-show2 .ui-mb-30 {
+    margin-bottom: .3rem;
+}
+.lego-jybtitle-show2 .ui-mt-20 {
+    margin-top: .2rem;
+}
+
+</style>
+
+
+<template class="showTemplate">
+    <commontag uid="uid" v-bind:params="data" inline-template>
+        <div class="lego-jybtitle-show2">
+        <template v-if="true">
+            <div class="color-content f-26 ui-mt-20 ui-mb-30" :style="{color:params.color,backgroundColor:params.backgroundcolor}">{{params.title}}</div>
+        </template>
+        <div>
+    </commontag>
+</template>
+
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExt">
+    var com_ext = {}
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+    var com_extend = []
+</script>
+
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {};
+</script>

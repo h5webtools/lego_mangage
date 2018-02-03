@@ -1,0 +1,130 @@
+<style>
+.lego-jybfinanciallist-show2 .comm-padding {
+    padding-left: .3rem;
+    padding-right: .3rem;
+    text-align: center;
+}
+.lego-jybfinanciallist-show2 .ui-mt-55 {
+    margin-top: .55rem;
+}
+.lego-jybfinanciallist-show2 .ui-ov-h {
+    overflow: hidden;
+    font-size: .26rem;
+}
+.lego-jybfinanciallist-show2 .ui-ta-c {
+    text-align: center;
+}
+.lego-jybfinanciallist-show2 .mod-coupon {
+    display: inline-block;
+    width: 6.2rem;
+    height: 5.52rem;
+    background: url(https://cdn.jyblife.com/act/201707/platform/assets/images/index/coupon_big.png);
+    background-size: 100% 100%;
+}
+.lego-jybfinanciallist-show2 .color-content {
+    color: #562713;
+}
+.f-34 {
+    font-size: .34rem;
+}
+.lego-jybfinanciallist-show2 .ui-mt-75 {
+    margin-top: .75rem;
+}
+.lego-jybfinanciallist-show2 p {
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+}
+.lego-jybfinanciallist-show2 .f-62 {
+    font-size: .62rem;
+}   
+.lego-jybfinanciallist-show2 .ui-mt-50 {
+    margin-top: .5rem;
+}
+.lego-jybfinanciallist-show2 .f-130 {
+    font-size: 1.3rem;
+}
+.lego-jybfinanciallist-show2 .ui-text-strong {
+    font-weight: 700;
+}
+.lego-jybfinanciallist-show2 .color-content {
+    color: #562713;
+}
+.lego-jybfinanciallist-show2 .f-26, body {
+    font-size: .26rem;
+}
+.lego-jybfinanciallist-show2 .ui-mt-50 {
+    margin-top: .5rem;
+}
+.lego-jybfinanciallist-show2 .mod-btn-coupon {
+    width: 4.35rem;
+    height: .85rem;
+    display: inline-block;
+    margin-top: .1rem;
+    background: url(https://cdn.jyblife.com/act/201707/platform/assets/images/index/btn.png);
+    background-size: 100% 100%;
+}
+.lego-jybfinanciallist-show2 a {
+    color: #333;
+}
+.lego-jybfinanciallist-show2 a {
+    text-decoration: none;
+}
+.lego-jybfinanciallist-show2 a {
+    background: 0 0;
+    color: inherit;
+}
+.lego-jybfinanciallist-show2 .color-content {
+    color: #562713;
+}
+.lego-jybfinanciallist-show2 .f-24 {
+    font-size: .24rem;
+}
+.lego-jybfinanciallist-show2 .ui-mt-30 {
+    margin-top: .3rem;
+}
+.lego-jybfinanciallist-show2 .ui-mr-50 {
+    margin-right: .5rem;
+}
+.lego-jybfinanciallist-show2 .ui-fl-r {
+    float: right;
+}
+
+</style>
+
+
+<template class="showTemplate">
+    <commontag uid="uid" v-bind:params="data" inline-template>
+        <div class="lego-jybfinanciallist-show2">
+            <template v-if="true">
+                <div class="comm-padding ui-mt-55 ui-ov-h">
+                    <div class="mod-coupon" v-for="(item , index) in params.finaItem" v-if="index < 1">
+                        <p class="ui-mt-75 f-34 color-content" id="coupon_title">{{item.topDes}}</p>
+                        <p class="ui-mt-50 f-62" style="color: #e7471a;">￥<span class="f-130 ui-text-strong coupon_reward">{{item.des1}}</span></p>
+                        <p class="ui-mt-50 f-26 color-content">{{item.des2}}</p>
+                        <a class="mod-btn-coupon" :href="item.buyurl" id="btn_coupon"></a>
+                    </div>
+                    <a class="ui-fl-r ui-mr-50 ui-mt-30 f-24 color-content" href="jtjr://coupon">我的红包&gt;</a>
+                </div>
+            </template>
+        </div>
+    </commontag>
+</template>
+
+
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExt">
+    var com_ext = {}
+
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+    var com_extend = []
+
+</script>
+
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {};
+
+</script>

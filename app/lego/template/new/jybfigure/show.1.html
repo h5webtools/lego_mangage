@@ -1,0 +1,62 @@
+<style>
+.lego-jybfigure-show1 .mod-buy-account {
+    position: relative;
+   }
+.lego-jybfigure-show1 .mod-buy-account img {
+    width: 7.5rem;
+    height: 3.26rem;
+}
+.lego-jybfigure-show1 .mod-buy-account .buy-product-desc {
+    font-size: 0.46rem;
+    top: 0.6rem;
+    letter-spacing: 0.03rem;
+}
+.lego-jybfigure-show1 .mod-buy-account div {
+    text-align: center;
+    position: absolute;
+    color: #fff;
+    margin-left: auto;
+    margin-right: auto;
+    width: 7.5rem;
+}
+.lego-jybfigure-show1 .mod-buy-account .act-product-time {
+    font-size: 0.28rem;
+    top: 1.36rem;
+    letter-spacing: 0.024rem;
+}
+</style>
+
+
+<template class="showTemplate">
+<jybfigure uid="uid" v-bind:params="data" inline-template>
+    <div class="lego-jybfigure-show1">
+        <template v-if="true">
+            <div class="mod-buy-account"> 
+                <img :src="params.img">
+                <div class="buy-product-desc">{{params.descContent[0].desc}}{{params.fnObj.getFigure(data.figure)}}{{params.descContent[1].desc}}</div>
+                <div class="act-product-time">{{params.descContent[2].desc}}</div>
+            </div>
+        </template>
+    </div>
+</jybfigure>
+</template>
+
+
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExt">
+    var com_ext = {}
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+    var com_extend = []
+</script>
+
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {
+        getFigure: function (figure) {
+            var figureTmp = figure/100;
+            return figureTmp >=10000 ? ((figureTmp/10000).toFixed(2)+"万") : figureTmp;
+        }
+    };
+</script>

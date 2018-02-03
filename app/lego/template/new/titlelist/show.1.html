@@ -1,0 +1,125 @@
+<style>
+    .sec_title {
+        position: relative;
+        height: 40px;
+        line-height: 40px;
+        background: #FFF;
+        border-left: 2px solid #333
+    }
+    
+    .sec_title h2 {
+        display: inline-block;
+        font-size: 14px;
+        font-weight: bold;
+        padding-left: 10px;
+        color: #333
+    }
+    
+    .sec_title .icon {
+        display: none
+    }
+    
+    .sec_title .more {
+        position: absolute;
+        top: 0;
+        right: 10px;
+        font-size: 12px;
+        font-weight: normal;
+        color: #999;
+        line-height: 40px
+    }
+    
+    .sec_title .more img {
+        position: relative;
+        top: 12px;
+        width: 15px;
+        height: 15px;
+        margin-left: 5px
+    }
+    
+    .sec_title.red {
+        border-color: #f65e60
+    }
+    
+    .sec_title.red h2 {
+        color: #f65e60
+    }
+    
+    .sec_title.blue {
+        border-color: #59a0f7
+    }
+    
+    .sec_title.blue h2 {
+        color: #59a0f7
+    }
+    
+    .sec_title.orange {
+        border-color: #fda044
+    }
+    
+    .sec_title.orange h2 {
+        color: #fda044
+    }
+    
+    .sec_title.with_icon {
+        border: 0 none
+    }
+    
+    .sec_title.with_icon .icon {
+        position: absolute;
+        top: 9px;
+        left: 10px;
+        width: 22px;
+        height: 22px;
+        display: block
+    }
+    
+    .sec_title.with_icon h2 {
+        padding-left: 40px
+    }
+</style>
+
+
+<!-- 模块标题，支持填写副标题跳转链接   addRd(data.tourl,data.ptag)-->
+<template class="showTemplate">
+    <commontag uid="uid" :params="data" inline-template>
+        <div class="sec_title with_icon">
+           <template v-if="!((params.extend.begin && new Date() < new Date(params.extend.begin)) || (params.extend.end && new Date() > new Date(params.extend.end)))">
+            <img class="icon" :src="params.iconimg" alt="">
+            <h2 style="color:#e1383d">{{params.title}}</h2>
+            <a :href="params.tourl" class="more">  
+                <span>{{params.subTitle}}</span>
+                <img src="//img11.360buyimg.com/jdphoto/s30x30_jfs/t1858/58/2805278639/1411/8ddf90cb/571896ccN89850330.png">
+            </a>
+            </template>
+        </div>
+    </commontag>
+</template>
+
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExt">
+    var com_ext = {}
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+    var com_extend = [{
+    "name": "开始时间",
+    "nick": "begin",
+    "type": "input",
+    "value": "",
+    "placeholder": "2016/09/13 00:00:00",
+    "class": "selecttime"
+}, {
+    "name": "结束时间",
+    "nick": "end",
+    "type": "input",
+    "value": "",
+    "placeholder": "2016/09/13 00:00:00",
+    "class": "selecttime"
+}]
+</script>
+
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {};
+</script>

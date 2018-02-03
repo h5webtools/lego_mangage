@@ -1,0 +1,37 @@
+@notice-clip-spacing:50px;
+@notice-border-color:#F2F2F2;
+
+.mpm-notice-wrap {
+    position: relative;
+    padding: 2px;
+    margin: 40px 0 20px 0;
+    line-height: 21px;
+    border: 1px solid @notice-border-color;
+    box-shadow: 2px 2px 3px @notice-border-color;
+    .clip {
+        position: absolute;
+        top: -30px;
+        width: 40px;
+        height: 40px;
+    }
+    .clip-left {
+        left: @notice-clip-spacing;
+    }
+    .clip-right {
+        right: @notice-clip-spacing;
+    }
+    .notice {
+        background-color: @notice-border-color;
+        padding: 30px;
+        min-height: 153px;
+    }
+    .notice-item {
+        line-height: 21px;
+    }
+    .notice-item a {
+        color: red;
+    }
+    .notice-item a:hover {
+        text-decoration: none;
+    }
+}

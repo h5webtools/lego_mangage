@@ -1,0 +1,77 @@
+<style>
+    .lego-jybrules-show2 .ui-mb-25 {
+        margin-bottom: .25rem
+    }
+    /* .lego-jybrules-show2 .ui-pb-20 {
+        padding-bottom: 0.5rem
+    }
+     */
+    .lego-jybrules-show2 .f-11 {
+        font-size: .28rem
+    }
+
+    .lego-jybrules-show2 {
+        padding: 1px .4rem;
+        background: #7bcd68;
+    }
+    
+    .lego-jybrules-show2 .desc-wrap {
+        color: #317b4d
+    }
+    
+    .lego-jybrules-show2 .desc-wrap .title {
+        color: #447e42
+    }
+    
+    .lego-jybrules-show2 dl , .lego-jybrules-show2 dt , .lego-jybrules-show2 dd   {
+        margin: 0;
+        padding: 0;
+        vertical-align: baseline
+        }
+</style>
+
+<template class="showTemplate">
+
+    <commontag uid="commontag" v-bind:params="data" inline-template>
+        <div>
+            <template v-if="true">
+                <div class='lego-jybrules-show2  ' v-bind:style="{background:params.rulesBgColor}">
+                    <div class="desc-wrap ui-pb-20 f-11">
+                        <div v-show="!params.showTipsFlag">
+                            <template v-if="true && params.rulesContent && params.rulesContent.length>0" v-for="(item ,index) in params.rulesContent">
+                                <dl class="ui-mb-25">
+                                    <dt v-bind:style="{color:params.rulesContentColor}">{{item.rulesTitle}}</dt>
+                                    <dd v-for="(items ,indexs) in params.fnObj.getRuleList(item.rulesDes)" v-bind:style="{color:params.rulesContentColor}">{{items}}</dd>
+                                </dl>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+
+    </commontag>
+
+</template>
+<!-- 下面的属性控制MPM中编辑界面 -->
+
+<script class="forMPMExt">
+    var com_ext = {}
+
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+    var com_extend = [{
+
+    }]
+
+</script>
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {
+        getRuleList: function (rulesList) {
+            return rulesList ? rulesList.split("$$$") : "";
+        }
+    };
+
+</script>

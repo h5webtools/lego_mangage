@@ -1,0 +1,17 @@
+{
+  "css/login.vue.css": "/public/css/login.vue.css",
+  "css/main.css": "/public/css/main.css",
+  "css/main.vue.css": "/public/css/main.vue.css",
+  "js/ConfigTreeLego.js": "/public/js/ConfigTreeLego.js",
+  "js/actChainConfig.js": "/public/js/actChainConfig.js",
+  "js/actEdit.js": "/public/js/actEdit.js",
+  "js/actList.js": "/public/js/actList.js",
+  "js/cmdList.js": "/public/js/cmdList.js",
+  "js/login.js": "/public/js/login.js",
+  "js/main.js": "/public/js/main.js",
+  "js/paramsList.js": "/public/js/paramsList.js",
+  "js/systemSync.js": "/public/js/systemSync.js",
+  "js/templateConfigTree.js": "/public/js/templateConfigTree.js",
+  "js/templateList.js": "/public/js/templateList.js",
+  "js/welcome.js": "/public/js/welcome.js"
+}

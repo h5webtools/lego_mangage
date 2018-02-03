@@ -1,0 +1,39 @@
+<style>
+  .bankoil_mod-title {
+    background: #15d6a4;
+    height: .54rem;
+    width: 1.74rem;
+    color: #fff;
+    font-size: .28rem;
+    line-height: .54rem;
+    text-align: center;
+    letter-spacing: .03rem;
+    border-top-right-radius: .27rem;
+    border-bottom-right-radius: .27rem;
+} 
+</style>
+
+
+<template class="showTemplate">
+    <commontag uid="uid" v-bind:params="data" inline-template>
+        <div>
+        <template v-if="true">
+            <div class="bankoil_mod-title" :style="{color:params.color,backgroundColor:params.backgroundcolor}">{{params.title}}</div>
+        </template>
+        <div>
+    </commontag>
+</template>
+
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExt">
+    var com_ext = {}
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+    var com_extend = []
+</script>
+
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {};
+</script>

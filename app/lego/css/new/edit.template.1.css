@@ -1,0 +1,948 @@
+/*
+  HTML5 Reset :: style.css
+  ----------------------------------------------------------
+  We have learned much from/been inspired by/taken code where offered from:
+
+  Eric Meyer          :: http://meyerweb.com
+  HTML5 Doctor        :: http://html5doctor.com
+  and the HTML5 Boilerplate :: http://html5boilerplate.com
+
+-------------------------------------------------------------------------------*/
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+p,
+blockquote,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+pre,
+form,
+fieldset,
+legend,
+button,
+input,
+textarea,
+{
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline
+}
+
+img {
+    border: 0 none;
+    vertical-align: top
+}
+
+i,
+em {
+    font-style: normal
+}
+
+ol,
+ul {
+    list-style: none
+}
+
+input,
+select,
+button,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: 100%;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0
+}
+
+a,
+a:visited {
+    text-decoration: none;
+    color: #333;
+}
+
+.clearfix:before, .clearfix:after { content: "\0020"; display: block; height: 0; overflow: hidden; }
+.clearfix:after { clear: both; }
+.clearfix { zoom: 1; }
+
+/* common.css 开始 */
+
+.text-left{
+  text-align: left;
+}
+.text-right{
+  text-align: right;
+}
+.text-center{
+  text-align: center;
+}
+
+*+address, *+blockquote, *+dl, *+fieldset, *+figure, *+ol, *+p, *+pre, *+ul{
+  margin-top: 15px
+}
+
+
+address, blockquote, dl, fieldset, figure, ol, p, pre, ul{
+  margin: 0 0 15px 0;
+}
+/* 
+textarea {
+  width: 100%;
+} */
+
+input, textarea, select{
+  font-size: 12px;
+}
+
+input[type="text"],input[type="number"],
+select {
+  padding: 4px;
+  border-radius: 4px;
+  border: 1px solid #848484;
+  color: #333;
+  vertical-align: middle;
+}
+
+#textTopSearchMpj,#textBottomSearchMpj,#textTopSearchRoleid,#textBottomSearchRoleid{
+  width: 88px;
+}
+
+
+.form-group {
+  margin-bottom: 7px;
+}
+
+.form-group textarea {
+  border: 1px solid #848484;
+  padding: 4px;
+  border-radius: 4px;
+  color: #666;
+  width: calc(100% - 145px);
+  min-width: 145px;
+  height: 80px;
+}
+
+/*.form-group {
+  width: 100%;
+}*/
+
+.jc-btn {
+  border: 0;
+  padding: 0 36px;
+  line-height: 30px;
+  border-radius: 3px;
+  font-size: 14px;
+}
+.jc-btn.btn-default{
+  background-color: #999;
+  color: #fff;
+
+}
+.jc-btn.btn-primary{
+  background-color: #ed6c44;
+  color: #fff;
+
+}
+
+h1,h2,h3,h4,h5,h6{
+  margin: 0 0 15px 0;
+  font-weight: 300;
+  color: #222;
+  text-transform: none;
+}
+h1{
+  font-size: 36px;
+  line-height: 42px
+}
+
+h2{
+  font-size: 24px;
+  line-height: 30px;
+}
+
+h3{
+  font-size: 18px;
+  line-height: 24px;
+}
+
+h4,h5,h6{
+  font-size: 16px;
+  line-height: 22px;
+}
+/* common.css 结束 */
+
+
+
+.editArea{
+  padding-right: 15px;
+}
+
+
+.control-label, .control-label+*{
+  float: left;
+}
+.control-label+*{
+  float: left;
+  margin-left: 4px;
+  width: calc(100% - 152px)
+}
+.form-group:after{
+  content: " ";
+  clear: both;
+  display: inline-block;
+  height: 0;
+  width: 0;
+}
+
+/* table.css 开始 */
+.editArea a{
+  color: #ed6c44;
+  text-decoration: none;
+  margin: 0 4px;
+}
+.editArea table{
+  text-align: center;
+  width: 100%;
+  margin-bottom: 15px;
+  /*table-layout: fixed;*/
+}
+.editArea thead th{
+  padding: 12px 0;
+  background-color: #f0f0f0
+}
+.editArea tr{
+  border-bottom: 1px solid #e6e6e6
+}
+.editArea td{
+  vertical-align: middle;
+  padding: 5px 0;
+  white-space: nowrap;
+}
+.editArea td input{
+  max-width: 100px;
+  width: 60%;
+}
+
+/* tab 开始 */
+td.flowRadioTd input{
+  width: 48px;
+}
+.editArea tbody.on{
+  border: 1px solid #ed6c44;
+}
+.editArea tbody.on tr, .editArea tr.on{
+  /*background-color: #ed6c44;*/
+  background-color: #f0f0f0;
+}
+.editArea tbody.on tr a, .editArea tr.on a{
+ /* color: #fff;*/
+}
+
+.editArea table.innerTable tr td:first-child{  
+  width: 30%;
+}
+.editArea table.innerTable tr td::nth-child(2){  
+  width: 25%;
+}
+.editArea table.innerTable tr td:not(:first-child){
+  text-align: left;
+}
+
+.editArea .innerTable tr:hover,.editArea .tabTr:hover{
+  background-color: #e4baad!important
+}
+/* tab 结束 */
+
+.uploadImgTd>*{
+  vertical-align: middle;
+}
+.fileButton input[type='file']{
+  opacity: 0;
+  z-index: 3;
+}
+.fileButton input, .fileMask{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.fileButton{
+  display: inline-block;
+  position: relative;
+}
+.uploadImgTd .fileButton{
+  display: inline-block;
+  width: 100px;
+  height: 30px;
+  position: relative;
+  margin-right: 3px;
+}
+.fileMask{
+  text-align: center;
+}
+.uploadImgTd .fileMask{
+  background-color: #ed6c44;
+  color: #fff;
+  text-align: center;
+  line-height: 30px;
+}
+img.preview{
+  width: 40px;
+  height: 40px;
+  line-height: 18px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: #dcdcdc
+}
+/* table.css 结束 */
+
+
+/* 购物圈 开始 */
+form{
+  padding:0 0 0 15px;
+}
+.form-group{
+  line-height: 30px;
+}
+.horizontal-form .form-group{
+  overflow: hidden;
+}
+label{
+  display: inline-block;
+}
+
+.form-horizontal .form-group>label{
+  width: 110px;
+  text-align: right;
+  /*padding-right: 14px*/
+}
+.form-horizontal .form-group>label+*{
+  display: inline-block;
+  vertical-align: middle;
+  /*white-space: nowrap;*/
+}
+.form-group label+*>label{
+  margin-right: 34px;
+}
+.form-group label+*>div{
+  display: inline-block;
+}
+.form-group label+*>div>label{
+  margin-right: 5px;
+}
+/* 购物圈 结束 */
+
+
+/* 优惠卷 开始 */
+label strong{
+  color: red;
+  padding-right: 3px
+}
+
+.coupon-group{
+  margin-bottom: 15px;
+}
+.coupon-group>h4{
+  float: left;
+  font-size: 14px;
+  line-height: 32px;
+}
+.coupon-group .form-group{
+  /*margin-left: */
+  /*overflow: hidden;*/
+  margin-left: 85px;
+}
+.coupon-group{
+  position: relative;
+  border-bottom: 1px solid #e6e6e6;
+  padding: 0 0 15px;
+}
+.coupon-group .delBtn{
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+/* 优惠卷 结束 */
+
+
+/*焦点展示 开始*/
+.selectList{
+  display: inline-block;
+}
+.selectList li{
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 15px;
+}
+.selectList li label{
+  width: 350px;
+  margin-bottom: 0px;
+  border: 2px solid transparent;
+  text-align: center;
+}
+
+.selectList li.on label{
+  border-color: red;
+}
+.selectList img{
+  vertical-align: bottom;
+  max-width: 100%;
+}
+/*焦点展示 结束*/
+
+
+/* 发布状态 开始 */
+.pushStatusTable{
+  margin-bottom: 10px;
+}
+
+.pushStatusTable table tr {
+  border-bottom: 1px solid #fff;
+}
+.pushStatusTable table{
+  table-layout: fixed;
+  text-align: left;
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.pushStatusTable caption{
+  padding: 12px 16px;
+  background-color: #35322d;
+  text-align: left;
+  color: #fff;
+
+}
+.pushStatusTable thead th,.pushStatusTable tbody td{
+  padding: 12px 16px;
+  background-color: #ed6c44;
+  color: #fff
+}
+.publishLinks h4{
+  margin-bottom: 10px;
+  font-weight: bold
+}
+.publishLinks p{
+  margin-bottom: 5px;
+}
+.publishLinks p a{
+  margin-left: 0;
+  color: #333
+}
+.publishLinks p a:hover{
+  text-decoration: underline;
+}
+/* 发布状态 结束 */
+
+
+
+/* 发布设置 开始 */
+
+.formAreaHeader {
+  line-height: 36px;
+  padding: 0 12px;
+  font-size: 16px;
+  background-color: #e5e5e5
+}
+
+.publishConfigBody>form {
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 0
+}
+
+.publishConfigBody .fileButton {
+  width: 133px;
+  height: 64px;
+  border: 1px dashed #e5e5e5;
+  margin-right: 8px;
+}
+
+.publishConfigBody .fileButton .fileMask {
+  color: #959595;
+}
+
+.popupSet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, .5);
+  z-index: 10000;
+}
+
+.popupSet>* {
+  max-width: 794px;
+  min-width: 685px;
+  padding: 20px;
+  background: #fff;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border-radius: 8px;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.btnGroupFooter {
+  margin-top: 21px
+}
+
+.btnGroupFooter>.jc-btn,
+.btnGroupFooter>.jc-btn~.jc-btn {
+  margin: 0 8px
+}
+
+.form-group label+*>label {
+  margin-right: 10px;
+}
+
+
+/* 发布设置 结束 */
+
+
+/* 浮层开始 */
+
+.modal {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, .5);
+  z-index: 10001;
+}
+
+.modal-header {
+  line-height: 42px;
+}
+
+.modal-dialog {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  max-width: 570px;
+  min-width: 370px;
+  padding: 15px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.modal-body {
+  min-height: 50px;
+  padding: 15px 0;
+}
+
+.modal-title {
+  margin-bottom: 0
+}
+
+
+/* 浮层结束 */
+
+
+/* 图片编辑 开始 */
+
+.uploadImgEdit .fileButton {
+  display: inline-block;
+  width: 100px;
+  height: 30px;
+  position: relative;
+  margin-right: 13px;
+}
+
+.uploadImgEdit .fileMask {
+  background-color: #ed6c44;
+  color: #fff;
+  text-align: center;
+  line-height: 30px;
+}
+
+.uploadImgEdit .jc-btn {
+  padding: 0 20px;
+  margin-left: 5px;
+}
+
+.block-input-table input[type="text"] {
+  width: calc(100% - 150px);
+  max-width: none
+}
+
+
+/* 图片编辑 结束 */
+
+/* 右侧栏 开始 */
+.rightOperation{
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: #e5e5e5;
+  width: 216px;
+}
+.fixed-footer{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+.fixed-footer button{
+  /*width: 100%;*/
+  /*display: block;*/
+  width: 176px;
+  margin: 17px 20px;
+  line-height: 33px;
+
+}
+.rightOperation .tab{
+  height: calc(100% - 67px);
+  /*overflow-y: auto;*/
+}
+.nav-tabs{
+  font-size: 0;
+  background-color: #4c4743;
+  margin-bottom: 0;
+  padding: 0;
+}
+.nav-tabs>li{
+  text-align: center;
+  font-size: 12px;
+  display: inline-block;
+  line-height: 50px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 33.3%
+}
+.nav-tabs>li a{
+  color: #fff;
+  margin: 0;
+  padding: 0 6px;
+
+}
+.nav-tabs>li.on{
+  background-color: #35312d;
+}
+.nav-tabs>li.on a{
+  color: #ed6c44;
+}
+.tab-content{
+  background-color: #e5e5e5;
+  height: calc(100% - 50px);
+  overflow-y: auto;
+}
+
+.tab-panel li{
+  line-height: 36px;
+  /*padding: 0 0 0 50px;*/
+  border-bottom: 1px solid #e0e0e0
+}
+.tab-panel li label{
+  font-size: 12px;
+  display: block;
+  padding-left: 50px;
+
+}
+.tab-panel li{
+  position: relative;
+}
+.tab-panel li label:before{
+  content: "+";
+  line-height: 12px;
+  text-align: center;
+  position: absolute;
+  left: 20px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  top: 50%;
+  -webkit-transform: translate(0, -50%);
+  -ms-transform: translate(0, -50%);
+  -o-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+  border: 1px solid #333;
+
+}
+.tab-panel li.on label{
+  background-color: #ed6c44;
+  color: #fff;
+}
+.tab-panel li.on label:before{
+  content: "·";
+  border-color: #fff
+}
+.tab-panel li input{
+  display: block;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  visibility: hidden;
+}
+
+/* 右侧栏 结束 */
+
+br+.inputTips{
+  margin-left: 138px
+}
+.inputTips{
+  font-style: normal;
+  color: red;
+}
+
+@media all and (max-width: 550px){
+  .form-horizontal .form-group>label{
+    width: 80px;
+  }
+}
+
+
+/* 用于覆盖home.css 开始 */
+.homeTopHead{
+  height: 50px;
+  line-height: 50px;
+}
+.rightOperation{
+  margin-top: 90px;
+}
+.editPage{
+  margin-top: 50px;
+}
+.leftComList,.topMenu{
+  top: 50px;
+}
+.divComponentSetPanel{
+  top: 88px;
+  left: 700px;
+  padding: 0;
+}
+.tab_hd a{
+  margin: 0
+}
+.markLineIphone6{
+  left: 281px;
+  width: 375px;
+  padding: 0;
+  line-height: 28px;
+  text-align: center;
+  border-top-style: dashed;
+}
+#wrapper{
+  background-color: #f8f3f0
+}
+.rightOperation a.btn{
+  width: 15px;
+  height: 15px;
+  vertical-align: middle;
+  padding: 0;
+	border: none;
+}
+.topMenu a img{
+  margin-right: 4px;
+}
+/* 用于覆盖home.css 结束 */
+@media all and (max-width: 1800px){
+  #divComponentSetPanel thead tr th:nth-child(-n+5):not(:first-child),#divComponentSetPanel tbody tr td:nth-child(-n+5):not(:first-child){
+    width: 90px;
+    padding-left: 3px;
+    padding-right: 3px;
+  }
+  #divComponentSetPanel thead tr th:first-of-type,#divComponentSetPanel tbody tr td:first-of-type{
+    width: 40px;
+    /*background-color: green*/
+  }
+  #divComponentSetPanel table td a{
+    display: block;
+  }
+}
+@media all and (max-width: 1590px){
+  .leftComList{
+    width: 240px;
+  }
+  .editPage{
+    margin-left: 250px;
+  }
+  .divComponentSetPanel{
+    left: 640px;
+  }
+  .uploadImgTd .fileButton{
+    width: 70px;
+    margin-right: 0
+  }
+  .rightOperation{
+    /*width: 175px;*/
+  }
+  .divComponentSetPanel{
+    right: 225px;
+  }
+/*   #divComponentSetPanel thead tr th{
+  width: 80px;
+} */
+  #divComponentSetPanel thead tr th:nth-child(-n+5):not(:first-child),#divComponentSetPanel tbody tr td:nth-child(-n+5):not(:first-child){
+    width: 70px;
+    padding-left: 3px;
+    padding-right: 3px;
+  }
+  .markLineIphone6{
+    left: 251px;
+  }
+}
+
+.o2_tag:last-child:not(:first-child){
+  left: 40px;
+}
+
+.subBack{
+  color: #fff;
+  background-color: #ed6c44;
+  line-height: 30px;
+  margin: 15px 0 0 20px;
+  padding: 0 15px;
+  display: inline-block;
+}
+
+.subBack:before{
+  content: "<<"
+}
+.subBack:after{
+  content: "Tab组件"
+}
+
+/* 覆盖edit.css 开始 */
+.leftComList .com .comIcon{
+  text-align: center;
+}
+
+.editPage{
+  overflow: visible!important;
+
+}
+
+.mpm_show_tips{
+  right: -56px;
+  top: -2px;
+  width: 54px;
+  height: 18px;
+  display: block;
+ 
+  line-height: 18px;
+  background-color: #e7e6e6;
+  z-index: 200;
+}
+.mpm_show_tips span{
+  font-size: 0;
+  width: 18px;
+  height: 18px;
+  display: block;
+  float: left;
+  padding: 0;
+  margin: 0;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+}
+.selected .mpm_show_tips{
+  background-color: #ed6c44
+}
+.mpm_show_tips span:first-child{
+  background-image: url(../../image/icon_fold_2.png);
+}
+.selected .mpm_show_tips span:first-child{
+  background-image: url(../../image/icon_fold_3.png);
+}
+.mpm_show_tips span:nth-child(2){
+  background-image: url(../../image/icon_unfold_2.png);
+}
+.selected .mpm_show_tips span:nth-child(2){
+  background-image: url(../../image/icon_unfold_3.png);
+}
+
+.mpm_show_tips span:nth-child(3){
+  background-image: url(../../image/icon_close_2.png);
+}
+.selected .mpm_show_tips span:nth-child(3){
+  background-image: url(../../image/icon_close_3.png);
+}
+
+/* 覆盖edit.css 结束 */
+
+
+/* 组件弹框开始 */
+.component-dialog .modal-body{
+    padding: 0
+  }
+  .component-dialog {
+    width: 520px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 19px;
+    background-color: #fff
+  }
+
+  .component-dialog ul {
+    overflow: hidden;
+    margin: 0
+  }
+
+  .component-dialog ul li {
+    float: left;
+    text-align: center;
+    font-size: 12px;
+    width: 16.666666%;
+    margin: 17px 0;
+  }
+  .component-dialog ul li:nth-child(n+7){
+    margin-top: 0;
+  }
+  .component-dialog ul li>p{
+    margin-bottom: 0;
+  }
+  .component-dialog ul li>div{
+    height: 24px;
+  }
+  .component-dialog ul li>div{
+    margin-bottom: 10px;
+  }
+  .component-dialog h3 {
+    font-size: 16px;
+    margin: 0;
+    line-height: 38px;
+    background-color: #ededed;
+    padding: 0 11px;
+    color: #333;
+  }
+  .component-dialog .modal-footer{
+    text-align: center;
+    padding-top: 20px;
+  }
+  .component-dialog .modal-footer button{
+    background-color: #999;
+    color: #fff;
+    width: 164px;
+    line-height: 33px;
+    font-size: 14px;
+  }
+
+/* 组件弹框结束 */

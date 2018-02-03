@@ -1,0 +1,56 @@
+<style>
+
+
+img,legend {
+    border: 0
+}
+
+img,textarea {
+    vertical-align: top;
+}
+
+.lego-headmap-show2{
+    margin: 0 auto;
+    text-align:center;
+    display: block;
+    font-size: 0rem;
+}
+
+.lego-headmap-show2 .ui-d-b{
+    display: inline !important;
+}
+.lego-headmap-show2 .verticalbt{
+    vertical-align: bottom;
+}
+
+</style>
+
+<template class="showTemplate">
+
+    <commontag uid="commontag" v-bind:params="data" inline-template>
+        <div>
+            <a :href="params.tourl" class="banner lego-headmap-show2" v-bind:style="{paddingTop:params.totoprem+'rem',backgroundColor:params.headmapbgcolor , width:params.outterwidth+'rem'}">
+                <template v-if="true">
+                    <img class="ui-d-b verticalbt" :src="params.headmapsrc" v-bind:style="{width:params.innerwidth}">
+                </template>
+            </a>
+        </div>
+    </commontag>
+    
+</template>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<!-- data.state==1 是预约成功-->
+<script class="forMPMExt">
+var com_ext = {}
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+var com_extend = [{
+    
+}]
+</script>
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {
+    }
+</script>

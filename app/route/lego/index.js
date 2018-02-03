@@ -1,0 +1,27 @@
+// app/router/news.js
+module.exports = app => {
+  // 创建乐高活动目录，生成文件等
+  app.router.post('/lego/packageAct', app.controller.lego.index.packageActPage);
+  // 获取所有的活动列表
+  app.router.post('/lego/getActPageList', app.controller.lego.index.getActPages);
+  // 获取组件列表
+  app.router.post('/lego/getComponentList', app.controller.lego.index.getComponents);
+  // 查询活动详情信息
+  app.router.post('/lego/getPageBaseInfo', app.controller.lego.index.getPageBaseInfoById);
+  // 获取选定组件的样式
+  app.router.post('/lego/getSelectedComponentStyles', app.controller.lego.index.getSelectedComponentStyles);
+  // 检查活动目录是否有冲突
+  app.router.post('/lego/checkActDirNameExist', app.controller.lego.index.checkActDirNameExist);
+  // 批量查询活动页面信息
+  app.router.post('/lego/getMultiplePage', app.controller.lego.index.getMultiplePage);
+  // 创建活动页面
+  app.router.post('/lego/createPage', app.controller.lego.index.createActPage);
+  // 更新页面内容配置
+  app.router.post('/lego/updatePageContent', app.controller.lego.index.updatePageContent);
+  // 更新活动基本配置 分享一类的数据
+  app.router.post('/lego/updateBaseInfo', app.controller.lego.index.updateBaseInfo);
+  // 查询乐高在当前时间下的公告
+  app.router.post('/lego/getLegoNotice', app.controller.lego.index.getLegoNotice);
+  // 拷贝新页面
+  app.router.post('/lego/copyPage', app.controller.lego.index.copyPage);
+};

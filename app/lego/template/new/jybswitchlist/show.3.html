@@ -1,0 +1,113 @@
+<style>
+
+.lego-jybswitchlist-show3  .tab-nav {
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+    -webkit-box-pack: justify;
+    height: .9rem;
+    line-height: .9rem;
+    
+}
+.lego-jybswitchlist-show3 .f-28 {
+    font-size: 0.28rem;
+}
+.lego-jybswitchlist-show3 .ui-ta-c {
+    text-align: center;
+}
+.lego-jybswitchlist-show3  .tab-nav .box-wrap:nth-child(1) {
+    width: 2.2rem;
+}
+.lego-jybswitchlist-show3  .tab-nav .box-wrap {
+    position: relative;
+    display: block;
+}
+
+.lego-jybswitchlist-show3  .box-wrap {
+    background: #b5b2cf;
+    color: #fff;
+    border-radius: .15rem .15rem 0 0;
+}
+.lego-jybswitchlist-show3  .active {
+    background: #fff;
+    color: #885bfa;
+}
+.lego-jybswitchlist-show3  .tab-nav .box-wrap:nth-child(2) {
+    width: 2.2rem;
+}
+.lego-jybswitchlist-show3  .tab-nav .box-wrap:nth-child(3) {
+    width: 2.2rem;
+}
+
+</style>
+
+
+<!-- 一行最多5个
+ v-bind:style="{width:(100/params.tabs.length-(params.tabs.length-1)*0.8/params.tabs.length)+'%'}"
+-->
+
+<template class="showTemplate">
+    <jybswitchlist uid="switchlist" v-bind:params="data" inline-template>
+        <div class="lego-jybswitchlist-show3" >
+            <div class="tab-nav f-28 ui-ta-c" v-bind:style="{paddingLeft:params.LRPadding+'rem',paddingRight:params.LRPadding+'rem'}">
+                <template v-if="true"  v-for="(item,index) in params.tabs">
+                    <div v-if="index == data.tabIndex" @click="toggleTabs(index)" v-bind:style="{width:(100/params.tabs.length)+'%' ,
+                     color:params.selectedcontentColor,
+                     borderBottom:'1px solid '+ params.selectedbgcolor,
+                     backgroundColor:params.selectedbgcolor}" 
+                    :class="index == data.tabIndex ? 'active' : '' " 
+                    :tab="index" class="box-wrap ">
+                        {{item.tabTitle}}
+                    </div>
+
+                    <div v-else @click="toggleTabs(index)" v-bind:style="{width:(100/params.tabs.length)+'%' , 
+                    color:params.contentColor,
+                    borderBottom:'1px solid '+ params.selectedbgcolor,
+                    backgroundColor:params.bgcolor}"
+                    :class="index == data.tabIndex ? 'active' : '' " 
+                    :tab="index" class="box-wrap ">
+                        {{item.tabTitle}}
+                    </div>
+                </template>
+              </div>
+        </div>
+    </jybswitchlist>
+
+    <div class="childBox">
+    </div>
+
+</template>
+
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExt">
+    var com_ext = {}
+
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+    var com_extend = []
+
+</script>
+<!-- <script class="forMPMExtend">
+    var com_extend =  [{
+            "name": "导航位置",
+            "nick": "position",
+            "type": "radio",
+            "data": [
+                {
+                    "name": "不吸顶",
+                    "value": "0"
+                },
+                {
+                    "name": "滚动吸顶",
+                    "value": "1"
+                }
+            ]
+        }]
+</script> -->
+
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {};
+
+</script>

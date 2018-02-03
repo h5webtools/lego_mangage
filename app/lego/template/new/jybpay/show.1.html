@@ -1,0 +1,335 @@
+<style>
+    .mod-actbuy-header {
+        padding: 40px 0;
+        text-align: center;
+        background-color: #fff;
+        color: #333;
+        line-height: 1;
+        min-height: 3.6rem;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .f-30 {
+        font-size: 15px;
+    }
+
+    .color-999 {
+        color: #999;
+    }
+
+    p {
+        margin: 0;
+        padding: 0;
+        font-size: 100%;
+    }
+
+    .f-64 {
+        font-size: 32px;
+    }
+
+    .ui-mt-40 {
+        margin-top: 0.4rem;
+    }
+
+    .f-30 {
+        font-size: 15px;
+    }
+
+    .ui-mt-40 {
+        margin-top: 0.4rem;
+    }
+
+    .mod-info-line {
+        background-color: #fff;
+        padding-left: 0.3rem;
+        position: relative;
+    }
+
+    .f-30 {
+        font-size: 15px;
+    }
+
+    .mod-info-line:before {
+        -webkit-transform: scaleY(0.5);
+        -ms-transform: scaleY(0.5);
+        transform: scaleY(0.5);
+        -webkit-transform-origin: 50% 0;
+        -ms-transform-origin: 50% 0;
+        transform-origin: 50% 0;
+    }
+
+    .mod-info-line:before {
+        content: "";
+        height: 0;
+        display: block;
+        border-top: 1px solid #e6e6e6;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+    }
+
+    .mod-info-line .info-item {
+        position: relative;
+        width: 100%;
+        display: -webkit-box;
+        -webkit-box-pack: justify;
+        -webkit-box-align: center;
+        padding: 18px 0;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .mod-info-line .info-item label,
+    .mod-info-line .info-item .desc-left {
+        display: block;
+        width: 25%;
+        position: relative;
+    }
+
+    .mod-info-line .info-item .desc-right {
+        -webkit-box-flex: 1;
+        padding-right: 0.3rem;
+    }
+
+    .color-999 {
+        color: #999;
+    }
+
+    .mod-info-line .info-item:after {
+        content: "";
+        height: 0;
+        display: block;
+        border-bottom: 1px solid #e6e6e6;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+
+    [data-dpi="2"] .mod-info-line .info-item:after {
+        -webkit-transform: scaleY(0.5);
+        -ms-transform: scaleY(0.5);
+        transform: scaleY(0.5);
+        -webkit-transform-origin: 50% 0;
+        -ms-transform-origin: 50% 0;
+        transform-origin: 50% 0;
+    }
+
+    .comm-padding,
+    .mod-actbuy-footer {
+        padding-left: 0.3rem;
+        padding-right: 0.3rem;
+    }
+
+    .ui-mt-70 {
+        margin-top: 0.7rem;
+    }
+
+    .mod-btn {
+        display: block;
+        background-color: #FF6E34;
+        text-align: center;
+        color: #fff;
+        position: relative;
+        border-radius: 0.06rem;
+        height: 50px;
+        line-height: 50px;
+        width: 100%;
+    }
+
+    .f-34 {
+        font-size: 17px;
+    }
+
+    .blur-text {
+        color: #0183FF;
+    }
+
+    .f-26 {
+        font-size: 13px;
+    }
+
+    .ui-mt-40 {
+        margin-top: 0.4rem;
+    }
+
+    .ui-ta-c {
+        text-align: center;
+    }
+
+    .mod-actbuy-pop {
+        background-color: rgba(0, 0, 0, 0.45);
+        position: fixed;
+        top: 0;
+        /* left: 0; */
+        width: 7.5rem;
+        height: 100%;
+        z-index:1000;
+    }
+
+    .ui-d-n {
+        display: none !important;
+    }
+
+    .mod-actbuy-pop .pop-layer {
+        background-color: #fff;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        -webkit-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+        -webkit-transform: translate3d(0, 100%, 0);
+        transform: translate3d(0, 100%, 0);
+        padding: .8rem .5rem;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .f-34 {
+        font-size: 17px;
+    }
+
+    .ui-ta-c {
+        text-align: center;
+    }
+
+    .f-30 {
+        font-size: 15px;
+    }
+
+    .color-999 {
+        color: #999;
+    }
+
+    .ui-ta-c {
+        text-align: center;
+    }
+
+    .mod-actbuy-pop .pop-layer--table {
+        width: 100%;
+    }
+
+    .f-30 {
+        font-size: 15px;
+    }
+
+    .ui-mt-40 {
+        margin-top: 0.4rem;
+    }
+
+    .ui-ta-c {
+        text-align: center;
+    }
+
+    .color-999 {
+        color: #999;
+    }
+
+    .mod-actbuy-pop .pop-layer--table td {
+        border: 1px solid #e6e6e6;
+        padding: .2rem 0;
+    }
+
+    td {
+        margin: 0;
+        padding: 0;
+        font-size: 100%;
+    }
+
+    .mod-actbuy-pop .pop-layer--close {
+        width: .8rem;
+        height: .8rem;
+        line-height: .8rem;
+        background-size: 100%;
+        position: absolute;
+        right: .1rem;
+        top: .1rem;
+        font-size: 0;
+        text-align: center;
+    }
+    .mod-actbuy-pop .pop-layer--close:after {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAqCAYAAADFw8lbAAAAAXNSR…RGqgTJ+ZHHptlzWDuf/bHxShDVI+SQuxa40io8B3hGu0fEN46mxQbtOzPMAAAAAElFTkSuQmCC);
+    width: .28rem;
+    height: .28rem;
+    content: "";
+    display: inline-block;
+    background-size: 100%;
+    vertical-align: middle;
+}
+    .mod-actbuy-pop .pop-layer__show {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+}
+</style>
+
+<template class="showTemplate">
+    <jybpay uid="jybpay" v-bind:params="data" inline-template>
+        <div class="lego-jypay-show1">
+            <div class="mod-actbuy-header" z-component="header">
+                <p class="f-30 color-999">- {{params.coupontitle}} -</p>
+                <p class="f-64 ui-mt-40">{{params.prdvalue}}<span class="f-30">{{params.backtimedes}}</span></p>
+                <p class="f-30 ui-mt-40">{{params.backdetail}}</p>
+            </div>
+            <div z-component="buy">
+                <div class="mod-info-line f-30">
+                    <div class="info-item">
+                        <div class="desc-left">充值手机号</div>
+                        <div class="desc-right color-999">18566128767</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="desc-left">充值优惠</div>
+                        <div et="click:testEvent" class="desc-right strong-text">立减30元</div>
+                    </div>
+                </div>
+                <div class="comm-padding ui-mt-70">
+                    <div class="mod-btn f-34" v-on:click="submitBuy">{{params.submitdes}}</div>
+                    <p id="planEntry" v-if="params.isshowdetail==0" v-on:click="showDemoPlan"  class="blur-text ui-mt-40 ui-ta-c f-26">{{params.backplandes}}</p>
+                </div>
+            </div>
+            <div class="mod-actbuy-pop ui-d-n" id="pop">
+                <div class="pop-layer" z-component="layer">
+                    <p class="ui-ta-c f-34">- {{params.backtabletitle}} -</p>
+                    <p class="ui-ta-c f-30 color-999">{{params.backtabledes}}</p>
+                    <table class="pop-layer--table ui-mt-40 f-30 ui-ta-c">
+                        <thead>
+                            <tr>
+                                <td>时间</td>
+                                <td>操作</td>
+                                <td>金额</td>
+                            </tr>
+                        </thead>
+                        <tbody class="color-999">
+                            
+                            <tr v-for="(item , index) in params.tableConntent">
+                                <td>{{item.dateitem || '--'}}</td>
+                                <td>{{item.detailitem}}</td>
+                                <td>{{item.valitem}}</td>
+                            </tr>
+                            
+                        </tbody>
+                    </table><span v-on:click="closeDemoPlan" class="pop-layer--close"></span></div>
+            </div>
+        </div>
+    </jybpay>
+</template>
+
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExt">
+    var com_ext = {}
+
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+    var com_extend = []
+
+</script>
+
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {};
+
+</script>

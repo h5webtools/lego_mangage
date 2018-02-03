@@ -1,0 +1,146 @@
+<style>
+    .lego-jybswitchlist-show2 .tab-nav {
+        text-align: center;
+        display: -webkit-box;
+        -webkit-box-pack: center;
+        -webkit-box-align: center;
+        -webkit-box-pack: justify;
+        overflow: hidden;
+    }
+
+    .lego-jybswitchlist-show2 .color-content {
+        color: #562713;
+    }
+
+    .lego-jybswitchlist-show2 .f-32 {
+        font-size: .32rem;
+    }
+
+    .lego-jybswitchlist-show2 .tab-nav .box-wrap:nth-child(1),
+    .lego-jybswitchlist-show2 .tab-nav .box-wrap:nth-child(2),
+    .lego-jybswitchlist-show2 .tab-nav .box-wrap:nth-child(3) {
+        width: 33.33%;
+    }
+
+    .lego-jybswitchlist-show2 .tab-nav .box-wrap {
+        height: 1.15rem;
+        line-height: 1.15rem;
+        box-sizing: border-box;
+        /* padding-top: .25rem; */
+        background: #a52115;
+        color: rgba(86, 39, 19, .46);
+    }
+
+    .lego-jybswitchlist-show2 .tab-nav .box-wrap {
+        position: relative;
+        display: block;
+    }
+
+    .lego-jybswitchlist-show2 p {
+        margin: 0;
+        padding: 0;
+        font-size: 100%;
+    }
+
+    .lego-jybswitchlist-show2 .f-22 {
+        font-size: .22rem;
+    }
+    .lego-jybswitchlist-show2 .tab-nav .box-wrap.active .color-red {
+        color: #f35c31;
+    }
+    /* .lego-jybswitchlist-show2 .tab-nav .box-wrap .color-red {
+        color: rgba(243,92,49,.46);
+    } */
+    .lego-jybswitchlist-show2 .f-22 {
+        font-size: .22rem;
+    }
+    .lego-jybswitchlist-show2 .ui-mt-10 {
+        margin-top: .1rem;
+    }
+
+    .lego-jybswitchlist-show2 .ui-mt-10 {
+        margin-top: .1rem;
+    }
+    .lego-jybswitchlist-show2 .tab-nav .box-wrap.active {
+        background: #c93c1a;
+        color: #f9df2d;
+        border-bottom: none;
+        opacity: 1;
+    }
+    /* .lego-jybswitchlist-show2 .tab-nav .box-wrap.active p:first-child span:before {
+        content: "";
+        display: inline-block;
+        width: .2rem;
+        height: .2rem;
+        background: #f9df2d 0 0 no-repeat;
+        background-size: .14rem .14rem;
+    } */
+</style>
+
+
+<!-- 一行最多5个 -->
+<template class="showTemplate">
+    <jybswitchlist uid="switchlist" v-bind:params="data" inline-template>
+        <div class="lego-jybswitchlist-show2" >
+            <div class="tab-nav f-32 color-content" v-bind:style="{paddingLeft:params.LRPadding+'rem',paddingRight:params.LRPadding+'rem'}">
+                <template v-if="true" v-for="(item,index) in params.tabs">
+                    <div v-if="index == data.tabIndex" @click="toggleTabs(index)" v-bind:style="{width:(100/params.tabs.length)+'%' ,
+                        color:params.selectedcontentColor,
+                        borderBottom:'1px solid '+ params.selectedbgcolor,
+                        backgroundColor:params.selectedbgcolor}" 
+                        :tab="index"
+                        class="box-wrap active">
+                        <p><span>{{item.tabTitle}}</span></p>
+                    </div>
+                    <div v-else @click="toggleTabs(index)" v-bind:style="{width:(100/params.tabs.length)+'%' ,
+                    color:params.contentColor,
+                    borderBottom:'1px solid '+ params.selectedbgcolor,
+                    backgroundColor:params.bgcolor}" 
+                    :tab="index"
+                    class="box-wrap">
+                    <p><span>{{item.tabTitle}}</span></p>
+                </div>
+                </template>
+
+            </div>
+        </div>
+    </jybswitchlist>
+
+    <div class="childBox">
+    </div>
+
+</template>
+
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExt">
+    var com_ext = {}
+
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+    var com_extend = []
+
+</script>
+<!-- <script class="forMPMExtend">
+    var com_extend =  [{
+            "name": "导航位置",
+            "nick": "position",
+            "type": "radio",
+            "data": [
+                {
+                    "name": "不吸顶",
+                    "value": "0"
+                },
+                {
+                    "name": "滚动吸顶",
+                    "value": "1"
+                }
+            ]
+        }]
+</script> -->
+
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {};
+
+</script>

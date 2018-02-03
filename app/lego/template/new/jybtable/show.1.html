@@ -1,0 +1,114 @@
+<style>
+    .jyb-table-001 .explain-table {
+        margin:  0 auto;
+        background: #c7483a;
+        border: 1px solid #9c2f29;
+        font-size: .23rem;
+        text-align: left;
+        color: #fbe5cb;
+
+        font-family: ff-tisa-web-pro-1, ff-tisa-web-pro-2, Lucida Grande, Hiragino Sans GB, Hiragino Sans GB W3;
+    }
+
+    .jyb-table-001 table {
+        border-collapse: collapse;
+        border-spacing: 0;
+        word-wrap: break-word;
+        word-break: break-all;
+    }
+
+    .jyb-table-001 .explain-table th.left {
+        width: 2.75rem;
+    }
+
+    .jyb-table-001 .explain-table th.right {
+        width: 2.32rem;
+    }
+
+    .jyb-table-001 .explain-table th,
+    .jyb-table-001 .explain-table td {
+        padding: 0 .4rem;
+        height: .66rem;
+        border-top: 1px solid #9c2f29;
+        border-left: 1px solid #9c2f29;
+    }
+</style>
+
+
+<template class="showTemplate">
+    <commontag uid="uid" v-bind:params="data" inline-template>
+        <div class="jyb-table-001" v-bind:style="{paddingLeft:params.paddingLAndR+'rem' , paddingRight:params.paddingLAndR+'rem'}">
+            <table class="explain-table" v-bind:style="{background:params.bgcolor,color:params.wordColor, border: '1px solid ' + params.bordercolor}">
+                <tbody> 
+                <template v-if="!params.tableTitleArr">
+                <tr><th class="left">新增资金</th> <th class="right">奖励金额</th> </tr>
+                <tr><td class="left">5000≤X＜8000</td> <td class="right">15元现金红包</td> </tr>          
+                </template>
+                <template v-else>
+                    <tr >
+                        <template v-for="(items ,indexs) in params.fnObj.getTableTitleList(params.tableTitleArr , params.colwidthArr)">
+                        <th v-bind:style="{width:items.wth+'rem',borderLeft: '1px solid ' + params.bordercolor , borderTop: '1px solid ' + params.bordercolor}" >{{items.title}}</th>
+                        </template>
+                    </tr>
+                    <tr v-for="(item , index) in params.tableContentArr">
+                        <template v-for="(itemin , indexin) in params.fnObj.getTableContentArr(item.tabContentItem , params.colwidthArr)">
+                            <td v-bind:style="{width:itemin.wth+'rem',borderLeft: '1px solid ' + params.bordercolor , borderTop: '1px solid ' + params.bordercolor}" >
+                                {{itemin.content}}
+                            </td> 
+                        </template>
+                    </tr>
+                </template>
+        </tbody>
+    </table>
+            
+        </div>
+
+    </commontag>
+</template>
+
+
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExt">
+    var com_ext = {}
+
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+    var com_extend = []
+
+</script>
+
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {
+        getTableTitleList: function (tableTitleArr,colwidthArr) {
+            var titleArr = tableTitleArr ? tableTitleArr.split("#") : [],
+                colArr = colwidthArr ? colwidthArr.split("#") : [],
+                tempArr = [];
+            if(titleArr.lenght == colArr.lenght){
+                titleArr.forEach(function(item ,index){
+                    var temp = {};
+                    temp.title = item;
+                    temp.wth = colArr[index];
+                    tempArr.push(temp);
+                });
+            }
+            return tempArr;
+        },
+        getTableContentArr: function(content , colwidthArr){
+            var contentArr = content ? content.split("#") : [],
+                colArr = colwidthArr ? colwidthArr.split("#") : [],
+                tempArr = [];
+            if(contentArr.lenght == colArr.lenght){
+                contentArr.forEach(function(item ,index){
+                    var temp = {};
+                    temp.content = item;
+                    temp.wth = colArr[index];
+                    tempArr.push(temp);
+                });
+            }
+            return tempArr;
+        }
+    };
+
+</script>

@@ -1,0 +1,120 @@
+<style>
+    .jybrules-show-3 .mod-notify {
+        height: 1px;
+        width: 100%;
+        background-color: #ccc;
+        color: #999;
+        position: relative;
+        text-align: center;
+        font-size: 0;
+        width: 45%;
+        margin: .6rem auto .3rem
+    }
+    
+    .jybrules-show-3 .mod-notify span {
+        display: inline-block;
+        padding: 0 .2rem;
+        background-color: #f5f5f5;
+        font-size: .24rem;
+        -webkit-transform: translateY(-50%)
+    }
+    
+    .jybrules-show-3 .color-999 {
+        color: #999;
+    }
+    
+    .jybrules-show-3 .ui-mt-20 {
+        margin-top: .2rem;
+    }
+    
+    .jybrules-show-3 .ui-mt-10 {
+        margin-top: .1rem;
+    }
+    
+   
+    .jybrules-show-3.comm-padding{
+        padding-left: .36rem;
+        padding-right: .36rem;
+    }
+    .jybrules-show-3.ui-mt-30{
+        font-size: .24rem;
+    }
+    .jybrules-show-3.f-24{
+        margin-top: .3rem;
+    }
+    .jybrules-show-3 dl , .jybrules-show-3 dt , .jybrules-show-3 dd   {
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline
+    }
+</style>
+
+<template class="showTemplate">
+
+    <commontag uid="commontag" v-bind:params="data" inline-template>
+        <div v-bind:style="{background:params.rulesBgColor}" class="jybrules-show-3 comm-padding ui-mt-30 f-24">
+            <template v-if="true">
+                <div class="mod-notify" v-bind:style="{color:params.rulesContentColor}">
+                    <span>{{params.rulesTitle}}</span>
+                </div>
+                <dl class="f-22 color-999 ui-mt-20">
+                    <template v-if="true && params.rulesContent && params.rulesContent.length>0" v-for="(item ,index) in params.rulesContent">
+                        <dd v-if="index==0">
+                            {{index+1}}、{{item.rulesDes}}
+                        </dd>
+                        <dd class="ui-mt-10" v-if="index>0">
+                            {{index+1}}、{{item.rulesDes}}
+                        </dd>
+                    </template>
+
+                </dl>
+            </template>
+        </div>
+
+    </commontag>
+
+    <!--<commontag uid="commontag" v-bind:params="data" inline-template>
+        <div>
+            <template v-if="true">
+                <div class="jybrules-show-3 ui-pt-40 ui-pb-40 f-24" v-bind:style="{background:params.rulesBgColor}">
+                    <p class="ui-ta-c f-28" v-on:click="switchtips" v-bind:style="{color:params.rulesContentColor}">{{params.rulesTitle}}<i class="arrow-down" :style="{borderRight: '2px solid ' + params.rulesContentColor , borderTop: '2px solid ' + params.rulesContentColor}"></i></p>
+                    <div class="mod-more-detail">
+                        <div v-show="!params.showTipsFlag">
+                            <template v-if="true && params.rulesContent && params.rulesContent.length>0" v-for="(item ,index) in params.rulesContent">
+                                <dl class="ui-mb-20">
+                                    <dt v-bind:style="{color:params.rulesContentColor}">{{index+1}}.{{item.rulesTitle}}</dt>
+                                    <dd v-for="(items ,indexs) in params.fnObj.getRuleList(item.rulesDes)" v-bind:style="{color:params.rulesContentColor}">{{items}}</dd>
+                                </dl>
+                            </template>
+                        </div>
+
+                    </div>
+                </div>
+            </template>
+        </div>
+
+    </commontag>-->
+
+</template>
+<!-- 下面的属性控制MPM中编辑界面 -->
+
+<script class="forMPMExt">
+    var com_ext = {}
+
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+    var com_extend = [{
+
+    }]
+
+</script>
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {
+        getRuleList: function (rulesList) {
+            return rulesList ? rulesList.split("$$$") : "";
+        }
+    };
+
+</script>

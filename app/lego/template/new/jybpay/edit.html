@@ -1,0 +1,146 @@
+<div class="editBox">
+    <div class="editBox_2">
+        <h3>{{obj.componentName}} {{obj.uid}}</h3>
+        <p>
+            支付页面：支持话费、e卡、油卡以及星巴克
+        </p>
+
+        <ul class="tab_hd">
+            <li v-bind:class="{ 'on': showStyle }" v-on:click="show(0)"><a href="javascript:;" title="设置样式">设置样式</a></li>
+            <li v-bind:class="{ 'on': showProperty }" v-on:click="show(1)"><a href="javascript:;" title="设置数据">设置数据</a></li>
+        </ul>
+        <div v-show="showStyle" class="styleBox">
+            <div class="editArea">
+                <form class="form-horizontal" v-for="item in obj.com_extend">
+                    <div class="form-group" v-if="item.type == 'radio'">
+                        <label>{{item.name}}：</label>
+                        <div>
+                            <label v-for="item2 in item.data"><input type="radio" :name="obj.uid+'_'+item.nick" :value="item2.value" v-model="obj.data.extend[item.nick]"> {{item2.name}}</label>
+                        </div>
+                    </div>
+                    <div class="form-group" v-if="item.type == 'input'">
+                        <label style="float: left;padding-right:14px;"><strong></strong>{{item.name}}：</label>
+                        <input type="text" :class="item.class" :name="obj.uid+'_'+item.nick" v-model="obj.data.extend[item.nick]" :placeholder="item.placeholder"
+                            flag="extendtime" :nick="item.nick">
+                    </div>
+                </form>
+            </div>
+            <br>
+            <br>
+            <dl>
+                <dt>样式</dt>
+                <dd>
+                    <ul>
+                        <li v-for="item in arrStyle" :key="item.id">
+                            <div style="display:none;">
+                                {{item.com_desc}}<input type="radio" :name="obj.uid" :id="obj.uid+'_'+item.id" :value="item.id"
+                                    v-model="obj.data.styleKey"><br/>
+                            </div>
+                            <label :class="item.id == obj.data.styleKey ? 'on' : ''" :for="obj.uid+'_'+item.id"><img :src="item.image" alt=""></label>
+                            <div class="styleDesc">
+                                {{item.com_desc}}
+                            </div>
+                        </li>
+                    </ul>
+                </dd>
+            </dl>
+
+
+        </div>
+
+        <div v-show="showProperty" class="editArea">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label><strong>*</strong>支付名称：</label>
+                    <input type="text" name="" v-model.lazy="obj.data.coupontitle" placeholder="比如话费充值">
+
+                </div>
+                <div class="form-group">
+                    <label><strong>*</strong>产品面额：</label>
+                    <input type="text" name="" v-model.lazy="obj.data.prdvalue" placeholder="比如300元">
+                </div>
+
+                <div class="form-group">
+                    <label><strong>*</strong>返还次数描述：</label>
+                    <input type="text" name="" v-model.lazy="obj.data.backtimedes" placeholder="比如：(分3次返还)">
+                </div>
+                <div class="form-group">
+                    <label><strong>*</strong>返还明细：</label>
+                    <input type="text" name="" v-model.lazy="obj.data.backdetail" placeholder="比如：分3次返还,每月100元，购买当天即充100元">
+                </div>
+
+                <div class="form-group">
+                    <label><strong>*</strong>支付按钮：</label>
+                    <input type="text" name="" v-model.lazy="obj.data.submitdes" placeholder="比如：立即支付(270元)">
+                </div>
+
+                <div class="form-group">
+                    <label><strong>*</strong>返还计划描述：</label>
+                    <input type="text" name="" v-model.lazy="obj.data.backplandes" placeholder="比如：查看话费返还计划">
+                </div>
+
+
+                <div class="form-group">
+                    <label><strong>*</strong>返还明细：</label>
+                    <label style="width:60px;">
+                        <input name="detailflag" style="width:16px;height:16px; " v-model.lazy="obj.data.isshowdetail"  type="radio" value="0">
+                        展示
+                    </label>
+                    <label style="width:70px;">
+                        <input name="detailflag" style="width:16px;height:16px" v-model.lazy="obj.data.isshowdetail" type="radio" value="1">
+                        不展示
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label><strong>*</strong>产品类型：</label>
+                    <label style="width:60px;">
+                        <input name="prdtype" style="width:16px;height:16px; " v-model.lazy="obj.data.prdtypeval"  type="radio" value="0">
+                        话费
+                    </label>
+                    <label style="width:50px;">
+                        <input name="prdtype" style="width:16px;height:16px" v-model.lazy="obj.data.prdtypeval" type="radio" value="1">
+                        e卡
+                    </label>
+                    <label style="width:55px;">
+                        <input name="prdtype" style="width:16px;height:16px; " v-model.lazy="obj.data.prdtypeval"  type="radio" value="2">
+                        加油
+                    </label>
+                    <label style="width:70px;">
+                        <input name="prdtype" style="width:16px;height:16px" v-model.lazy="obj.data.prdtypeval" type="radio" value="3">
+                        星巴克
+                    </label>
+                </div>
+                <div class="form-group" v-if="obj.data.isshowdetail == 0">
+                    <label><strong>*</strong>返还表格标题：</label>
+                    <input type="text" name="" v-model.lazy="obj.data.backtabletitle" placeholder="比如话费返还说明">
+                </div>
+                <div class="form-group" v-if="obj.data.isshowdetail == 0">
+                    <label><strong>*</strong>返还表格描述：</label>
+                    <input type="text" name="" v-model.lazy="obj.data.backtabledes" placeholder="比如支付270元购300元加油套餐，2个月发放说明：">
+                </div>
+            </form>
+
+            <!-- 表格详情 -->
+            <br><br><br><strong style="font-size:16px;">设置返还表格详情</strong><br><br><br>
+            <form class="form-horizontal">
+                <div class="coupon-group" v-for="(item,index) in obj.data.tableConntent">
+                    <h4>行{{index + 1}}</h4>
+                    <button type="button" class="jc-btn btn-primary delBtn" @click="deleteTableContent(index)">删除</button>
+                    <div class="form-group">
+                        <label><strong>*</strong>返还介绍：</label>
+                        <input type="text" v-model="item.detailitem">
+                    </div>
+                    <div class="form-group">
+                        <label><strong>*</strong>返还金额：</label>
+                        <input type="text" v-model="item.valitem">
+                    </div>
+                </div>
+            </form>
+            <div class="text-right">
+                <button type="button" class="jc-btn btn-primary" @click="checkTable()">查看详情</button>
+                <button type="button" class="jc-btn btn-primary" @click="hideTable()">隐藏详情</button>
+                <button type="button" class="jc-btn btn-primary" @click="addTableContent()">增加行</button>
+            </div>
+        </div>
+    </div>
+</div>

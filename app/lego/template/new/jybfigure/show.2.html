@@ -1,0 +1,50 @@
+<style>
+.lego-jybfigure-show2 .foot-content {
+    
+    text-align: center;
+    color: #b5c978;
+}
+.lego-jybfigure-show2 .f-24 {
+    font-size: .24rem;
+}
+.lego-jybfigure-show2{
+    background: #fff;
+    width:7rem;
+    margin: 0 auto;
+}
+</style>
+
+
+<template class="showTemplate">
+<jybfigure uid="uid" v-bind:params="data" inline-template>
+    <div class="lego-jybfigure-show2" v-bind:style="{marginTop:params.totop+'rem' ,backgroundColor:params.bgcolor , width:params.outterwidth+'rem'}">
+        <template v-if="true">
+            <div class="foot-content f-24 " v-bind:style="{color:params.descContent[0].color , fontSize:params.descContent[0].desfontsize+'rem'}">
+                {{params.descContent[0].desc}}
+                {{params.fnObj.getFigure(data.figure)}}
+                {{params.descContent[1].desc}}
+            </div>
+        </template>
+    </div>
+</jybfigure>
+</template>
+
+
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExt">
+    var com_ext = {}
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+    var com_extend = []
+</script>
+
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {
+        getFigure: function (figure) {
+            var figureTmp = figure/100;
+            return figureTmp >=10000 ? ((figureTmp/10000).toFixed(2)+"万") : figureTmp;
+        }
+    };
+</script>

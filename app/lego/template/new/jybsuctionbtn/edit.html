@@ -1,0 +1,94 @@
+<div class="editBox">
+    <div class="editBox_2">
+        <h3>{{obj.componentName}} {{obj.uid}}</h3>
+        <p >
+            吸底按钮
+        </p>
+
+        <ul class="tab_hd">
+            <li v-bind:class="{ 'on': showStyle }" v-on:click="show(0)"><a href="javascript:;" title="设置样式">设置样式</a></li>
+            <li v-bind:class="{ 'on': showProperty }" v-on:click="show(1)"><a href="javascript:;" title="设置数据">设置标题数据</a></li>
+        </ul>
+        <div v-show="showStyle" class="styleBox">
+               <div class="editArea">
+                <form class="form-horizontal" v-for="item in obj.com_extend">
+                    <div class="form-group" v-if="item.type == 'radio'">
+                        <label>{{item.name}}：</label>
+                        <div>
+                            <label v-for="item2 in item.data"><input type="radio" :name="obj.uid+'_'+item.nick" :value="item2.value" v-model="obj.data.extend[item.nick]"> {{item2.name}}</label>
+                        </div>
+                    </div>
+                    <div class="form-group" v-if="item.type == 'input'">
+                        <label style="float: left;padding-right:14px;"><strong></strong>{{item.name}}：</label>
+                        <input type="text" :class="item.class" :name="obj.uid+'_'+item.nick" v-model="obj.data.extend[item.nick]" :placeholder="item.placeholder" 
+                        flag="extendtime"  :nick="item.nick">
+                    </div>
+                </form>
+            </div>
+            <br>
+            <br>
+            <dl>
+                <dt>样式</dt>
+                <dd>
+                    <ul>
+                        <li v-for="item in arrStyle" :key="item.id">
+                            <div style="display:none;">
+                                {{item.com_desc}}<input type="radio" :name="obj.uid"  :id="obj.uid+'_'+item.id"
+                                                        :value="item.id" v-model="obj.data.styleKey"><br/>
+                            </div>
+                            <label :class="item.id == obj.data.styleKey ? 'on' : ''" :for="obj.uid+'_'+item.id"><img :src="item.image" alt=""></label>
+                            <div class="styleDesc">
+                                {{item.com_desc}}
+                            </div>
+                        </li>
+                    </ul>
+                </dd>
+            </dl>
+
+         
+        </div>
+
+        <div v-show="showProperty" class="editArea">
+                <form class="form-horizontal" v-if="obj.data.isShowNpmVersions == 9">
+                        <div class="coupon-group">
+                        <div class="form-group">
+                            <label><strong></strong>版本号：</label>
+                            <select name="action" @change="selectNpmVersion" v-model="obj.data.npmversion">
+                                <option :value="item.version" v-for="item in obj.data.npmversionArr">{{item.desc}}</option>
+                            </select>
+                        </div>
+                        </div>
+                    </form>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label><strong></strong>按钮描述：</label>
+                    <input type="text" name="" v-model.lazy="obj.data.btndes" placeholder="" > 
+                </div>
+                <div class="form-group">
+                    <label><strong></strong>跳转地址：</label>
+                    <input type="text" name=""  v-model.lazy="obj.data.tourl" placeholder="跳转地址" >
+                </div>
+                <div class="form-group">
+                    <label><strong></strong>字体颜色：</label>
+                    <input type="color" v-model="obj.data.fontcolor">
+                    <input type="text"  class="colorFrameInput" v-model="obj.data.fontcolor"  value="" size="10">  
+                </div>
+                <div class="form-group">
+                    <label><strong></strong>背景色：</label>
+                    <input type="color" v-model="obj.data.backgroundcolor">
+                    <input type="text"  class="colorFrameInput" v-model="obj.data.backgroundcolor"  value="" size="10">  
+                </div>
+
+                <div class="form-group">
+                    <label><strong></strong>外部宽度：</label>
+                    <input type="text" name="" v-model.lazy="obj.data.outterwidth" placeholder="" > 
+                </div>
+                <div class="form-group">
+                    <label><strong></strong>外部背景色：</label>
+                    <input type="color" v-model="obj.data.outterbgcolor">
+                    <input type="text"  class="colorFrameInput" v-model="obj.data.outterbgcolor"  value="" size="10">  
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <title>{{title}}</title>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="{{keywords}}">
+    <meta name="description" content="{{description}}">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <meta name="format-detection" content="telephone=no,email=no">
+    <meta name="apple-mobile-web-app-capable" content="no">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-orientation" content="portrait">
+    {{> fix_font_size }}
+    {{#each cssFile}}
+    <link rel="stylesheet" href="{{require .}}">
+    {{/each}}
+  </head>
+  <body>
+    {% body %}
+    {{#each cdnURLs}}
+    <script src="{{.}}"></script>
+    {{/each}}
+    {{#each jsFile}}
+    <script src="{{require .}}"></script>
+    {{/each}}
+  </body>
+</html>

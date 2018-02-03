@@ -1,0 +1,90 @@
+<style>
+.lego-jybfinanciallist-show4 .prd-content {
+    padding-left: .25rem;
+    padding-right: .25rem;
+    overflow: hidden;
+    padding-bottom: .35rem;
+}
+.lego-jybfinanciallist-show4 .ui-ta-c {
+    text-align: center;
+}
+.lego-jybfinanciallist-show4 .color-ffffff {
+    color: #ffffff;
+}
+.lego-jybfinanciallist-show4 .f-24 {
+    font-size: 0.24rem;
+}
+.lego-jybfinanciallist-show4 .prd-box {
+    float: left;
+    width: 48%;
+    margin-right: 4%;
+}
+.lego-jybfinanciallist-show4 .ui-mt-25 {
+    margin-top: 0.25rem;
+}
+.lego-jybfinanciallist-show4 .prd-box .award-title {
+    font-weight: bold;
+    letter-spacing: 0.036rem;
+}
+.lego-jybfinanciallist-show4 .f-36 {
+    font-size: 0.36rem;
+}
+.lego-jybfinanciallist-show4 .ui-mt-35 {
+    margin-top: 0.35rem;
+}
+.lego-jybfinanciallist-show4 .ui-pt-35 {
+    padding-top: 0.35rem;
+}
+.lego-jybfinanciallist-show4 .prd-box img {
+    width: 2.52rem;
+    height: 1.64rem;
+}
+.lego-jybfinanciallist-show4 .prd-box:nth-child(even) {
+    margin-right: 0;
+}
+.lego-jybfinanciallist-show4 p {
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+}
+.lego-jybfinanciallist-show4 .ui-mt-10{
+    margin-top: 0.1rem;
+}
+</style>
+
+
+<template class="showTemplate">
+    <commontag uid="uid" v-bind:params="data" inline-template>
+        <div class="lego-jybfinanciallist-show4">
+            <template v-if="true">
+            <div class="prd-content ui-ta-c">
+                <div class="ui-ta-c color-ffffff f-24">
+                  <div class="prd-box ui-mt-25 " v-for="(item , index) in params.finaItem">
+                    <p class="f-36 ui-mt-35 award-title">{{item.topDes}}</p>
+                    <p class="ui-mt-10" v-html="item.des1"></p>
+                    <p class="ui-pt-35 ui-ta-c"><img :src="item.imgurl" alt="" ></p>
+                  </div>
+                </div>
+            </div>
+            </template> 
+        </div>
+    </commontag>
+</template>
+
+
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExt">
+    var com_ext = {}
+
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+    var com_extend = []
+
+</script>
+
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {};
+
+</script>

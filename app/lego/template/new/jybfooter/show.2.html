@@ -1,0 +1,47 @@
+<style>
+  .jyb-foot {
+        text-align: center;
+        margin: 0 auto;
+        /* height: 1.1rem; */
+        /* padding-top: 0.2rem; */
+        color: #b5c978;
+        font-size: 0rem;
+       
+            
+    }
+    jyb-foot .foot-content {
+        padding-top: 0.6rem; 
+        font-size: .24rem;
+        text-align: center;
+        color: #b5c978;
+        display: block;
+    }
+</style>
+
+
+<template class="showTemplate">
+    <commontag uid="uid" v-bind:params="data" inline-template>
+        <div class="jyb-foot" :style="{paddingTop:params.totoprem+'rem',backgroundColor:params.backgroundcolor,width:params.outterwidth+'rem'}">
+            <template v-if="true">
+                <a v-bind:href="params.subTitle || 'javascript:;'" class="foot-content " :style="{color:params.color,fontSize:(params.desfontsize||0.24)+'rem'}">
+                    {{params.title||'客服热线 400-819-7979'}}
+                </a>
+            </template>
+        </div>
+    </commontag>
+</template>
+
+
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExt">
+    var com_ext = {}
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+    var com_extend = []
+</script>
+
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {};
+</script>

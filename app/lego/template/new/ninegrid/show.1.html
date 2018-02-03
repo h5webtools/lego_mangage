@@ -1,0 +1,249 @@
+<style>
+.lego-ninegrid-show1 .ui-mt-10 {
+    margin-top: .1rem
+}
+.lego-ninegrid-show1 .f-24 {
+    font-size: .24rem
+}
+.lego-ninegrid-show1 .f-32 {
+    font-size: .32rem;
+}
+.lego-ninegrid-show1 .mod-act-lottery-wrap,
+.lego-ninegrid-show1 .mod-act-rw-wrap {
+    border: .02rem solid #f8a278;
+    padding: .24rem;
+    background-color: #ff4765;
+    position: relative
+}
+.lego-ninegrid-show1 .mod-act-lottery-wrap li {list-style-type:none;}
+
+.lego-ninegrid-show1 .mod-act-lottery-wrap .corner,
+.lego-ninegrid-show1 .mod-act-rw-wrap .corner {
+    background-size: 100% 100%;
+    width: .32rem;
+    height: .32rem;
+    position: absolute
+}
+
+.lego-ninegrid-show1 .mod-act-lottery-wrap .corner.left-top,
+.lego-ninegrid-show1 .mod-act-rw-wrap .corner.left-top {
+    left: -.02rem;
+    top: -.02rem
+}
+
+.mod-act-lottery-wrap .corner.right-top,.mod-act-rw-wrap .corner.right-top {
+    right: -.02rem;
+    top: -.02rem;
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg)
+}
+
+.lego-ninegrid-show1 .mod-act-lottery-wrap .corner.right-bottom,
+.lego-ninegrid-show1 .mod-act-rw-wrap .corner.right-bottom {
+    right: -.02rem;
+    bottom: -.02rem;
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg)
+}
+
+.lego-ninegrid-show1 .mod-act-lottery-wrap .corner.left-bottom,
+.lego-ninegrid-show1 .mod-act-rw-wrap .corner.left-bottom {
+    left: -.02rem;
+    bottom: -.02rem;
+    -webkit-transform: rotate(270deg);
+    transform: rotate(270deg)
+}
+
+.lego-ninegrid-show1 .mod-act-lottery-wrap .rw-corner,
+.lego-ninegrid-show1 .mod-act-rw-wrap .rw-corner {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBNzNFRDlEMjI1OTkxMUU3QjgxOThDMkQ1QzAzQ0I2OCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBNzNFRDlEMzI1OTkxMUU3QjgxOThDMkQ1QzAzQ0I2OCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkE3M0VEOUQwMjU5OTExRTdCODE5OEMyRDVDMDNDQjY4IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkE3M0VEOUQxMjU5OTExRTdCODE5OEMyRDVDMDNDQjY4Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+uauBNgAAAk1JREFUeNpinGj44j8372cGYsCvX2wMTx/JgdmSMk8YODh+EKXv+zduhhfPJFHEZBUeMLCw/GFgsXY8wKBjcIEog169kGCYOSEfzHb32Qo2hBhw+4YGw4oF8ShigRErGfgFPjCwwASeP1TGa4ik/F2s4uTqgwG4A25fNma4d10fqyJB0ZcM/gmTsMpdOObM8PKJPFY5GaWbBB3AxDDAYNQBow5gIUaRqu4ZMC0g9I5BUvopmC0i9gpM65ofZPjz2xnM/vmDi+HLR0HyHKBtehSMsQFuvg9gmo3tF0NK7hSMrAbCFDtAWPwpxcHJzvENjElywP5dbgwnDtvgVWTtcIBBU/cKw8cPAgyrF8eAxQLCV4Gj4clDeYYzJ8yhIcDB8PkTH4Z+kDhOB3x4J8jwgQF/sH37ygM36PlTaWgFwwWmP7wXZLh83pDsUGM8U7TiP7GVEbXB4wcKxOUCEsAHEiw/sG19QDzcAYe2hOGsjOx9VzAoalxm+PePiWH/TjewmJX9IQZOrm/A6OG+dfyQbStI7M0rsStxezTPEeMAFSDOq2UgLQRADjh20B7MNjI7DXbAj++c77yW2S+iaUn46ycnxAF/meFiP6Ap+/dvlm+UxBlRDrhx3gKe4mHg/GkTMP3kkfyR0cpoeNSGQmIvwHjAHKBjdmhgQuDqRT2Gl88liFIMLHSo74Bb1zUZQHg0FwxYLhATf8lAbOcUGYiIvmaAVECiVylyACmdU2zV7+MHigeokg3v31EmSeOjB4oMt69rqmefknpFiQMAAgwAs47N/CQbHUwAAAAASUVORK5CYII=)
+}
+
+.lego-ninegrid-show1 .mod-act-lottery-wrap .lottery-corner,
+.lego-ninegrid-show1 .mod-act-rw-wrap .lottery-corner {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo1RTNFNDAxMTI1OTkxMUU3OTI2MkMxNzlEODk5RDVDMyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo1RTNFNDAxMjI1OTkxMUU3OTI2MkMxNzlEODk5RDVDMyI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjVFM0U0MDBGMjU5OTExRTc5MjYyQzE3OUQ4OTlENUMzIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjVFM0U0MDEwMjU5OTExRTc5MjYyQzE3OUQ4OTlENUMzIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+J1GCYgAAAoJJREFUeNpiPFO04r+OwQUGYsCrFxIMMyfkg9kJGTMZZBUeEKXv9g0NhhUL4lHE8io6GfgFPjCwwEX+/MVvCgszdnFy9cGk4ebcvs/w79VbrIoYubkYWE10scr9vnKT4f/Hz1jlmIQFGFh01PE6gIlhgMGoA0YdQJQDmIQEwDQ3zxe4GC//R3hKpwTAsyGTAB8YY82G/LxwB9R2VKLIMctKgTEI/P/+g+H/h09kOkBSjOLgZOTkAGOSHHD+tAnDw3uKeBWBimp5pfsM379xMezb4Q4Ws3fdw8DD+5nhw3tBhscPFMBi375yM7x5JYqh/+MH3NHE8uCuMgMI4wMSUs/BDvj8iY/h3CkzsJie0XmwA548lGfYsDKM/FDbFr3/v6LyXbyKhEVfM/ABE92/v8wMD+9DQktG7hEDK9svhr9AsV8/2cFi379zMnwEhggxAFSRsbD8YWARE3/JoKhyh7gsw/wXQy0zUIyT6xuYDaKFhN8SY9QHEHHhjPEMRGV0HWjw7z/YLZaWAGe3//+YGK5f1QaLqajfZGADhsCvX2xPXjyVPgWprsUv3rymtYYYFyQdUL1mHouUC0Dg3/uP2B0gCUlYf4EOWLs0CszOKe1hYAP69ssnvieqdWnBIDFVILYeliXh38cvwPT7t8JwsdPHLcA0MFHuo31d8O8fpKT7z4hoCP1hgUox/RmtDalSGYFdI8g/cA5g0VQZmBB49VKc4f4d4ix//06Q+g44ut+BAYRHm2QDlgtAVSqoRiMVsLL+hvSMfrF+pcgBPkHrGYjtnGKrVh89UDxAlWz44zvHPVI0giy+cMZkZuwurVNUccD2jf7JEVsNiPaNLhRTCgACDACx98/VU3ngCgAAAABJRU5ErkJggg==)
+}
+
+.lego-ninegrid-show1 .mod-act-lottery-wrap .reward-grid-wrap,
+.lego-ninegrid-show1 .mod-act-rw-wrap .reward-grid-wrap {
+    background-color: #fa1f43;
+    border-radius: 10px;
+    padding: .04rem
+}
+
+.lego-ninegrid-show1 .mod-act-lottery-wrap .reward-grid-wrap ul,
+.lego-ninegrid-show1 .mod-act-rw-wrap .reward-grid-wrap ul {
+    overflow: hidden;
+    text-align: center;
+    color: #875a41;
+         margin-bottom: 0 !important;
+}
+
+.lego-ninegrid-show1 .mod-act-lottery-wrap .reward-grid-wrap .reward-item,
+.lego-ninegrid-show1 .mod-act-rw-wrap .reward-grid-wrap .reward-item {
+    float: left;
+    padding: .04rem;
+    width: 33.33%;
+    font-size: .6rem;
+    box-sizing: border-box;
+    color: #562119
+}
+
+.lego-ninegrid-show1 .mod-act-lottery-wrap .reward-grid-wrap .reward-item .reward-inner,
+.lego-ninegrid-show1 .mod-act-rw-wrap .reward-grid-wrap .reward-item .reward-inner {
+    border-radius: 10px;
+    height: 1.25rem;
+    border-bottom: .13rem solid #f7d8b3;
+    background-color: #ffedd7;
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+    -webkit-box-orient: vertical;
+    line-height: 1;
+    position: relative
+}
+
+.lego-ninegrid-show1 .mod-act-lottery-wrap .reward-grid-wrap .reward-item.get .reward-inner,
+.lego-ninegrid-show1 .mod-act-rw-wrap .reward-grid-wrap .reward-item.get .reward-inner {
+    background-color: #fcde30;
+    border-bottom: .13rem solid #fbbe04;
+    color: #88571b;
+    line-height: 1.45rem;
+    font-size: .42rem
+}
+
+.lego-ninegrid-show1  .mod-act-lottery-wrap .reward-grid-wrap .reward-item.get .reward-inner:after,
+.lego-ninegrid-show1 .mod-act-lottery-wrap .reward-grid-wrap .reward-item.get .reward-inner:before,
+.lego-ninegrid-show1 .mod-act-rw-wrap .reward-grid-wrap .reward-item.get .reward-inner:after,
+.lego-ninegrid-show1 .mod-act-rw-wrap .reward-grid-wrap .reward-item.get .reward-inner:before {
+    content: '';
+    position: absolute;
+    top: .1rem;
+    height: .1rem;
+    background-color: #fffda4
+}
+
+.lego-ninegrid-show1 .mod-act-lottery-wrap .reward-grid-wrap .reward-item.get .reward-inner:before,
+.lego-ninegrid-show1 .mod-act-rw-wrap .reward-grid-wrap .reward-item.get .reward-inner:before {
+    left: .3rem;
+    width: .1rem;
+    border-radius: 50%
+}
+
+.lego-ninegrid-show1 .mod-act-lottery-wrap .reward-grid-wrap .reward-item.get .reward-inner:after,
+.lego-ninegrid-show1 .mod-act-rw-wrap .reward-grid-wrap .reward-item.get .reward-inner:after {
+    left: .5rem;
+    width: 1rem;
+    border-radius: 10px
+}
+
+.lego-ninegrid-show1 .mod-act-lottery-wrap .reward-grid-wrap .reward-item.active .reward-inner,
+.lego-ninegrid-show1 .mod-act-rw-wrap .reward-grid-wrap .reward-item.active .reward-inner {
+    background-color: #fcde30;
+    border-bottom-color: #fbbe04
+}
+
+.mod-act-lottery-wrap .reward-grid-wrap .reward-icon-wrap,
+.lego-ninegrid-show1 .mod-act-rw-wrap .reward-grid-wrap .reward-icon-wrap {
+    height: .6rem;
+    margin: .15rem auto 0;
+    font-size: 0;
+    color: #fff
+}
+
+.lego-ninegrid-show1 .mod-act-lottery-wrap .reward-grid-wrap .reward-icon-wrap:before,
+.lego-ninegrid-show1 .mod-act-rw-wrap .reward-grid-wrap .reward-icon-wrap:before {
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+    content: "";
+    width: 0
+}
+.lego-ninegrid-show1 .mod-act-rw-wrap {
+    padding: .35rem;
+    padding-right: .1rem;
+    background-color: #982dfd
+}
+
+.lego-ninegrid-show1 .mod-reward-icon {
+    width: 1.1rem;
+    height: .58rem;
+    line-height: .58rem;
+    overflow: hidden;
+    color: #fff;
+    text-align: center;
+}
+
+
+.lego-ninegrid-show1 .mod-act-lottery-wrap .corner,.lego-ninegrid-show1 .mod-act-rw-wrap .corner,.lego-ninegrid-show1 .mod-prd-list .prd-item .declare-bg,.lego-ninegrid-show1 .mod-prd-list .prd-item .prd-info .coupon-bg,.lego-ninegrid-show1 .mod-rank-wrap .rank-list .rank-table .rank-icon,.lego-ninegrid-show1 .mod-reward-icon {
+     background-size: 100% 100%; 
+    background-repeat: no-repeat; 
+    display: inline-block;
+}
+.lego-ninegrid-show1 .lottery-content{
+        padding-left: .36rem;
+    padding-right: .36rem;
+}
+
+.lego-ninegrid-show1 ul, 
+.lego-ninegrid-show1 li,
+.lego-ninegrid-show1 i
+{
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline
+}
+</style>
+
+
+<template class="showTemplate">
+
+    <ninegrid uid="uid" v-bind:params="data" inline-template>
+        <div class="lego-ninegrid-show1">
+                <div class="lottery-content" :style="{paddingTop:params.gridspadding.pdtop+'rem' , paddingBottom:params.gridspadding.pdbtm+'rem'}">
+                        <div class="mod-act-lottery-wrap ui-mt-30" :style="{backgroundColor:params.gridsOuter.outerbgcolor}">
+                        <div class="reward-grid-wrap" :style="{backgroundColor:params.gridsOuter.innerbgcolor}">
+                            <ul>
+                     
+                                 <template v-for="(item,index) in params.gridList">
+                                     <li class="reward-item"  :index="item.flag" v-bind:desc="item.desfour" v-if="index!=4">
+                                        <div class="reward-inner">
+                                            <div class="reward-icon-wrap">
+                                                <span class="mod-reward-icon ctrip-icon" v-bind:style="{backgroundImage: 'url('+ item.gridbackimg +')'}"><span class="f-32">{{item.desone}}</span><span class="f-24">{{item.destwo}}</span></span>
+                                            </div>
+                                                <p class="ui-mt-10 f-24">{{item.desthree}}</p>
+                                            </div>
+                                        </li>
+                                         <li class="reward-item get" v-on:click="gridcommit" v-if="index==4">
+                                            <div class="reward-inner">
+                                                {{item.desone}}
+                                            </div>
+                                        </li>
+                                 </template>
+                            </ul>
+                        </div>
+                        <i class="corner lottery-corner left-top" :style="{backgroundImage:'url('+params.gridsOuter.cornerImg+')'}"></i>
+                        <i class="corner lottery-corner right-top" :style="{backgroundImage:'url('+params.gridsOuter.cornerImg+')'}"></i>
+                        <i class="corner lottery-corner left-bottom" :style="{backgroundImage:'url('+params.gridsOuter.cornerImg+')'}"></i>
+                        <i class="corner lottery-corner right-bottom" :style="{backgroundImage:'url('+params.gridsOuter.cornerImg+')'}"></i>
+                        </div>
+                    </div>   
+        </div>
+        
+        
+    </ninegrid>
+</template>
+
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExt">
+    var com_ext = {}
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+    var com_extend = []
+</script>
+
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {};
+</script>

@@ -1,0 +1,86 @@
+pagebegin
+
+import tracker from '@jyb/lib-tracker';
+import Bimta from '@jyb/lib-bimta';
+import timecutdown  from '@lego/timecutdown';
+
+//注册
+for (var componentname in vuecomponents) {
+    if (vuecomponents.hasOwnProperty(componentname) && componentname != "shareConfig") {
+        vuecomponents[componentname].register();
+    };
+}
+
+
+var $$ = {
+    componentConfig: window._componentConfig,
+    componentData: {}
+}
+
+var childComponent = {
+    lazyChildComponent: function (uid) {//将需要按需加载的子组件按需加载
+        //查询出 uid为此uid的数据 将其lazyLoad设置为true即可
+        $$.componentConfig.forEach(function (item, index) {
+            if (item.uid == uid) {
+                item.data.lazyLoad = true; //设置为true 
+            }
+        });
+    },
+    initComponent: function () {
+        //将子组件的非第一个隐藏
+        for (var key in $$.componentConfig) {
+            var _val = $$.componentConfig[key];
+            if (_val.child.length > 0) {
+                var _tabs = _val.data.tabs;
+                _tabs.forEach(function (val, index) {
+                    var _val = val.sub;
+                    if (index != 0) {
+                        _val.forEach(function (inVal, inIndex) {
+                            childComponent.lazyChildComponent(inVal);
+                            $("[uid='" + inVal + "']").hide()
+                        });
+                    }
+                });
+            }
+        }
+    }
+}
+
+childComponent.initComponent();
+
+//将组件的改为 v-bind:params="com1001" 的形式
+$$.componentConfig.forEach(function (item) {
+    var _uid = item.uid,
+        _params = _uid.replace("_", "");
+    $("[uid='" + _uid + "']").attr("v-bind:params", _params);
+    $$.componentData[_params] = item.data;
+});
+
+
+var container = new Vue({
+    props: ["params"],
+    el: '#container',
+    data: $$.componentData
+});
+
+
+vuecomponents && vuecomponents.shareConfig && vuecomponents.shareConfig.shareInit.init();
+
+
+tracker.init({
+  pid: 'lego'
+});
+
+var bimta = new Bimta({
+  platform: ['mta'],
+  env:'test',
+  createCommonParams: function(defaults) {
+    return {
+      uuid: Date.now()
+    };
+  }
+});
+
+bimta.start();
+
+bimta.pageview("pveventid");

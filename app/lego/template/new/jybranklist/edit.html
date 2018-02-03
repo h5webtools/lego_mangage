@@ -1,0 +1,170 @@
+<div class="editBox">
+    <div class="editBox_2">
+        <h3>{{obj.componentName}} {{obj.uid}}</h3>
+        <p>
+            排行榜组件
+        </p>
+
+        <ul class="tab_hd">
+            <li v-bind:class="{ 'on': showStyle }" v-on:click="show(0)"><a href="javascript:;" title="设置样式">设置样式</a></li>
+            <li v-bind:class="{ 'on': showProperty }" v-on:click="show(1)"><a href="javascript:;" title="设置数据">设置标题数据</a></li>
+        </ul>
+        <div v-show="showStyle" class="styleBox">
+            <div class="editArea">
+                <form class="form-horizontal" v-for="item in obj.com_extend">
+                    <div class="form-group" v-if="item.type == 'radio'">
+                        <label>{{item.name}}：</label>
+                        <div>
+                            <label v-for="item2 in item.data"><input type="radio" :name="obj.uid+'_'+item.nick" :value="item2.value" v-model="obj.data.extend[item.nick]"> {{item2.name}}</label>
+                        </div>
+                    </div>
+                    <div class="form-group" v-if="item.type == 'input'">
+                        <label style="float: left;padding-right:14px;"><strong></strong>{{item.name}}：</label>
+                        <input type="text" :class="item.class" :name="obj.uid+'_'+item.nick" v-model="obj.data.extend[item.nick]" :placeholder="item.placeholder"
+                            flag="extendtime" :nick="item.nick">
+                    </div>
+                </form>
+            </div>
+            <br>
+            <br>
+            <dl>
+                <dt>样式</dt>
+                <dd>
+                    <ul>
+                        <li v-for="item in arrStyle" :key="item.id">
+                            <div style="display:none;">
+                                {{item.com_desc}}<input type="radio" :name="obj.uid" :id="obj.uid+'_'+item.id" :value="item.id"
+                                    v-model="obj.data.styleKey"><br/>
+                            </div>
+                            <label :class="item.id == obj.data.styleKey ? 'on' : ''" :for="obj.uid+'_'+item.id"><img :src="item.image" alt=""></label>
+                            <div class="styleDesc">
+                                {{item.com_desc}}
+                            </div>
+                        </li>
+                    </ul>
+                </dd>
+            </dl>
+
+
+        </div>
+
+        <div v-show="showProperty" class="editArea">
+                <form class="form-horizontal"  v-if="obj.data.isShowNpmVersions == 9">
+                        <div class="coupon-group">
+                        <div class="form-group">
+                            <label><strong></strong>版本号：</label>
+                            <select name="action" @change="selectNpmVersion" v-model="obj.data.npmversion">
+                                <option :value="item.version" v-for="item in obj.data.npmversionArr">{{item.desc}}</option>
+                            </select>
+                        </div>
+                        </div>
+                    </form>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label><strong></strong>命令字：</label>
+                    <input type="text" v-model="obj.data.rankcmd" placeholder="40020201">
+                </div>
+                <div class="form-group">
+                    <label><strong></strong>活动号：</label>
+                    <input type="text" v-model="obj.data.rankactid" placeholder="GhE5YBkvE3E=">
+                </div>
+                <div class="form-group">
+                    <label><strong></strong>左右边距：</label>
+                    <input type="text" v-model="obj.data.rankpadding" placeholder="默认0.3">
+                </div>
+                <div class="form-group">
+                    <label><strong></strong>上边距：</label>
+                    <input type="text" v-model="obj.data.pdTop" placeholder="">
+                </div>
+                
+                <div class="form-group">
+                    <label><strong></strong>圆角大小：</label>
+                    <input type="text" v-model="obj.data.borderradiusval" placeholder="默认0.1">
+                </div>
+                <div class="form-group">
+                    <label><strong></strong>内容高度：</label>
+                    <input type="text" v-model="obj.data.contentheight" placeholder="默认0.9">
+                </div>
+                <div class="form-group">
+                    <label><strong></strong>头部背景色：</label>
+                    <input type="color" v-model="obj.data.headbgcolor">
+                    <input type="text" class="colorFrameInput" v-model="obj.data.headbgcolor" value="">
+                </div>
+                <div class="form-group">
+                    <label><strong></strong>头部字体色：</label>
+                    <input type="color" v-model="obj.data.headwordColor">
+                    <input type="text" class="colorFrameInput" v-model="obj.data.headwordColor" value="">
+                </div>
+                <div class="form-group">
+                    <label><strong></strong>内容背景色：</label>
+                    <input type="color" v-model="obj.data.contentbgcolor">
+                    <input type="text" class="colorFrameInput" v-model="obj.data.contentbgcolor" value="">
+                </div>
+                <div class="form-group">
+                    <label><strong></strong>内容字体色：</label>
+                    <input type="color" v-model="obj.data.contentwordColor">
+                    <input type="text" class="colorFrameInput" v-model="obj.data.contentwordColor" value="">
+                </div>
+
+                <div class="form-group">
+                    <label><strong></strong>底部背景色：</label>
+                    <input type="color" v-model="obj.data.footbgcolor">
+                    <input type="text" class="colorFrameInput" v-model="obj.data.footbgcolor" value="">
+                </div>
+                <div class="form-group">
+                    <label><strong></strong>底部字体色：</label>
+                    <input type="color" v-model="obj.data.footwordColor">
+                    <input type="text" class="colorFrameInput" v-model="obj.data.footwordColor" value="">
+                </div>
+                <div class="form-group">
+                    <label><strong></strong>底部高度：</label>
+                    <input type="text" v-model="obj.data.footheight" placeholder="默认0.9">
+                </div>
+                <div class="form-group">
+                    <label><strong></strong>奇数行背景：</label>
+                    <input type="color" v-model="obj.data.evencolumncolor">
+                    <input type="text" class="colorFrameInput" v-model="obj.data.evencolumncolor" value="">
+                </div>
+
+                <div class="form-group">
+                    <label><strong></strong>外部宽度：</label>
+                    <input type="text" v-model="obj.data.outterwidth" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label><strong></strong>外部背景：</label>
+                    <input type="color" v-model="obj.data.outterbgcolor">
+                    <input type="text" class="colorFrameInput" v-model="obj.data.outterbgcolor" value="">
+                </div>
+            </form>
+
+            <!-- 文案描述 -->
+            <br><br><br><strong style="font-size:16px;">设置表格内容</strong><br><br><br>
+            <form class="form-horizontal">
+                <div class="coupon-group" v-for="(item,index) in obj.data.tableContentArr">
+                    <h4>列{{index + 1}}</h4>
+                    <button type="button" class="jc-btn btn-primary delBtn" @click="deletetableContent(index)">删除</button>
+                    <div class="form-group" style="margin-right: 100px;margin-left: 10px;">
+                        <label><strong>*</strong>列名：</label>
+                        <input type="text" v-model="item.tabContentItem" placeholder="">
+                    </div>
+                    <div class="form-group" style="margin-right: 100px;margin-left: 10px;">
+                        <label><strong>*</strong>列宽：</label>
+                        <input type="text" v-model="item.tabListWidth" placeholder="">
+                    </div>
+                    <div class="form-group" style="margin-right: 100px;margin-left: 34px;">
+                        <label><strong>*</strong>展示数据：</label>
+                        <!-- <form class="form-radio"> -->
+                            <label style="width:50px;"><input v-bind:name="'inputtype'+index" style="width:16px;height:16px; " type="radio" value="rank" v-model="item.rankkey">排行</label>
+                            <label style="width:50px;"><input v-bind:name="'inputtype'+index" style="width:16px;height:16px" type="radio" value="tel" v-model="item.rankkey">电话</label>
+                            <label style="width:60px;"><input v-bind:name="'inputtype'+index" style="width:16px;height:16px" type="radio" value="score" v-model="item.rankkey">投资额</label>
+                            <label style="width:50px;"><input v-bind:name="'inputtype'+index" style="width:16px;height:16px" type="radio" value="extra" v-model="item.rankkey">奖品</label>
+                        <!-- </form> -->
+                    </div>
+                </div>
+            </form>
+            <div class="text-right">
+                <button type="button" class="jc-btn btn-primary" @click="addtableContent()">增加</button>
+            </div>
+        </div>
+    </div>
+</div>

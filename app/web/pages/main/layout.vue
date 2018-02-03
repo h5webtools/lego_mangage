@@ -1,0 +1,76 @@
+<template>
+  <div class="layout-main">
+    <aside class="aside-wrap">
+      <el-menu unique-opened mode="vertical" background-color="#545c64"
+          text-color="#fff"
+          active-text-color="#ffd04b" :default-active="$route.path">
+        <sidebar-item :menusList="menuList"></sidebar-item>
+      </el-menu>
+    </aside>
+    <section class="main-wrap">
+      <header class="app-header">
+        <el-row>
+          <el-col :span="12">
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+              <el-breadcrumb-item v-for="(item,index)  in levelList" :key="index">
+                <router-link v-if='item.redirect==="noredirect"||index==levelList.length-1' to="" class="no-redirect">{{item.meta.title}}</router-link>
+                <router-link v-else :to="item.path">{{item.meta.title}}</router-link>
+              </el-breadcrumb-item>
+            </el-breadcrumb>
+          </el-col>
+          <el-col :span="12" class="ui-ta-r">
+            <el-dropdown>
+              <span class="el-dropdown-link">
+                {{userInfo.userName}}<i class="el-icon-arrow-down el-icon--right"></i>
+              </span>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item><a href="/login/loginOut">退出登录</a></el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+          </el-col>
+        </el-row>
+      </header>
+      <div class="app-main">
+        <transition name="fade" mode="out-in">
+          <router-view></router-view>
+        </transition>
+      </div>
+    </section>
+  </div>
+</template>
+<script>
+import sidebarItem from './sidebar-item.vue';
+export default {
+  name: 'loan_menu',
+  components: {
+    sidebarItem
+  },
+  data() {
+    return {
+      menuList: window.menuData,
+      isCollapse: false,
+      levelList: [],
+      userInfo: window.userInfo
+    }
+  },
+  created() {
+    this.getBreadcrumb()
+  },
+  methods: {
+    getBreadcrumb() {
+      let matched = this.$route.matched.filter(item => item.meta.title);
+      const first = matched[0];
+      // if (first && (first.name !== 'main' || first.path !== '')) {
+      //   matched = [{ name: '主页', path: '/' }].concat(matched)
+      // }
+      this.levelList = matched;
+    }
+  },
+  watch: {
+    $route() {
+      this.getBreadcrumb();
+    }
+  }
+}
+</script>
+

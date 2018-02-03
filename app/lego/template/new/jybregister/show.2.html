@@ -1,0 +1,454 @@
+<style>
+
+    
+    .comm-register-002 .mod-form-wrap {
+        padding: .3rem;
+        /*border-radius: .1rem;*/
+        /*border: 1px solid #fcc1b9;*/
+        /*box-shadow: inset 0 0 0.5rem #fed9cd;*/
+        background: #ffedde;
+    }
+    
+    .comm-register-002 .f-24 {
+        font-size: .24rem;
+    }
+    
+    .comm-register-002 .ui-mt-60 {
+        margin-top: .6rem;
+    }
+    
+    .comm-register-002 .mod-form-item {
+        display: -webkit-box;
+        -webkit-box-pack: center;
+        -webkit-box-align: center;
+        -webkit-box-pack: justify;
+        margin-bottom: .2rem;
+    }
+    
+    .comm-register-002 .mod-form-item .box-wrap:nth-child(1) {
+        width: 22%;
+    }
+    
+    .comm-register-002 .mod-form-item .box-wrap {
+        position: relative;
+        display: block;
+    }
+    
+    .comm-register-002 .mod-form-item .box-wrap:nth-child(2) {
+        width: 78%;
+    }
+    
+    .comm-register-002 .mod-form-item .box-wrap {
+        position: relative;
+        display: block;
+    }
+    
+    .comm-register-002 .mod-input {
+        border-radius: 5px;
+        padding: .2rem .15rem;
+    }
+    
+    .comm-register-002 .mod-input {
+        display: block;
+        box-sizing: border-box;
+    }
+    
+    .comm-register-002 .mod-input {
+        outline: none;
+        width: 100%;
+        height: auto;
+        border: 0;
+        -webkit-appearance: none;
+        appearance: none;
+        /*padding-left: 0;*/
+    }
+    
+    .comm-register-002 button,
+    .comm-register-002 input {
+        font-family: inherit;
+        font-size: 100%;
+        margin: 0;
+    }
+    
+    .comm-register-002 .mod-form-wrap .mod-btn {
+        border-radius: .86rem;
+    }
+    
+    .comm-register-002 .mod-btn {
+        display: block;
+        background-color: #ffdd23;
+        text-align: center;
+        color: #916c2a;
+        position: relative;
+        border-radius: 3px;
+        height: .86rem;
+        line-height: .86rem;
+        width: 100%;
+    }
+    
+    .comm-register-002 .f-28 {
+        font-size: .28rem;
+    }
+    
+    .comm-register-002 .ui-mt-40 {
+        margin-top: .4rem;
+    }
+    
+    .comm-register-002 a {
+        text-decoration: none;
+    }
+    
+    .comm-register-002 .f-24 {
+        font-size: .24rem;
+    }
+    
+    .comm-register-002 .color-999 {
+        color: #999;
+    }
+    
+    .comm-register-002 .ui-mt-20 {
+        margin-top: .2rem;
+    }
+    
+    .comm-register-002 .ui-ta-c {
+        text-align: center;
+    }
+    
+    .comm-register-002 .mod-form-wrap {
+        padding: .3rem;
+        /*border-radius: .1rem;
+        border: 1px solid #fcc1b9;*/
+        /*box-shadow: inset 0 0 0.5rem #fed9cd;*/
+        background: #ffedde;
+    }
+    
+    .comm-register-002 .f-24 {
+        font-size: .24rem;
+    }
+    
+    .comm-register-002 .mod-form-item .sms-input {
+        width: 60%;
+    }
+    
+    .comm-register-002 .mod-form-item .code-btn-wrap {
+        font-size: .24rem;
+        width: 34%;
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        border-radius: 5px;
+        overflow: hidden;
+        text-align: center;
+        display: -webkit-box;
+        -webkit-box-pack: center;
+        -webkit-box-align: center;
+    }
+    
+    .comm-register-002 .mod-form-item .code-btn-wrap .smscode {
+        height: 100%;
+        display: -webkit-box;
+        -webkit-box-pack: center;
+        -webkit-box-align: center;
+        line-height: 1;
+        border-radius: 5px!important;
+    }
+    
+    .comm-register-002 .mod-form-item .code-btn-wrap .smscode {
+        background-color: #ffdd23;
+        text-align: center;
+        color: #916c2a;
+        position: relative;
+        border-radius: 3px;
+        width: 100%;
+    }
+    
+    .overlay {
+        background-color: #000;
+        filter: alpha(opacity=60);
+        opacity: .6;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        position: fixed;
+        z-index: 1024;
+        -webkit-backface-visibility: hidden
+    }
+    
+    .mod-dialog {
+        top: 15%;
+        border-radius: .125rem;
+        overflow: hidden
+    }
+    
+    .mod-dialog .dialog-title {
+        background: #79b0ef;
+        color: #fff
+    }
+    
+    .ui-bb-n {
+        border-bottom: none!important;
+    }
+    
+    .mod-dialog .dialog-title .close-wrap {
+        width: 44px;
+        height: 44px;
+        position: absolute;
+        right: 0;
+        top: 100%;
+        text-align: center;
+        line-height: 44px;
+        margin-top: -22px
+    }
+    
+    .mod-dialog .dialog-title .close-wrap:after {
+        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAqCAYAAADFw8lbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDY3IDc5LjE1Nzc0NywgMjAxNS8wMy8zMC0yMzo0MDo0MiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjY3QkU2RUE1OUZFQzExRTVCQ0FBRTZBNzRFQTIxNzZFIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjY3QkU2RUE2OUZFQzExRTVCQ0FBRTZBNzRFQTIxNzZFIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NjdCRTZFQTM5RkVDMTFFNUJDQUFFNkE3NEVBMjE3NkUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NjdCRTZFQTQ5RkVDMTFFNUJDQUFFNkE3NEVBMjE3NkUiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4nZdchAAABq0lEQVR42uzZPUvDQBgH8PQUv4O6iiD4Bdx1EHxBBEE7Ctmko6MiuIpzNh0cFFydWkc30dlFcNRBQRwcjE8gBxKa3PPyj6U0D/yHpiH8muPunqOtNE2jYSgXDUk10JGFjhcvJEkycFQcx+o3ukGZBXvGKB3KBGrotyhXlB4QmyHPKKeUSw7WMZAX+YOnQViPbOef1zlYx0T6smKLyIiLdRXX9wpIK7YM6WuJMi+F/lBWKHcl30uxIeQXZY1yrxn6D8oyAMtFdi2TyYqFILnLkxYLQ0oWfCkWipTu9VzsHBrZd69nYm8oCyXYh4r1UIXUdk+hNwtHWtq8EBaKtPajXKwZiWicPynPjB/0MsgO3y9B24H7JhFdlzMi28z7zS2i+wckBOsUyPPAYr4J7LpUUI/cCczua1DXpYJykV3BdnsrwboakNx1dkqCdTUh4VhXIxKKrTrcIZBS7IzmcPcE3rtD2FfKu2boDylHfZCrhgajDPtIWaS8aSfTwR+sR/aM/UURG0RyO/wM+50/2IosYk8o+yGk5ChyHOErw+5yb241fzY00AaKqV8BBgA3gJyazq5ZBQAAAABJRU5ErkJggg==);
+        width: 14px;
+        height: 14px;
+        background-size: 100%;
+        margin-right: 0;
+        content: "";
+        vertical-align: middle;
+        position: relative;
+        top: -2px
+    }
+    
+    .mod-dialog .dialog-content {
+        text-align: center;
+        font-size: .3rem;
+        -webkit-box-sizing: border-box;
+        overflow: hidden;
+        background-color: #fff
+    }
+    
+    .ui-ov-h {
+        overflow: hidden
+    }
+    
+    .mod-txauto-wrap .coupon-wrap {
+        margin: 0.75rem 0 0.625rem
+    }
+    
+    .ui-ta-c {
+        text-align: center
+    }
+    
+    .ui-p-r,
+    sub,
+    sup {
+        margin-top: 0.6rem;
+        position: relative
+    }
+    
+    img,
+    {
+        vertical-align: top
+    }
+    
+    img,
+    legend {
+        border: 0
+    }
+    
+    .coupon-wrap .text {
+        top: 0.25rem;
+        left: 0;
+        width: 100%;
+        color: #977b46;
+        line-height: 1.3
+    }
+    
+    .f-15 {
+        font-size: .3rem
+    }
+    
+    .ui-p-a {
+        position: absolute;
+    }
+    
+    .color-333 {
+        color: #333;
+    }
+    
+    .mod-dialog .color-red {
+        color: #df4942;
+    }
+    
+    .color-333 {
+        color: #333;
+    }
+    
+    .ui-pb-20 {
+        padding-bottom: 0.25rem;
+    }
+    
+    .ui-pt-10 {
+        padding-top: .25rem;
+    }
+    
+    .ui-pl-20 {
+        padding-left: 0.25rem;
+    }
+    
+    .ui-pb-20 {
+        padding-bottom: 0.25rem;
+    }
+    
+    .ui-pr-20 {
+        padding-right: 0.25rem;
+    }
+    
+    .ui-ml-20 {
+        margin-left: 0.25rem;
+    }
+    
+    .ui-mb-20 {
+        margin-bottom: 0.25rem;
+    }
+    
+    .ui-mr-20 {
+        margin-right: 0.25rem;
+    }
+    
+    .mod-dialog .dial og-title {
+        background-color: #fff;
+        padding-top: .25rem;
+        padding-bottom: .25rem;
+        text-align: center;
+        position: relative;
+        border-bottom: 1px solid #e6e6e6;
+        font-size: .38rem
+    }
+    
+    .mod-dialog .dialog-title .close-wrap:after {
+        display: none
+    }
+    
+    .mod-dialog .color-red {
+        color: #df4942
+    }
+    
+    .ui-vv {
+        visibility: visible;
+    }
+    
+    .ui-vh {
+        visibility: hidden;
+    }
+    
+     ::-webkit-input-placeholder {
+        text-align: left;
+        color: #9a9a9a
+    }
+    
+   
+    .comm-register-002 .mod-form-item .code-btn-wrap .btn_disabled.smscode {
+        background-color: #f5f5f5;
+        color: #ccc;
+    }
+</style>
+
+<!-- , box-shadow:'inset 0 0 .5rem '+ params.innerInsetcolor 
+            border:'1px solid '+ params.bordercolor
+-->
+<template class="showTemplate">
+
+    <jybregister uid="jybregister" v-bind:params="data" inline-template>
+        <div class="comm-register-002">
+            <div class="mod-form-wrap  f-24" v-bind:style="{background:params.backgroundcolor}">
+                <div id="form-wrap">
+                    <template v-if="true" v-for="(item,index) in params.inputarr">
+                        <div class="mod-form-item" v-if="item.inputtype == 0">
+                            <div class="box-wrap" v-bind:style="{color:params.inputnamecolor}">
+                                您的姓名
+                            </div>
+                            <div class="box-wrap">
+                                <input type="tel" autocomplete="off" formname="姓名" reg="\S{1,}" id="name" v-model="data.username" name="name" placeholder="请输入您的姓名"
+                                    class="mod-input">
+                            </div>
+                        </div>
+                        <div class="mod-form-item" v-if="item.inputtype == 1">
+                            <div class="box-wrap" v-bind:style="{color:params.inputnamecolor}">
+                                您的手机号
+                            </div>
+                            <div class="box-wrap">
+                                <input type="tel" autocomplete="off" formname="手机号" reg="^1[34785]\d{9}$" id="tel" v-model="data.phonenumber" name="tel"
+                                    maxlength="11" placeholder="请输入您的手机号" class="mod-input">
+                            </div>
+                        </div>
+                        <div class="mod-form-item" v-if="item.inputtype == 2">
+                            <div class="box-wrap" v-bind:style="{color:params.inputnamecolor}">
+                                兑换码 
+                            </div>
+                            <div class="box-wrap">
+                                <input type="text" autocomplete="off" formname="兑换码" reg="^[a-zA-Z_0-9]{6,20}$" id="cdkey" v-model="data.cdkey" name="cdkey"
+                                    maxlength="20"  placeholder="请输入兑换码" class="mod-input">
+                            </div>
+                        </div>
+                        <div class="mod-form-item" v-if="item.inputtype == 3">
+                            <div class="box-wrap" v-bind:style="{color:params.inputnamecolor}">
+                                验证码
+                            </div>
+                            <div class="box-wrap">
+                                <input type="text" autocomplete="off" formname="验证码" v-model="data.identifycode" reg="^[a-zA-Z0-9]{4,6}$" id="code" placeholder="请输入验证码"
+                                    maxlength="6" class="mod-input sms-input">
+
+                                <div class="code-btn-wrap">
+                                    <div class="" type="smscode" id="vCode" :style="{background:params.buttoncolor,color:params.btntextcolor}" id="vCode" v-on:click="refreshCode">获取验证码</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mod-form-item" v-if="item.inputtype == 4">
+                            <div class="box-wrap" v-bind:style="{color:params.inputnamecolor}">
+                                验证码
+                            </div>
+                            <div class="box-wrap">
+                                <input type="text" autocomplete="off" formname="验证码" v-model="data.identifycode" reg="^[a-zA-Z0-9]{4,6}$" id="code" placeholder="请输入验证码"
+                                    maxlength="6" class="mod-input sms-input">
+
+                                <div class="code-btn-wrap">
+                                    <div class="smscode" type="smscode" id="vCode" :style="{background:params.buttoncolor,color:params.btntextcolor}" v-on:click="msgCode">获取验证码</div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+                <div>
+                    <template v-if="!params.submitflag">
+                        <a class="mod-btn f-28 ui-mt-40 " id="exchange" v-on:click="submit" :style="{background:params.buttoncolor,color:params.btntextcolor}">{{params.buttondes || '立即兑换'}}</a>
+                        <p class="ui-mt-20 ui-ta-c f-24 color-999" :style="{color:params.checkoutPricesColor}"  v-on:click="switchflag">{{params.checkoutPrices || '已经兑换？点击查看红包'}}</p>
+                    </template>
+                </div>
+                <div>
+                    <template v-if="params.submitflag">
+                        <a class="mod-btn f-28 ui-mt-40" id="exchange" v-on:click="checkoutcoupons" :style="{background:params.buttoncolor,color:params.btntextcolor}">立即查看</a>
+                        <p class="ui-mt-20 ui-ta-c f-24 color-999" v-on:click="switchflag">返回兑换红包</p>
+                    </template>
+                </div>
+            </div>
+        </div>
+
+
+    </jybregister>
+
+</template>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<!-- data.state==1 是预约成功-->
+<script class="forMPMExt">
+    var com_ext = {}
+
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+    var com_extend = [{
+
+    }]
+
+</script>
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {
+    };
+
+</script>

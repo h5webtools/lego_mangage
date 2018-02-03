@@ -1,0 +1,144 @@
+<style>
+    .mod-jybwxhkpay-one {
+        line-height: 1.6;
+        color: #333;
+    }
+    
+    .mod-jybwxhkpay-one .mod-prd-desc {
+        background-color: #fff;
+        text-align: center;
+        padding: .6rem 0;
+    }
+    
+    .mod-jybwxhkpay-one .f-30 {
+        font-size: .3rem;
+    }
+    
+    .mod-jybwxhkpay-one .f-45 {
+        font-size: .45rem;
+    }
+    
+    .mod-jybwxhkpay-one .color-333 {
+        color: #333;
+    }
+    
+    .mod-jybwxhkpay-one .ui-mt-20 {
+        margin-top: .2rem;
+    }
+
+    .mod-jybwxhkpay-one .mod-info-line {
+    background-color: #fff;
+    border-top: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+    padding-left: .3rem;
+}
+.mod-jybwxhkpay-one .f-24 {
+    font-size: .24rem;
+}
+.mod-jybwxhkpay-one .ui-mt-20 {
+    margin-top: .2rem;
+}
+.mod-jybwxhkpay-one .ui-bt-n {
+    border-top: none!important;
+}
+.mod-jybwxhkpay-one .ui-bb-n {
+    border-bottom: none!important;
+}
+.mod-jybwxhkpay-one .mod-info-line .info-item {
+    position: relative;
+    width: 100%;
+    display: -webkit-box;
+    -webkit-box-pack: justify;
+    -webkit-box-align: center;
+    border-bottom: 1px solid #e5e5e5;
+    padding: .23rem 0;
+    box-sizing: border-box;
+}
+.mod-jybwxhkpay-one .mod-info-line .info-item .desc-left, .mod-jybwxhkpay-one .mod-info-line .info-item label {
+    display: block;
+    width: 25%;
+    position: relative;
+}
+.mod-jybwxhkpay-one .mod-info-line .info-item .desc-right {
+    -webkit-box-flex: 1;
+    padding-right: .3rem;
+}
+.mod-jybwxhkpay-one .ui-pl-20 {
+    padding-left: .2rem;
+}
+
+.mod-jybwxhkpay-one .comm-padding {
+    padding-left: .36rem;
+    padding-right: .36rem;
+}
+
+.mod-jybwxhkpay-one .f-24 {
+    font-size: .24rem;
+}
+
+.mod-jybwxhkpay-one .ui-mt-30 {
+    margin-top: .3rem;
+}
+
+.mod-jybwxhkpay-one .mod-btn {
+    display: block;
+    background-color: #f60;
+    text-align: center;
+    color: #fff;
+    position: relative;
+    border-radius: 3px;
+    height: .8rem;
+    line-height: .8rem;
+    width: 100%;
+}
+.mod-jybwxhkpay-one .mod-notify span {
+    display: inline-block;
+    padding: 0 .2rem;
+    background-color: #f5f5f5;
+    font-size: .24rem;
+    -webkit-transform: translateY(-50%);
+}
+
+
+</style>
+
+<template class="showTemplate">
+    <jybwxhkpay uid="jybwxhkpay" v-bind:params="data" inline-template>
+        <div class="mod-jybwxhkpay-one">
+            <div class="mod-prd-desc">
+                <dl class="f-30">
+                    <dt>{{params.coupondes}}</dt>
+                    <dd class="f-45 color-333 ui-mt-20"><span id="amount_money">{{params.couponvalue}}</span>元</dd>
+                </dl>
+            </div>
+            <div class="mod-info-line ui-bb-n ui-bt-n ui-mt-20 f-24">
+                <div class="info-item"> <label for="">充值手机号</label>
+                    <div class="desc-right ui-pl-20"> <span id="phone">{{data.tel}}</span> </div>
+                </div>
+                <div class="info-item"> <label for="">充值优惠</label>
+                    <div class="desc-right ui-pl-20"> 立减<span class="color-red">{{params.couponvalue}}元</span> </div>
+                </div>
+            </div>
+            <div class="comm-padding ui-mt-30 f-24">
+                <div class="mod-btn color-fff" id="buy_btn" v-on:click="submitBuy">{{params.btndes}}</div>
+            </div>
+        </div>
+    </jybwxhkpay>
+</template>
+
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExt">
+    var com_ext = {}
+
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+    var com_extend = []
+
+</script>
+
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {};
+
+</script>

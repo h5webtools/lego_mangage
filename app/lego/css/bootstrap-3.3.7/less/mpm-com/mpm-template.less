@@ -1,0 +1,106 @@
+@layout-spacing:10px;
+.home-content{
+    padding-top: 50px;
+    letter-spacing:1.5px;
+    color:#666;
+}
+
+.home-footer{
+    padding: 15px 0;
+    color:#666;
+    font-size: 12px;
+}
+.home-footer ul>li+li:before {
+    padding-right: 10px;
+    color: #ccc;
+    content: "|";
+}
+.mpm-template-wrap {
+    margin: 0 -10px;
+    font-size: 13px;
+    .template-item {
+        position: relative;
+        float: left;
+        width: 20%;
+        padding: 0 @layout-spacing;
+        margin-bottom: 20px;
+    }
+    .template {
+        background-color: #F2F2F2;
+        height: 400px;
+        margin: 0 @layout-spacing;
+    }
+    .template-img {
+        width: 100%;
+        height: auto;
+        border: solid 1px #eee;
+    }
+    .template-desc {
+        height: 70px;
+        display: -webkit-box;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-break: break-all;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 4;
+    }
+    .template-btn-warp {
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        img{
+            vertical-align: top;
+            width: 30px;
+        }
+    }
+    .template-btn {
+        display: block;
+        width: 50%;
+        margin: 25px 0;
+        padding: 5px 0;
+        background-color: @brand-primary;
+        font-size: 14px;
+        transform: translateX(50%);
+        border: none;
+    }
+    .template-btn:hover {
+        background-color: #EE714B;
+        border: none;
+    }
+    .mask {
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 10px;
+        right: 10px;
+        bottom: 70px;
+        background-color: rgba(0,0,0,0.5);
+        text-align: center;
+        transition: opacity 0.5s;
+    }
+    .mask-new {
+        position: absolute;
+        top: 0;
+        left: 10px;
+        right: 10px;
+        bottom: 70px;
+        text-align: center;
+    }
+    .template-item .template-new-btn {
+        display: none;
+        font-size: 18px;
+        color: #ED6C44;
+        line-height: 28px;
+    }
+    
+    @media (min-width: @screen-sm-min){
+        .template-item .template-new-btn {
+            display: inline;
+        }
+    }
+
+    .template-item:hover .mask {
+        opacity: 1;
+    }
+}

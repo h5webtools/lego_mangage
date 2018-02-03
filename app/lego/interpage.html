@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>加油宝活动配置平台</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+	<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+	<META HTTP-EQUIV="Expires" CONTENT="0">
+	<link href="css/bootstrap-3.3.7/bootstrap.css?v=201714" rel="stylesheet" type="text/css">
+</head>
+
+<script>
+	window.LegoPageConfig = {
+		isPower: 0
+	}
+</script>
+
+<body class="yscroll-fix">
+	<div class="navbar navbar-default navbar-fixed-top" id="mpm_nav">
+		<div class="container">
+			<div class="navbar-header">
+				<a href="#" class="navbar-brand">加油宝活动配置平台</a>
+				<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+			            <span class="icon-bar"></span>
+			            <span class="icon-bar"></span>
+			            <span class="icon-bar"></span>
+		          	</button>
+			</div>
+			<div class="navbar-collapse collapse" id="navbar-main">
+				<ul class="nav navbar-nav">
+					<li>
+						<a href="home.html">新建页面</a>
+					</li>
+					<li>
+						<a href="pagelist.html">我的活动</a>
+					</li>
+
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="tools" aria-expanded="false">运营工具 <span class="caret"></span></a>
+						<ul class="dropdown-menu" aria-labelledby="tools">
+							<li>
+								<a href="javascript:;" target="_blank">待开发</a>
+							</li>
+						</ul>
+					</li>
+
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="help" aria-expanded="false">帮助 <span class="caret"></span></a>
+						<ul class="dropdown-menu" aria-labelledby="help">
+							<li>
+								<a href="javascript:;" target="_blank">操作文档(待开发)</a>
+							</li>
+						</ul>
+					</li>
+
+				</ul>
+
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<a href="javascript:;" id="loginout" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="退出登录">
+								<span id="username"></span>
+								<img src="image/icon_exit.png" width="19" />
+							</a>
+					</li>
+				</ul>
+
+			</div>
+		</div>
+	</div>
+
+	<script>
+		var curPage = location.pathname.substr(location.pathname.lastIndexOf("/") + 1);
+		var navItem = document.querySelector("#mpm_nav a[href*='" + curPage + "']");
+		navItem && navItem.parentNode.classList.add('active');
+	</script>
+	<div class="container pt50">
+
+		<!--查询条件-->
+		<div class="row">
+			<div class="col-lg-4">
+				<div class="form-group">
+					<label class="control-label"></label>
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="活动名称/链接/创建人/id" id="inputSearchKey">
+						<span class="input-group-btn">
+	                 		 	<button class="btn btn-primary" type="button" id="searchKeyBtn">查找</button>
+	               			</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--列表-->
+		<div class="row">
+			<div class="col-lg-12">
+				<table class="table table-striped table-hover table-fixed mpm-pagelist">
+					<thead>
+						<tr>
+							<th width="66">分享图</th>
+							<th width="500">活动名称</th>
+							<th width="80">类型</th>
+							<th>最近编辑时间</th>
+							<th>发布时间</th>
+							<th>创建人</th>
+							<th></th>
+							<th width="190">操作</th>
+						</tr>
+					</thead>
+					<tbody id="tbodyList">
+					</tbody>
+				</table>
+
+				<!--分页-->
+				<ul id="ulPagination" class="pagination" style="display:none"></ul>
+
+			</div>
+		</div>
+	</div>
+
+	<footer class="home-footer">
+		<div class="container">
+			<hr>
+			<ul class="list-inline text-center mb0">
+				<li>©加油宝H5开发组</li>
+
+			</ul>
+		</div>
+	</footer>
+
+	<script type="text/template" id="tplTableItem">
+		{{#list}}
+		<tr>
+			<td>
+				<img src="{{page_thumb}}" width="50">
+			</td>
+			<td title="{{page_path}}">
+				<a href="javascript:;" pid="{{page_id}}" page_locker="{{page_locker}}" class="edit">{{page_name}}<br>{{page_path}}</a>
+				<a href="javascript:;" pid="{{page_id}}" ppath="{{page_path}}" class="img-btn copylink" data-clipboard-text="{{page_path}}"><span>复制链接</span><img src="image/pagelist/copy.png" alt="复制链接" /></a>
+			</td>
+			<td>{{page_type_desc}}</td>
+			<td title="{{last_save_erp}} {{page_editdate}}">{{last_save_erp}}<br>{{page_editdate}}</td>
+			<td title="{{last_publish_erp}} {{page_publishdate}}">{{last_publish_erp}}<br>{{page_publishdate}}</td>
+			<td title="{{page_author}}">{{page_author}}</td>
+			<td class="page_locker" title="{{page_locker}}">{{page_locker}}</td>
+			<td>
+				<a href="javascript:;" pid="{{page_id}}" page_locker="{{page_locker}}" class="img-btn edit"><span>编辑</span><img src="image/pagelist/edit.png" alt="编辑" /></a>
+			</td>
+		</tr>
+		{{/list}}
+	</script>
+
+	<script type="text/javascript" src="js/lib/sea.js"></script>
+	<script type="text/javascript" src="js/lib/seajs-text.js"></script>
+	<script type="text/javascript">
+			seajs.use('./js/main.interpage.js?v=20171029', function (m) {
+				m.main()
+			});
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,256 @@
+<style>
+.mod-txauto-wrap .ui-ta-c {
+    text-align: center;
+}
+
+.mod-txauto-wrap .ui-ta-l {
+    text-align: left
+}
+
+.mod-txauto-wrap .ui-vh {
+    visibility: hidden
+}
+
+
+.mod-txauto-wrap .ui-mt-5 {
+    margin-top: .125rem
+}
+
+.mod-txauto-wrap .ui-mr-5 {
+    margin-right: .125rem
+}
+
+.mod-txauto-wrap .ui-mb-5 {
+    margin-bottom: .125rem
+}
+
+
+.mod-txauto-wrap .ui-mt-10 {
+    margin-top: .25rem
+}
+
+.mod-txauto-wrap .ui-mb-10 {
+    margin-bottom: .25rem
+}
+
+
+.mod-txauto-wrap .ui-ml-10 {
+    margin-left: .05rem
+}
+
+
+.mod-txauto-wrap .color-fff {
+    color: #fff;
+}
+
+
+
+.mod-txauto-wrap.f-11 {
+  font-size: .24rem;
+}
+
+
+.mod-txauto-wrap .f-12 {
+    font-size: .3rem;
+}
+
+.mod-txauto-wrap .f-13 {
+    font-size: .325rem
+}
+
+.mod-txauto-wrap .f-14 {
+    font-size: .35rem
+}
+
+.mod-txauto-wrap .f-15 {
+    font-size: .325rem
+}
+
+.mod-txauto-wrap html {
+    font-size: 20px
+}
+
+
+
+
+
+
+
+.mod-txauto-wrap .comm-box {
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center
+}
+
+.mod-txauto-wrap .comm-box.average .comm-box-item {
+    width: 25%
+}
+
+.mod-txauto-wrap .comm-box.top {
+    -webkit-box-align: start
+}
+
+.mod-txauto-wrap .comm-box .comm-box-item {
+    display: block;
+    -webkit-box-flex: 1;
+}
+
+
+
+
+
+.mod-txauto-wrap .mod-btn {
+    display: block;
+    height: .95rem;
+    line-height: .95rem;
+    border-radius: .125rem;
+    box-shadow: inset 0 -.075rem 1px #c8bc41;
+    background: #f0e24f;
+    color: #997d46
+}
+
+
+
+
+
+.mod-txauto-wrap .hover:active {
+    opacity: .9
+}
+
+
+
+.mod-txauto-wrap {
+    padding: 1px .4rem;
+    background: #7bcd68;
+    background: -webkit-gradient(linear,left top,left bottom,color-stop(0,#a1cf4f),color-stop(1,#54ca80));
+    background: -moz-linear-gradient(center top,#a1cf4f 0,#54ca80 100%)
+}
+
+
+
+.mod-txauto-wrap .form-wrap {
+    padding: 0.875rem 0.5rem 1rem;
+    border: 1px solid #8cbc5a;
+    box-shadow: inset 0 0 .25rem #64ad3c;
+    border-radius: .125rem
+}
+
+.mod-txauto-wrap .form-wrap .name {
+    width: 1.5rem;
+}
+
+.mod-txauto-wrap .form-wrap .box {
+    height: 0.68rem;
+    border-radius: .08rem;
+    background: #fff;
+}
+
+.mod-txauto-wrap .form-wrap .box input {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    outline: 0;
+    background: 0 0;
+}
+
+.mod-txauto-wrap .form-wrap .box ::-webkit-input-placeholder {
+    text-align: center;
+    color: #9a9a9a
+}
+
+.mod-txauto-wrap .form-wrap .right {
+    width: 1.6rem
+}
+
+.mod-txauto-wrap .form-wrap .right img {
+    width: 100%;
+    height: 0.68rem
+}
+
+.mod-txauto-wrap .form-wrap .right .mod-btn {
+    padding: .2rem 0
+}
+
+.mod-txauto-wrap .form-wrap .right .mod-btn.btn-disabled {
+    background: #d0d0d0;
+    box-shadow: none
+}
+
+.mod-txauto-wrap .form-wrap .color-red {
+    color: red
+}
+.mod-txauto-wrap .form-wrap .box ::-webkit-input-placeholder {
+	text-align: center;
+	color: #9a9a9a
+}
+
+.mod-txauto-wrap .form-wrap .msgcode{
+    background: #f0e24f;
+    border-radius: .125rem;
+    color: #997d46;
+    line-height: 0.68rem;
+}
+.mod-txauto-wrap .form-wrap .btn_disabled{
+    background-color: #f5f5f5;
+    color: #ccc;
+}
+
+
+
+
+</style>
+
+<!-- , box-shadow:'inset 0 0 .5rem '+ params.innerInsetcolor 
+            border:'1px solid '+ params.bordercolor
+-->
+<template class="showTemplate">
+
+    <jybregister uid="jybregister" v-bind:params="data" inline-template>
+        <div>
+            <template v-if="true">
+                <div class="mod-txauto-wrap f-11" v-bind:style="{background:params.backgroundcolor}"> 
+                    <div class="form-wrap ui-ta-c" v-bind:style="{ boxShadow:'inset 0 0 .5rem '+ params.innerInsetcolor , border:'1px solid '+ params.bordercolor }">
+                        <ul>
+                            
+                            <li class="comm-box ui-mb-10">
+                                <div class="name color-fff ui-ta-l" v-bind:style="{color:params.inputnamecolor}">您的手机号</div>
+                                <div class="comm-box-item box">
+                                    <input type="tel" autocomplete="off" formname="手机号" reg="^1[34785]\d{9}$" id="tel"   v-model="data.phonenumber"  name="tel" maxlength="11" placeholder="请输入您的手机号" class="ui-ta-c  mod-input">
+                                </div>
+                            </li>
+                            <li class="comm-box ui-mb-10">
+                                <div class="name color-fff ui-ta-l" v-bind:style="{color:params.inputnamecolor}">验证码</div>
+                                <div class="comm-box-item box">
+                                     <input type="text" autocomplete="off" formname="验证码" reg="[a-zA-Z0-9]{6}" id="code" v-model="data.identifycode"  name="code" maxlength="6" placeholder="请输入验证码" class="ui-ta-c  mod-input">
+                                </div>
+                                <div class="right ui-ml-10 msgcode" id="vCode" v-on:click="msgCode">获取验证码</div>
+                            </li>
+                        </ul>
+                        <dd class="ui-mb-5 color-fff ui-vh" id="error_text">&nbsp;</dd>
+                        <a class="mod-btn f-15 hover" :style="{background:params.buttoncolor,color:params.btntextcolor,
+                        boxShadow:'inset 0 -.075rem 1px ' + params.btndowninsetcolor}" nodetype="3" v-on:click="submit">{{params.buttondes || '确认领取'}}</a>
+                    </div>
+                </div>
+            </template>
+        </div>
+        
+    </jybregister>
+    
+</template>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<!-- data.state==1 是预约成功-->
+<script class="forMPMExt">
+var com_ext = {}
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+var com_extend = [{
+    
+}]
+</script>
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {
+    };
+</script>

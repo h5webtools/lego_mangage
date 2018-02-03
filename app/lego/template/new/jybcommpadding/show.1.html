@@ -1,0 +1,41 @@
+<style>
+.lego-jybfinanciallist-show1 .content-box-show{
+    height: 0.2rem;
+    background-color: #fff;
+    margin: 0 auto;
+}
+</style>
+
+
+
+<template class="showTemplate">
+    <commontag uid="uid" v-bind:params="data" inline-template>
+        <div class="lego-jybfinanciallist-show1" >
+            <template v-if="true">
+                <div class="content-box-show" v-bind:style="{
+                    borderBottomLeftRadius:params.bottomborder+'rem',borderBottomRightRadius:params.bottomborder+'rem',
+                    width:params.outterwidth+'rem',backgroundColor:params.bgcolor , height:params.conheight+'rem'}">
+                    
+                </div>
+            </template>
+        </div>
+    </commontag>
+</template>
+
+
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExt">
+    var com_ext = {}
+
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+    var com_extend = []
+
+</script>
+
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {};
+
+</script>

@@ -1,0 +1,189 @@
+'use strict';
+
+const Service = require('egg').Service;
+
+class LegoService extends Service {
+  async queryPagesByCondition(condition) {
+    let where = ['page_status=1'],
+      table = 'tb_page',
+      db = this.app.mysql.get('dbLego'),
+      columns = [
+        'p.old_page_path',
+        'p.date_folder',
+        'p.page_id',
+        'p.page_name',
+        'p.page_type',
+        'p.page_path',
+        'p.page_author',
+        'p.page_author,DATE_FORMAT(p.page_createdate ,"%Y-%m-%d %H:%i:%s") as page_createdate',
+        'DATE_FORMAT(p.page_publishdate ,"%Y-%m-%d %H:%i:%s") as page_publishdate',
+        'p.page_thumb',
+        'DATE_FORMAT(p.page_editdate ,"%Y-%m-%d %H:%i:%s") as page_editdate',
+        'p.last_save_erp',
+        'p.last_publish_erp',
+        'p.page_locker',
+        'DATE_FORMAT(p.page_expire_time ,"%Y-%m-%d %H:%i:%s") as page_expire_time',
+      ];
+    if (condition.pageOwner) {
+      where.push(`page_author='${condition.pageOwner}'`);
+    }
+    if (condition.expireTime) {
+      where.push(`page_expire_time like "${condition.expireTime}%"`);
+    }
+    if (condition.createStartTime && condition.createEndTime) {
+      where.push(`page_createdate between '${condition.createStartTime}' and '${condition.createEndTime}'`);
+    }
+    try {
+      const queryResult = await Promise.all([
+        db.query(`select count(*) as total_count from ${table} as p where ${where.join(' and ')}`),
+        db.query(`select ${columns.join(',')} from ${table} as p where ${where.join(' and ')} order by page_editdate DESC limit ${condition.start},${condition.offset}`)
+      ]);
+      return queryResult;
+    } catch (e) {
+      this.ctx.logger.error('按条件查询活动列表失败 ' + e.message);
+      return null;
+    }
+  }
+  /**
+   * @description 查询组件列表
+   * @param {*} ctype 
+   * @param {*} cname 
+   * @param {*} index 
+   * @param {*} size 
+   */
+  async queryComponents(ctype, cname, index, size) {
+    let where = [],
+      whereStr = '',
+      table = 'tb_component',
+      db = this.app.mysql.get('dbLego'),
+      limit = index * size,
+      offset = (index - 1) * size;
+    if (ctype) {
+      where.push(`component_group='${ctype}'`);
+    }
+    if (cname) {
+      where.push(`tb_name='${cname}'`);
+    }
+    whereStr = where.length > 0 ? ' where ' + where.join(' and ') : '';
+    try {
+      const queryResult = await Promise.all([
+        db.query(`select count(*) as total_count from ${table} ${whereStr}`),
+        db.query(`select * from ${table} ${whereStr} order by create_date desc limit ${offset},${limit}`)
+      ]);
+      return queryResult;
+    } catch (e) {
+      this.ctx.logger.error('查询组件列表失败 ' + e.message);
+      return null;
+    }
+  }
+  /**
+   * 查询活动页面配置详情
+   * @param {*} pageId 
+   */
+  async queryPageDetail(pageId) {
+    let baseInfo = await this.app.mysql.get('dbLego').get('tb_page', {
+      page_id: pageId,
+      page_status: 1
+    })
+    return baseInfo;
+  }
+  /**
+   * @description 批量查询
+   * @param {*} pageList 
+   */
+  async queryMultiplePage(pageList) {
+    let multiInfo = await this.app.mysql.get('dbLego').query(`select * from tb_page where page_status=1 and page_id in (${pageList})`)
+    return multiInfo;
+  }
+  /**
+   * @description 获取指定组件ID的样式
+   * @param {*} componentId 
+   */
+  async queryComponentStyle(componentId) {
+    let style = await this.app.mysql.get('dbLego').get('tb_component_style', {
+      component_id: componentId
+    })
+    return style;
+  }
+  /**
+   * @description 按路径查询活动页面信息
+   * @param {*} dirName 
+   * @param {*} dateFolder 
+   */
+  async queryInfoByPath(dirName, dateFolder) {
+    let pathRet = await this.app.mysql.get('dbLego').get('tb_page', {
+      page_path: dirName,
+      date_folder: dateFolder
+    })
+    return pathRet;
+  }
+  /**
+   * @description 新增活动页面
+   * @param {*} data 
+   */
+  async insertPageInfo(data) {
+    this.ctx.logger.info('新增活动页面配置 '+ JSON.stringify(data));
+    let insertData = this.app.mysql.get('dbLego').insert('tb_page', {
+      page_id: data.pageId,
+      page_name: data.actName,
+      page_path: data.folder,
+      date_folder: data.dateFolder,
+      page_expire_time: data.expireTime,
+      page_expire_url: data.expireUrl,
+      page_type: data.type,
+      page_author: data.author,
+      page_createdate: data.createTime,
+      share_img_url: data.shareImage,
+      share_title: data.shareTitle,
+      share_desc: data.shareDesc,
+      page_extra: data.extra
+    })
+    return insertData;
+  }
+  async updatePageInfo(data) {
+    let result = await this.app.mysql.get('dbLego').query(`update tb_page set 
+      page_content='${data.pageContent}', page_editdate='${data.updateTime}', last_save_erp='${data.user}'
+      where page_id=${data.pageId}`);
+    return result.affectedRows === 1;
+  }
+  async updateBaseInfo(data){
+    let result = await this.app.mysql.get('dbLego').query(`update tb_page set 
+      page_path='${data.folder}',
+      page_name='${data.pageName}', old_page_path='${data.oldUrl}', page_type='${data.pageType}',
+      page_expire_time='${data.expireTime}', page_expire_url='${data.expireUrl}', share_img_url='${data.shareImage}',
+      share_title='${data.shareTitle}', share_desc='${data.shareDesc}', page_extra='${data.extra}'  
+      where page_id=${data.pageId}`);
+    return result.affectedRows === 1;
+  }
+  /**
+   * @description  按时间查询公告
+   * @param {*} time 
+   */
+  async queryLegoNotice(time) {
+    let result = await this.app.mysql.get('dbLego').query(`select * from tb_gonggao 
+      where 
+      begin <= '${time}' 
+      and 
+      end >= '${time}' 
+      limit 1`);
+    return result;
+  }
+  /**
+   * @description 插入拷贝的pageId
+   * @param {*} pageId 
+   * @param {*} folder 
+   * @param {*} dateFolder 
+   */
+  async insertCopyPage(pageId, folder, dateFolder, time) {
+    let insertRet = await this.app.mysql.get('dbLego').query(`INSERT INTO tb_page(page_type, page_name, page_path,
+        share_img_url,share_title,share_desc,page_expire_time, 
+        page_expire_url,page_bgcolor,page_content,
+        page_thumb,page_addition,date_folder, 
+        page_author,page_createdate) (SELECT tp.page_type, tp.page_name, '${folder}', share_img_url, share_title, share_desc,
+        tp.page_expire_time, tp.page_expire_url, tp.page_bgcolor, tp.page_content, tp.page_thumb, tp.page_addition, '${dateFolder}',
+        '${this.ctx.session.userAccount}', '${time}' FROM tb_page AS tp WHERE page_id=${pageId})`);
+    return insertRet;
+  }
+}
+
+module.exports = LegoService;
