@@ -16,6 +16,13 @@ const templateList = () => import(/* webpackChunkName: "templateList" */ '../pag
 const systemSync = () => import(/* webpackChunkName: "systemSync" */ '../pages/system/sync/listApp.vue');
 const ConfigTreeLego = () => import(/* webpackChunkName: "ConfigTreeLego" */ '../pages/template/chaintpllego/chainApp.vue');
 
+const legoComponents = () => import(/* webpackChunkName: "legoComponents" */ '../pages/lego/components/listApp.vue');
+const legoPages = () => import(/* webpackChunkName: "legoPages" */ '../pages/lego/pages/listApp.vue');
+const legoComponentStyles = () => import(/* webpackChunkName: "legoComponentStyles" */ '../pages/lego/cstyles/listApp.vue');
+
+
+
+
 Vue.use(Router);
 
 const routes = [
@@ -94,6 +101,30 @@ const routes = [
         }]
       }
     ]
+  },
+  {
+    path: '/lego',
+    name: 'legoFE',
+    title: '乐高资源管理',
+    component: Layout,
+    redirect: '/lego/pageList',
+    children: [{
+      path: '/lego/pageList',
+      name: 'pageList',
+      title: '乐高页面列表',
+      component: legoPages
+    }, {
+      path: '/lego/componentList',
+      name: 'componentList',
+      title: '乐高组件集合',
+      component: legoComponents,
+      children: [{
+        path: '/lego/componentStyleList/:componentId',
+        name: 'componentStyleList',
+        title: '乐高组件样式集合',
+        component: legoComponentStyles
+      }]
+    }]
   },
   {
     path: '/system',

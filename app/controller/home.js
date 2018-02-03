@@ -55,12 +55,16 @@ class HomeController extends Controller {
         // }
       ]
       }, {   
-        menu_name: '组件管理',
+        menu_name: '乐高资源管理',
         icon: 'glyphicon glyphicon-list-alt',
         children: [{
-          menu_name: '乐高组件列表',
-          menu_url: '/component/list',
-          menu_id: '301'
+          menu_name: '乐高页面列表',
+          menu_url: '/lego/pageList',
+          menu_id: '701'
+        }, {
+          menu_name: '乐高组件集合',
+          menu_url: '/lego/componentList',
+          menu_id: '702'
         }]
       }, {   
         menu_name: '活动入口配置',

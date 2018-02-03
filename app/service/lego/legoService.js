@@ -62,13 +62,17 @@ class LegoService extends Service {
       where.push(`component_group='${ctype}'`);
     }
     if (cname) {
-      where.push(`tb_name='${cname}'`);
+      where.push(`path_key like '%${cname}%'`);
     }
     whereStr = where.length > 0 ? ' where ' + where.join(' and ') : '';
     try {
       const queryResult = await Promise.all([
         db.query(`select count(*) as total_count from ${table} ${whereStr}`),
-        db.query(`select * from ${table} ${whereStr} order by create_date desc limit ${offset},${limit}`)
+        db.query(`select id,tb_name,tb_desc,path_key,
+                  tb_thumb,tb_group,DATE_FORMAT(create_date ,"%Y-%m-%d %H:%i:%s") as create_date,
+                  DATE_FORMAT(edit_date ,"%Y-%m-%d %H:%i:%s") as edit_date,
+                  component_group 
+                  from ${table} ${whereStr} order by create_date desc limit ${offset},${limit}`)
       ]);
       return queryResult;
     } catch (e) {
@@ -100,9 +104,11 @@ class LegoService extends Service {
    * @param {*} componentId 
    */
   async queryComponentStyle(componentId) {
-    let style = await this.app.mysql.get('dbLego').get('tb_component_style', {
-      component_id: componentId
-    })
+    let style = await this.app.mysql.get('dbLego').query(`
+            select *,
+            DATE_FORMAT(create_date ,"%Y-%m-%d %H:%i:%s") as create_date, 
+            DATE_FORMAT(edit_date ,"%Y-%m-%d %H:%i:%s") as edit_date 
+            from tb_component_style where component_id='${componentId}'`)
     return style;
   }
   /**
@@ -183,6 +189,46 @@ class LegoService extends Service {
         tp.page_expire_time, tp.page_expire_url, tp.page_bgcolor, tp.page_content, tp.page_thumb, tp.page_addition, '${dateFolder}',
         '${this.ctx.session.userAccount}', '${time}' FROM tb_page AS tp WHERE page_id=${pageId})`);
     return insertRet;
+  }
+
+  /**
+   * @description 插入新的组件
+   * @param {*} data Object
+   */
+  async insertComponent(data) {
+    let insertRet = await this.app.mysql.get('dbLego').query(`INSERT INTO tb_component (
+        tb_name, tb_desc, path_key, tb_thumb, create_date, edit_date, create_by, component_group) VALUES
+         ('${data.modname}', '${data.moddesc}', '${data.modpathkey}', '${data.modthumb}', '${data.createTime}',
+          '${data.createTime}', '${data.creator}', '${data.modgroupzu}')`);
+    return insertRet;
+  }
+
+  /**
+   * @description 插入组件样式
+   * @param {*} data Object
+   */
+  async insertComponentStyle(data) {
+    let insertRet = await this.app.mysql.get('dbLego').query(`INSERT INTO tb_component_style (
+        component_id, tpl_url, com_desc, image, priority, create_date, edit_date, create_by) VALUES 
+        (${data.component_id}, '${data.tpl_url}', '${data.com_desc}', '${data.image}', '${data.priority}',
+        '${data.createTime}', '${data.createTime}', '${data.creator}')`);
+    return insertRet;
+  }
+
+  async updateComponent(data) {
+    let updateRet = await this.app.mysql.get('dbLego').query(`UPDATE tb_component SET 
+        tb_name='${data.modname}', tb_desc='${data.moddesc}', path_key='${data.modpathkey}',
+        tb_thumb='${data.modthumb}', edit_by='${data.user}', 
+        component_group='${data.modgroupzu}', edit_date='${data.currentTime}' WHERE id='${data.uniqueid}'`);
+    return updateRet;
+  }
+
+  async updateComponentStyle(data) {
+    let updateRet = await this.app.mysql.get('dbLego').query(`UPDATE tb_component_style SET 
+        tpl_url='${data.tpl_url}', com_desc='${data.com_desc}', image='${data.image}',
+        priority='${data.priority}', edit_date='${data.currentTime}', 
+        edit_by='${data.user}' WHERE id='${data.id}' AND component_id='${data.component_id}'`);
+    return updateRet;
   }
 }
 

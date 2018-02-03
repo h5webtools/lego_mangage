@@ -331,9 +331,17 @@ class LegoController extends Controller {
       this.ctx.logger.info('获取选定组件的样式列表 '+ componentId);
       try {
         let styleInfo = await this.service.lego.legoService.queryComponentStyle(componentId);
-        this.ctx.body = {
-          code: 0,
-          data: styleInfo
+        if(styleInfo) {
+          this.ctx.logger.info('查询结果 '+ JSON.stringify(styleInfo));
+          this.ctx.body = {
+            code: 0,
+            data:  styleInfo instanceof Array ? styleInfo : [styleInfo]
+          }
+        } else {
+          this.ctx.body = {
+            code: QUERY_DATABASE_FAILED,
+            data: '查询组件的样式列表失败'
+          }
         }
       } catch(e) {
         this.ctx.logger.error('查询组件样式失败 '+ e.message);
@@ -341,6 +349,147 @@ class LegoController extends Controller {
           code: QUERY_DATABASE_FAILED,
           msg: '查询数据库失败'+e.message
         }
+      }
+    }
+  }
+  /**
+   * @description 保存组件
+   */
+  async saveComponent() {
+    let raw = this.ctx.request.rawBody;
+    let checkKeys = ['modname','moddesc','modpathkey', 'modthumb', 'modgroup'];
+    let match = checkKeys.some(key => {
+      return raw[key] != '';
+    })
+    if(!match) {
+      return this.ctx.body = errCode.INVALID_PARAM_FORMAT;
+    }
+    this.ctx.logger.info('保存组件信息'+ JSON.stringify(raw));
+    try {
+      raw.createTime = await this.ctx.helper.dateFormat('yyyy-MM-dd hh:mm:ss', new Date());
+      raw.creator = this.ctx.session.userAccount;
+      let insertRet = await this.service.lego.legoService.insertComponent(raw);
+      if(insertRet) {
+        this.ctx.body = {
+          code: 0,
+          data: {
+            component_id: insertRet.insertId
+          }
+        }
+      } else {
+        this.ctx.body = {
+          code: INSERT_DATA_FAILED,
+          msg: '新增组件失败'
+        }
+      }
+    } catch(e) {
+      this.ctx.logger.error('插入新组件失败'+ e.message);
+      this.ctx.body = {
+        code: INSERT_DATA_FAILED,
+        msg: '新增组件失败'+ e.message
+      }
+    }
+  }
+  
+  /**
+   * @description 保存组件样式
+   */
+  async saveComponentStyle() {
+    let raw = this.ctx.request.rawBody;
+    if(!raw.com_desc || !raw.image) {
+      return this.ctx.body = errCode.INVALID_PARAM_FORMAT;
+    }
+    raw.createTime = await this.ctx.helper.dateFormat('yyyy-MM-dd hh:mm:ss', new Date());
+    raw.creator = this.ctx.session.userAccount;
+    this.ctx.logger.info('插入组件样式' + JSON.stringify(raw));
+    try {
+      let insertRet = await this.service.lego.legoService.insertComponentStyle(raw);
+      if(insertRet) {
+        this.ctx.body = {
+          code: 0,
+          data: {
+            style_id: insertRet.insertId
+          }
+        }
+      } else {
+        this.ctx.body = {
+          code: INSERT_DATA_FAILED,
+          msg: '新增组件样式失败'
+        }
+      }
+    } catch(e) {
+      this.ctx.logger.error('插入组件样式失败'+ e.message);
+      this.ctx.body = {
+        code: INSERT_DATA_FAILED,
+        msg: e.message
+      }
+    }
+  }
+  /**
+   * @description 更新组件
+   */
+  async updateComponent() {
+    let raw = this.ctx.request.rawBody;
+    let checkKeys = ['modname','moddesc','modpathkey', 'modthumb', 'modgroup'];
+    let match = checkKeys.some(key => {
+      return raw[key] != '';
+    })
+    if(!match) {
+      return this.ctx.body = errCode.INVALID_PARAM_FORMAT;
+    }
+    raw.user = this.ctx.session.userAccount;
+    raw.currentTime = await this.ctx.helper.dateFormat('yyyy-MM-dd hh:mm:ss', new Date());
+    this.ctx.logger.info('更新组件'+ JSON.stringify(raw));
+    try {
+      let updateRet = await this.service.lego.legoService.updateComponent(raw);
+      if(updateRet) {
+        this.ctx.body = {
+          code: 0,
+          msg: 'success'
+        }
+      } else {
+        this.ctx.body = {
+          code: UPDATE_DATA_FAILED,
+          msg: '更新组件失败'
+        }
+      }
+    } catch(e) {
+      this.ctx.logger.error('更新组件失败' + e.message);
+      this.ctx.body = {
+        code: UPDATE_DATA_FAILED,
+        msg: '更新组件失败' + e.message
+      }
+    }
+  }
+  
+  /**
+   * @description 更新组件样式
+   */
+  async updateComponentStyle() {
+    let raw = this.ctx.request.rawBody;
+    if(!raw.com_desc || !raw.image) {
+      return this.ctx.body = errCode.INVALID_PARAM_FORMAT;
+    }
+    raw.currentTime = await this.ctx.helper.dateFormat('yyyy-MM-dd hh:mm:ss', new Date());
+    raw.user = this.ctx.session.userAccount;
+    this.ctx.logger.info('更新组件样式' + JSON.stringify(raw));
+    try {
+      let updateRet = await this.service.lego.legoService.updateComponentStyle(raw);
+      if(updateRet) {
+        this.ctx.body = {
+          code: 0
+        }
+      } else {
+        this.ctx.body = {
+          code: UPDATE_DATA_FAILED,
+          msg: '更新组件样式失败'
+        }
+      }
+    } catch(e) {
+      this.ctx.logger.error('更新组件样式失败'+ e.message);
+      this.ctx.body = {
+        code: UPDATE_DATA_FAILED,
+        msg: e.message
       }
     }
   }

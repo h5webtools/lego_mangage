@@ -24,4 +24,12 @@ module.exports = app => {
   app.router.post('/lego/getLegoNotice', app.controller.lego.index.getLegoNotice);
   // 拷贝新页面
   app.router.post('/lego/copyPage', app.controller.lego.index.copyPage);
+  // 保存乐高组件
+  app.router.post('/lego/saveComponent', app.controller.lego.index.saveComponent);
+  // 保存乐高组件样式
+  app.router.post('/lego/saveComponentStyle', app.controller.lego.index.saveComponentStyle);
+  // 更新乐高组件
+  app.router.post('/lego/updateComponent', app.controller.lego.index.updateComponent);
+  // 更新乐高组件样式
+  app.router.post('/lego/updateComponentStyle', app.controller.lego.index.updateComponentStyle);
 };
