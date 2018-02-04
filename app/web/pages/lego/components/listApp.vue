@@ -18,18 +18,18 @@
       </el-form>
       <el-table  :data="tableData" v-loading="listLoading" stripe border highlight-current-row>
         <el-table-column prop="id" label="组件ID" width="90"></el-table-column>
-        <el-table-column prop="path_key" label="组件关键字" width="180"></el-table-column>
-        <el-table-column prop="tb_name" label="组件名称" width="180"></el-table-column>
-        <el-table-column  label="组件缩略图" width="160">
+        <el-table-column prop="path_key" label="组件关键字" min-width="130"></el-table-column>
+        <el-table-column prop="tb_name" label="组件名称" min-width="140"></el-table-column>
+        <el-table-column  label="组件缩略图" width="120">
           <template slot-scope="scope">
             <img :src="scope.row.tb_thumb"/>
           </template>
         </el-table-column>
-        <el-table-column prop="component_group" :formatter="filterComTypeText" label="组件类型" width="140"></el-table-column>
-        <el-table-column prop="create_date" label="创建时间" width="220"></el-table-column>
-        <el-table-column prop="edit_date" label="编辑时间" width="220"></el-table-column>
-        <el-table-column prop="tb_desc" label="组件描述" width="240"></el-table-column>
-        <el-table-column  label="操作" >
+        <el-table-column prop="component_group" :formatter="filterComTypeText" label="组件类型" width="100"></el-table-column>
+        <el-table-column prop="create_date" label="创建时间" min-width="150"></el-table-column>
+        <el-table-column prop="edit_date" label="编辑时间" min-width="150"></el-table-column>
+        <el-table-column prop="tb_desc" label="组件描述" min-width="130"></el-table-column>
+        <el-table-column label="操作" >
           <template slot-scope="scope">
             <el-button @click="editCom(scope.row)" type="text">修改组件</el-button>
             <router-link :to="{name:'componentStyleList', params: {componentId:scope.row.id}}">
@@ -74,9 +74,6 @@
 <script>
 import * as paramQuery from "api/api_lego_component";
 export default {
-  components: {
-    paramQuery
-  },
   data() {
     var validateComKey = (rule, value, callback) => {
       var patter = /^[a-z]*$/g;

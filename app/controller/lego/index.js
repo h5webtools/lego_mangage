@@ -236,21 +236,24 @@ class LegoController extends Controller {
         pageOwner = rawBody.pageOwner,          // 页面作者
         pageSize = rawBody.pageSize,            // 每页查询数量
         pageName = rawBody.pageName,            // 活动名称
-        createStartTime = rawBody.create_start_time,          // 创建时间
-        createEndTime = rawBody.create_end_time,          // 创建时间
+        pageType = rawBody.pageType,            // 页面模板类型
+        createRange = rawBody.createRange,          // 创建时间范围
         expireTime = rawBody.expireTime,
+        createStartTime = '',
+        createEndTime = '',
         count = 0;
-    if(createStartTime) {
-      createStartTime += ' 00:00:00';
-    }
-    if(createEndTime) {
-      createEndTime += ' 23:59:59';
+    // 按时间范围筛选
+    if(createRange && createRange.length > 1) {
+      createStartTime = createRange[0] + ' 00:00:00';
+      createEndTime = createRange[0] + ' 23:59:59';
     }
     let queryCondition = {
       pageSize,
       pageOwner,
       createStartTime,
       createEndTime,
+      pageType,
+      pageName,
       expireTime,
       start: (pageIndex -1) * pageSize,
       offset: pageIndex * pageSize
@@ -266,7 +269,9 @@ class LegoController extends Controller {
         code: 0,
         data: {
           total_count: queryRet[0][0].total_count,
-          page_list: queryRet[1]
+          page_list: queryRet[1],
+          current_user: pageOwner,
+          hasPermission: this.ctx.session.userAccount === pageOwner
         }
       }
     }

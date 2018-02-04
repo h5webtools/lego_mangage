@@ -93,7 +93,8 @@ class HomeController extends Controller {
       }]),
       userInfo: JSON.stringify({
         userid: this.ctx.session.userid,
-        userName: this.ctx.session.userName
+        userName: this.ctx.session.userName,
+        userAccount: this.ctx.session.userAccount
       })
     });
   }

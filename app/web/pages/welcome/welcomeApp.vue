@@ -1,4 +1,4 @@
 <template>
-  <div>小贷管理系统</div>
+  <div>乐高活动管理系统</div>
 </template>
 

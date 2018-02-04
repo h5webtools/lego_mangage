@@ -2,21 +2,21 @@
   <div>
     <el-button type="success" @click="addNewCom('rule')"><i class="glyphicon glyphicon-plus"></i>新增样式</el-button>
     <el-table class="martop10" :data="tableData" v-loading="listLoading" stripe border highlight-current-row>
-      <el-table-column  label="demo图片" width="300">
+      <el-table-column  label="demo图片" min-width="200">
         <template slot-scope="scope">
           <img width="200px"  :src="scope.row.image"/>
         </template>
       </el-table-column>
       <el-table-column prop="component_id" label="组件ID" width="90"></el-table-column>
-      <el-table-column prop="tpl_url" label="样式模板地址" width="380">
+      <el-table-column prop="tpl_url" label="样式模板地址" min-width="200">
         <template slot-scope="props">
           <span>{{props.row.tpl_url.replace('http://act.jtjr.com/martpagemaker', '')}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="priority" label="优先级" width="100"></el-table-column>
-      <el-table-column prop="com_desc" label="组件描述" width="240"></el-table-column>
-      <el-table-column prop="create_date" label="创建时间" width="220"></el-table-column>
-      <el-table-column prop="edit_date" label="编辑时间" width="220"></el-table-column>
+      <el-table-column prop="com_desc" label="组件描述" min-width="140"></el-table-column>
+      <el-table-column prop="create_date" label="创建时间" min-width="140"></el-table-column>
+      <el-table-column prop="edit_date" label="编辑时间" min-width="140"></el-table-column>
       <el-table-column  label="操作" >
         <template scope="scope">
           <el-button @click="editCom(scope.row)" type="text" size="small">修改样式</el-button>
@@ -49,9 +49,6 @@
 import * as paramQuery from "api/api_lego_component";
 import * as util from "assets/js/util";
 export default {
-  components: {
-    paramQuery
-  },
   data() {
     var validateComKey = (rule, value, callback) => {
       var patter = /^[a-z]*$/g;
