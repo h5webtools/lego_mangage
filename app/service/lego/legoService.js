@@ -145,7 +145,8 @@ class LegoService extends Service {
       share_img_url: data.shareImage,
       share_title: data.shareTitle,
       share_desc: data.shareDesc,
-      page_extra: data.extra
+      page_extra: data.extra,
+      page_act_id: data.actId
     })
     return insertData;
   }

@@ -15,28 +15,40 @@ class HomeController extends Controller {
       description: '加油宝乐高管理系统',
       title: '乐高管理系统',
       menuList: JSON.stringify([{   // TODO 这个菜单从运营系统获取
-        menu_name: '活动管理',
-        icon: 'glyphicon glyphicon-th-list',
+        menu_name: '活动配置管理',
+        icon: 'iconfont icon-lihe',
         children: [{
           menu_name: '活动列表',
           menu_url: '/act/list',
-          menu_id: '101'
+          menu_id: '101',
         }, {
           menu_name: '新增活动',
           menu_url: '/act/edit',
-          menu_id: '102'
+          menu_id: '102',
         }, {
           menu_name: '命令字管理',
           menu_url: '/act/cmdList',
-          menu_id: '103'
+          menu_id: '103',
         }, {
           menu_name: '规则/动作管理',
           menu_url: '/act/paramsList',
-          menu_id: '104'
+          menu_id: '104',
+        }]
+      }, {   
+        menu_name: '页面配置管理',
+        icon: 'iconfont icon-wenjian',
+        children: [{
+          menu_name: '乐高页面列表',
+          menu_url: '/lego/pageList',
+          menu_id: '701',
+        }, {
+          menu_name: '乐高组件集合',
+          menu_url: '/lego/componentList',
+          menu_id: '702',
         }]
       }, {  
-        menu_name: '模板管理',
-        icon: 'glyphicon glyphicon-copy',
+        menu_name: '组件模板管理',
+        icon: 'iconfont icon-guanzhu',
         children: [
         //   {
         //   menu_name: '活动模板',
@@ -46,7 +58,7 @@ class HomeController extends Controller {
         {
           menu_name: '规则树模板',
           menu_url: '/template/templateList',
-          menu_id: '202'
+          menu_id: '202',
         }
         // , {
         //   menu_name: '新增规则模板',
@@ -55,40 +67,28 @@ class HomeController extends Controller {
         // }
       ]
       }, {   
-        menu_name: '乐高资源管理',
-        icon: 'glyphicon glyphicon-list-alt',
-        children: [{
-          menu_name: '乐高页面列表',
-          menu_url: '/lego/pageList',
-          menu_id: '701'
-        }, {
-          menu_name: '乐高组件集合',
-          menu_url: '/lego/componentList',
-          menu_id: '702'
-        }]
-      }, {   
         menu_name: '活动入口配置',
-        icon: 'glyphicon glyphicon-tasks',
+        icon: 'iconfont icon-ziyouhuodong',
         children: [{
           menu_name: '入口配置列表',
           menu_url: '/entry/list',
-          menu_id: '401'
+          menu_id: '401',
         }, {
           menu_name: '新增入口配置',
           menu_url: '/entry/new',
-          menu_id: '402'
+          menu_id: '402',
         }, {
           menu_name: '入口审批列表',
           menu_url: '/entry/audit',
-          menu_id: '403'
+          menu_id: '403',
         }]
       }, {
         menu_name: '系统设置',
-        icon: 'glyphicon glyphicon-wrench',
+        icon: 'iconfont icon-shezhi',
         children: [{
           menu_name: '同步配置',
           menu_url: '/system/sync',
-          menu_id: '501'
+          menu_id: '501',
         }]
       }]),
       userInfo: JSON.stringify({

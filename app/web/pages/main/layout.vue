@@ -1,9 +1,12 @@
 <template>
   <div class="layout-main">
-    <aside class="aside-wrap">
-      <el-menu unique-opened mode="vertical" background-color="#545c64"
-          text-color="#fff"
-          active-text-color="#ffd04b" :default-active="$route.path">
+    <aside class="aside-wrap" :class="{fold: menuFolded}">
+      <div class="logo">
+        <router-link to="/welcome"><img src="../../assets/img/logo.png"/></router-link>
+      </div>
+      <el-menu unique-opened mode="vertical" background-color="#fff"
+          text-color="#666"
+          active-text-color="#46a0fc" :default-active="$route.path">
         <sidebar-item :menusList="menuList"></sidebar-item>
       </el-menu>
     </aside>
@@ -11,6 +14,9 @@
       <header class="app-header">
         <el-row>
           <el-col :span="12">
+            <span class="toggle" @click="toggleMenu">
+              <i class="glyphicon glyphicon-align-justify"></i>
+            </span>
             <el-breadcrumb separator-class="el-icon-arrow-right">
               <el-breadcrumb-item v-for="(item,index)  in levelList" :key="index">
                 <router-link v-if='item.redirect==="noredirect"||index==levelList.length-1' to="" class="no-redirect">{{item.meta.title}}</router-link>
@@ -23,7 +29,7 @@
               <span class="el-dropdown-link">
                 {{userInfo.userName}}<i class="el-icon-arrow-down el-icon--right"></i>
               </span>
-              <el-dropdown-menu slot-scope="dropdown">
+              <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item><a href="/login/loginOut">退出登录</a></el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
@@ -50,6 +56,7 @@ export default {
       menuList: window.menuData,
       isCollapse: false,
       levelList: [],
+      menuFolded: false,
       userInfo: window.userInfo
     }
   },
@@ -57,6 +64,9 @@ export default {
     this.getBreadcrumb()
   },
   methods: {
+    toggleMenu() {
+      this.menuFolded = !this.menuFolded;
+    },
     getBreadcrumb() {
       let matched = this.$route.matched.filter(item => item.meta.title);
       const first = matched[0];

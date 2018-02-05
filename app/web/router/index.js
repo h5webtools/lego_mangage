@@ -15,13 +15,9 @@ const templateConfigTree = () => import(/* webpackChunkName: "templateConfigTree
 const templateList = () => import(/* webpackChunkName: "templateList" */ '../pages/template/list/listApp.vue');
 const systemSync = () => import(/* webpackChunkName: "systemSync" */ '../pages/system/sync/listApp.vue');
 const ConfigTreeLego = () => import(/* webpackChunkName: "ConfigTreeLego" */ '../pages/template/chaintpllego/chainApp.vue');
-
 const legoComponents = () => import(/* webpackChunkName: "legoComponents" */ '../pages/lego/components/listApp.vue');
 const legoPages = () => import(/* webpackChunkName: "legoPages" */ '../pages/lego/pages/listApp.vue');
 const legoComponentStyles = () => import(/* webpackChunkName: "legoComponentStyles" */ '../pages/lego/cstyles/listApp.vue');
-
-
-
 
 Vue.use(Router);
 
@@ -45,7 +41,7 @@ const routes = [
   {
     path: '/act',
     name: 'act',
-    title: '活动管理',
+    title: '活动配置管理',
     component: Layout,
     redirect: '/act/list',
     children: [{
@@ -85,7 +81,7 @@ const routes = [
   {
     path: '/template',
     name: 'template',
-    title: '模板管理',
+    title: '组件模板管理',
     component: Layout,
     redirect: '/template/templateList',
     children: [{
@@ -105,7 +101,7 @@ const routes = [
   {
     path: '/lego',
     name: 'legoFE',
-    title: '乐高资源管理',
+    title: '页面配置管理',
     component: Layout,
     redirect: '/lego/pageList',
     children: [{

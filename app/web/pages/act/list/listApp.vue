@@ -74,8 +74,8 @@
             <div style="margin-top:30px;">
                 <el-steps direction="vertical" space='80px' :active='1'>
                   <el-step size='small' icon="el-icon-info" :key="index" v-for="(item,index) in logData[props.row.act_id]">
-                    <span slot-scope="title">{{item.changeTime+'&emsp;&emsp;'+item.user_name+'&emsp;&emsp;'+item.opt_time}}</span>
-                    <span slot-scope="description">{{item.description}}</span>
+                    <span slot="title">{{item.changeTime+'&emsp;&emsp;'+item.user_name+'&emsp;&emsp;'+item.opt_time}}</span>
+                    <span slot="description">{{item.description}}</span>
                   </el-step>
                 </el-steps>
             </div>
@@ -101,7 +101,7 @@
               <span class="el-dropdown-link color-primary" style="font-size:12px;">
                 操作菜单<i class="el-icon-arrow-down el-icon--right"></i>
               </span>
-              <el-dropdown-menu slot-scope="dropdown">
+              <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item>
                   <router-link :to="{name:'actEdit', params: {act_id:props.row.act_id, status:props.row.status}}">编辑活动</router-link>
                 </el-dropdown-item>
@@ -182,7 +182,7 @@
               <el-input v-model="testResult.remark"></el-input>
           </el-form-item>
         </el-form>
-        <span slot-scope="footer" class="dialog-footer">
+        <span slot="footer" class="dialog-footer">
           <el-button @click="resetTestResut('testResult')">暂不提交</el-button>
           <el-button type="primary" @click="submitTestResult('testResult')">确认提交</el-button>
         </span>

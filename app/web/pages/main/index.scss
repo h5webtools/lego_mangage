@@ -13,19 +13,49 @@
   .aside-wrap {
     width: 200px;
     min-height: 100vh;
-    background-color: #545c64;
+    background-color: #fff;
     overflow-x: hidden;
-    // flex-grow: 0;
     transition: all 0.3s ease;
+    color: #666666;
+    border-right: 1px solid #f5f5f5;
+    transition: all 0.2s ease;
+    &.fold {
+      width: 50px;
+      padding: 0;
+      .logo {
+        display: none;
+      }
+      .el-submenu__title {
+        font-size: 0;
+        i {
+          font-size: 14px;
+        }
+        .el-submenu__icon-arrow {
+          display: none;
+        }
+      }
+      .el-submenu {
+        .el-menu {
+          display: none;
+        }
+      }
+    }
+    .logo {
+      text-align: center;
+      padding: 20px;
+    }
     .el-menu {
       border-right: 0;
-      .glyphicon {
-        vertical-align: baseline;
-        margin-right: 5px;
-        width: 24px;
-        text-align: center;
-        color: #fff;
-        top: 2px;
+      .iconfont {
+        color: #999;
+        margin-right: 4px;
+        position: relative;
+        top: -1px;
+      }
+      .el-menu-item.is-active {
+        .iconfont {
+          color: #409EFF;
+        }
       }
     }
     .menu-indent {
@@ -44,6 +74,15 @@
       padding: 0 20px;
       font-size: 0;
       box-sizing: border-box;
+      .toggle {
+        font-size: 16px;
+        color: #999;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 10px;
+        transform: rotate(90deg);
+        cursor: pointer;
+      }
       .el-breadcrumb {
         display: inline-block;
         vertical-align: middle;

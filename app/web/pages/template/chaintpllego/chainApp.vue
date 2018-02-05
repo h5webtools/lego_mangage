@@ -82,7 +82,7 @@
           </el-button>
         </div>
       </div>
-      <div slot-scope="footer" class="dialog-footer">
+      <div slot="footer" class="dialog-footer">
         <el-button size='small' @click="cancelEdit">取 消</el-button>
         <el-button size='small' type="primary" @click="confirmEdit">确 定</el-button>
       </div>
@@ -97,7 +97,7 @@
           </pre>
         </el-col>
       </el-row>
-      <div slot-scope="footer" class="dialog-footer">
+      <div slot="footer" class="dialog-footer">
         <el-button size='small' @click="cancleChainsTpl">取 消</el-button>
         <el-button size='small' type="primary" @click="confirmChainsTpl">确 定</el-button>
       </div>
@@ -111,7 +111,7 @@
           <el-input  :spellcheck="false"   v-model="chainsTplData.configData" auto-complete="off"  type="textarea" :autosize="{ minRows: 20}"></el-input>
         </el-form-item>
       </el-form>
-      <div slot-scope="footer" class="dialog-footer">
+      <div slot="footer" class="dialog-footer">
         <el-button size='small' @click="cancleImportChainsTpl">取 消</el-button>
         <el-button size='small' type="primary" @click="confirmImportChainsTpl">确 定</el-button>
       </div>

@@ -211,6 +211,7 @@ class LegoController extends Controller {
         shareTitle: raw.shareTitle,
         shareDesc: raw.shareDesc,
         type: raw.type,
+        actId: raw.actId,
         createTime: now,
         extra: raw.extraData ? JSON.stringify(raw.extraData) : '',
       });

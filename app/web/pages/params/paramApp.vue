@@ -160,7 +160,7 @@
           </el-select>
         </el-form-item>
       </el-form>
-      <span slot-scope="footer" class="dialog-footer">
+      <span slot="footer" class="dialog-footer">
         <el-button @click="cancelAddRA">取 消</el-button>
         <el-button type="primary" @click="confirmAddRA">确 定</el-button>
       </span>
