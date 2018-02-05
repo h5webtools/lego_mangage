@@ -1,7 +1,7 @@
 <template>
   <div class="martop20">
     <el-form :inline="true" label-width="130px">
-      <el-form-item label="活动作者：">
+      <el-form-item label="活动创建人：">
         <el-input placeholder="请输入" v-model="queryData.pageOwner"/>
       </el-form-item>
       <el-form-item label="活动名称：">

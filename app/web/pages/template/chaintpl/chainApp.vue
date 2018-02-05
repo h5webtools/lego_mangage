@@ -94,20 +94,29 @@
       </div>
       <div class="martop10" v-for="(param, index) in dialogData.params" :key="index">     
         <el-form v-for="key in Object.keys(param)" :inline="true" :key="key">
-          <el-form-item>
-            <el-input :value="dialogData.paramDesc.params[key].params.p_name+'（'+ key +'）'" readonly placeholder="输入参数名"></el-input>
-          </el-form-item>
-          <el-form-item :required="dialogData.paramDesc.params[key] | getRequired">
-            <component :groupIndex="index" :param="param" :paramKey="key" :defaultValue="dialogData.paramDesc.params[key].p_value" :optionList="dialogData.paramDesc.params[key].val_data" :ruleConfig="ruleConfig" :rule="dialogData.paramDesc.params[key].rule" v-if="dialogData.paramDesc.params[key].params.show_type" v-bind:is="dialogData.paramDesc.params[key].params.show_type"></component>
-            <el-input v-else v-model="param[key]" placeholder="请输入内容"></el-input>
-            <div class="el-form-item__error" style="width: 150%;" :id="key + '_'+ index"></div>
-          </el-form-item>
-          <el-form-item label="是否展示：">
-            <el-radio-group v-model="dialogData.paramDesc.params[key].is_show">
-              <el-radio :label="1">是</el-radio>
-              <el-radio :label="0">否</el-radio>
-            </el-radio-group>
-          </el-form-item>
+          <el-row :gutter="20">
+            <el-col :span="6" class="ui-ta-r">
+              <el-form-item>
+                <div>{{dialogData.paramDesc.params[key].params.p_name+'（'+ key +'）:'}}</div>
+                <!-- <el-input :value="dialogData.paramDesc.params[key].params.p_name+'（'+ key +'）'" readonly placeholder="输入参数名"></el-input> -->
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item :required="dialogData.paramDesc.params[key] | getRequired">
+                <component :groupIndex="index" :param="param" :paramKey="key" :defaultValue="dialogData.paramDesc.params[key].p_value" :optionList="dialogData.paramDesc.params[key].val_data" :ruleConfig="ruleConfig" :rule="dialogData.paramDesc.params[key].rule" v-if="dialogData.paramDesc.params[key].params.show_type" v-bind:is="dialogData.paramDesc.params[key].params.show_type"></component>
+                <el-input v-else v-model="param[key]" placeholder="请输入内容"></el-input>
+                <div class="el-form-item__error" style="width: 150%;" :id="key + '_'+ index"></div>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="是否展示：">
+                <el-radio-group v-model="dialogData.paramDesc.params[key].is_show">
+                  <el-radio :label="1">是</el-radio>
+                  <el-radio :label="0">否</el-radio>
+                </el-radio-group>
+              </el-form-item>
+            </el-col>
+          </el-row>
         </el-form>
         <div class="textcenter" v-if="dialogData.paramDesc.type == 'array'">
           <el-button type="danger" @click="deleteParamGroup(index)" size="small">删除该组参数
@@ -115,7 +124,7 @@
           </el-button>
         </div>
       </div>
-      <div slot="footer" class="dialog-footer">
+      <div slot-scope="footer" class="dialog-footer">
         <el-button size='small' @click="cancelEdit">取 消</el-button>
         <el-button size='small' type="primary" @click="confirmEdit">确 定</el-button>
       </div>
@@ -130,7 +139,7 @@
           </pre>
         </el-col>
       </el-row>
-      <div slot="footer" class="dialog-footer">
+      <div slot-scope="footer" class="dialog-footer">
         <el-button size='small' @click="cancleChainsTpl">取 消</el-button>
         <el-button size='small' type="primary" @click="confirmChainsTpl">确 定</el-button>
       </div>
@@ -144,7 +153,7 @@
           <el-input  :spellcheck="false"   v-model="chainsTplData.configData" auto-complete="off"  type="textarea" :autosize="{ minRows: 20}"></el-input>
         </el-form-item>
       </el-form>
-      <div slot="footer" class="dialog-footer">
+      <div slot-scope="footer" class="dialog-footer">
         <el-button size='small' @click="cancleImportChainsTpl">取 消</el-button>
         <el-button size='small' type="primary" @click="confirmImportChainsTpl">确 定</el-button>
       </div>
@@ -188,7 +197,8 @@ export default {
   },
   data() {
     return {
-      tpl_id: location.hash.split('/').pop() || util.getQuery('tpl_id'),
+      // tpl_id: location.hash.split('/').pop() || util.getQuery('tpl_id'),
+      tpl_id: this.$route.params.tpl_id|| util.getQuery('tpl_id'),
       path: process.env.BASE_API,
       chainLoading: false,
       cmdList: [],
@@ -263,7 +273,7 @@ export default {
     }
   },
   created() {
-    this.tpl_id = location.hash.split('/').pop() || util.getQuery('tpl_id');
+    this.tpl_id = this.$route.params.tpl_id || util.getQuery('tpl_id');
     this.getActCmdList().getChainConfig().getRuleAction();
   },
   filters: {
@@ -541,6 +551,8 @@ export default {
 
       console.log('data----------->',data);
       if (data.data.id) {
+        console.log(data.data.id,'data.data.id')
+        console.log(this.treeData,'this.treeData')
         let saveData = this.treeData[data.data.id].tagData;
         this.dialogData.lock = data.lock;
         this.dialogData.contentDesc = data.data.contentDesc;

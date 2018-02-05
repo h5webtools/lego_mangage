@@ -37,7 +37,7 @@ const routes = [
     ]
   }, 
   {
-    path: '/ConfigTreeLego/:act_id/:page_id',
+    path: '/ConfigTreeLego/:tpl_id/:pageid/:comid/:act_id',
     name: 'ConfigTreeLego',
     component: ConfigTreeLego,
     title: '乐高模板'

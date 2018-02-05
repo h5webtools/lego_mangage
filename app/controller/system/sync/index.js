@@ -12,6 +12,10 @@ class SystemListController extends Controller {
     let savePostSync = await this.service.system.systemService.aisleService(this.ctx.request.url, this.ctx.request.rawBody);
     this.ctx.body = savePostSync;
   }
+  async tblSync() {
+    let tblSync = await this.service.system.systemService.aisleService(this.ctx.request.url, this.ctx.request.rawBody);
+    this.ctx.body = tblSync;
+  }
 }
 
 module.exports = SystemListController;

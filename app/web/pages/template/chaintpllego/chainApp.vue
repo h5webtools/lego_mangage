@@ -46,27 +46,43 @@
           </el-select>
         </el-tab-pane>
       </el-tabs>
+      <div class="martop10">
+        <el-form ref="form" :inline="true">
+          <el-form-item label="语义化:">
+            <div style="width:845px;">{{dialogData.contentDesc}}</div>
+          </el-form-item>
+        </el-form>
+      </div>
       <div class="textright martop10" v-if="dialogData.paramDesc.type == 'array'">
-        <el-button @click="addParamGroup" type="success" size="small">新增一组参数</el-button>
+        <el-button @click="addParamGroup" type="success" size="small" v-if="dialogData.paramsFixed == 0">新增一组参数</el-button>
       </div>
       <div class="martop10" v-for="(param, index) in dialogData.params" :key="index">
         <el-form v-for="key in Object.keys(param)" :inline="true" :key="key">
-          <el-form-item label="参数名">
-            <el-input :value="dialogData.paramDesc.params[key].params.p_name+'（'+ key +'）'" readonly placeholder="输入参数名"></el-input>
-          </el-form-item>
-          <el-form-item label="参数值" :required="dialogData.paramDesc.params[key] | getRequired">
-            <component :groupIndex="index" :param="param" :paramKey="key" :defaultValue="dialogData.paramDesc.params[key].p_value" :optionList="dialogData.paramDesc.params[key].val_data" :ruleConfig="ruleConfig" :rule="dialogData.paramDesc.params[key].rule" v-if="dialogData.paramDesc.params[key].params.show_type" v-bind:is="dialogData.paramDesc.params[key].params.show_type"></component>
-            <el-input v-else v-model="param[key]" placeholder="请输入内容"></el-input>
-            <div class="el-form-item__error" style="width: 150%;" :id="key + '_'+ index"></div>
-          </el-form-item>
+          <div v-if="dialogData.paramDesc.params[key].is_show == 1">
+            <el-row :gutter="20">
+              <el-col :span="6" class="ui-ta-r">
+                  <el-form-item>
+                    <div>{{dialogData.paramDesc.params[key].params.p_name+'（'+ key +'）:'}}</div>
+                    <!-- <el-input :value="dialogData.paramDesc.params[key].params.p_name+'（'+ key +'）'" readonly placeholder="输入参数名"></el-input> -->
+                  </el-form-item>
+              </el-col>
+              <el-col :span="6">
+                  <el-form-item :required="dialogData.paramDesc.params[key] | getRequired">
+                    <component :groupIndex="index" :param="param" :paramKey="key" :defaultValue="dialogData.paramDesc.params[key].p_value" :optionList="dialogData.paramDesc.params[key].val_data" :ruleConfig="ruleConfig" :rule="dialogData.paramDesc.params[key].rule" v-if="dialogData.paramDesc.params[key].params.show_type" v-bind:is="dialogData.paramDesc.params[key].params.show_type"></component>
+                    <el-input v-else v-model="param[key]" placeholder="请输入内容"></el-input>
+                    <div class="el-form-item__error" style="width: 150%;" :id="key + '_'+ index"></div>
+                  </el-form-item>
+              </el-col>
+            </el-row>
+          </div>
         </el-form>
         <div class="textcenter" v-if="dialogData.paramDesc.type == 'array'">
-          <el-button type="danger" @click="deleteParamGroup(index)" size="small">删除该组参数
+          <el-button type="danger" @click="deleteParamGroup(index)" size="small"  v-if="dialogData.paramsFixed == 0">删除该组参数
             <i class="glyphicon glyphicon-arrow-up"></i>
           </el-button>
         </div>
       </div>
-      <div slot="footer" class="dialog-footer">
+      <div slot-scope="footer" class="dialog-footer">
         <el-button size='small' @click="cancelEdit">取 消</el-button>
         <el-button size='small' type="primary" @click="confirmEdit">确 定</el-button>
       </div>
@@ -81,7 +97,7 @@
           </pre>
         </el-col>
       </el-row>
-      <div slot="footer" class="dialog-footer">
+      <div slot-scope="footer" class="dialog-footer">
         <el-button size='small' @click="cancleChainsTpl">取 消</el-button>
         <el-button size='small' type="primary" @click="confirmChainsTpl">确 定</el-button>
       </div>
@@ -95,7 +111,7 @@
           <el-input  :spellcheck="false"   v-model="chainsTplData.configData" auto-complete="off"  type="textarea" :autosize="{ minRows: 20}"></el-input>
         </el-form-item>
       </el-form>
-      <div slot="footer" class="dialog-footer">
+      <div slot-scope="footer" class="dialog-footer">
         <el-button size='small' @click="cancleImportChainsTpl">取 消</el-button>
         <el-button size='small' type="primary" @click="confirmImportChainsTpl">确 定</el-button>
       </div>
@@ -139,10 +155,10 @@ export default {
   },
   data() {
     return {
-      tpl_id: util.getQuery('tpl_id'),
-      pageid: util.getQuery("pageid"),
-      comid: util.getQuery("comid"),
-      act_id: util.getQuery("act_id"),
+      tpl_id: this.$route.params.tpl_id,
+      pageid: this.$route.params.pageid,
+      comid: this.$route.params.comid,
+      act_id: this.$route.params.act_id,
       path: process.env.BASE_API,
       chainLoading: false,
       cmdList: [], 
@@ -170,8 +186,11 @@ export default {
         chainName: '',
         lock: false,
         params: [],
+        editParams: [],//是否展示
         paramDesc: {},
-        nodeType: 'rule'
+        contentDesc:'',//语义化
+        nodeType: 'rule',
+        paramsFixed:0   //是否固定参数
       },
       ruleConfig: {
         'integer': {
@@ -214,7 +233,7 @@ export default {
     }
   },
   created() {
-    this.tpl_id = util.getQuery('tpl_id');
+    this.tpl_id = this.$route.params.tpl_id;
     this.getActCmdList().getRuleAction();
   },
   filters: {
@@ -351,7 +370,10 @@ export default {
               key: param.chainName || json.chainName,
               type: json.paramType,
               is: '',
-              params: param.param
+              params: param.param,
+              editParams: param.editParams,
+              contentDesc: param.contentDesc,
+              paramsFixed: param.paramsFixed
             });
             if (pushData.actionChain.length == 0 && pushData.ruleChain.length == 0) {
               ruleActionChain.push(pushData);
@@ -366,13 +388,19 @@ export default {
               key: param.chainName || json.chainName,
               type: json.paramType,
               is: 1,
-              params: param.param
+              params: param.param,
+              editParams: param.editParams,
+              contentDesc: param.contentDesc,
+              paramsFixed: param.paramsFixed
             }
             let notmatchparamObj = {
               key: param.chainName || json.chainName,
               type: json.paramType,
               is: 0,
-              params: param.param
+              params: param.param,
+              editParams: param.editParams,
+              contentDesc: param.contentDesc,
+              paramsFixed: param.paramsFixed
             }
             // 拷贝两个对象
             let matchPush = JSON.parse(JSON.stringify(pushData));
@@ -502,8 +530,15 @@ export default {
         let saveData = this.treeData[data.data.id].tagData;
         this.dialogData.lock = data.lock;
         this.dialogData.chainName = saveData.key;
+        this.dialogData.contentDesc = data.data.contentDesc;
         this.dialogData.nodeType = saveData.nodeType;
+        this.dialogData.editParams = data.data.editParams instanceof Array ? data.data.editParams : [data.data.editParams];
         this.dialogData.paramDesc = this.ruleActionList[this.dialogData.nodeType + 's'][saveData.key];
+        for(var i in this.dialogData.editParams[0]){
+          this.$set(this.dialogData.paramDesc.params[i],'is_show', this.dialogData.editParams[0][i].is_show);
+        }
+        this.$set(this.dialogData,'paramsFixed',data.data.paramsFixed);
+        
         this.dialogData.params = data.data.param ? (data.data.param instanceof Array ? data.data.param : [data.data.param]) : [this.generateParam()];
       }
       if (data.data.nodeType) {
@@ -538,7 +573,10 @@ export default {
         chainName: '',
         lock: false,
         params: [],
+        editParams: [],
         paramDesc: {},
+        contentDesc: '',
+        paramsFixed:0,
         nodeType: 'rule'
       }
       this.paramEditVisible = false;
@@ -600,6 +638,9 @@ export default {
             id: id,
             chainName: this.dialogData.chainName,
             param: this.dialogData.params,
+            editParams: this.dialogData.editParams,
+            contentDesc: this.dialogData.contentDesc,
+            paramsFixed: this.dialogData.paramsFixed,
             match: [],
             notmatch: [],
             subAction: []
@@ -741,6 +782,9 @@ export default {
                 chainName: ruleItem.key,
                 chainDes:curRuleActionList.rules[ruleItem.key].name,
                 param: ruleItem.params,
+                editParams: ruleItem.editParams,
+                contentDesc: ruleItem.contentDesc,
+                paramsFixed: ruleItem.paramsFixed,
                 match: [],
                 notmatch: [],
                 subAction: []
@@ -758,6 +802,9 @@ export default {
                   chainName: ruleItem.key,
                   chainDes:curRuleActionList.rules[ruleItem.key].name,
                   param: ruleItem.params,
+                editParams: ruleItem.editParams,
+                contentDesc: ruleItem.contentDesc,
+                paramsFixed: ruleItem.paramsFixed,
                   match: [],
                   notmatch: [],
                   subAction: []
@@ -785,6 +832,9 @@ export default {
                 chainName: actionItem.key,
                 chainDes:curRuleActionList.actions[actionItem.key].name,
                 param: actionItem.params,
+                editParams: actionItem.editParams,
+                contentDesc: actionItem.contentDesc,
+                paramsFixed: actionItem.paramsFixed,
                 match: [],
                 notmatch: [],
                 subAction: []
@@ -802,6 +852,9 @@ export default {
                   chainName: actionItem.key,
                   chainDes:curRuleActionList.actions[actionItem.key].name,
                   param: actionItem.params,
+                editParams: actionItem.editParams,
+                contentDesc: actionItem.contentDesc,
+                paramsFixed: actionItem.paramsFixed,
                   match: [],
                   notmatch: [],
                   subAction: []
@@ -1071,5 +1124,8 @@ export default {
 .boolean { color: blue; }
 .null { color: magenta; }
 .key { color: red; }
+.ui-ta-r{
+  text-align: right;
+}
 
 </style>

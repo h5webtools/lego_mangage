@@ -18,7 +18,7 @@
       <el-table-column prop="create_date" label="创建时间" min-width="140"></el-table-column>
       <el-table-column prop="edit_date" label="编辑时间" min-width="140"></el-table-column>
       <el-table-column  label="操作" >
-        <template scope="scope">
+        <template slot-scope="scope">
           <el-button @click="editCom(scope.row)" type="text" size="small">修改样式</el-button>
         </template>
       </el-table-column>

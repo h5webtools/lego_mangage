@@ -5,12 +5,12 @@
                 <h3 class="title">系统登录</h3>
                 <el-form-item prop="account">
                     <el-input name="account" type="text" v-model.trim="loginForm.account" autoComplete="off" placeholder="请输入账号">
-                      <i slot="prefix" class="glyphicon glyphicon-user"></i>
+                      <i slot-scope="prefix" class="glyphicon glyphicon-user"></i>
                     </el-input>
                 </el-form-item>
                 <el-form-item prop="password">
                     <el-input name="password" type="password" v-model.trim="loginForm.password" autoComplete="off" placeholder="请输入密码">
-                      <i slot="prefix" class="glyphicon glyphicon-lock"></i>
+                      <i slot-scope="prefix" class="glyphicon glyphicon-lock"></i>
                     </el-input>
                 </el-form-item>
                 <el-form-item>

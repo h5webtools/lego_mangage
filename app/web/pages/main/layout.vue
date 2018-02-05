@@ -23,7 +23,7 @@
               <span class="el-dropdown-link">
                 {{userInfo.userName}}<i class="el-icon-arrow-down el-icon--right"></i>
               </span>
-              <el-dropdown-menu slot="dropdown">
+              <el-dropdown-menu slot-scope="dropdown">
                 <el-dropdown-item><a href="/login/loginOut">退出登录</a></el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>

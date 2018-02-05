@@ -17,3 +17,12 @@ export function savePostSync(data) {
     data
   });
 }
+
+/* 立即同步 */
+export function tblSync(data) {
+  return service({
+    url: '/ActivitySynConf/TblSyn',
+    method: 'post',
+    data
+  });
+}
