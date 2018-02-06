@@ -18,7 +18,7 @@
           <el-date-picker
             v-model="queryData.expire_time"
             type="datetime"
-            value-format="yyyy-mm-dd HH:mm:ss"
+            value-format="yyyy-MM-dd HH:mm:ss"
             placeholder="活动到期时间">
           </el-date-picker>
         </el-form-item>
@@ -26,7 +26,7 @@
           <el-date-picker
             v-model="queryData.create_time"
             type="datetime"
-            value-format="yyyy-mm-dd HH:mm:ss"
+            value-format="yyyy-MM-dd HH:mm:ss"
             placeholder="活动创建时间">
           </el-date-picker>
         </el-form-item>
@@ -34,7 +34,7 @@
           <el-date-picker
             v-model="queryData.end_time"
             type="datetime"
-            value-format="yyyy-mm-dd HH:mm:ss"
+            value-format="yyyy-MM-dd HH:mm:ss"
             placeholder="活动结束时间">
           </el-date-picker>
         </el-form-item>
@@ -112,7 +112,7 @@
                   <div @click="manual(props.row)">同步配置</div>
                 </el-dropdown-item>
                 <el-dropdown-item divided v-if="props.row.is_lego == '1'">
-                  <a :href="'http://172.16.1.10:3001/interpage.html?page_id='+props.row.pageids+'&act_id='+props.row.crypt">编辑页面</a>
+                  <a :href="'/public/edit.html?page_id='+props.row.pageids[0]+'&act_id='+props.row.crypt">编辑页面</a>
                 </el-dropdown-item>
                 <!-- status=0 -->
                 <!-- <el-dropdown-item divided v-if="props.row.status==0 && userStatus!=0">待测试</el-dropdown-item> -->

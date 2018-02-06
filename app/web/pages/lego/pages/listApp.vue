@@ -7,23 +7,25 @@
       <el-form-item label="活动名称：">
         <el-input placeholder="请输入" v-model="queryData.pageName"/>
       </el-form-item>
+      <el-form-item label="活动号：">
+        <el-input placeholder="请输入" v-model="queryData.pageActId"/>
+      </el-form-item>
     </el-form>
     <el-form :inline="true" label-width="130px">
         <el-form-item label="创建日期范围：">
           <el-date-picker
             v-model="queryData.createRange"
             type="daterange"
-            value-format="yyyy-mm-dd"
+            value-format="yyyy-MM-dd"
             start-placeholder="开始日期"
-            end-placeholder="结束日期"
-            placeholder="创建日期范围">
+            end-placeholder="结束日期">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="活动过期时间：">
           <el-date-picker
             v-model="queryData.expireTime"
             type="datetime"
-            value-format="yyyy-mm-dd HH:mm:ss"
+            value-format="yyyy-MM-dd HH:mm:ss"
             placeholder="活动过期时间">
           </el-date-picker>
         </el-form-item>
@@ -81,8 +83,9 @@ export default {
         pageOwner: window.userInfo.userAccount,
         pageSize: 20,
         pageName: '',
-        createRange: '',
-        expireTime: ''
+        createRange: [],
+        expireTime: '',
+        pageActId: ''
       },
       tableData: [],
       listLoading: false,

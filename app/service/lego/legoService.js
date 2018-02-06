@@ -30,6 +30,9 @@ class LegoService extends Service {
     if (condition.pageName) {
       where.push(`page_name like '%${condition.pageOwner}%'`);
     }
+    if (condition.pageActId) {
+      where.push(`page_act_id='${condition.pageActId}'`);
+    }
     if (condition.expireTime) {
       where.push(`page_expire_time like "${condition.expireTime}%"`);
     }

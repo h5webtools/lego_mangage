@@ -240,6 +240,7 @@ class LegoController extends Controller {
         pageType = rawBody.pageType,            // 页面模板类型
         createRange = rawBody.createRange,          // 创建时间范围
         expireTime = rawBody.expireTime,
+        pageActId = rawBody.pageActId,          // 活动号
         createStartTime = '',
         createEndTime = '',
         count = 0;
@@ -256,6 +257,7 @@ class LegoController extends Controller {
       pageType,
       pageName,
       expireTime,
+      pageActId,
       start: (pageIndex -1) * pageSize,
       offset: pageIndex * pageSize
     }
