@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row class="martop20" v-loading="editLoading">
-      <el-col :xs="24" :sm="24" :md="12" :lg="12" class="form-group-wrap">
+      <el-col :xs="24" :sm="24" :md="16" :lg="16" class="form-group-wrap">
         <h3 class="textcenter">活动基本信息</h3>
         <el-form class="form-group" ref="form" :rules="actInfoRule" label-width="110px" :model="actInfo">
           <el-form-item label="活动名称：" required prop="act_title">
@@ -9,15 +9,15 @@
           </el-form-item>
           <el-form-item label="上线时间：" required prop="effect_time">
             <el-date-picker
-              v-model="actInfo.effect_time"
-              type="datetime"
+              v-model="actInfo.effect_time" 
+              type="datetime" value-format="yyyy-MM-dd HH:mm:ss"
               placeholder="选择上线的日期时间">
             </el-date-picker>
           </el-form-item>
           <el-form-item label="过期时间：" required prop="expire_time">
             <el-date-picker
               v-model="actInfo.expire_time"
-              type="datetime"
+              type="datetime" value-format="yyyy-MM-dd HH:mm:ss"
               placeholder="选择过期的日期时间">
             </el-date-picker>
           </el-form-item>
@@ -90,9 +90,12 @@
           <el-form-item label="乐高pageID：" >
             <el-input v-model="actInfo.pageids" placeholder="多个pageid以'-'隔开"></el-input>
           </el-form-item>
+          <el-form-item label="乐高活动规则：" >
+            <div id="editorElem"></div>
+          </el-form-item>
         </el-form>
       </el-col>
-      <el-col :xs="24" :sm="24" :md="12" :lg="12" class="form-group-wrap">
+      <el-col :xs="24" :sm="24" :md="8" :lg="8" class="form-group-wrap">
           <h3 class="textcenter">活动成本信息</h3>
           <el-form class="form-group" :rules="actInfoRule" ref="costForm" label-width="140px" :model="actInfo">
             <el-form-item label="成本计算类型：">
@@ -165,10 +168,15 @@
 <script>
 import * as actQuery from "api/api_act_edit";
 import * as util from "assets/js/util";
+import E from 'wangeditor'
 
 export default {
   data() {
     return {
+      originEffectTime:'',
+      originExpireTime:'',
+      editor:{},//编辑器
+      editorContent:"",
       validateOptions: [
         {
           key: '图形验证码',
@@ -269,6 +277,7 @@ export default {
         tests: [],            // 测试负责人
         coupons	: '',         // 活动关联红包
         pageids:'',           // 对应的乐高ID
+        rule_description:''   // 乐高对应活动规则
       },
       actInfoRule: {
         act_title: [{
@@ -311,6 +320,32 @@ export default {
     act_id && this.getActDetail(act_id);
     this.getCouponList().getUserList().getChannelList().getTestEngineer();
   },
+  mounted() {
+    this.editor = new E('#editorElem');
+    // 'code',  // 插入代码 'emoticon',  // 表情
+    this.editor.customConfig.menus = [
+      'head',  // 标题
+      'bold',  // 粗体
+      'italic',  // 斜体
+      'underline',  // 下划线
+      'strikeThrough',  // 删除线
+      'foreColor',  // 文字颜色
+      'backColor',  // 背景颜色
+      'link',  // 插入链接
+      'list',  // 列表
+      'justify',  // 对齐方式
+      'quote',  // 引用
+      'image',  // 插入图片
+      'table',  // 表格
+      'video',  // 插入视频
+      'undo',  // 撤销
+      'redo'  // 重复
+    ];
+    this.editor.customConfig.onchange = (html) => {
+      this.actInfo.rule_description = html;
+    }
+    this.editor.create()
+  },
   methods: {
     // 获取活动详情
     getActDetail(act_id) {
@@ -324,6 +359,9 @@ export default {
           this.actInfo.expire_time = new Date(this.actInfo.expire_time);
           this.actInfo.effect_time = new Date(this.actInfo.effect_time);
           this.actInfo.pageids = json.data.page_ids && json.data.page_ids.join("-");
+          this.editor.txt.html(this.actInfo.rule_description);
+          this.originEffectTime = this.actInfo.effect_time;
+          this.originExpireTime = this.actInfo.expire_time;
         } else {
           this.$message.error(json.msg);
         }
@@ -394,9 +432,23 @@ export default {
           actQuery.saveActConfig(submitInfo).then((json) => {
             this.editLoading = false;
             if(json.code == 0) {
-              this.$confirm('活动保存成功', '提示').then(() => {
-                // 跳转到活动列表
-                location.href = "list.html";
+              this.$confirm('活动配置保存成功', '提示').then(() => {
+                if((new Date(submitInfo.expire_time)).getTime() != (new Date(this.originExpireTime).getTime()) || 
+                   (new Date(submitInfo.effect_time)).getTime() != (new Date(this.originEffectTime).getTime())){
+                  this.$confirm('活动开始时间和结束时间已改变，请通知开发或到乐高系统重新发布活动规则', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                  }).then(() => {
+                    
+                  }).catch(() => {
+                          
+                  });
+                }else{
+                  // 跳转到活动列表
+                  location.href = "list.html";
+                  this.$route.push('/act');
+                }
               });
             } else {
               this.$message.error(json.msg);
@@ -405,7 +457,6 @@ export default {
             this.editLoading = false;
           });
         } else {
-          console.log('error submit!!');
           return false;
         }
       });
@@ -453,3 +504,12 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+.w-e-menu{
+  z-index: 1 !important;
+}
+.w-e-text-container{
+  z-index: 1 !important;
+}
+</style>
+

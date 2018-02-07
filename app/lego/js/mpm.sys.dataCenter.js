@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
   function request(url, data, callback) {
-    $.post(url, data).done(function(json) {
+    $.post(url, JSON.stringify(data)).done(function(json) {
       if (json.code == 0) {
         callback(json);
       } else {
@@ -90,9 +90,9 @@ define(function(require, exports, module) {
       folder: page.path,
       expireTime: page.expireTime,
       expireUrl: page.expireUrl,
-      shareImage: page.shareinfo.img_url,
-      shareTitle: page.shareinfo.title,
-      shareDesc: page.shareinfo.desc,
+      shareImage: page.shareImgUrl,
+      shareTitle: page.shareTitle,
+      shareDesc: page.shareDesc,
       templateId: page.templateid,
       extraData: page.extraData
     }, callback);
@@ -179,4 +179,30 @@ define(function(require, exports, module) {
       pageId
     }, callback);
   }
+
+  /**
+   * @description 获取乐高组件列表
+   * @see http://mock.fe.jyb.com/#/edit/5a699394c2a30b22a4acc146/5a69a5312344ad2298d175ab
+   * @param {*} cb 
+   */
+  exports.getComponentList = function(cb) {
+    request('/lego/getComponentList', {
+      pageIndex:1,
+      pageSize:100
+    }, cb)
+  };
+
+  /**
+   * @description 获取乐高组件列表
+   * @see http://mock.fe.jyb.com/#/edit/5a699394c2a30b22a4acc146/5a69a5312344ad2298d175ab
+   * @param {*} comid
+   * @param {*} cb 
+   */
+  exports.getSelectedComponentStyles = function(comid , cb) {
+    request('/lego/getSelectedComponentStyles', {
+      comid:comid
+    }, cb)
+  };
+
+
 });

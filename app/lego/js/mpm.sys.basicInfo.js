@@ -13,10 +13,16 @@ define(function (require, exports, module) {
         inputPageName = $('#inputPageName'),        //活动名称
         selectPagePath = $('#selectPagePath'),		//页面路径
         inputPageMenu = $('#inputPageMenu'),		//目录名称
-        inputOldPageMenu = $('#inputOldPageMenu'),		//老老链接目录名称
+        inputOldPageMenu = $('#inputOldPageMenu'),	//老链接目录名称
         expireTime = $('#expireTime'),              //过期时间
         expireUrl = $('#expireUrl'),				//过期跳转链接
-        shareInfoControl = $('#shareInfoControl'),
+        bgColor = $('#bgColor'),				    //背景色
+        bgColorTo = $('#bgColorTo'),				//渐变色
+        pvEventid = $('#pvEventid'),				//上报ID
+        textShareImgUrl = $("#textShareImgUrl"),    //分享图标
+        textShareTitle = $("#textShareTitle"),      //分享标题
+        textShareDesc = $("#textShareDesc"),        //分享描述
+        shareInfoControl = $('#shareInfoControl'),  
         basicInfoCancelBtn = $('#basicInfoCancelBtn'),
         basicInfoSaveBtn = $('#basicInfoSaveBtn'),
         templateid = moduleUtil.getUrlQuery('tid') || '';
@@ -62,8 +68,16 @@ define(function (require, exports, module) {
         curPage.type = selectPageType.val();
         curPage.name = inputPageName.val().replace(/['"]/g, "");
         curPage.expireUrl = expireUrl.val();
-        curPage.oldPageMenu = inputOldPageMenu.val().trim();;
+        curPage.oldPageMenu = inputOldPageMenu.val().trim();
+        curPage.shareImgUrl = textShareImgUrl.val().trim();
+        curPage.shareTitle = textShareTitle.val().trim();
+        curPage.shareDesc = textShareDesc.val().trim();
         curPage.expireTime = null;
+        curPage.extraData = {
+            bgColor:bgColor.val().trim(),
+            bgColorTo:bgColorTo.val().trim(),
+            pvEventid:pvEventid.val().trim()
+        };
         if (expireTime.val().length > 8) {
             curPage.expireTime = expireTime.val();
         }
@@ -72,7 +86,8 @@ define(function (require, exports, module) {
             return;
         }
 
-        newPath = selectPagePath.val() + inputPageMenu.val() + '/';
+        //newPath = selectPagePath.val() + inputPageMenu.val() + '/';
+        newPath = inputPageMenu.val();
         if (newPath == curPage.path) {
             onCheckPath(0);
         } else {
@@ -89,8 +104,11 @@ define(function (require, exports, module) {
             if (creatingNew) {
                 curPage.shareinfo = moduleShareSet.getNewPageShare();
                 curPage.templateid = templateid;
-                moduleDataCenter.createNewPage(curPage, function (newId) {
-
+                moduleDataCenter.createNewPage(curPage, function (json) {
+                    var newId = 0;
+                    if(json.code == 0){
+                        newId = json.data.pageId;
+                    }
                     if (newId == 0) {
                         moduleUtil.alert('新建页面失败');
                     }
@@ -136,31 +154,33 @@ define(function (require, exports, module) {
         }
     }
 
-    function onGetInfo(d) {
-        console.info('页面信息', d);
-        if (d) {
-            oldPageInfo = d;
-
-            curPage.id = d.page_id;
-            setInputValueByInfo(d);
-            if (firstLoadInfoData) {//第一次获得数据后，各子模块设置一次
-                firstLoadInfoData = false;
-                var shareInfo = {				//分享
-                	img_url:d.share_img_url,    
-                	title:d.share_title,
-                	desc:d.share_desc
+    function onGetInfo(json) {
+        if(json.code == 0){
+            var d = json.data;
+            console.info('页面信息', d);
+            if (d) {
+                //其他信息
+                var otherExtra = d.page_extra;
+                if(!!otherExtra){//兼容老页面，老页面是分开保存的
+                    var otherExtraObj = JSON.parse(otherExtra);
+                    d.bgColor = otherExtraObj.bgColor;
+                    d.bgColorTo = otherExtraObj.bgColorTo;
+                    d.pvEventid = otherExtraObj.pvEventid;
+                }else{
+                    d.bgColor = d.page_bgcolor;
+                    d.bgColorTo = "";
+                    d.pvEventid = "";
                 }
-                moduleShareSet.main(curPage.id, shareInfo);
-                
-                var extraInfo = {            //扩展信息
-                	bgColor:d.page_bgcolor
-                }
-                
-                moduleOtherExtra.main(curPage.id, extraInfo);
+    
+                curPage.id = d.page_id;
+                oldPageInfo = d; //基本信息
+                setInputValueByInfo(d);
+            } else {
+                moduleUtil.alert('页面不存在');
+                divTopMenu.hide();
             }
-        } else {
-            moduleUtil.alert('页面不存在');
-            divTopMenu.hide();
+        }else{
+            moduleUtil.alert('页面数据获取失败,请刷新重试！');
         }
     }
 
@@ -175,15 +195,35 @@ define(function (require, exports, module) {
         curPage.expireTime = obj.page_expire_time;
         curPage.expireUrl = obj.page_expire_url;
         curPage.pageCreateDate = obj.page_createdate;
+        curPage.bgColor = obj.bgColor;
+        curPage.bgColorTo = obj.bgColorTo;
+        curPage.pvEventid = obj.pvEventid;
+        curPage.shareImgUrl = obj.share_img_url;
+        curPage.shareTitle = obj.share_title;
+        curPage.shareDesc = obj.share_desc;
         selectPageType.val(curPage.type);
         inputPageName.val(curPage.name);
         typeChange();
-        var s = curPage.path.split('/'), menu = s[s.length - 2], pathV = s.slice(0, s.length - 2).join('/') + '/';
+        var s = curPage.path.split('/');
+        var pathV = "";
+        if(s.length > 2){
+            var menu = s[s.length - 2],
+            pathV = s.slice(0, s.length - 2).join('/') + '/';
+        }else{
+            pathV = "https://cdn.jyblife.com/act/pagemaker/";
+            menu = curPage.path;
+        }
         selectPagePath.val(pathV);
         inputPageMenu.val(menu);
         inputOldPageMenu.val(curPage.oldPageMenu);
         expireUrl.val(curPage.expireUrl);
         expireTime.val(curPage.expireTime);
+        textShareImgUrl.val(curPage.shareImgUrl);
+        textShareTitle.val(curPage.shareTitle);
+        textShareDesc.val(curPage.shareDesc);
+        bgColor.val(curPage.bgColor);
+        bgColorTo.val(curPage.bgColorTo);
+        pvEventid.val(curPage.pvEventid);
         /*路径和页面名称不可修改 */
         selectPagePath.attr("disabled" , "true");
         inputPageMenu.attr("disabled" , "true");
@@ -250,10 +290,17 @@ define(function (require, exports, module) {
 
     exports.showMeFolderName = function () {
         var s = curPage.path.split('/');
-        return {
-            parent: s[s.length - 3],
-            sub: s[s.length - 2]
-        };
+        if(s.length == 1){
+            return {
+                parent: s[0],
+                sub: s[0]
+            };
+        }else{
+            return {
+                parent: s[s.length - 3],
+                sub: s[s.length - 2]
+            };
+        }
     };
     exports.showMeInputPageName = function () {
         

@@ -163,7 +163,7 @@
                 </div>
                 <!-- 过期时间设置 -->
                 <div class="formArea">
-                    <h3 class="formAreaHeader">过期时间设置</h3>
+                    <h3 class="formAreaHeader">过期设置</h3>
                     <div class="form-group">
                         <label class="must">过期时间：</label>
                         <input type="text" value="" id="expireTime" class="time" readonly placeholder="页面过期时间">
@@ -174,16 +174,33 @@
                     </div>
                 </div>
                 <!-- 过期时间设置 -->
+                <!-- 其他设置 -->
+                <div class="formArea">
+                    <h3 class="formAreaHeader">其他设置</h3>
+                    <div class="form-group">
+                        <label>背景色：</label>
+                        <input type="text" value="" id="bgColor" placeholder="#ffffff">
+                    </div>
+                    <div class="form-group" style="display:none">
+                        <label>背景色渐变：</label>
+                        <input type="text" value="" id="bgColorTo" placeholder="#ffffff">
+                    </div>
+                    <div class="form-group">
+                        <label>上报ID：</label>
+                        <input type="text" value="" id="pvEventid" placeholder="比如:30000.1.1">
+                    </div>
+                </div>
+                <!-- 其他设置 -->
                 <!-- 分享设置 -->
                 <div class="formArea">
-                    <h3 class="formAreaHeader" id="shareInfoControl">分享设置(仅选择分享模板才可使用)</h3>
-                    <div id="divShareInfoSet" style="display:none;">
-                        <div class="form-group">
+                    <h3 class="formAreaHeader" id="shareInfoControl">分享设置(仅选择分享模板才可使用，其他模板无效)</h3>
+                    <div id="divShareInfoSet">
+                        <div class="form-group" style="display:none">
                             <label class="must">分享图片：</label>
                             <div class="fileButton">
                                 <div class="uploadBtn"></div>
                                 <div class="fileMask">+
-                                    <br>上传图片</div>>
+                                    <br>上传图片</div>
                             </div>
                             <img class="preview" src="" alt="预览图片">
                             <br>
@@ -271,10 +288,10 @@
     <!--顶部菜单-->
     <div class="topMenu" id="divTopMenu">
         <a href="javascript:;" id="basicInfoBtn"><img src="image/icon_infoedit.png"><span>基本信息</span></a>
-        <a href="javascript:;" id="otherExtraBtn"><img src="image/icon_other.png"><span>其他</span></a>
+        <a href="javascript:;" id="otherExtraBtn" style="display:none"><img src="image/icon_other.png"><span>其他</span></a>
         <a href="javascript:;" id="savePageBtn"><img src="image/icon_save.png"><span>保存页面</span></a>
-        <a href="javascript:;" class="previews" id="previewBtn"><img class="previews" src="image/icon_view.png"><span class="previews">预览</span></a>
-        <a href="javascript:;" class="prepublishs" id="prePublishBtn"><img class="prepublishs" src="image/icon_checkpub.png"><span class="prepublishs">预发布</span></a>
+        <a href="javascript:;" class="previews" id="previewBtn"><img class="previews" src="image/icon_view.png"><span class="previews">集成</span></a>
+        <a href="javascript:;" class="prepublishs" id="prePublishBtn"><img class="prepublishs" src="image/icon_checkpub.png"><span class="prepublishs">预发布&线上</span></a>
         <a href="javascript:;" class="publishs" style="display:none" id="publishBtn"><img class="publishs" src="image/icon_publish.png"><span class="publishs">发布</span></a>
     </div>
     <!--顶部菜单-->

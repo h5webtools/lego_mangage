@@ -74,13 +74,9 @@ class HomeController extends Controller {
           menu_url: '/entry/list',
           menu_id: '401',
         }, {
-          menu_name: '新增入口配置',
-          menu_url: '/entry/new',
-          menu_id: '402',
-        }, {
-          menu_name: '入口审批列表',
-          menu_url: '/entry/audit',
-          menu_id: '403',
+          menu_name: '入口活动列表',
+          menu_url: '/entry/entryActList',
+          menu_id: '402'
         }]
       }, {
         menu_name: '系统设置',

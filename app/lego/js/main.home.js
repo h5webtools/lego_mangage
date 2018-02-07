@@ -61,27 +61,27 @@ define(function (require, exports, module) {
 
 	function init() {
 		toCopy();
-		new Vue({
-			el: '#pageTemplates',
-			data: {
-				list: []
-			},
-			created: function () {
-				var vobj = this;
-				vobj.getData();
-			},
-			methods: {
-				getData: function () {
-					var vobj = this;
-					moduleDataCenter.getAllTemplates(function (json) {
-						vobj.list = json.result;
-					})
-				},
-				copyPage: function () {
-					$("#copyPage").modal('show');
-				}
-			}
-		});
+		// new Vue({
+		// 	el: '#pageTemplates',
+		// 	data: {
+		// 		list: []
+		// 	},
+		// 	created: function () {
+		// 		var vobj = this;
+		// 		vobj.getData();
+		// 	},
+		// 	methods: {
+		// 		getData: function () {
+		// 			var vobj = this;
+		// 			moduleDataCenter.getAllTemplates(function (json) {
+		// 				vobj.list = json.result;
+		// 			})
+		// 		},
+		// 		copyPage: function () {
+		// 			$("#copyPage").modal('show');
+		// 		}
+		// 	}
+		// });
 
 		new Vue({
 			el: '#notice',

@@ -8,22 +8,20 @@ define(function(require, exports, module) {
     require.async('./mpm.sys.util', function(module) {
         moduleUtil = module;
     });
+    var moduleDataCenter = require('./mpm.sys.dataCenter');
 
     /* npm管理 */
     var moduleBasicInfo = "";
-    var moduleDataCenter ="";
     /* npm管理 */
 
     window.vueFnObj = {};
 
     var getStyle = function (componentIndex, callback, instance) {
         var that = this;
-        //var url = 'http://'+location.host+'/'+(location.pathname.indexOf("martpagemaker_dev")>-1?'martpagemaker_dev':'martpagemaker')+'/php/handler.php?action=getselectedcomponentstyles&comid=' + instance.obj.componentIndex;
         var url = 'http://'+location.host+'/handle?action=getselectedcomponentstyles&comid=' + instance.obj.componentIndex;
 
         if (!that._arrStyle) {
             that._arrStyle = {};
-            
         }
         if (that._arrStyle[componentIndex]) {
             //期待的是异步
@@ -36,37 +34,41 @@ define(function(require, exports, module) {
             }, 0);
             return;
         }
-        $.get(url, function (data) {
-            //debugger;
-            //var list = eval('(' + data + ')').result;
-            var list = data;
-            that._arrStyle[componentIndex] = list;
 
-            list.forEach(function (item, index, arr) {
-                item.tpl_url = item.tpl_url && item.tpl_url.replace("mpm.wq.jd.com" , "localhost");
-                if (item.com_extend) {
-                    try {
-                        item.com_extend = JSON.parse(item.com_extend);
-                    } catch (e) {
-                        item.com_extend = [];
+        moduleDataCenter.getSelectedComponentStyles(componentIndex, function (json) {
+            if(json.code == 0){
+                var list = json.data;
+                that._arrStyle[componentIndex] = list;
+    
+                list.forEach(function (item, index, arr) {
+                    item.tpl_url = item.tpl_url && item.tpl_url.replace("act.jtjr.com/martpagemaker" , "127.0.0.1:7001/public/");
+                    if (item.com_extend) {
+                        try {
+                            item.com_extend = JSON.parse(item.com_extend);
+                        } catch (e) {
+                            item.com_extend = [];
+                        }
                     }
-                }
-                //扩展js
-                if (item.com_js) {
-                    try {
-                        window.vueFnObj['fn_' + item.id] = eval('(' + item.com_js + ')');
-                    } catch (e) {
-                        window.vueFnObj['fn_' + item.id] = {};
+                    //扩展js
+                    if (item.com_js) {
+                        try {
+                            window.vueFnObj['fn_' + item.id] = eval('(' + item.com_js + ')');
+                        } catch (e) {
+                            window.vueFnObj['fn_' + item.id] = {};
+                        }
                     }
+                });
+                instance.arrStyle = list;
+    
+                if (!instance.obj.data.styleKey) {
+                    instance.obj.data.styleKey = list[0].id;
                 }
-            });
-            instance.arrStyle = list;
-
-            if (!instance.obj.data.styleKey) {
-                instance.obj.data.styleKey = list[0].id;
+                callback();
             }
-            callback();
         });
+        // $.get(url, function (data) {
+            
+        // });
     };
 
     //获取编辑模板
@@ -267,9 +269,9 @@ define(function(require, exports, module) {
                     selectNpmVersion: function () { /* npm管理 */
                         
                         console.info("切换",this.obj.name,"的版本是", this.obj.data.npmversion);
-                        require.async('./mpm.sys.dataCenter', function (module) {
-                            moduleDataCenter = module;
-                        });
+                        // require.async('./mpm.sys.dataCenter', function (module) {
+                        //     moduleDataCenter = module;
+                        // });
                         require.async('./mpm.sys.basicInfo', function (module) {
                             moduleBasicInfo = module;
                         });

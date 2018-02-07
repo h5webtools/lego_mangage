@@ -15,7 +15,7 @@ class NpmController extends Controller {
     let rawBody = this.ctx.request.rawBody,
         npmName = rawBody.npmName,
         versionList = [],
-        actPath = rawBody.actPath;
+        actPath = rawBody.folder;
     if(!npmName || !actPath) {
       this.ctx.body = errCode.INVALID_PARAM_FORMAT;
       return;

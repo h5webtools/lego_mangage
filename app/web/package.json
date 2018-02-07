@@ -29,7 +29,8 @@
     "nprogress": "^0.2.0",
     "sha1": "^1.1.1",
     "vue": "^2.5.0",
-    "vue-router": "^2.5.3"
+    "vue-router": "^2.5.3",
+    "wangeditor": "^3.0.15"
   },
   "devDependencies": {
     "fs-extra": "^5.0.0"

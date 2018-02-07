@@ -18,6 +18,8 @@ const ConfigTreeLego = () => import(/* webpackChunkName: "ConfigTreeLego" */ '..
 const legoComponents = () => import(/* webpackChunkName: "legoComponents" */ '../pages/lego/components/listApp.vue');
 const legoPages = () => import(/* webpackChunkName: "legoPages" */ '../pages/lego/pages/listApp.vue');
 const legoComponentStyles = () => import(/* webpackChunkName: "legoComponentStyles" */ '../pages/lego/cstyles/listApp.vue');
+const entryList = () => import(/* webpackChunkName: "entryList" */ '../pages/entry/config/configApp.vue');
+const entryActList = () => import(/* webpackChunkName: "entryActList" */ '../pages/entry/list/entryActList.vue');
 
 Vue.use(Router);
 
@@ -135,7 +137,27 @@ const routes = [
         component: systemSync
       }
     ]
-  }
+  },
+  {
+    path: '/entry',
+    name: 'entry',
+    title: '活动入口配置',
+    component: Layout,
+    redirect: '/entry/list',
+    children: [{
+        path: '/entry/list',
+        component: entryList,
+        title: '入口配置',
+        name: 'entryList'
+      },
+      {
+        path: '/entry/entryActList',
+        component: entryActList,
+        title: '入口活动列表',
+        name: 'entryActList'
+      }
+    ]
+  },
 ];
 
 addMetaTitle(routes);

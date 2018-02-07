@@ -1,6 +1,7 @@
 
 define(function (require, exports, module) {
     var zepto = require('zepto');
+    var moduleDataCenter = require('./mpm.sys.dataCenter');
     var jybtitle = require('./jyb.vue.jybtitle.edit');
     var headmap = require('./jyb.vue.headmap.edit');
     var jybregister = require('./jyb.vue.jybregister.edit');
@@ -376,11 +377,17 @@ define(function (require, exports, module) {
                 }, 50);
                 return;
             }
-            $.get(location.origin + '' + '/handle?action=getallcomponents', function (data) {
-                //debugger;
-                list = data.result;
-                callback(list);
-            });
+            moduleDataCenter.getComponentList(function (json) {
+                if (json.code == 0) {
+                    list = json.data.component_list;
+                    callback(list);
+                }
+            })
+            // $.get(location.origin + '' + '/handle?action=getallcomponents', function (data) {
+            //     //debugger;
+            //     list = data.result;
+            //     callback(list);
+            // });
         };
     })();
 
