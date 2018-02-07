@@ -39,24 +39,54 @@ module.exports = appInfo => {
     app: true
   }
 
-  config.actEntryConfig = {
-    entryList: [{
-      ip: '',
-      jmf: ''
-    },{
-      ip: '',
-      jmf: ''
-    }],
-    auditList: [{
-      ip: '',
-      jmf: ''
-    }]
+  config.jmfCommonParam = {
+    "env": "prod",
+    "set": "gz_jyb_idc", //使用URL中的set值
+    "group": "*", //使用URL中的group值
+    "version": "1.0.0", //使用URL中的version值
+    "method": "invoke"
   }
 
-  config.sysConfig = {
-    sync: [{
-      ip: '',
-      jmf: ''
+  config.actEntryConfig = {
+    userGroupList: [{
+      ip: 'http://172.16.1.35:12053',
+      jmf: 'com.jyblife.complex.h5.act_manager.QueryUserGroupList'
+    }],
+    entranceConf: [{
+      ip: 'http://172.16.1.35:12053',
+      jmf: 'com.jyblife.complex.h5.act_manager.GetEntranceConf'
+    }],
+    activityConfig: [{
+      ip: 'http://172.16.1.35:12053',
+      jmf: 'com.jyblife.complex.h5.act_manager.GetActivityConfig'
+    }],
+    deleteEntrancePlan: [{
+      ip: 'http://172.16.1.35:12053',
+      jmf: 'com.jyblife.complex.h5.act_manager.DeleteEntrancePlan'
+    }], 
+    getEntranceDetail: [{
+      ip: 'http://172.16.1.35:12053',
+      jmf: 'com.jyblife.complex.h5.act_manager.GetEntranceDetail'
+    }],
+    postEntrancePlan: [{
+      ip: 'http://172.16.1.35:12053',
+      jmf: 'com.jyblife.complex.h5.act_manager.PostEntrancePlan'
+    }],
+    putEntrancePlan: [{
+      ip: 'http://172.16.1.35:12053',
+      jmf: 'com.jyblife.complex.h5.act_manager.PutEntrancePlan'
+    }],
+    getEntrancePlanList: [{
+      ip: 'http://172.16.1.35:12053',
+      jmf: 'com.jyblife.complex.h5.act_manager.GetEntrancePlanList'
+    }],
+    postEntranceShelves: [{
+      ip: 'http://172.16.1.35:12053',
+      jmf: 'com.jyblife.complex.h5.act_manager.PostEntranceShelves'
+    }],
+    getIconEntranceDetail: [{
+      ip: 'http://172.16.1.35:12053',
+      jmf: 'com.jyblife.complex.h5.act_manager.GetIconEntranceDetail'
     }]
   }
 

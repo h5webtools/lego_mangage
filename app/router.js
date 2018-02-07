@@ -32,5 +32,6 @@ module.exports = app => {
   require('./route/lego/npm')(app);
   // 乐高活动页面相关接口
   require('./route/lego/index')(app);
-
+  // app入口相关
+  require('./route/entry/index')(app);
 };

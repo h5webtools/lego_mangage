@@ -157,7 +157,7 @@ const routes = [
         name: 'entryActList'
       }
     ]
-  },
+  }
 ];
 
 addMetaTitle(routes);

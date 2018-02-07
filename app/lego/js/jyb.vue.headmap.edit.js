@@ -5,7 +5,7 @@ define(function (require, exports, module) {
     var CFG = require('./mpm.sys.config');
     var moduleUploader = require('./mpm.sys.h5fileupload');
     var mpmDateInputLib = require('./mpm.sys.calendar').mpmDateInputLib;
-    var defaultTplEdit = 'http:/template/new/headmap/edit.html';
+    var defaultTplEdit = '/public/template/new/headmap/edit.html';
     /* npm管理 */
     var moduleBasicInfo = "";
     var moduleDataCenter ="";

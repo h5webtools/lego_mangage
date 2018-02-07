@@ -44,7 +44,7 @@ define(function(require, exports, module) {
    */
   exports.getnodeversions = function(npmname, path, callback) {
     request('/lego/getPackageVersion', {
-      npmname: npmname,
+      npmName: npmname,
       folder: path
     }, callback);
   };
