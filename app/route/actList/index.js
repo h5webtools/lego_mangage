@@ -5,9 +5,9 @@ module.exports = app => {
   // 更新活动状态
   app.router.post('/act/UpdateActStatus', app.controller.act.list.index.updateActStatus);
   // 获取测试人员列表
-  app.router.post('/common/getTestEngineer', app.controller.act.detail.index.getActDetail);
+  app.router.post('/common/getTestEngineer', app.controller.act.detail.index.getTestEngineer);
   // 获取活动详情
-  app.router.post('/act/getActDetail', app.controller.act.detail.index.getTestEngineer);
+  app.router.post('/act/getActDetail', app.controller.act.detail.index.getActDetail);
   // 保存活动基本信息配置
   app.router.post('/act/postAct', app.controller.act.detail.index.saveActDetail);
   // 获取活动渠道列表

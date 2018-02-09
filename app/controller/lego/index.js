@@ -915,7 +915,7 @@ class LegoController extends Controller {
    * @param {*} preCommitId   上次提交的hash
    */
   async _createPublishTask(commitId, preCommitId) {
-    this.ctx.logger.info('创建发布单');
+    this.ctx.logger.info('创建发布单'+ commitId);
     let rawBody = this.ctx.request.rawBody;
     // 根据flag判断发布目标环境
     let project_level = publishMap[rawBody.publishflag] || publishMap.sit
