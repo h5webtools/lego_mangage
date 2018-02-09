@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row :gutter="24">
-      <el-col :span="6" class="el-col-border">
+      <el-col :span="6" class="el-col-border el-col-width">
         <el-row :gutter="20">
           <el-col :span="24">
             <div class="mod-icon-banner" @click="configApp('icon', 0)">

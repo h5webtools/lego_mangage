@@ -1,30 +1,23 @@
 define(function(require, exports, module) {
-
-    //var Vue = require('./lib/vuefe');
     var $ = require('zepto');
     var commonTpl = require('./mpm.sys.htmlTpl'); //公共控制模板
     var moduleUtil = null;
-    // var navbarCom = require("./jyb.vue.navbar");
+    var moduleBasicInfo = "";
+    var moduleDataCenter = require('./mpm.sys.dataCenter');
+
     require.async('./mpm.sys.util', function(module) {
         moduleUtil = module;
     });
-    var moduleDataCenter = require('./mpm.sys.dataCenter');
-
-    /* npm管理 */
-    var moduleBasicInfo = "";
-    /* npm管理 */
 
     window.vueFnObj = {};
 
     var getStyle = function (componentIndex, callback, instance) {
         var that = this;
-        var url = 'http://'+location.host+'/handle?action=getselectedcomponentstyles&comid=' + instance.obj.componentIndex;
-
         if (!that._arrStyle) {
             that._arrStyle = {};
         }
         if (that._arrStyle[componentIndex]) {
-            //期待的是异步
+            //期待的是异步 如果已经请求过了就模拟成异步
             setTimeout(function () {
                 instance.arrStyle = that._arrStyle[componentIndex];
                 if (!instance.obj.data.styleKey) {
@@ -34,7 +27,6 @@ define(function(require, exports, module) {
             }, 0);
             return;
         }
-
         moduleDataCenter.getSelectedComponentStyles(componentIndex, function (json) {
             if(json.code == 0){
                 var list = json.data;
@@ -66,9 +58,6 @@ define(function(require, exports, module) {
                 callback();
             }
         });
-        // $.get(url, function (data) {
-            
-        // });
     };
 
     //获取编辑模板
@@ -78,10 +67,6 @@ define(function(require, exports, module) {
             instance.tplEdit = this._tplEdit;
             callback();
             return;
-        }
-
-        if (window.location.href.indexOf('martpagemaker_dev') > 0) {
-            url = url.replace('/martpagemaker/', '/martpagemaker_dev/');
         }
         $.get(url, function (html) {
             that._tplEdit = html;

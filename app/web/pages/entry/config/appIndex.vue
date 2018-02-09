@@ -5,9 +5,9 @@
     <el-row :gutter="20" v-if="editData.data">
       <el-col :span="6" v-for="(item,index) in editData.data.jiugongge.content" :key="index">
         <div class="up-banner" :index="index"  @click="setAppIndexConfig('topbanner' , index , editData.data.jiugongge.type)">
-          <img :src="item.pic_url"/>
+          <img :src="item.pic_url || 'http://placeholder.qiniudn.com/120x120'"/>
         </div>
-        <span class="up-banner__desc">{{item.title}}</span>
+        <span class="up-banner__desc">{{item.title || '四个字长'}}</span>
       </el-col>
     </el-row>
     <!-- 九宫格配置 实际是4*n -->
@@ -16,7 +16,7 @@
     
     <!-- 重大节日 -->
     <el-row :gutter="24" class="mg-tp-10" v-if="editData.data">
-      <el-col :span="24"  v-for="(item,index) in editData.data.banner.content" :key="index">
+      <el-col :span="24"  v-for="(item,index) in editData.data.banner.content" :key="index" v-if="index == 0">
         <div class="festival-banner" @click="setAppIndexConfig('festivalbanner' , index , editData.data.banner.type)">
           <img :src="item.pic_url" />
         </div>
@@ -24,25 +24,26 @@
     </el-row>
     <!-- 重大节日 -->
 
-    <div style="height:10px;width:100%;background-color:#f5f5f5;"></div>
-
     <!-- 1+2 -->
     <el-row :gutter="20" class="mg-tp-10" v-if="editData.data">
       <el-col :span="12" v-for="(item,index) in editData.data.twoAddOne.content" :key="index" v-if="index==0">
         <div class="one-inthree-left" @click="setAppIndexConfig('oneaddtwo' , index , editData.data.twoAddOne.type)">
-          <dl class="one-inthree__title pd-tp-5">     
+          <dl class="one-inthree__title one-inthree__title-left pd-tp-5">     
             <dt>{{item.title}}</dt>     
             <dd>{{item.sub_title}}</dd>    
           </dl>
-          <img :src="item.pic_url"/>
+          <div class="one_three__img">
+            <img :src="item.pic_url"/>
+          </div>
         </div>
+        
       </el-col>
       
       <el-col :span="12">
         <el-row :gutter="24" v-for="(item,index) in editData.data.twoAddOne.content" :key="index" v-if="index>0">
-          <el-col :span="24">
+          <el-col :span="24" style="padding-left:0px;" v-bind:class="[(index == 2) ? 'pd-tp-6' : '']">
             <div class="one-inthree-right" @click="setAppIndexConfig('oneaddtwo' , index , editData.data.twoAddOne.type)">
-              <dl class="one-inthree__title">     
+              <dl class="one-inthree__title one-inthree__title-right">     
                 <dt>{{item.title}}</dt>     
                 <dd>{{item.sub_title}}</dd>    
               </dl>
@@ -60,7 +61,7 @@
         <div class="block">
           <el-carousel  height="150px">
             <el-carousel-item v-for="(item,index) in editData.data.marquee.content" :key="index" >
-              <img @click="setAppIndexConfig('slider' , index , editData.data.marquee.type)" :src="item.pic_url"/>
+              <img @click="setAppIndexConfig('slider' , index , editData.data.marquee.type)" :src="item.pic_url || 'http://placeholder.qiniudn.com/1125x300'"/>
             </el-carousel-item>
           </el-carousel>
         </div>
