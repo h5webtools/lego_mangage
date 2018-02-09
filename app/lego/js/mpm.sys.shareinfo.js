@@ -4,7 +4,7 @@ define(function (require, exports, module) {
         moduleUtil = require('./mpm.sys.util'),
         moduleBasicInfo = "",
        
-        moduleUploader = require('./mpm.sys.h5fileupload'),
+        // moduleUploader = require('./mpm.sys.h5fileupload'),
         moduleDataCenter = require('./mpm.sys.dataCenter');
 
     require.async('./mpm.sys.basicInfo', function(module) {
@@ -108,10 +108,10 @@ define(function (require, exports, module) {
              return;
         }
         var extName = file.name.split('.'); //extName = extName[extName.length - 1];
-        fileUploader.addPostData('savename', file.name);
+        // fileUploader.addPostData('savename', file.name);
         //保存路径修改下
-        fileUploader.addPostData('savepath', savepath);
-        fileUploader.upload();
+        // fileUploader.addPostData('savepath', savepath);
+        // fileUploader.upload();
     }
     function uploadImgSuccess(d,dom) {
        var d = JSON.parse(d);
@@ -154,12 +154,12 @@ define(function (require, exports, module) {
         
         shareInfoSaveBtn.on('click', saveEdit);//在基本信息里面一起操作
         shareInfoCancelBtn.on('click', cancelEdit);
-        fileUploader = new moduleUploader.ajaxUploader({
-            dom: myDOM.find('.uploadBtn')[0],
-            url: CFG.phpRoot + 'ajaxFileUpload',
-            onchange: fileSelectHandler,
-            uploadsuccess: uploadImgSuccess,
-            uploaderror: uploadImgError
-        });
+        // fileUploader = new moduleUploader.ajaxUploader({
+        //     dom: myDOM.find('.uploadBtn')[0],
+        //     url: CFG.phpRoot + 'ajaxFileUpload',
+        //     onchange: fileSelectHandler,
+        //     uploadsuccess: uploadImgSuccess,
+        //     uploaderror: uploadImgError
+        // });
     }
 });
