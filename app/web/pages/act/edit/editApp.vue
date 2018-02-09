@@ -168,244 +168,262 @@
 <script>
 import * as actQuery from "api/api_act_edit";
 import * as util from "assets/js/util";
-import E from 'wangeditor'
+import E from "wangeditor";
 
 export default {
   data() {
     return {
-      originEffectTime:'',
-      originExpireTime:'',
-      editor:{},//编辑器
-      editorContent:"",
+      originEffectTime: "",
+      originExpireTime: "",
+      editor: {}, //编辑器
+      editorContent: "",
       validateOptions: [
         {
-          key: '图形验证码',
-          value: '1'
+          key: "图形验证码",
+          value: "1"
         },
         {
-          key: '短信验证码',
-          value: '2'
+          key: "短信验证码",
+          value: "2"
         },
         {
-          key: '签名',
-          value: '3'
+          key: "签名",
+          value: "3"
         },
         {
-          key: '登录',
-          value: '4'
+          key: "登录",
+          value: "4"
         },
         {
-          key: '不校验',
-          value: '5'
+          key: "不校验",
+          value: "5"
         }
       ],
       costTypeOptions: [
         {
-          key: '合作方采购活动',
-          value: '1'
+          key: "合作方采购活动",
+          value: "1"
         },
         {
-          key: '合作方非采购活动',
-          value: '2'
+          key: "合作方非采购活动",
+          value: "2"
         },
         {
-          key: '内部拉新活动',
-          value: '3'
+          key: "内部拉新活动",
+          value: "3"
         },
         {
-          key: '运营活动',
-          value: '4'
+          key: "运营活动",
+          value: "4"
         },
         {
-          key: '运营自动化',
-          value: '5'
+          key: "运营自动化",
+          value: "5"
         },
         {
-          key: '产品成本',
-          value: '6'
+          key: "产品成本",
+          value: "6"
         },
         {
-          key: '客服活动',
-          value: '7'
+          key: "客服活动",
+          value: "7"
         },
         {
-          key: '其他活动',
-          value: '8'
+          key: "其他活动",
+          value: "8"
         }
       ],
       userCostType: [
         {
-          key: '按新增付费用户人数计算',
-          value: '1'
+          key: "按新增付费用户人数计算",
+          value: "1"
         },
         {
-          key: '按红包领取人数计算',
-          value: '2'
+          key: "按红包领取人数计算",
+          value: "2"
         },
         {
-          key: '按新注册用户人数计算',
-          value: '3'
+          key: "按新注册用户人数计算",
+          value: "3"
         }
       ],
       channelList: [],
       editLoading: false,
-      relatedCoupons: [],     // 关联红包列表
-      enableEditUsers: [],    // 可编辑人员列表
-      testersList:[],         // 测试人员列表
-      countResult: '',        // 成本计算结果
-      isAddChannel: false,    // 是否新增渠道
-      ajaxLock: false,        // 防止重复请求
+      relatedCoupons: [], // 关联红包列表
+      enableEditUsers: [], // 可编辑人员列表
+      testersList: [], // 测试人员列表
+      countResult: "", // 成本计算结果
+      isAddChannel: false, // 是否新增渠道
+      ajaxLock: false, // 防止重复请求
       channelAdd: {
-        channel: ''
+        channel: ""
       },
       actInfo: {
-        is_inner: '1',        // 活动类型（是否是内部活动）
-        is_lego:"",           //是否是乐高搭建
-        act_title: '',        // 活动名
-        effect_time: '',      // 上线时间
-        expire_time: '',      // 过期时间
-        code_type: '',        // 活动校验类型
-        act_url: '',          // 活动链接
-        act_content: '',      // 活动描述文案
-        cost_type: '',        // 成本计算类型
-        user_cost_type: '',   // 用户成本计算类型
-        per_user_cost: '',    // 单用户成本计算规则
-        business_channel: '', // 活动所属渠道
-        optor: '',            // 活动负责人
-        act_id: '',           // 活动号
-        revisability: '',     // 可编辑活动人员
-        tests: [],            // 测试负责人
-        coupons	: '',         // 活动关联红包
-        pageids:'',           // 对应的乐高ID
-        rule_description:''   // 乐高对应活动规则
+        is_inner: "1", // 活动类型（是否是内部活动）
+        is_lego: "", //是否是乐高搭建
+        act_title: "", // 活动名
+        effect_time: "", // 上线时间
+        expire_time: "", // 过期时间
+        code_type: "", // 活动校验类型
+        act_url: "", // 活动链接
+        act_content: "", // 活动描述文案
+        cost_type: "", // 成本计算类型
+        user_cost_type: "", // 用户成本计算类型
+        per_user_cost: "", // 单用户成本计算规则
+        business_channel: "", // 活动所属渠道
+        optor: "", // 活动负责人
+        act_id: "", // 活动号
+        revisability: "", // 可编辑活动人员
+        tests: [], // 测试负责人
+        coupons: "", // 活动关联红包
+        pageids: "", // 对应的乐高ID
+        rule_description: "" // 乐高对应活动规则
       },
       actInfoRule: {
-        act_title: [{
-          required: true,
-          message: '请输入活动名',
-          trigger: 'blur'
-        }],
-        effect_time: [{
-          type: 'date',
-          required: true,
-          message: '请选择开始时间',
-          trigger: 'change'
-        }],
-        expire_time: [{
-          type: 'date',
-          required: true,
-          message: '请选择结束时间',
-          trigger: 'change'
-        }],
-        code_type: [{
-          required: true,
-          message: '请选择活动校验规则',
-          trigger: 'blur'
-        }],
-        is_lego:[{
-          required: true,
-          message: '请确认是否由乐高搭建页面',
-          trigger: 'change'
-        }],
-        business_channel: [{
-          required: true,
-          message: '请选择活动渠道',
-          trigger: 'change'
-        }]
+        act_title: [
+          {
+            required: true,
+            message: "请输入活动名",
+            trigger: "blur"
+          }
+        ],
+        effect_time: [
+          {
+            type: "date",
+            required: true,
+            message: "请选择开始时间",
+            trigger: "change"
+          }
+        ],
+        expire_time: [
+          {
+            type: "date",
+            required: true,
+            message: "请选择结束时间",
+            trigger: "change"
+          }
+        ],
+        code_type: [
+          {
+            required: true,
+            message: "请选择活动校验规则",
+            trigger: "blur"
+          }
+        ],
+        is_lego: [
+          {
+            required: true,
+            message: "请确认是否由乐高搭建页面",
+            trigger: "change"
+          }
+        ],
+        business_channel: [
+          {
+            required: true,
+            message: "请选择活动渠道",
+            trigger: "change"
+          }
+        ]
       }
-    }
+    };
   },
   created() {
-    let act_id = this.$route.params.act_id || '';
+    let act_id = this.$route.params.act_id || "";
     act_id && this.getActDetail(act_id);
-    this.getCouponList().getUserList().getChannelList().getTestEngineer();
+    this.getCouponList()
+      .getUserList()
+      .getChannelList()
+      .getTestEngineer();
   },
   mounted() {
-    this.editor = new E('#editorElem');
+    this.editor = new E("#editorElem");
     // 'code',  // 插入代码 'emoticon',  // 表情
     this.editor.customConfig.menus = [
-      'head',  // 标题
-      'bold',  // 粗体
-      'italic',  // 斜体
-      'underline',  // 下划线
-      'strikeThrough',  // 删除线
-      'foreColor',  // 文字颜色
-      'backColor',  // 背景颜色
-      'link',  // 插入链接
-      'list',  // 列表
-      'justify',  // 对齐方式
-      'quote',  // 引用
-      'image',  // 插入图片
-      'table',  // 表格
-      'video',  // 插入视频
-      'undo',  // 撤销
-      'redo'  // 重复
+      "head", // 标题
+      "bold", // 粗体
+      "italic", // 斜体
+      "underline", // 下划线
+      "strikeThrough", // 删除线
+      "foreColor", // 文字颜色
+      "backColor", // 背景颜色
+      "link", // 插入链接
+      "list", // 列表
+      "justify", // 对齐方式
+      "quote", // 引用
+      "image", // 插入图片
+      "table", // 表格
+      "video", // 插入视频
+      "undo", // 撤销
+      "redo" // 重复
     ];
-    this.editor.customConfig.onchange = (html) => {
+    this.editor.customConfig.onchange = html => {
       this.actInfo.rule_description = html;
-    }
-    this.editor.create()
+    };
+    this.editor.create();
   },
   methods: {
     // 获取活动详情
     getActDetail(act_id) {
       this.editLoading = true;
-      actQuery.getActDetail({
-        act_id
-      }).then((json) => {
-        this.editLoading = false;
-        if(json.code == 0) {
-          this.actInfo = json.data;
-          this.actInfo.expire_time = new Date(this.actInfo.expire_time);
-          this.actInfo.effect_time = new Date(this.actInfo.effect_time);
-          this.actInfo.pageids = json.data.page_ids && json.data.page_ids.join("-");
-          this.editor.txt.html(this.actInfo.rule_description);
-          this.originEffectTime = this.actInfo.effect_time;
-          this.originExpireTime = this.actInfo.expire_time;
-        } else {
-          this.$message.error(json.msg);
-        }
-      }).catch(() => {
-        this.editLoading = false;
-      });
+      actQuery
+        .getActDetail({
+          act_id
+        })
+        .then(json => {
+          this.editLoading = false;
+          if (json.code == 0) {
+            this.actInfo = json.data;
+            this.actInfo.expire_time = new Date(this.actInfo.expire_time);
+            this.actInfo.effect_time = new Date(this.actInfo.effect_time);
+            this.actInfo.pageids =
+              json.data.page_ids && json.data.page_ids.join("-");
+            this.editor.txt.html(this.actInfo.rule_description);
+            this.originEffectTime = this.actInfo.effect_time;
+            this.originExpireTime = this.actInfo.expire_time;
+          } else {
+            this.$message.error(json.msg);
+          }
+        })
+        .catch(() => {
+          this.editLoading = false;
+        });
     },
     // 获取关联红包列表
     getCouponList() {
-      actQuery.getRelatedCouponList().then((jsonData) => {
-        if(jsonData.code == 0) {
+      actQuery.getRelatedCouponList().then(jsonData => {
+        if (jsonData.code == 0) {
           this.relatedCoupons = jsonData.data;
         } else {
           this.$message.error(jsonData.msg);
         }
-      })
+      });
       return this;
     },
     // 获取用户列表
     getUserList() {
-      actQuery.getEnableEditUsersList().then((jsonData) => {
-        if(jsonData.code == 0) {
+      actQuery.getEnableEditUsersList().then(jsonData => {
+        if (jsonData.code == 0) {
           this.enableEditUsers = jsonData.data;
         } else {
           this.$message.error(jsonData.msg);
         }
       });
       return this;
-    }, 
-    //获取测试人员列表 
+    },
+    //获取测试人员列表
     getTestEngineer() {
-
-      actQuery.getTestEngineer().then((jsonData) => {
-        if(jsonData.code == 0) {
+      actQuery.getTestEngineer().then(jsonData => {
+        if (jsonData.code == 0) {
           this.testersList = jsonData.data;
         } else {
           this.$message.error(jsonData.msg);
         }
       });
       return this;
-    }, 
+    },
     getChannelList() {
-      actQuery.getChannelList().then((json) => {
-        if(json.code == 0) {
+      actQuery.getChannelList().then(json => {
+        if (json.code == 0) {
           this.channelList = json.data;
         } else {
           this.$message.error(json.msg);
@@ -414,9 +432,9 @@ export default {
       return this;
     },
     saveEdit() {
-      this.$refs['form'].validate((valid) => {
+      this.$refs["form"].validate(valid => {
         if (valid) {
-          if(!this.actInfo.business_channel) {
+          if (!this.actInfo.business_channel) {
             this.$message.error("请选择活动展示渠道");
             return;
           }
@@ -424,91 +442,107 @@ export default {
           let submitInfo = Object.assign({}, this.actInfo);
           // 格式化时间
           submitInfo.expire_time = util.parseTime(submitInfo.expire_time);
-          submitInfo.effect_time = util.parseTime(submitInfo.effect_time);  
-          submitInfo.page_ids = this.actInfo.pageids ? this.actInfo.pageids.split("-") : [];
+          submitInfo.effect_time = util.parseTime(submitInfo.effect_time);
+          submitInfo.page_ids = this.actInfo.pageids
+            ? this.actInfo.pageids.split("-")
+            : [];
 
           delete submitInfo.pageids;
 
-          actQuery.saveActConfig(submitInfo).then((json) => {
-            this.editLoading = false;
-            if(json.code == 0) {
-              this.$confirm('活动配置保存成功', '提示').then(() => {
-                if((new Date(submitInfo.expire_time)).getTime() != (new Date(this.originExpireTime).getTime()) || 
-                   (new Date(submitInfo.effect_time)).getTime() != (new Date(this.originEffectTime).getTime())){
-                  this.$confirm('活动开始时间和结束时间已改变，请通知开发或到乐高系统重新发布活动规则', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                  }).then(() => {
-                    
-                  }).catch(() => {
-                          
-                  });
-                }else{
-                  // 跳转到活动列表
-                  location.href = "list.html";
-                  this.$route.push('/act');
-                }
-              });
-            } else {
-              this.$message.error(json.msg);
-            }
-          }).catch((e) => {
-            this.editLoading = false;
-          });
+          actQuery
+            .saveActConfig(submitInfo)
+            .then(json => {
+              this.editLoading = false;
+              if (json.code == 0) {
+                this.$confirm("活动配置保存成功", "提示").then(() => {
+                  if (
+                    new Date(submitInfo.expire_time).getTime() !=
+                      new Date(this.originExpireTime).getTime() ||
+                    new Date(submitInfo.effect_time).getTime() !=
+                      new Date(this.originEffectTime).getTime()
+                  ) {
+                    this.$confirm(
+                      "活动开始时间和结束时间已改变，请通知开发或到乐高系统重新发布活动规则",
+                      "提示",
+                      {
+                        confirmButtonText: "确定",
+                        cancelButtonText: "取消",
+                        type: "warning"
+                      }
+                    )
+                      .then(() => {})
+                      .catch(() => {});
+                  } else {
+                    // 跳转到活动列表
+                    this.$router.push("/act");
+                  }
+                });
+              } else {
+                this.$message.error(json.msg);
+              }
+            })
+            .catch(e => {
+              this.editLoading = false;
+            });
         } else {
           return false;
         }
       });
     },
     countCost() {
-      if(!this.actInfo.coupon_cost_rule || !this.actInfo.coupon_amount) {
+      if (!this.actInfo.coupon_cost_rule || !this.actInfo.coupon_amount) {
         this.$message.error("信息未填写完整");
         return;
       }
-      let rule = this.actInfo.coupon_cost_rule.replace(/#m#/g, this.actInfo.coupon_amount)
+      let rule = this.actInfo.coupon_cost_rule.replace(
+        /#m#/g,
+        this.actInfo.coupon_amount
+      );
       this.countResult = rule + "=" + eval(rule);
     },
     addNewChannel() {
       this.isAddChannel = true;
     },
     saveNewChannel() {
-      let channelName = this.channelAdd.channel.replace(/\s*/g, '');
-      if(!this.channelAdd.channel) {
+      let channelName = this.channelAdd.channel.replace(/\s*/g, "");
+      if (!this.channelAdd.channel) {
         this.$message.error("请输入渠道名称");
         return;
       }
-      if(this.ajaxLock) {
+      if (this.ajaxLock) {
         return;
       }
       this.ajaxLock = true;
       // 保存渠道数据
-      actQuery.setChannelList(this.channelAdd).then((jsonData) => {
-        this.ajaxLock = false;
-        if(jsonData.code == 0) {
-          this.$message({
-            message: "保存成功，已添加至列表",
-            type: 'success'
-          });
-          // 在列表里新增一条
-          this.channelList.unshift(this.channelAdd.channel);
-          // 清空输入
-          this.channelAdd.channel = '';
-        } else {
-          this.$message.error(jsonData.msg);
-        }
-      }).catch(() => {
-        this.ajaxLock = false;
-      });
+      actQuery
+        .setChannelList(this.channelAdd)
+        .then(jsonData => {
+          this.ajaxLock = false;
+          if (jsonData.code == 0) {
+            this.$message({
+              message: "保存成功，已添加至列表",
+              type: "success"
+            });
+            // 在列表里新增一条
+            this.channelList.unshift(this.channelAdd.channel);
+            // 清空输入
+            this.channelAdd.channel = "";
+          } else {
+            this.$message.error(jsonData.msg);
+          }
+        })
+        .catch(() => {
+          this.ajaxLock = false;
+        });
     }
   }
-}
+};
 </script>
 <style lang="scss">
-.w-e-menu{
+.w-e-menu {
   z-index: 1 !important;
 }
-.w-e-text-container{
+.w-e-text-container {
   z-index: 1 !important;
 }
 </style>
