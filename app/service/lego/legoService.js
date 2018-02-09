@@ -173,12 +173,17 @@ class LegoService extends Service {
    * @param {*} time 
    */
   async queryLegoNotice(time) {
-    let result = await this.app.mysql.get('dbLego').query(`select * from tb_gonggao 
-      where 
-      begin <= '${time}' 
-      and 
-      end >= '${time}' 
-      limit 1`);
+    let result = await this.app.mysql.get('dbLego').query(`select 
+        id,
+        content,
+        DATE_FORMAT(begin ,"%Y-%m-%d %H:%i:%s") as begin,
+        DATE_FORMAT(end ,"%Y-%m-%d %H:%i:%s") as end 
+        from tb_gonggao 
+        where 
+        begin <= '${time}' 
+        and 
+        end >= '${time}' 
+        limit 1`);
     return result;
   }
   /**

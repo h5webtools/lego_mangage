@@ -11,7 +11,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const qs = require('querystring');
 const packageJson = require('./template/package.json');
 
-
+const EMPTY_ACT_ID = 610009;    // 活动号为空
 const INSTALL_FAILED = 610010; // 安装依赖失败
 const INSTALL_FILE_NOT_EXIST = 610011; // package.json文件不存在
 const READ_TEMPLATE_FAILED = 610012; // 读取模板文件失败
@@ -158,11 +158,21 @@ class LegoController extends Controller {
     let raw = this.ctx.request.rawBody,
         actName = raw.pageName,
         folder = raw.folder,
+        actId = raw.actId,
         now = await this.ctx.helper.dateFormat('yyyy-MM-dd hh:mm:ss', new Date()),
         dateFolder = await this.ctx.helper.dateFormat('yyyyMM00', new Date());
     // 要创建的活动目录
     let actPath = `${this.config.legoConfig.path}/${dateFolder}/${folder}`;
-    this.ctx.logger.info('初始化活动目录'+ folder);
+    this.ctx.logger.info('创建新活动'+ JSON.stringify(raw));
+    // 检查活动号
+    if(!actId) {
+      this.ctx.logger.error('活动号为空，必须要绑定活动号才可创建页面');
+      this.ctx.body = {
+        code: EMPTY_ACT_ID,
+        msg: '活动号为空'
+      }
+      return;
+    }
     try {
       await this.makeDirectory(actPath);
       await this.makeDirectory(`${actPath}/assets/js`);
