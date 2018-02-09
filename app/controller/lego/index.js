@@ -11,6 +11,8 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const qs = require('querystring');
 const packageJson = require('./template/package.json');
 
+const DELETE_LOCK_KEY_FAILED = 610007;    // redis删除锁失败
+const EMPTY_LOCK_DATA = 610008; // 没有获取到锁
 const EMPTY_ACT_ID = 610009;    // 活动号为空
 const INSTALL_FAILED = 610010; // 安装依赖失败
 const INSTALL_FILE_NOT_EXIST = 610011; // package.json文件不存在
@@ -745,6 +747,42 @@ class LegoController extends Controller {
       this.ctx.body = {
         code: COPY_ACT_PAGE_FAILED,
         msg: '复制页面失败' + e.message
+      }
+    }
+  }
+  /**
+   * 释放锁
+   * @param pageId 
+   * @example {"pageId": 200}
+   */
+  async releaseLock() {
+    let raw = this.ctx.request.rawBody,
+        pageId = raw.pageId;
+    this.ctx.logger.info('释放锁'+JSON.stringify(raw));
+    if(!pageId) {
+      this.ctx.logger.error('释放锁没有找到pageid');
+      this.ctx.body = errCode.INVALID_PARAM_FORMAT;
+      return;
+    }
+    let redisData = await this.app.redis.get(`lego_manage_${pageId}`);
+    if(!redisData) {
+      this.ctx.logger.info(`没有获取页面${pageId}的锁信息`);
+      this.ctx.body = {
+        code: EMPTY_LOCK_DATA,
+        msg: '没有获取到锁信息'
+      };
+    } else {
+      let deleteRet = await this.app.redis.del(`lego_manage_${pageId}`);
+      this.ctx.logger.info('删除锁结果'+ deleteRet);
+      if(!deleteRet) {
+        this.ctx.body = {
+          code: DELETE_LOCK_KEY_FAILED,
+          msg: '删除锁失败，该pageId的锁不存在或是已经删除过'
+        };
+      } else {
+        this.ctx.body = {
+          code: 0
+        };
       }
     }
   }

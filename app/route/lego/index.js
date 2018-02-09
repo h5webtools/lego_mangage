@@ -32,6 +32,8 @@ module.exports = app => {
   app.router.post('/lego/updateComponent', app.controller.lego.index.updateComponent);
   // 更新乐高组件样式
   app.router.post('/lego/updateComponentStyle', app.controller.lego.index.updateComponentStyle);
+  // 释放页面锁
+  app.router.post('/lego/releaseLock', app.controller.lego.index.releaseLock);
   // 页面编辑页
   app.router.get('/lego/editPage', app.controller.legoPage.index.editPage);
   // 乐高配置页面主页
