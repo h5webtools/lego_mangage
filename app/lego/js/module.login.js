@@ -7,10 +7,6 @@ seajs.config({
 		'vuefe': 'vuefe'
 
 	}
-	// ,
-	// map:[
-	// 	['.js','.js?v=20171029']//映射规则
-	// ]
 });
 define(function (require, exports, module) {
 	var $ = require('jquery'),

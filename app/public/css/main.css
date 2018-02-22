@@ -65101,6 +65101,10 @@ h2 input[type=checkbox] {
 
 /* 顶部图片 */
 
+.mod-app-index {
+  background: #ffffff;
+}
+
 .up-banner {
   width: 60px;
   height: 65px;

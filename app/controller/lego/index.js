@@ -315,6 +315,7 @@ class LegoController extends Controller {
       this.ctx.logger.info('查询活动页面详情'+ pageId);
       try {
         let baseInfo = await this.service.lego.legoService.queryPageDetail(pageId);
+        this.ctx.logger.info('查询活动页面详情' + JSON.stringify(baseInfo));
         this.ctx.body = {
           code: 0,
           data: baseInfo

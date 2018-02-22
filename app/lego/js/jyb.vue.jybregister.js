@@ -1,59 +1,59 @@
-define(function(require, exports, module) {
-    var commonFunc = require("./jyb.vue.util");
-    
-    function _register(opt) {
-       
-        Vue.component("jybregister", {
-            props:  ["params"],
+define(function (require, exports, module) {
+  var commonFunc = require("./jyb.vue.util");
 
-            functional: false,
-            mixins: [commonFunc.commonUtil.utilMethods],
-            data: function() {
-                return {
-                    data: {
-                        didFinish: false,
-                        didTrigger: false,
-                        showMore: false
-                    }
-                };
-            },
-            
-            mounted: function() {
+  function _register(opt) {
 
-            },
-            
-            created: function() {
-                
-            },
-            methods: {
-         
-                refreshCode:{
+    Vue.component("jybregister", {
+      props: ["params"],
 
-                },
-                msgCode:{
+      functional: false,
+      mixins: [commonFunc.commonUtil.utilMethods],
+      data: function () {
+        return {
+          data: {
+            didFinish: false,
+            didTrigger: false,
+            showMore: false
+          }
+        };
+      },
 
-                },
-                telinput:{
+      mounted: function () {
 
-                },
-                submit:{
-                    
-                },
-                checkoutcoupons:{
+      },
 
-                },
-                switchflag:{
-                    
-                }
-          
-            }
-        });
-    }
+      created: function () {
 
+      },
+      methods: {
 
-    exports.register = function(opt) {
-            var temp = _register(opt);
-            return temp;
+        refreshCode: {
+
+        },
+        msgCode: {
+
+        },
+        telinput: {
+
+        },
+        submit: {
+
+        },
+        checkoutcoupons: {
+
+        },
+        switchflag: {
+
         }
-        //--------------------- E 程序入口 ----------------------//
+
+      }
+    });
+  }
+
+
+  exports.register = function (opt) {
+    var temp = _register(opt);
+    return temp;
+  }
+  //--------------------- E 程序入口 ----------------------//
 });

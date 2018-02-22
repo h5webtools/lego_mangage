@@ -14,7 +14,7 @@ define(function (require, exports, module) {
         divEditingPage = $('#divEditingPage'),
         divOperationItemList = $('#divOperationItemList'),
         tabNavRightNav = $("#tabNavRight"),
-      
+
         nameSetDOM = $('#divNameSet'),
         nameSetTitle = $('#divNameSetTitle'),
         nameSetNewName = $('#divSetNewName'),
@@ -27,7 +27,7 @@ define(function (require, exports, module) {
         willAddType,
         willAddName,
         willAddComponentid; //数据库索引
-var leftDragItem, leftDropOn;
+    var leftDragItem, leftDropOn;
     var isSelectTabComponent = false;//tabList选择锚点元素
     var triggerUid;
     var dragFrom, dragTo, dropOn;
@@ -50,12 +50,10 @@ var leftDragItem, leftDropOn;
         }
     };
 
-
     //右侧控制条点击，可触发删除、移位、设置等, tab层级容器，子组件点击都在这里处理
     function clickItemCtrlBar(e) {
         var lastBar = divOperationItemList.children('.' + cssName.selected),
             lastV = divEditingPage.children('.' + cssName.selected);
-
         var clickItem = $(e.currentTarget);
         var target = $(e.target);
         var index = clickItem.attr('index') - 0;
@@ -68,7 +66,6 @@ var leftDragItem, leftDropOn;
             jq('#cancelSelectBtn').unbind('click').remove();
             return;
         }
-
 
         lastV.removeClass(cssName.selected);
         lastBar.removeClass(cssName.selected);
@@ -102,7 +99,6 @@ var leftDragItem, leftDropOn;
             remarkIdx();
         }
 
-
         var id = clickItem.attr('id').replace(/rightbox_/ig, 'show_');
 
         //判断--如果点击的是图片组件  则位置不变   如果当前和前一个是同一个组件 并且是图片组件则位置不变
@@ -112,26 +108,19 @@ var leftDragItem, leftDropOn;
         } else {
             window.scrollTo(0, $('#' + id).offset().top - 100);//调整至大约视线平行处
         }
-
-
-
-        //
     }
-    function showNameSet(index){
+
+    function showNameSet(index) {
         $(document).trigger('subeditstart');
         var nowcomid = domList[index];
-        nameSetTitle.attr("comid",nowcomid);
-        var rightboxdom = $("#rightbox_"+nowcomid);
+        nameSetTitle.attr("comid", nowcomid);
+        var rightboxdom = $("#rightbox_" + nowcomid);
         var floorname = rightboxdom.attr("floorname") || '';
 
         nameSetNewName.val(floorname);
 
-        nameSetTitle.html(nowcomid+"-模块名称设置");
+        nameSetTitle.html(nowcomid + "-模块名称设置");
         nameSetDOM.show();
-    }
-
-    function showBiDom(index){
-        
     }
 
     function moveUp(index) {
@@ -142,7 +131,6 @@ var leftDragItem, leftDropOn;
         var viewDoms = divEditingPage.children();
         var editDoms = divComponentSetPanel.children();
         var listDoms = divOperationItemList.children();
-
 
         viewDoms.eq(index - 1).before(viewDoms.eq(index));
         editDoms.eq(index - 1).before(editDoms.eq(index));
@@ -195,41 +183,39 @@ var leftDragItem, leftDropOn;
     }
 
     //保存页面
-    function savePageData(callback,type) {
+    function savePageData(callback, type) {
         //基本信息改版  兼容调整
-        if(!$('#expireTime').val()){
+        if (!$('#expireTime').val()) {
             alert('请先在基本信息中填写过期时间');
             return;
         }
-        
-        
-        if(type != "publish"){
+
+        if (type != "publish") {
             $(document).trigger('subeditstart');
         }
-        
+
         var allinput = $("#divComponentSetPanel input");
-        for(var p =0;p<allinput.length;p++){
-            if(/(^\s+)|(\s+$)/.test(allinput.eq(p).val())){
+        for (var p = 0; p < allinput.length; p++) {
+            if (/(^\s+)|(\s+$)/.test(allinput.eq(p).val())) {
                 allinput.eq(p).val($.trim(allinput.eq(p).val())).change();
-            }  
+            }
         }
         var obj = moduleUtil.component.getMPMData();
-    
+
         var allComponentName = getAllComponentName();
         var content = {
             list: domList,
             component: obj,
-            allComponentName:allComponentName
+            allComponentName: allComponentName
         };
 
         content = JSON.stringify(content).replace(/\\/g, '\\');
 
-        moduleDataCenter.recordLog(pageInfo.id, '1:');
         //判断链接包含在新的或者老的
         var pageindex = 0;
-        
-        moduleDataCenter.updatePageContent(pageInfo.id, content, pageindex, function (num) {
-            if(type != "publish"){
+
+        moduleDataCenter.updatePageContent(pageInfo.id, content, function (num) {
+            if (type != "publish") {
                 $(document).trigger('subeditend');
             }
             if (callback) {
@@ -239,19 +225,15 @@ var leftDragItem, leftDropOn;
     }
 
     //获取页面所有组件名称
-    function getAllComponentName(){
+    function getAllComponentName() {
         var listOperationItem = divOperationItemList.find('div.item');
         var allComponentName = {};
-        for(var i = 0;i < listOperationItem.length; i++){
-            var comid = listOperationItem.eq(i).attr("id").replace("rightbox_","");
+        for (var i = 0; i < listOperationItem.length; i++) {
+            var comid = listOperationItem.eq(i).attr("id").replace("rightbox_", "");
             allComponentName[comid] = listOperationItem.eq(i).attr("floorname");
         }
         return allComponentName;
     }
-
-    //
-
-
 
     //重新索引一下
     function remarkIdx() {
@@ -348,7 +330,7 @@ var leftDragItem, leftDropOn;
             if (fromIdx + 1 == toIdx) {
                 return
             }
-            console.log("******fromIdx*******:"+fromIdx+"*******toIdx******:"+toIdx);
+            console.log("******fromIdx*******:" + fromIdx + "*******toIdx******:" + toIdx);
 
             var viewDoms = divEditingPage.children();
             var editDoms = divComponentSetPanel.children();
@@ -372,7 +354,7 @@ var leftDragItem, leftDropOn;
             $toeditDoms.before($fromeditDoms);
             editDoms.eq(toIdx).before(editDoms.eq(fromIdx));
 
-           var moving1 = domList.splice(fromIdx, 1);
+            var moving1 = domList.splice(fromIdx, 1);
             if (fromIdx < toIdx) {
                 domList.splice(toIdx - 1, 0, moving1[0]);//dom映射表调整
             } else {
@@ -386,8 +368,8 @@ var leftDragItem, leftDropOn;
         divEditingPage.on('click', clickInComView);
 
         $('#divLeftComList').on('click', '.groupName', clickLeftGroup);
-        
-            console.log($('#divLeftComList').find(".com").length);
+
+        console.log($('#divLeftComList').find(".com").length);
         $('#divLeftComList').on('dragstart', '.com', function (e) {
             console.log("dragstart");
             leftDragItem = e.target;
@@ -396,9 +378,9 @@ var leftDragItem, leftDropOn;
             console.log("dragend");
             e.preventDefault();
             dragAddCom();
-             
+
         });
-  
+
         divEditingPage.on('dragover', function (e) {
             e.preventDefault();
         });
@@ -437,8 +419,8 @@ var leftDragItem, leftDropOn;
         });
 
         saveBtn.on('click', function () {
-            savePageData(function (num) {
-                if (num >= 0) {
+            savePageData(function (json) {
+                if (json.code == 0) {
                     moduleUtil.alert('保存成功');
                     moduleCreateFile.createFile();
                 } else {
@@ -478,25 +460,25 @@ var leftDragItem, leftDropOn;
             deleteItem(index);
             remarkIdx();
         });
-       
+
 
         //名称设置事件
-        nameSetcancelBtn.on("click",function(e){
+        nameSetcancelBtn.on("click", function (e) {
             nameSetDOM.hide();
             $(document).trigger('subeditend');
         });
 
-        nameSetsaveBtn.on("click",function(e){
+        nameSetsaveBtn.on("click", function (e) {
             var nowcomid = nameSetTitle.attr("comid");
-            var rightboxdom = $("#rightbox_"+nowcomid);
+            var rightboxdom = $("#rightbox_" + nowcomid);
             var nowfloorname = nameSetNewName.val();
 
-            if(!nowfloorname){
+            if (!nowfloorname) {
                 moduleUtil.alert("请正确填写模块名称");
                 return;
             }
 
-            rightboxdom.attr("floorname",nowfloorname);
+            rightboxdom.attr("floorname", nowfloorname);
 
             rightboxdom.find('span').html(nowfloorname);
             nameSetDOM.hide();
@@ -520,7 +502,7 @@ var leftDragItem, leftDropOn;
     exports.getPageConfig = function () {
         return moduleUtil.component.getPageConfig();
     };
-   
+
 
     //保存页面
     exports.savePageData = savePageData;
@@ -581,24 +563,24 @@ var leftDragItem, leftDropOn;
             for (var i = 0; i < domList.length; i++) {
                 var component = moduleUtil.component.get(domList[i]);
                 var componentname = component.obj.name || '';
-                if(i == (domList.length - 1)){
-                    component && component.show(function(){
+                if (i == (domList.length - 1)) {
+                    component && component.show(function () {
                     });
-                }else{
+                } else {
                     component && component.show();
                 }
-                
-                var rightboxdom = $("#rightbox_"+domList[i]);
-                if(rightboxdom.length > 0){
-                    rightboxdom.attr("componentname",componentname);
-                    var nowfloorname = config.allComponentName && config.allComponentName[domList[i]]?config.allComponentName[domList[i]]:(component.obj.componentName+domList[i].replace(/^com/ig, ''));
-                    rightboxdom.attr("floorname",nowfloorname);
+
+                var rightboxdom = $("#rightbox_" + domList[i]);
+                if (rightboxdom.length > 0) {
+                    rightboxdom.attr("componentname", componentname);
+                    var nowfloorname = config.allComponentName && config.allComponentName[domList[i]] ? config.allComponentName[domList[i]] : (component.obj.componentName + domList[i].replace(/^com/ig, ''));
+                    rightboxdom.attr("floorname", nowfloorname);
                     rightboxdom.find('span.name').html(nowfloorname);
                 }
             }
             remarkIdx();
             bindEvent();
-              
+
         };
 
         if (config.list.length == 0) {
@@ -614,7 +596,6 @@ var leftDragItem, leftDropOn;
         }
     };
 
-
     //初始化页面
     exports.initializeStructure = function () {
 
@@ -624,7 +605,7 @@ var leftDragItem, leftDropOn;
         var newDataStructrue = {
             list: [],
             component: {},
-            allComponentName:{}
+            allComponentName: {}
         };
         //数据结构调整
         if (!$.isArray(contentList) && contentList.list) {
@@ -665,9 +646,8 @@ var leftDragItem, leftDropOn;
             divComponentEdit.hide();
         });
 
-        $("#divComponentSetPanel").on("change","input[type='text']",function(e){
+        $("#divComponentSetPanel").on("change", "input[type='text']", function (e) {
             $(this).val($.trim($(this).val()));
         });
     };
-
 });

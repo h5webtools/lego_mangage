@@ -7,7 +7,6 @@ define(function (require, exports, module) {
 
         '<a class="btn up" action="up" href="javascript:;" title="上移"></a>' +
         '<a class="btn down" action="down" href="javascript:;" title="下移"></a>' +
-        //'<a class="btn" action="copy" href="javascript:;">复制</a>' +
         '<a class="btn del" action="del" href="javascript:;" title="删除"></a>' +
         '</div>' +
         '</div>'; //组件控制条        

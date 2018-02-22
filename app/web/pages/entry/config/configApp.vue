@@ -12,7 +12,7 @@
         <div style="height:10px;width:100%;background-color:#f5f5f5;"></div>
         <appIndex v-on:setAppIndexConfig="setAppIndexConfig()" :parentData="{data:appIndexData , flag:0 ,configindex:configIndex, configtype:configType}" :editData="{data:appIndexData , flag:0 ,configindex:configIndex, configtype:configType}"> </appIndex>
       </el-col>
-      <el-col :span="18" >
+      <el-col :span="17">
           <h3 class="textleft pd-tp-7 actconfig__title" v-if="configFlag && (configFlag!='icon' || configFlag!='slider')">{{configTitle}}</h3>
           <div class="mod-act-manager" v-if="configFlag && configFlag!='icon'">
             <el-button type="primary"  class="mt-lt-16" @click="addNewSubAct">新增候补活动</el-button>
@@ -22,7 +22,7 @@
             <config-icon></config-icon>
           </el-row>
 
-          <el-tabs v-model="activeUserGroupId" @tab-click="handleClick" v-if="configFlag &&(configFlag == 'topbanner' || configFlag == 'oneaddtwo' || configFlag=='slider' || configFlag=='festivalbanner') ">
+          <el-tabs v-model="activeUserGroupId" @tab-click="handleClick" v-if="configFlag && (configFlag == 'topbanner' || configFlag == 'oneaddtwo' || configFlag=='slider' || configFlag=='festivalbanner') ">
             <el-tab-pane v-for="(item,index) in userGroups" :index="index" :label="item.name" :name="item.group_id" :key="item.group_id">
                 <!-- 当前活动 -->
                 <el-row :gutter="20" @click="selectConfig(0 , index)" v-bind:class="[item.configArr.current_entrance.selectedstatus == 1 ? 'mod-actrule  mod-actrule--selected' : 'mod-actrule']"> 
@@ -30,10 +30,10 @@
                   <div class="mod-delete-act">
                     <el-button type="primary"  class="mt-lt-16" @click="takeOffCurAct">下架当前活动</el-button>
                   </div>
-                  <el-col :span="16" > 
+                  <el-col :span="14" > 
                     <configForm :parentData="{config:item.configArr.current_entrance , configType:configType}" :editData="{a:item.configArr.current_entrance , b:1}"></configForm>
                   </el-col>
-                  <el-col :span="8" class="el-col-border" v-if="item.configArr.current_entrance.appIndexData">
+                  <el-col :span="10" class="el-col-border mod-app-index" v-if="item.configArr.current_entrance.appIndexData">
                     <appIndex :parentData="{data:item.configArr.current_entrance.appIndexData , flag:1,configindex:configIndex, configtype:configType,config:item.configArr.current_entrance}" 
                     :editData="{data:item.configArr.current_entrance.appIndexData , flag:1,configindex:configIndex,configtype:configType,config:item.configArr.current_entrance}"> </appIndex>
                   </el-col>
@@ -42,21 +42,21 @@
                 <!-- 当前活动 -->
                 <!-- 候补活动 -->
                 <template v-for="(waitingItem , watingIndex) in item.configArr.waiting_activity" >
-                  <el-row @click="selectConfig(1,index,watingIndex)" :gutter="20" v-bind:class="[waitingItem.selectedstatus == 1 ? 'mod-actrule  mod-actrule--selected' : 'mod-actrule']">
+                  <el-row :key="waitingItem.act_id" @click="selectConfig(1,index,watingIndex)" :gutter="20" v-bind:class="[waitingItem.selectedstatus == 1 ? 'mod-actrule  mod-actrule--selected' : 'mod-actrule']">
                     <h4 @click="selectConfig(1,index,watingIndex)" class="textleft actconfig__title">后补活动{{watingIndex+1}}</h4>
                     <div class="mod-delete-act" >
                       <el-button type="primary"  class="mt-lt-16" @click="saveCurAct(1 , waitingItem.plan_id , watingIndex)">保存</el-button>
                       <el-button type="danger" class="mt-lt-16" @click="deleteCurAct(1 , waitingItem.plan_id , watingIndex)">删除该后补活动</el-button>
                     </div>
-                    <el-col :span="16" >
+                    <el-col :span="14" >
                       <configForm :parentData="{config:waitingItem , configType:configType}" :editData="{config:waitingItem , configType:configType}"></configForm>
                     </el-col>
-                    <el-col :span="8" class="el-col-border" v-if="waitingItem.appIndexData">
+                    <el-col :span="10" class="el-col-border mod-app-index" v-if="waitingItem.appIndexData">
                       <appIndex :parentData="{data:waitingItem.appIndexData , flag:1,configindex:configIndex,configtype:configType,config:waitingItem}" 
                       :editData="{data:waitingItem.appIndexData , flag:1,configindex:configIndex,configtype:configType,config:waitingItem}"> </appIndex>
                     </el-col>
                   </el-row>
-                  <div style="height:20px;"></div>
+                  <div style="height:20px;" :key="waitingItem.act_id"></div>
                 </template>
                 <!-- 候补活动 -->
 
@@ -67,10 +67,10 @@
                     <el-button type="primary"  class="mt-lt-16" @click="saveCurAct(2 , '' )">保存</el-button>
                     <el-button type="danger"  class="mt-lt-16" @click="deleteCurAct(2 , '' )">删除默认活动</el-button>
                   </div>
-                  <el-col :span="16" >
+                  <el-col :span="14" >
                     <configForm :parentData="{config:item.configArr.default_activity , configType:configType}" :editData="{config:item.configArr.default_activity , configType:configType}"></configForm>
                   </el-col>
-                  <el-col :span="8" class="el-col-border" v-if="item.configArr.default_activity.appIndexData">
+                  <el-col :span="10" class="el-col-border" v-if="item.configArr.default_activity.appIndexData">
                     <appIndex :parentData="{data:item.configArr.default_activity.appIndexData , flag:1,configindex:configIndex,configtype:configType,config:item.configArr.default_activity}" 
                     :editData="{data:item.configArr.default_activity.appIndexData , flag:1,configindex:configIndex,configtype:configType,config:item.configArr.default_activity}"> </appIndex>
                   </el-col>
@@ -153,6 +153,7 @@
 </template>
 
 <script>
+
 import { getQuery } from "assets/js/util";
 import * as actQuery from "api/api_entry_index";
 import appIndex from './appIndex.vue';
@@ -193,7 +194,7 @@ export default {
         isIndeterminate:"",
         checkAll:"",
         checkedUserGroups:"",
-        userGroups:""
+        userGroups:[]
       },
       SubActFormRules: {
         act_type: [
@@ -517,6 +518,10 @@ export default {
           }else{
             element.selectedstatus = 0; 
           }
+        });
+      }else{
+        initData.waiting_activity && initData.waiting_activity.forEach(function(element , index){
+            element.selectedstatus = 0; 
         });
       }
 

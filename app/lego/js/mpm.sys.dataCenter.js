@@ -122,9 +122,9 @@ define(function(require, exports, module) {
       folder: page.path,
       pageId: page.id,
       type: page.type,
-      shareImage: page.shareinfo.img_url,
-      shareTitle: page.shareinfo.title,
-      shareDesc: page.shareinfo.desc,
+      shareImage: page.shareImgUrl,
+      shareTitle: page.shareTitle,
+      shareDesc: page.shareDesc,
       oldPageUrl: page.oldPageMenu,
       expireTime: page.expireTime,
       expireUrl: page.expireUrl,
@@ -204,5 +204,22 @@ define(function(require, exports, module) {
     }, cb)
   };
 
+  exports.packageAct = function(pageInfo , cb){
+    request('/lego/packageAct' , {
+      folder: pageInfo.folder,
+      pagename: pageInfo.pagename,
+      pageid: pageInfo.pageid,
+      content: pageInfo.html,
+      extendJS: pageInfo.extendJS,
+      comConfig: pageInfo.comConfig,
+      datefolder: pageInfo.datefolder,
+      oldPagePath: pageInfo.oldPageMenu,
+      mpmPageContent: pageInfo.mpmPageContent,
+      publishflag: pageInfo.publishflag,
+      mdev: pageInfo.mdev,
+      jsmin: pageInfo.jsmin,
+      publishid:pageInfo.publishid
+    } , cb)
+  }
 
 });

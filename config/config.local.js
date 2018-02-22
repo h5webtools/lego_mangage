@@ -33,7 +33,8 @@ module.exports = appInfo => {
         port: '3306',
         user: 'jiayoubao',
         password: 'root1234',
-        database: "db_h5_act_config"
+        database: "db_h5_act_config",
+        dateStrings:true
       }
     },
     app: true

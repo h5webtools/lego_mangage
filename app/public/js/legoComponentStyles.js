@@ -1871,6 +1871,7 @@ module.exports = Component.exports
 /* harmony export (immutable) */ __webpack_exports__["b"] = getSelectedComponentStyles;
 /* harmony export (immutable) */ __webpack_exports__["d"] = saveComponentStyle;
 /* harmony export (immutable) */ __webpack_exports__["f"] = updateComponentStyle;
+/* unused harmony export packageAct */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_services__ = __webpack_require__(159);
 
 
@@ -1923,6 +1924,15 @@ function saveComponentStyle(data) {
 function updateComponentStyle(data) {
   return Object(__WEBPACK_IMPORTED_MODULE_0_services__["a" /* default */])({
     url: '/lego/updateComponentStyle',
+    method: 'post',
+    data: data
+  });
+}
+
+// 打包页面
+function packageAct(data) {
+  return Object(__WEBPACK_IMPORTED_MODULE_0_services__["a" /* default */])({
+    url: '/lego/packageAct',
     method: 'post',
     data: data
   });

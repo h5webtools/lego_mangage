@@ -53,3 +53,13 @@ export function updateComponentStyle(data) {
     data
   });
 }
+
+// 打包页面
+export function packageAct(data) {
+  return service({
+    url: '/lego/packageAct',
+    method: 'post',
+    data
+  });
+}
+

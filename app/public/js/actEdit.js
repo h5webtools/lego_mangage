@@ -2321,7 +2321,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                   }).then(function () {}).catch(function () {});
                 } else {
                   // 跳转到活动列表
-                  location.href = "list.html";
+                  //location.href = "list.html";
                   _this7.$route.push('/act');
                 }
               });

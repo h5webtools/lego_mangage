@@ -446,7 +446,7 @@ export default {
                   });
                 }else{
                   // 跳转到活动列表
-                  location.href = "list.html";
+                  //location.href = "list.html";
                   this.$route.push('/act');
                 }
               });

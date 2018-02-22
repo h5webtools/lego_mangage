@@ -2150,6 +2150,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+
 var userGroupOptions = [];
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2182,7 +2183,7 @@ var userGroupOptions = [];
         isIndeterminate: "",
         checkAll: "",
         checkedUserGroups: "",
-        userGroups: ""
+        userGroups: []
       },
       SubActFormRules: {
         act_type: [{ required: true, message: '请选择活动类别', trigger: 'change' }],
@@ -2515,6 +2516,10 @@ var userGroupOptions = [];
             element.selectedstatus = 0;
           }
         });
+      } else {
+        initData.waiting_activity && initData.waiting_activity.forEach(function (element, index) {
+          element.selectedstatus = 0;
+        });
       }
     },
     queryUserGroupConfig: function queryUserGroupConfig(userGroupName, type, index) {
@@ -2784,7 +2789,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "grid-content bg-purple mg-tp-10 mg-bt-10"
+    staticClass: "mg-tp-10 mg-bt-10"
   }, [(_vm.editData.data) ? _c('el-row', {
     attrs: {
       "gutter": 20
@@ -4537,7 +4542,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('el-col', {
     attrs: {
-      "span": 18
+      "span": 17
     }
   }, [(_vm.configFlag && (_vm.configFlag != 'icon' || _vm.configFlag != 'slider')) ? _c('h3', {
     staticClass: "textleft pd-tp-7 actconfig__title"
@@ -4612,7 +4617,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_vm._v("下架当前活动")])], 1), _vm._v(" "), _c('el-col', {
       attrs: {
-        "span": 16
+        "span": 14
       }
     }, [_c('configForm', {
       attrs: {
@@ -4626,9 +4631,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     })], 1), _vm._v(" "), (item.configArr.current_entrance.appIndexData) ? _c('el-col', {
-      staticClass: "el-col-border",
+      staticClass: "el-col-border mod-app-index",
       attrs: {
-        "span": 8
+        "span": 10
       }
     }, [_c('appIndex', {
       attrs: {
@@ -4653,6 +4658,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }), _vm._v(" "), _vm._l((item.configArr.waiting_activity), function(waitingItem, watingIndex) {
       return [_c('el-row', {
+        key: waitingItem.act_id,
         class: [waitingItem.selectedstatus == 1 ? 'mod-actrule  mod-actrule--selected' : 'mod-actrule'],
         attrs: {
           "gutter": 20
@@ -4693,7 +4699,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }, [_vm._v("删除该后补活动")])], 1), _vm._v(" "), _c('el-col', {
         attrs: {
-          "span": 16
+          "span": 14
         }
       }, [_c('configForm', {
         attrs: {
@@ -4707,9 +4713,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           }
         }
       })], 1), _vm._v(" "), (waitingItem.appIndexData) ? _c('el-col', {
-        staticClass: "el-col-border",
+        staticClass: "el-col-border mod-app-index",
         attrs: {
-          "span": 8
+          "span": 10
         }
       }, [_c('appIndex', {
         attrs: {
@@ -4729,6 +4735,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           }
         }
       })], 1) : _vm._e()], 1), _vm._v(" "), _c('div', {
+        key: waitingItem.act_id,
         staticStyle: {
           "height": "20px"
         }
@@ -4774,7 +4781,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_vm._v("删除默认活动")])], 1), _vm._v(" "), _c('el-col', {
       attrs: {
-        "span": 16
+        "span": 14
       }
     }, [_c('configForm', {
       attrs: {
@@ -4790,7 +4797,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     })], 1), _vm._v(" "), (item.configArr.default_activity.appIndexData) ? _c('el-col', {
       staticClass: "el-col-border",
       attrs: {
-        "span": 8
+        "span": 10
       }
     }, [_c('appIndex', {
       attrs: {

@@ -5,12 +5,7 @@ define(function (require, exports, module) {
             fileInput=document.createElement('input');
         fileInput.type='file';
         fileInput.accept='image/jpeg,image/png';
-        // fileInput.style.position='absolute';
-        // fileInput.style.left='0';
-        // fileInput.style.top='0';
-        // fileInput.style.width='100%';
-        // fileInput.style.height='100%';
-        // fileInput.style.opacity='0';
+        
 
         this.dom=config.dom;
         this.url=config.url;

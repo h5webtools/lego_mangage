@@ -1,5 +1,5 @@
 <template>
-  <div class="grid-content bg-purple mg-tp-10 mg-bt-10" >
+  <div class="mg-tp-10 mg-bt-10" >
 
     <!-- 九宫格配置 实际是4*n -->
     <el-row :gutter="20" v-if="editData.data">
