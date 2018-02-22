@@ -2121,7 +2121,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.dialogVisible = true;
     },
     configComStyle: function configComStyle(row) {
-      location.href = 'stylelist.html' + '?comid=' + row.id;
+      this.$router.push('/lego/componentStyleList/' + row.id);
     },
     addNewCom: function addNewCom() {
       this.templateData.modname = '';

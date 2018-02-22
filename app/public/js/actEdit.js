@@ -2056,155 +2056,155 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      originEffectTime: '',
-      originExpireTime: '',
+      originEffectTime: "",
+      originExpireTime: "",
       editor: {}, //编辑器
       editorContent: "",
       validateOptions: [{
-        key: '图形验证码',
-        value: '1'
+        key: "图形验证码",
+        value: "1"
       }, {
-        key: '短信验证码',
-        value: '2'
+        key: "短信验证码",
+        value: "2"
       }, {
-        key: '签名',
-        value: '3'
+        key: "签名",
+        value: "3"
       }, {
-        key: '登录',
-        value: '4'
+        key: "登录",
+        value: "4"
       }, {
-        key: '不校验',
-        value: '5'
+        key: "不校验",
+        value: "5"
       }],
       costTypeOptions: [{
-        key: '合作方采购活动',
-        value: '1'
+        key: "合作方采购活动",
+        value: "1"
       }, {
-        key: '合作方非采购活动',
-        value: '2'
+        key: "合作方非采购活动",
+        value: "2"
       }, {
-        key: '内部拉新活动',
-        value: '3'
+        key: "内部拉新活动",
+        value: "3"
       }, {
-        key: '运营活动',
-        value: '4'
+        key: "运营活动",
+        value: "4"
       }, {
-        key: '运营自动化',
-        value: '5'
+        key: "运营自动化",
+        value: "5"
       }, {
-        key: '产品成本',
-        value: '6'
+        key: "产品成本",
+        value: "6"
       }, {
-        key: '客服活动',
-        value: '7'
+        key: "客服活动",
+        value: "7"
       }, {
-        key: '其他活动',
-        value: '8'
+        key: "其他活动",
+        value: "8"
       }],
       userCostType: [{
-        key: '按新增付费用户人数计算',
-        value: '1'
+        key: "按新增付费用户人数计算",
+        value: "1"
       }, {
-        key: '按红包领取人数计算',
-        value: '2'
+        key: "按红包领取人数计算",
+        value: "2"
       }, {
-        key: '按新注册用户人数计算',
-        value: '3'
+        key: "按新注册用户人数计算",
+        value: "3"
       }],
       channelList: [],
       editLoading: false,
       relatedCoupons: [], // 关联红包列表
       enableEditUsers: [], // 可编辑人员列表
       testersList: [], // 测试人员列表
-      countResult: '', // 成本计算结果
+      countResult: "", // 成本计算结果
       isAddChannel: false, // 是否新增渠道
       ajaxLock: false, // 防止重复请求
       channelAdd: {
-        channel: ''
+        channel: ""
       },
       actInfo: {
-        is_inner: '1', // 活动类型（是否是内部活动）
+        is_inner: "1", // 活动类型（是否是内部活动）
         is_lego: "", //是否是乐高搭建
-        act_title: '', // 活动名
-        effect_time: '', // 上线时间
-        expire_time: '', // 过期时间
-        code_type: '', // 活动校验类型
-        act_url: '', // 活动链接
-        act_content: '', // 活动描述文案
-        cost_type: '', // 成本计算类型
-        user_cost_type: '', // 用户成本计算类型
-        per_user_cost: '', // 单用户成本计算规则
-        business_channel: '', // 活动所属渠道
-        optor: '', // 活动负责人
-        act_id: '', // 活动号
-        revisability: '', // 可编辑活动人员
+        act_title: "", // 活动名
+        effect_time: "", // 上线时间
+        expire_time: "", // 过期时间
+        code_type: "", // 活动校验类型
+        act_url: "", // 活动链接
+        act_content: "", // 活动描述文案
+        cost_type: "", // 成本计算类型
+        user_cost_type: "", // 用户成本计算类型
+        per_user_cost: "", // 单用户成本计算规则
+        business_channel: "", // 活动所属渠道
+        optor: "", // 活动负责人
+        act_id: "", // 活动号
+        revisability: "", // 可编辑活动人员
         tests: [], // 测试负责人
-        coupons: '', // 活动关联红包
-        pageids: '', // 对应的乐高ID
-        rule_description: '' // 乐高对应活动规则
+        coupons: "", // 活动关联红包
+        pageids: "", // 对应的乐高ID
+        rule_description: "" // 乐高对应活动规则
       },
       actInfoRule: {
         act_title: [{
           required: true,
-          message: '请输入活动名',
-          trigger: 'blur'
+          message: "请输入活动名",
+          trigger: "blur"
         }],
         effect_time: [{
-          type: 'date',
+          type: "date",
           required: true,
-          message: '请选择开始时间',
-          trigger: 'change'
+          message: "请选择开始时间",
+          trigger: "change"
         }],
         expire_time: [{
-          type: 'date',
+          type: "date",
           required: true,
-          message: '请选择结束时间',
-          trigger: 'change'
+          message: "请选择结束时间",
+          trigger: "change"
         }],
         code_type: [{
           required: true,
-          message: '请选择活动校验规则',
-          trigger: 'blur'
+          message: "请选择活动校验规则",
+          trigger: "blur"
         }],
         is_lego: [{
           required: true,
-          message: '请确认是否由乐高搭建页面',
-          trigger: 'change'
+          message: "请确认是否由乐高搭建页面",
+          trigger: "change"
         }],
         business_channel: [{
           required: true,
-          message: '请选择活动渠道',
-          trigger: 'change'
+          message: "请选择活动渠道",
+          trigger: "change"
         }]
       }
     };
   },
   created: function created() {
-    var act_id = this.$route.params.act_id || '';
+    var act_id = this.$route.params.act_id || "";
     act_id && this.getActDetail(act_id);
     this.getCouponList().getUserList().getChannelList().getTestEngineer();
   },
   mounted: function mounted() {
     var _this = this;
 
-    this.editor = new __WEBPACK_IMPORTED_MODULE_2_wangeditor___default.a('#editorElem');
+    this.editor = new __WEBPACK_IMPORTED_MODULE_2_wangeditor___default.a("#editorElem");
     // 'code',  // 插入代码 'emoticon',  // 表情
-    this.editor.customConfig.menus = ['head', // 标题
-    'bold', // 粗体
-    'italic', // 斜体
-    'underline', // 下划线
-    'strikeThrough', // 删除线
-    'foreColor', // 文字颜色
-    'backColor', // 背景颜色
-    'link', // 插入链接
-    'list', // 列表
-    'justify', // 对齐方式
-    'quote', // 引用
-    'image', // 插入图片
-    'table', // 表格
-    'video', // 插入视频
-    'undo', // 撤销
-    'redo' // 重复
+    this.editor.customConfig.menus = ["head", // 标题
+    "bold", // 粗体
+    "italic", // 斜体
+    "underline", // 下划线
+    "strikeThrough", // 删除线
+    "foreColor", // 文字颜色
+    "backColor", // 背景颜色
+    "link", // 插入链接
+    "list", // 列表
+    "justify", // 对齐方式
+    "quote", // 引用
+    "image", // 插入图片
+    "table", // 表格
+    "video", // 插入视频
+    "undo", // 撤销
+    "redo" // 重复
     ];
     this.editor.customConfig.onchange = function (html) {
       _this.actInfo.rule_description = html;
@@ -2266,7 +2266,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return this;
     },
 
-    //获取测试人员列表 
+    //获取测试人员列表
     getTestEngineer: function getTestEngineer() {
       var _this5 = this;
 
@@ -2294,7 +2294,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     saveEdit: function saveEdit() {
       var _this7 = this;
 
-      this.$refs['form'].validate(function (valid) {
+      this.$refs["form"].validate(function (valid) {
         if (valid) {
           if (!_this7.actInfo.business_channel) {
             _this7.$message.error("请选择活动展示渠道");
@@ -2312,17 +2312,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           __WEBPACK_IMPORTED_MODULE_0_api_api_act_edit__["f" /* saveActConfig */](submitInfo).then(function (json) {
             _this7.editLoading = false;
             if (json.code == 0) {
-              _this7.$confirm('活动配置保存成功', '提示').then(function () {
+              _this7.$confirm("活动配置保存成功", "提示").then(function () {
                 if (new Date(submitInfo.expire_time).getTime() != new Date(_this7.originExpireTime).getTime() || new Date(submitInfo.effect_time).getTime() != new Date(_this7.originEffectTime).getTime()) {
-                  _this7.$confirm('活动开始时间和结束时间已改变，请通知开发或到乐高系统重新发布活动规则', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
+                  _this7.$confirm("活动开始时间和结束时间已改变，请通知开发或到乐高系统重新发布活动规则", "提示", {
+                    confirmButtonText: "确定",
+                    cancelButtonText: "取消",
+                    type: "warning"
                   }).then(function () {}).catch(function () {});
                 } else {
                   // 跳转到活动列表
-                  //location.href = "list.html";
-                  _this7.$route.push('/act');
+                  _this7.$router.push("/act");
                 }
               });
             } else {
@@ -2350,7 +2349,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     saveNewChannel: function saveNewChannel() {
       var _this8 = this;
 
-      var channelName = this.channelAdd.channel.replace(/\s*/g, '');
+      var channelName = this.channelAdd.channel.replace(/\s*/g, "");
       if (!this.channelAdd.channel) {
         this.$message.error("请输入渠道名称");
         return;
@@ -2365,12 +2364,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         if (jsonData.code == 0) {
           _this8.$message({
             message: "保存成功，已添加至列表",
-            type: 'success'
+            type: "success"
           });
           // 在列表里新增一条
           _this8.channelList.unshift(_this8.channelAdd.channel);
           // 清空输入
-          _this8.channelAdd.channel = '';
+          _this8.channelAdd.channel = "";
         } else {
           _this8.$message.error(jsonData.msg);
         }

@@ -32,6 +32,14 @@ class LegoPageController extends Controller {
               desc: '你不是该活动的创建人并且未加入到该活动的授权名单列表里，请联系该活动的创建人'
             });
           } else {
+            if(!pageId) {
+              await this.ctx.render('lego/edit', {
+                title: actDetail.data.act_title,
+                env: this.app.config.env,
+                lock: false
+              });
+              return;
+            }
             // 渲染编辑页
             let lockData = await this.app.redis.get(`lego_manage_${pageId}`);
             // 有他人锁定
@@ -40,7 +48,6 @@ class LegoPageController extends Controller {
               if(lockData.userid != this.ctx.session.userid) {
                 await this.ctx.render('error/error', {
                   errMsg: lockData.userName + '正在编辑该页面，为防止冲突，待解锁后你才能编辑',
-                  isLock: true,
                   desc: '如果需要编辑，请联系'+ lockData.userName+ '解除锁定'
                 });
                 return;
@@ -51,10 +58,12 @@ class LegoPageController extends Controller {
               userid: this.ctx.session.userid,
               userAccount: this.ctx.session.userAccount,
               userName: this.ctx.session.userName,
-            }));
+              time: +new Date()
+            }), 'PX', 24 * 60 * 60 * 1000);
             await this.ctx.render('lego/edit', {
               title: actDetail.data.act_title,
-              env: this.app.config.env
+              env: this.app.config.env,
+              lock: true
             });
           }
         } else {

@@ -179,7 +179,7 @@ export default {
       this.dialogVisible = true;
     },
     configComStyle(row){
-      location.href = 'stylelist.html'+'?comid='+row.id;
+      this.$router.push('/lego/componentStyleList/'+row.id)
     },
     addNewCom() {
       this.templateData.modname = '';
