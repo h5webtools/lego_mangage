@@ -5,7 +5,7 @@ const errCode = require('../../constant/errCode');
 
 class LegoPageController extends Controller {
   async editPage() {
-    let pageId = this.ctx.query.pageid,
+    let pageId = this.ctx.query.page_id,
         actId = this.ctx.query.act_id;
     if(!actId) {
       this.ctx.logger.info('进入乐高活动编辑页，没有活动号');

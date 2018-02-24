@@ -112,7 +112,8 @@
                   <div @click="manual(props.row)">同步配置</div>
                 </el-dropdown-item>
                 <el-dropdown-item divided v-if="props.row.is_lego == '1'">
-                  <a :href="'/public/edit.html?page_id='+props.row.pageids[0]+'&act_id='+props.row.crypt">编辑页面</a>
+                  <a v-if="props.row.pageids.length > 0" target="_blank" :href="'/lego/editPage?page_id='+(props.row.pageids[0] || '')+'&act_id='+props.row.crypt">编辑页面</a>
+                  <a v-else target="_blank" :href="'/lego/homePage?act_id='+props.row.crypt">编辑页面</a>
                 </el-dropdown-item>
                 <!-- status=0 -->
                 <!-- <el-dropdown-item divided v-if="props.row.status==0 && userStatus!=0">待测试</el-dropdown-item> -->
