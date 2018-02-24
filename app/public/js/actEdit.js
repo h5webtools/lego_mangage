@@ -485,7 +485,6 @@ function scrollTo(element, to, duration) {
   var difference = to - element.scrollTop;
   var perTick = difference / duration * 10;
   setTimeout(function () {
-    console.log(new Date());
     element.scrollTop = element.scrollTop + perTick;
     if (element.scrollTop === to) return;
     scrollTo(element, to, duration - 10);
@@ -2310,8 +2309,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           delete submitInfo.pageids;
 
           __WEBPACK_IMPORTED_MODULE_0_api_api_act_edit__["f" /* saveActConfig */](submitInfo).then(function (json) {
+            var w_e_menu = document.querySelector(".w-e-menu"),
+                w_e_text_container = document.querySelector(".w-e-text-container");
             _this7.editLoading = false;
             if (json.code == 0) {
+              w_e_menu.className += ' w-e-menu__custom';
+              w_e_text_container.className += ' w-e-text-container__custom';
               _this7.$confirm("活动配置保存成功", "提示").then(function () {
                 if (new Date(submitInfo.expire_time).getTime() != new Date(_this7.originExpireTime).getTime() || new Date(submitInfo.effect_time).getTime() != new Date(_this7.originEffectTime).getTime()) {
                   _this7.$confirm("活动开始时间和结束时间已改变，请通知开发或到乐高系统重新发布活动规则", "提示", {

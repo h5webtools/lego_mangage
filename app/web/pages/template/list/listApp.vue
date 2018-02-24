@@ -33,7 +33,6 @@
             <el-button  type="text" size="small">
               <router-link :to="{name:'configTree', params: {tpl_id:scope.row.tpl_id}}">配置模板</router-link>
             </el-button>
-            <!-- <el-button @click="configTpl(scope.row)" type="text" size="small">配置模板</el-button> -->
           </template>
         </el-table-column>
       </el-table>
@@ -132,15 +131,11 @@ export default {
     sortTableByColum() {
     },
     editTpl(row) {
-      console.log(row);
       this.templateData.tpl_id = row.tpl_id;
       this.templateData.com_id = row.com_id;
       this.templateData.name = row.name;
       this.templateData.remark = row.remark;
       this.dialogVisible = true;
-    },
-    configTpl(row) {
-      location.href = "chaintpl.html" + "?tpl_id=" + row.tpl_id;
     },
     addNewTpl() {
       this.templateData.tpl_id = "";
@@ -157,10 +152,9 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           paramQuery.saveComponentTemplate(this.templateData).then((jsonData) => {
-            console.log(jsonData);
             if (jsonData.code == 0) {
               this.$confirm('活动保存成功', '提示').then(() => {
-                location.href = "list.html";
+                this.$router.push("/template/templateList");
               });
             } else {
               this.$confirm('活动保存失败，请重试！', '提示');

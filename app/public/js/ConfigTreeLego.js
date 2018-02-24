@@ -734,7 +734,6 @@ function scrollTo(element, to, duration) {
   var difference = to - element.scrollTop;
   var perTick = difference / duration * 10;
   setTimeout(function () {
-    console.log(new Date());
     element.scrollTop = element.scrollTop + perTick;
     if (element.scrollTop === to) return;
     scrollTo(element, to, duration - 10);
@@ -3922,7 +3921,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       /* 循环检测每个是否配置OK */
       saveData.forEach(function (item, index) {
-        console.log(item.chains);
         curChains = item.chains;
         if (item.chains.length == 0) {
           me.$message.error('第' + (index + 1) + '个树尚未配置规则');
@@ -3935,7 +3933,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           if (chain.nodeType == 'action') {
             return false;
           } else {
-            console.log(hasError);
             if (hasError) {
               isErrorFlag = true;
               me.$message.error('第' + (index + 1) + '个树每一个分支都需要以动作结束');
@@ -3960,12 +3957,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         item.chains = ruleActionChain;
         ruleActionChain = [];
-        console.log(item.chains, "------==== ");
       });
 
       /* 循环检测每个是否配置OK */
-
-      console.log(saveData);
 
       __WEBPACK_IMPORTED_MODULE_0_api_api_template_chainApp__["a" /* SaveChainsByComponentTemplate */]({ //saveComponentTemplateChains
         tpl_id: this.tpl_id,
@@ -4172,7 +4166,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     },
     showEditDialog: function showEditDialog(data) {
-      console.log(data);
       if (data.data.id) {
         var saveData = this.treeData[data.data.id].tagData;
         this.dialogData.lock = data.lock;
@@ -4395,7 +4388,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var cmdConfig = {};
       var defaultCmd = '';
       var curRuleActionList = this.ruleActionList;
-      console.log("curRuleActionList", curRuleActionList);
 
       var _loop = function _loop(cmd) {
         var cmdItem = _this7.chainConfig[cmd].chains,
@@ -4403,8 +4395,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             editChainIdObj = {},
             len = cmdItem.length;
         !defaultCmd && (defaultCmd = cmd);
-
-        console.log(cmdItem);
 
         cmdConfig[cmd] = [];
         // 循环命令字下面的规则动作列表
@@ -4663,9 +4653,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.chainsTplData.configData = this.tempChainConfig;
 
       this.configTplHTML = this.syntaxHighlight(JSON.parse(this.tempChainConfig));
-
-      console.log(this.configTplHTML);
-      //console.log(this.chainsTplData.configData);
 
       this.chainsTplVisible = true;
     },

@@ -485,7 +485,6 @@ function scrollTo(element, to, duration) {
   var difference = to - element.scrollTop;
   var perTick = difference / duration * 10;
   setTimeout(function () {
-    console.log(new Date());
     element.scrollTop = element.scrollTop + perTick;
     if (element.scrollTop === to) return;
     scrollTo(element, to, duration - 10);
@@ -2028,7 +2027,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2098,15 +2096,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     sortTableByColum: function sortTableByColum() {},
     editTpl: function editTpl(row) {
-      console.log(row);
       this.templateData.tpl_id = row.tpl_id;
       this.templateData.com_id = row.com_id;
       this.templateData.name = row.name;
       this.templateData.remark = row.remark;
       this.dialogVisible = true;
-    },
-    configTpl: function configTpl(row) {
-      location.href = "chaintpl.html" + "?tpl_id=" + row.tpl_id;
     },
     addNewTpl: function addNewTpl() {
       this.templateData.tpl_id = "";
@@ -2125,10 +2119,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.$refs[formName].validate(function (valid) {
         if (valid) {
           __WEBPACK_IMPORTED_MODULE_0_api_api_act_params__["e" /* saveComponentTemplate */](_this2.templateData).then(function (jsonData) {
-            console.log(jsonData);
             if (jsonData.code == 0) {
               _this2.$confirm('活动保存成功', '提示').then(function () {
-                location.href = "list.html";
+                _this2.$router.push("/template/templateList");
               });
             } else {
               _this2.$confirm('活动保存失败，请重试！', '提示');

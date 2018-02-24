@@ -485,7 +485,6 @@ function scrollTo(element, to, duration) {
   var difference = to - element.scrollTop;
   var perTick = difference / duration * 10;
   setTimeout(function () {
-    console.log(new Date());
     element.scrollTop = element.scrollTop + perTick;
     if (element.scrollTop === to) return;
     scrollTo(element, to, duration - 10);
@@ -2166,7 +2165,7 @@ var userGroupOptions = [];
       configIndex: 0,
       configType: "", //类型： 比如九宫格 大图 1+2 轮播图 icon等
       configTitle: "",
-      activeUserGroupId: '', //默认选中
+      activeUserGroupId: '0', //默认选中
       addSubActForm: {
         act_type: "",
         plan_id: "",
@@ -2232,7 +2231,7 @@ var userGroupOptions = [];
     },
     urlValidCheck: function urlValidCheck(url) {
       //检测url
-      var envType = location.href.indexOf("sit") > -1 ? 0 : 1;
+      var envType = location.origin.indexOf("sit") > -1 ? 0 : 1;
       var sitRegExp = /^https:\/\/cdnsit.jyblife.com/,
           productRegExp = /^https:\/\/cdn.jyblife.com/,
           appRegExp = /^jtjr:\/\//;
@@ -2248,8 +2247,8 @@ var userGroupOptions = [];
       ////检测时间
       if (effect_time && expire_time) {
         //如果时间没有的就不校验
-        var startFlag = new Date(beginTime) >= new Date(actBeginTime),
-            endTimeFalg = new Date(endTime) <= new Date(actEndTime);
+        var startFlag = new Date(beginTime) >= new Date(effect_time),
+            endTimeFalg = new Date(endTime) <= new Date(expire_time);
         if (startFlag && endTimeFalg) {
           return true;
         } else {
@@ -2352,9 +2351,10 @@ var userGroupOptions = [];
           //默认活动
           submitData = _this5.curActList.default_activity;
         }
-        if (!submitData.mta_id || !submitData.begin_at || !submitData.end_at || !submitData.act_id || !submitData.act_url || !submitData.act_url || !submitData.pic_url) {
+        if (!submitData.mta_id || !submitData.begin_at || !submitData.end_at || !submitData.act_id || !submitData.act_url || !submitData.pic_url) {
           return;
         }
+
         if (!_this5.urlValidCheck(submitData.act_url)) {
           _this5.$message({
             type: 'error',
@@ -2443,7 +2443,7 @@ var userGroupOptions = [];
           __WEBPACK_IMPORTED_MODULE_1_api_api_entry_index__["j" /* putEntrancePlan */](_this7.addSubActForm).then(function (jsonData) {
             if (jsonData.code == 0) {
               _this7.$message({
-                message: '新增成功',
+                message: '保存成功',
                 type: 'success'
               });
             }
@@ -3070,7 +3070,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         });
         return false;
       }
-      console.log("加载当前活动", actId);
       __WEBPACK_IMPORTED_MODULE_1_api_api_entry_index__["b" /* getActivityConfig */]({
         act_id: actId
       }).then(function (jsonData) {
@@ -3170,6 +3169,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('el-date-picker', {
     attrs: {
       "type": "datetime",
+      "value-format": "yyyy-MM-dd HH:mm:ss",
       "placeholder": "选择生效时间"
     },
     model: {
@@ -3188,6 +3188,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('el-date-picker', {
     attrs: {
       "type": "datetime",
+      "value-format": "yyyy-MM-dd HH:mm:ss",
       "placeholder": "选择下线时间"
     },
     model: {
@@ -3511,7 +3512,7 @@ var cityOptions = [];
   methods: {
     urlValidCheck: function urlValidCheck(url) {
       //检测url
-      var envType = location.href.indexOf('sit') > -1 ? 0 : 1;
+      var envType = location.origin.indexOf('sit') > -1 ? 0 : 1;
       var sitRegExp = /^https:\/\/cdnsit.jyblife.com/,
           productRegExp = /^https:\/\/cdn.jyblife.com/,
           appRegExp = /^jtjr:\/\//;
@@ -3527,8 +3528,8 @@ var cityOptions = [];
       ////检测时间
       if (effect_time && expire_time) {
         //如果时间没有的就不校验
-        var startFlag = new Date(beginTime) >= new Date(actBeginTime),
-            endTimeFalg = new Date(endTime) <= new Date(actEndTime);
+        var startFlag = new Date(beginTime) >= new Date(effect_time),
+            endTimeFalg = new Date(endTime) <= new Date(expire_time);
         if (startFlag && endTimeFalg) {
           return true;
         } else {
@@ -3757,6 +3758,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('el-date-picker', {
     attrs: {
+      "value-format": "yyyy-MM-dd HH:mm:ss",
       "type": "datetime",
       "placeholder": "选择日期时间"
     },
@@ -3774,6 +3776,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('el-date-picker', {
     attrs: {
+      "value-format": "yyyy-MM-dd HH:mm:ss",
       "type": "datetime",
       "placeholder": "选择日期时间"
     },
@@ -3851,7 +3854,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("保存")])], 1), _vm._v(" "), _c('div', {
       staticClass: "mod-delete-icon"
     }, [_c('el-button', {
-      staticClass: "mt-lt-16",
+      staticClass: "mt-lt-4",
       attrs: {
         "type": "danger"
       },
@@ -4053,7 +4056,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       key: item.act_id
     }, [_c('img', {
       attrs: {
-        "src": item.imgUrl
+        "src": item.pic_url
       }
     })])
   }))], 1)], 1)
@@ -4617,7 +4620,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_vm._v("下架当前活动")])], 1), _vm._v(" "), _c('el-col', {
       attrs: {
-        "span": 14
+        "span": 16
       }
     }, [_c('configForm', {
       attrs: {
@@ -4633,7 +4636,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     })], 1), _vm._v(" "), (item.configArr.current_entrance.appIndexData) ? _c('el-col', {
       staticClass: "el-col-border mod-app-index",
       attrs: {
-        "span": 10
+        "span": 8
       }
     }, [_c('appIndex', {
       attrs: {
@@ -4699,7 +4702,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }, [_vm._v("删除该后补活动")])], 1), _vm._v(" "), _c('el-col', {
         attrs: {
-          "span": 14
+          "span": 16
         }
       }, [_c('configForm', {
         attrs: {
@@ -4715,7 +4718,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       })], 1), _vm._v(" "), (waitingItem.appIndexData) ? _c('el-col', {
         staticClass: "el-col-border mod-app-index",
         attrs: {
-          "span": 10
+          "span": 8
         }
       }, [_c('appIndex', {
         attrs: {
@@ -4735,7 +4738,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           }
         }
       })], 1) : _vm._e()], 1), _vm._v(" "), _c('div', {
-        key: waitingItem.act_id,
+        key: waitingItem.act_id + watingIndex + 1,
         staticStyle: {
           "height": "20px"
         }
@@ -4781,7 +4784,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_vm._v("删除默认活动")])], 1), _vm._v(" "), _c('el-col', {
       attrs: {
-        "span": 14
+        "span": 16
       }
     }, [_c('configForm', {
       attrs: {
@@ -4797,7 +4800,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     })], 1), _vm._v(" "), (item.configArr.default_activity.appIndexData) ? _c('el-col', {
       staticClass: "el-col-border",
       attrs: {
-        "span": 10
+        "span": 8
       }
     }, [_c('appIndex', {
       attrs: {

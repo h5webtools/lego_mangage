@@ -11,11 +11,11 @@
       <el-input v-model="parentData.config.sub_title" placeholder="请输入副标题"></el-input>
     </el-form-item>
     <el-form-item label="投放开始时间" required="" prop="begin_at" v-if="parentData.config.act_type != 2">
-      <el-date-picker v-model="parentData.config.begin_at" type="datetime" placeholder="选择生效时间">
+      <el-date-picker v-model="parentData.config.begin_at" type="datetime" value-format="yyyy-MM-dd HH:mm:ss" placeholder="选择生效时间">
       </el-date-picker>
     </el-form-item>
     <el-form-item label="投放下线时间" required="" prop="end_at" v-if="parentData.config.act_type != 2">
-      <el-date-picker v-model="parentData.config.end_at" type="datetime" placeholder="选择下线时间">
+      <el-date-picker v-model="parentData.config.end_at" type="datetime" value-format="yyyy-MM-dd HH:mm:ss" placeholder="选择下线时间">
       </el-date-picker>
     </el-form-item>
     <el-form-item label="活动生效时间">
@@ -92,7 +92,6 @@ export default {
         });
         return false;
       }
-      console.log("加载当前活动",actId);
       actQuery.getActivityConfig({
         act_id:actId
       }).then(jsonData => {

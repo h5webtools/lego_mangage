@@ -1,230 +1,272 @@
 <div class="editBox">
-    <div class="editBox_2">
-        <h3>{{obj.componentName}} {{obj.uid}}</h3>
-        <p>
-            注册组件
-        </p>
+  <div class="editBox_2">
+    <h3>{{obj.componentName}} {{obj.uid}}</h3>
+    <p>
+      注册组件
+    </p>
 
-        <ul class="tab_hd">
-            <li v-bind:class="{ 'on': showStyle }" v-on:click="show(0)"><a href="javascript:;" title="设置样式">设置样式</a></li>
-            <li v-bind:class="{ 'on': showProperty }" v-on:click="show(1)"><a href="javascript:;" title="设置数据">设置数据</a></li>
-        </ul>
+    <ul class="tab_hd">
+      <li v-bind:class="{ 'on': showStyle }" v-on:click="show(0)">
+        <a href="javascript:;" title="设置样式">设置样式</a>
+      </li>
+      <li v-bind:class="{ 'on': showProperty }" v-on:click="show(1)">
+        <a href="javascript:;" title="设置数据">设置数据</a>
+      </li>
+    </ul>
 
-        <div v-show="showStyle" class="styleBox">
-            <div class="editArea">
-                <form class="form-horizontal" v-for="item in obj.com_extend">
-                    <div class="form-group" v-if="item.type == 'radio'">
-                        <label>{{item.name}}：</label>
-                        <div>
-                            <label v-for="item2 in item.data"><input type="radio" :name="obj.uid+'_'+item.nick" :value="item2.value" v-model="obj.data.extend[item.nick]"> {{item2.name}}</label>
-                        </div>
-                    </div>
-                    <div class="form-group" v-if="item.type == 'input'">
-                        <label style="float: left;padding-right:14px;"><strong>*</strong>{{item.name}}：</label>
-                        <input type="text" :class="item.class" :name="obj.uid+'_'+item.nick" v-model="obj.data.extend[item.nick]" :placeholder="item.placeholder"
-                            flag="extendtime" :nick="item.nick">
-                    </div>
-                </form>
+    <div v-show="showStyle" class="styleBox">
+      <div class="editArea">
+        <form class="form-horizontal" v-for="item in obj.com_extend">
+          <div class="form-group" v-if="item.type == 'radio'">
+            <label>{{item.name}}：</label>
+            <div>
+              <label v-for="item2 in item.data">
+                <input type="radio" :name="obj.uid+'_'+item.nick" :value="item2.value" v-model="obj.data.extend[item.nick]"> {{item2.name}}</label>
             </div>
-            <br>
-            <br>
-            <dl>
-                <dt>样式</dt>
-                <dd>
-                    <ul>
-                        <li v-for="item in arrStyle" v-if="item.priority != 10000">
-                            <div style="display:none;">
-                                {{item.com_desc}}<input type="radio" :name="obj.uid" :id="obj.uid+'_'+item.id" :value="item.id"
-                                    v-model="obj.data.styleKey"><br/>
-                            </div>
-                            <label :class="item.id == obj.data.styleKey ? 'on' : ''" :for="obj.uid+'_'+item.id"><img :src="item.image" alt=""></label>
-                            <div class="styleDesc">
-                                {{item.com_desc}}
-                            </div>
-                        </li>
-                    </ul>
-                </dd>
-            </dl>
+          </div>
+          <div class="form-group" v-if="item.type == 'input'">
+            <label style="float: left;padding-right:14px;">
+              <strong>*</strong>{{item.name}}：</label>
+            <input type="text" :class="item.class" :name="obj.uid+'_'+item.nick" v-model="obj.data.extend[item.nick]" :placeholder="item.placeholder"
+              flag="extendtime" :nick="item.nick">
+          </div>
+        </form>
+      </div>
+      <br>
+      <br>
+      <dl>
+        <dt>样式</dt>
+        <dd>
+          <ul>
+            <li v-for="item in arrStyle" v-if="item.priority != 10000">
+              <div style="display:none;">
+                {{item.com_desc}}
+                <input type="radio" :name="obj.uid" :id="obj.uid+'_'+item.id" :value="item.id" v-model="obj.data.styleKey">
+                <br/>
+              </div>
+              <label :class="item.id == obj.data.styleKey ? 'on' : ''" :for="obj.uid+'_'+item.id">
+                <img :src="item.image" alt="">
+              </label>
+              <div class="styleDesc">
+                {{item.com_desc}}
+              </div>
+            </li>
+          </ul>
+        </dd>
+      </dl>
 
-
-        </div>
-
-        <div v-show="showProperty" class="editArea">
-                <form class="form-horizontal"  v-if="obj.data.isShowNpmVersions == 9">
-                        <div class="coupon-group">
-                        <div class="form-group">
-                            <label><strong></strong>版本号：</label>
-                            <select name="action" @change="selectNpmVersion" v-model="obj.data.npmversion">
-                                <option :value="item.version" v-for="item in obj.data.npmversionArr">{{item.desc}}</option>
-                            </select>
-                        </div>
-                        </div>
-                    </form>
-            <form class="form-horizontal">
-                <div class="coupon-group">
-                    <div class="form-group">
-                        <label><strong></strong>活动ID：</label>
-                        <input type="text" placeholder="比如GhEpLxkRF3E=" v-model="obj.data.activeid">
-                    </div>
-                    <div class="form-group">
-                        <label><strong></strong>命令字：</label>
-                        <input type="text" placeholder="" v-model="obj.data.cmdid">
-                    </div>
-                    <div class="form-group">
-                        <label><strong></strong>归属地命令字：</label>
-                        <input type="text" placeholder="" v-model="obj.data.areacmdid">
-                    </div>
-                    <div class="form-group">
-                        <label><strong></strong>查看红包地址：</label>
-                        <input type="text" placeholder="需要查看红包的样式填写" v-model="obj.data.checoutkurl">
-                    </div>
-                    <div class="form-group">
-                        <label><strong></strong>提交按钮文案：</label>
-                        <input type="text" v-model="obj.data.buttondes">
-                    </div>
-                    <div class="form-group">
-                        <label><strong></strong>查看奖品文案：</label>
-                        <input type="text" v-model="obj.data.checkoutPrices">
-                    </div>
-                    <div class="form-group">
-                        <label><strong></strong>查看奖品颜色：</label>
-                        <input type="color" v-model="obj.data.checkoutPricesColor">
-                        <input type="text" class="colorFrameInput" v-model="obj.data.checkoutPricesColor" value="" size="10">
-                    </div>
-                    <div class="form-group">
-                        <label><strong></strong>提交按钮背景色：</label>
-                        <input type="color" v-model="obj.data.buttoncolor">
-                        <input type="text" class="colorFrameInput" v-model="obj.data.buttoncolor" value="" size="10">
-                    </div>
-                    <div class="form-group">
-                        <label><strong></strong>提交文字色：</label>
-                        <input type="color" v-model="obj.data.btntextcolor">
-                        <input type="text" class="colorFrameInput" v-model="obj.data.btntextcolor" value="" size="10">
-                    </div>
-                    <div class="form-group">
-                        <label><strong></strong>按钮底部内阴影：</label>
-                        <input type="color" v-model="obj.data.btndowninsetcolor">
-                        <input type="text" class="colorFrameInput" v-model="obj.data.btndowninsetcolor" value="" size="10">
-                    </div>
-                    <div class="form-group">
-                        <label><strong></strong>背景色：</label>
-                        <input type="color" v-model="obj.data.backgroundcolor">
-                        <input type="text" class="colorFrameInput" v-model="obj.data.backgroundcolor" value="" size="10">
-                    </div>
-
-                    <div class="form-group">
-                        <label><strong></strong>边框颜色：</label>
-                        <input type="color" v-model="obj.data.bordercolor">
-                        <input type="text" class="colorFrameInput" v-model="obj.data.bordercolor" value="" size="10">
-                    </div>
-
-                    <div class="form-group">
-                        <label><strong></strong>内阴影颜色：</label>
-                        <input type="color" v-model="obj.data.innerInsetcolor">
-                        <input type="text" class="colorFrameInput" v-model="obj.data.innerInsetcolor" value="" size="10">
-                    </div>
-
-                    <div class="form-group">
-                        <label><strong></strong>输入框描述颜色：</label>
-                        <input type="color" v-model="obj.data.inputnamecolor">
-                        <input type="text" class="colorFrameInput" v-model="obj.data.inputnamecolor" value="" size="10">
-                    </div>
-                    <div class="form-group">
-                        <label><strong></strong>验证码颜色：</label>
-                        <input type="color" v-model="obj.data.identycodecolor">
-                        <input type="text" class="colorFrameInput" v-model="obj.data.identycodecolor" value="" size="10">
-                    </div>
-
-
-
-
-
-                </div>
-
-                <div class="coupon-group">
-                    <div class="form-group">
-                        <label><strong></strong>弹框描述1：</label>
-                        <input type="text" placeholder="100元加油红包" v-model="obj.data.tipsdesc1">
-                    </div>
-                    <div class="form-group">
-                        <label><strong></strong>弹框描述2：</label>
-                        <input type="text" placeholder="免费领！" v-model="obj.data.tipsdesc2">
-                    </div>
-                    <div class="form-group">
-                        <label><strong></strong>弹框描述3：</label>
-                        <input type="text" placeholder="17到20字的描述" v-model="obj.data.tipsdesc3">
-                    </div>
-                    <div class="form-group">
-                        <label><strong></strong>弹框按钮文案：</label>
-                        <input type="text" placeholder="立即使用" v-model="obj.data.tipsdesc4">
-                    </div>
-                    <div class="form-group" v-if="obj.data.jumptypeval==0 || obj.data.jumptypeval==2 || !obj.data.jumptypeval">
-                        <label><strong></strong>跳转地址：</label>
-                        <input type="text" placeholder="填写跳转url" v-model="obj.data.jumpurl">
-                    </div>
-                    <div class="form-group" v-if="obj.data.jumptypeval==1">
-                        <label><strong></strong>活动ID：</label>
-                        <input type="text" placeholder="归属地查询活动ID" v-model="obj.data.areaActId">
-                    </div>
-                    <div class="form-group" v-if="obj.data.jumptypeval==1">
-                        <label><strong></strong>跳转地址：</label>
-                        <input type="text" placeholder="归属地查跳转地址" v-model="obj.data.areaJumpUrl">
-                    </div>
-
-
-                    <br>
-                    <br>
-                    <div class="form-radio" style="margin-left:85px;">
-                    <form >跳转类型：
-                        <label>
-                            <input name="jumptype" style="width:16px;height:16px;" type="radio" value="0" v-model="obj.data.jumptypeval">弹框
-                        </label> 
-                        <label>
-                            <input name="jumptype" style="width:16px;height:16px" type="radio" value="1" v-model="obj.data.jumptypeval">归属地
-                        </label> 
-                        <label>
-                            <input name="jumptype" style="width:16px;height:16px" type="radio" value="2" v-model="obj.data.jumptypeval">红包页
-                        </label>
-                    </form>
-
-                    </div>
-                        
-                
-                </div>
-
-
-            </form>
-
-            <!-- 设置输入框 -->
-            <br><br><br><strong style="font-size:16px;">设置输入框：</strong><br><br><br>
-            <form class="form-horizontal">
-                <div class="coupon-group" v-for="(item,index) in obj.data.inputarr">
-                    <h4 style="font-weight:bold;">输入框{{index + 1}}：</h4>
-                    <button type="button" class="jc-btn btn-primary delBtn" @click="deleteinputarr(index)">删除</button>
-                    <div class="form-group">
-                        <label style="width:180px; text-align:left;"><strong></strong>
-                            <span v-if="item.inputtype == 0" style="color:red;">姓名输入框</span>
-                            <span v-if="item.inputtype == 1" style="color:red;">手机输入框</span>
-                            <span v-if="item.inputtype == 2" style="color:red;">兑换码输入框</span>
-                            <span v-if="item.inputtype == 3" style="color:red;">图形验证码</span>
-                            <span v-if="item.inputtype == 4" style="color:red;">短信验证码</span>
-                        </label>
-
-                    </div>
-                </div>
-            </form>
-            <form class="form-radio">选择待添加输入框的类型：
-                <label><input name="inputtype" style="width:16px;height:16px; " type="radio" value="0" v-model="obj.data.inputtypevalue">姓名</label>
-                <label><input name="inputtype" style="width:16px;height:16px" type="radio" value="1" v-model="obj.data.inputtypevalue">电话号码</label>
-                <label><input name="inputtype" style="width:16px;height:16px" type="radio" value="2" v-model="obj.data.inputtypevalue">兑换码</label>
-                <label><input name="inputtype" style="width:16px;height:16px" type="radio" value="3" v-model="obj.data.inputtypevalue">图形验证码</label>
-                <label><input name="inputtype" style="width:16px;height:16px" type="radio" value="4" v-model="obj.data.inputtypevalue">短信验证码</label>
-            </form>
-            <div class="text-right">
-
-                <button type="button" class="jc-btn btn-primary" @click="addinputarr()">增加输入框</button>
-            </div>
-        </div>
 
     </div>
+
+    <div v-show="showProperty" class="editArea">
+      <form class="form-horizontal" v-if="obj.data.isShowNpmVersions == 9">
+        <div class="coupon-group">
+          <div class="form-group">
+            <label>
+              <strong></strong>版本号：</label>
+            <select name="action" @change="selectNpmVersion" v-model="obj.data.npmversion">
+              <option :value="item.version" v-for="item in obj.data.npmversionArr">{{item.desc}}</option>
+            </select>
+          </div>
+        </div>
+      </form>
+      <form class="form-horizontal">
+        <div class="coupon-group">
+        <div class="form-group">
+            <label><strong></strong>模板选择：</label>
+            <select name="action"  v-model="obj.data.tplid">
+                <option :value="item.tpl_id" v-for="item in obj.data.tplList">{{item.remark}}</option>
+            </select>
+        </div>
+        </div>
+      </form>
+      <form class="form-horizontal">
+        <div class="coupon-group">
+          <div class="form-group">
+            <label>
+              <strong></strong>活动ID：</label>
+            <input type="text" placeholder="比如GhEpLxkRF3E=" v-model="obj.data.activeid">
+          </div>
+          <div class="form-group">
+            <label>
+              <strong></strong>命令字：</label>
+            <input type="text" placeholder="" v-model="obj.data.cmdid">
+          </div>
+          <div class="form-group">
+            <label>
+              <strong></strong>归属地命令字：</label>
+            <input type="text" placeholder="" v-model="obj.data.areacmdid">
+          </div>
+          <div class="form-group">
+            <label>
+              <strong>*</strong>配置参数：</label>
+            <button type="button" @click="toConfigTree" class="jc-btn btn-primary">去配置</button>
+          </div>
+          <div class="form-group">
+            <label>
+              <strong></strong>查看红包地址：</label>
+            <input type="text" placeholder="需要查看红包的样式填写" v-model="obj.data.checoutkurl">
+          </div>
+          <div class="form-group">
+            <label>
+              <strong></strong>提交按钮文案：</label>
+            <input type="text" v-model="obj.data.buttondes">
+          </div>
+          <div class="form-group">
+            <label>
+              <strong></strong>查看奖品文案：</label>
+            <input type="text" v-model="obj.data.checkoutPrices">
+          </div>
+          <div class="form-group">
+            <label>
+              <strong></strong>查看奖品颜色：</label>
+            <input type="color" v-model="obj.data.checkoutPricesColor">
+            <input type="text" class="colorFrameInput" v-model="obj.data.checkoutPricesColor" value="" size="10">
+          </div>
+          <div class="form-group">
+            <label>
+              <strong></strong>提交按钮背景色：</label>
+            <input type="color" v-model="obj.data.buttoncolor">
+            <input type="text" class="colorFrameInput" v-model="obj.data.buttoncolor" value="" size="10">
+          </div>
+          <div class="form-group">
+            <label>
+              <strong></strong>提交文字色：</label>
+            <input type="color" v-model="obj.data.btntextcolor">
+            <input type="text" class="colorFrameInput" v-model="obj.data.btntextcolor" value="" size="10">
+          </div>
+          <div class="form-group">
+            <label>
+              <strong></strong>按钮底部内阴影：</label>
+            <input type="color" v-model="obj.data.btndowninsetcolor">
+            <input type="text" class="colorFrameInput" v-model="obj.data.btndowninsetcolor" value="" size="10">
+          </div>
+          <div class="form-group">
+            <label>
+              <strong></strong>背景色：</label>
+            <input type="color" v-model="obj.data.backgroundcolor">
+            <input type="text" class="colorFrameInput" v-model="obj.data.backgroundcolor" value="" size="10">
+          </div>
+
+          <div class="form-group">
+            <label>
+              <strong></strong>边框颜色：</label>
+            <input type="color" v-model="obj.data.bordercolor">
+            <input type="text" class="colorFrameInput" v-model="obj.data.bordercolor" value="" size="10">
+          </div>
+
+          <div class="form-group">
+            <label>
+              <strong></strong>内阴影颜色：</label>
+            <input type="color" v-model="obj.data.innerInsetcolor">
+            <input type="text" class="colorFrameInput" v-model="obj.data.innerInsetcolor" value="" size="10">
+          </div>
+
+          <div class="form-group">
+            <label>
+              <strong></strong>输入框描述颜色：</label>
+            <input type="color" v-model="obj.data.inputnamecolor">
+            <input type="text" class="colorFrameInput" v-model="obj.data.inputnamecolor" value="" size="10">
+          </div>
+          <div class="form-group">
+            <label>
+              <strong></strong>验证码颜色：</label>
+            <input type="color" v-model="obj.data.identycodecolor">
+            <input type="text" class="colorFrameInput" v-model="obj.data.identycodecolor" value="" size="10">
+          </div>
+        </div>
+
+        <div class="coupon-group">
+          <div class="form-group">
+            <label>
+              <strong></strong>弹框描述1：</label>
+            <input type="text" placeholder="100元加油红包" v-model="obj.data.tipsdesc1">
+          </div>
+          <div class="form-group">
+            <label>
+              <strong></strong>弹框描述2：</label>
+            <input type="text" placeholder="免费领！" v-model="obj.data.tipsdesc2">
+          </div>
+          <div class="form-group">
+            <label>
+              <strong></strong>弹框描述3：</label>
+            <input type="text" placeholder="17到20字的描述" v-model="obj.data.tipsdesc3">
+          </div>
+          <div class="form-group">
+            <label>
+              <strong></strong>弹框按钮文案：</label>
+            <input type="text" placeholder="立即使用" v-model="obj.data.tipsdesc4">
+          </div>
+          <div class="form-group" v-if="obj.data.jumptypeval==0 || obj.data.jumptypeval==2 || !obj.data.jumptypeval">
+            <label>
+              <strong></strong>跳转地址：</label>
+            <input type="text" placeholder="填写跳转url" v-model="obj.data.jumpurl">
+          </div>
+          <div class="form-group" v-if="obj.data.jumptypeval==1">
+            <label>
+              <strong></strong>活动ID：</label>
+            <input type="text" placeholder="归属地查询活动ID" v-model="obj.data.areaActId">
+          </div>
+          <div class="form-group" v-if="obj.data.jumptypeval==1">
+            <label>
+              <strong></strong>跳转地址：</label>
+            <input type="text" placeholder="归属地查跳转地址" v-model="obj.data.areaJumpUrl">
+          </div>
+          <br><br>
+          <div class="form-radio" style="margin-left:85px;">
+            <form>跳转类型：
+              <label>
+                <input name="jumptype" style="width:16px;height:16px;" type="radio" value="0" v-model="obj.data.jumptypeval">弹框
+              </label>
+              <label>
+                <input name="jumptype" style="width:16px;height:16px" type="radio" value="1" v-model="obj.data.jumptypeval">归属地
+              </label>
+              <label>
+                <input name="jumptype" style="width:16px;height:16px" type="radio" value="2" v-model="obj.data.jumptypeval">红包页
+              </label>
+            </form>
+          </div>
+        </div>
+      </form>
+
+      <!-- 设置输入框 -->
+      <br><br><br>
+      <strong style="font-size:16px;">设置输入框：</strong>
+      <br><br><br>
+      <form class="form-horizontal">
+        <div class="coupon-group" v-for="(item,index) in obj.data.inputarr">
+          <h4 style="font-weight:bold;">输入框{{index + 1}}：</h4>
+          <button type="button" class="jc-btn btn-primary delBtn" @click="deleteinputarr(index)">删除</button>
+          <div class="form-group">
+            <label style="width:180px; text-align:left;">
+              <strong></strong>
+              <span v-if="item.inputtype == 0" style="color:red;">姓名输入框</span>
+              <span v-if="item.inputtype == 1" style="color:red;">手机输入框</span>
+              <span v-if="item.inputtype == 2" style="color:red;">兑换码输入框</span>
+              <span v-if="item.inputtype == 3" style="color:red;">图形验证码</span>
+              <span v-if="item.inputtype == 4" style="color:red;">短信验证码</span>
+            </label>
+
+          </div>
+        </div>
+      </form>
+      <form class="form-radio">选择待添加输入框的类型：
+        <label>
+          <input name="inputtype" style="width:16px;height:16px; " type="radio" value="0" v-model="obj.data.inputtypevalue">姓名</label>
+        <label>
+          <input name="inputtype" style="width:16px;height:16px" type="radio" value="1" v-model="obj.data.inputtypevalue">电话号码</label>
+        <label>
+          <input name="inputtype" style="width:16px;height:16px" type="radio" value="2" v-model="obj.data.inputtypevalue">兑换码</label>
+        <label>
+          <input name="inputtype" style="width:16px;height:16px" type="radio" value="3" v-model="obj.data.inputtypevalue">图形验证码</label>
+        <label>
+          <input name="inputtype" style="width:16px;height:16px" type="radio" value="4" v-model="obj.data.inputtypevalue">短信验证码</label>
+      </form>
+      <div class="text-right">
+
+        <button type="button" class="jc-btn btn-primary" @click="addinputarr()">增加输入框</button>
+      </div>
+    </div>
+
+  </div>
 </div>

@@ -86,6 +86,12 @@ define(function (require, exports, module) {
     });
     /* npm管理 */
 
+    moduleDataCenter.getTplList('5', function (json) {
+      if (json.code == 0) {
+        that.obj.data.tplList = json.data.data;
+      }
+    });
+
     this.extendObj(styleObj.com_extend);
     this.obj.data.fnObj = window.vueFnObj['fn_' + this.obj.data.styleKey];
     this.domStyle = this.addCssByStyle(styleObj.com_css);
@@ -190,6 +196,40 @@ define(function (require, exports, module) {
           moduleDataCenter.updataversion(this.obj.data.npmversion, '@lego/jybregister', path, function () {
             console.log("update ok ");
           });
+        },
+        toConfigTree: function () {
+          var moduleUtil, me = this;
+          require.async('./mpm.sys.util', function (module) {
+            moduleUtil = module;
+          });
+          var divComponentIframe = $("#divComponentIframe");
+          var _pageid = moduleBasicInfo.showMePageInfo().id,
+            _tpl_id = this.obj.data.tplid,
+            _act_id = moduleUtil.getUrlQuery('act_id'),
+            _comid = this.obj.uid.replace("com_", "");
+          if (!_tpl_id) {
+            alert("请先选择对应的模板");
+            return;
+          }
+          // /ConfigTreeLego/:tpl_id/:pageid/:comid/:act_id
+          var _url = location.origin + '/#/ConfigTreeLego/' + 
+                    _tpl_id + '/' + 
+                    _pageid + '/' + 
+                    _comid + '/' + 
+                    _act_id,
+            key = _pageid + "_" + _comid + "_" + _tpl_id + "_" + _act_id;
+
+          divComponentIframe.find("iframe")[0].src = _url;
+          divComponentIframe.show();
+
+          window.addEventListener("message", function (e) {
+            var json = JSON.parse(e.data);
+            if (json[key]) {
+              var cmds = JSON.parse(json[key]);
+                // me.obj.data.gridcmd = cmds[0];
+                // me.obj.data.gridactid = _act_id;
+            }
+          }, true);
         }
       }
     });

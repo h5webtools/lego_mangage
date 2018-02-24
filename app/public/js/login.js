@@ -56999,7 +56999,6 @@ function scrollTo(element, to, duration) {
   var difference = to - element.scrollTop;
   var perTick = difference / duration * 10;
   setTimeout(function () {
-    console.log(new Date());
     element.scrollTop = element.scrollTop + perTick;
     if (element.scrollTop === to) return;
     scrollTo(element, to, duration - 10);
@@ -58504,9 +58503,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           Object(__WEBPACK_IMPORTED_MODULE_1_api_api_login__["a" /* doLogin */])(_this.loginForm.account, __WEBPACK_IMPORTED_MODULE_2_sha1___default()(_this.loginForm.password)).then(function (jsonData) {
             _this.loading = false;
             if (jsonData.code == 0) {
-              location.href = '/';
-              // var redirect = getQuery("redirect") || "index.html";
-              // location.href = decodeURIComponent(redirect);
+              //this.$router.push("/welcome");
             }
           });
         } else {

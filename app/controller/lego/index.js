@@ -522,7 +522,7 @@ class LegoController extends Controller {
    */
   async checkActDirNameExist() {
     let raw = this.ctx.request.rawBody,
-        dateFolder = await this.helper.dateFormat('yyyyMM00', new Date()),
+        dateFolder = await this.ctx.helper.dateFormat('yyyyMM00', new Date()),
         folder = raw.folder;
     try {
       this.ctx.logger.info('检查活动目录是否冲突 '+ JSON.stringify(raw));

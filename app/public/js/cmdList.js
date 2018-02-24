@@ -485,7 +485,6 @@ function scrollTo(element, to, duration) {
   var difference = to - element.scrollTop;
   var perTick = difference / duration * 10;
   setTimeout(function () {
-    console.log(new Date());
     element.scrollTop = element.scrollTop + perTick;
     if (element.scrollTop === to) return;
     scrollTo(element, to, duration - 10);
@@ -1984,7 +1983,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     sortTableByColum: function sortTableByColum() {},
     editCmd: function editCmd(row) {
-      console.log(row);
       this.commandData.cmd_id = row.cmd_id;
       this.commandData.command = row.command;
       this.commandData.name = row.name;
@@ -2007,7 +2005,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.$refs[formName].validate(function (valid) {
         if (valid) {
           __WEBPACK_IMPORTED_MODULE_0_api_api_act_cmds__["savePostCmd"](_this2.commandData).then(function (jsonData) {
-            console.log(jsonData);
             if (jsonData.code == 0) {
               _this2.$confirm('活动保存成功', '提示').then(function () {
                 location.reload();

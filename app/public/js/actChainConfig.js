@@ -734,7 +734,6 @@ function scrollTo(element, to, duration) {
   var difference = to - element.scrollTop;
   var perTick = difference / duration * 10;
   setTimeout(function () {
-    console.log(new Date());
     element.scrollTop = element.scrollTop + perTick;
     if (element.scrollTop === to) return;
     scrollTo(element, to, duration - 10);
@@ -4419,9 +4418,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.chainsTplData.configData = this.tempChainConfig;
 
       this.configTplHTML = this.syntaxHighlight(JSON.parse(this.tempChainConfig));
-
-      console.log(this.configTplHTML);
-      //console.log(this.chainsTplData.configData);
 
       this.chainsTplVisible = true;
     },

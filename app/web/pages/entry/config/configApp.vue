@@ -30,10 +30,10 @@
                   <div class="mod-delete-act">
                     <el-button type="primary"  class="mt-lt-16" @click="takeOffCurAct">下架当前活动</el-button>
                   </div>
-                  <el-col :span="14" > 
+                  <el-col :span="16" > 
                     <configForm :parentData="{config:item.configArr.current_entrance , configType:configType}" :editData="{a:item.configArr.current_entrance , b:1}"></configForm>
                   </el-col>
-                  <el-col :span="10" class="el-col-border mod-app-index" v-if="item.configArr.current_entrance.appIndexData">
+                  <el-col :span="8" class="el-col-border mod-app-index" v-if="item.configArr.current_entrance.appIndexData">
                     <appIndex :parentData="{data:item.configArr.current_entrance.appIndexData , flag:1,configindex:configIndex, configtype:configType,config:item.configArr.current_entrance}" 
                     :editData="{data:item.configArr.current_entrance.appIndexData , flag:1,configindex:configIndex,configtype:configType,config:item.configArr.current_entrance}"> </appIndex>
                   </el-col>
@@ -48,15 +48,15 @@
                       <el-button type="primary"  class="mt-lt-16" @click="saveCurAct(1 , waitingItem.plan_id , watingIndex)">保存</el-button>
                       <el-button type="danger" class="mt-lt-16" @click="deleteCurAct(1 , waitingItem.plan_id , watingIndex)">删除该后补活动</el-button>
                     </div>
-                    <el-col :span="14" >
+                    <el-col :span="16" >
                       <configForm :parentData="{config:waitingItem , configType:configType}" :editData="{config:waitingItem , configType:configType}"></configForm>
                     </el-col>
-                    <el-col :span="10" class="el-col-border mod-app-index" v-if="waitingItem.appIndexData">
+                    <el-col :span="8" class="el-col-border mod-app-index" v-if="waitingItem.appIndexData">
                       <appIndex :parentData="{data:waitingItem.appIndexData , flag:1,configindex:configIndex,configtype:configType,config:waitingItem}" 
                       :editData="{data:waitingItem.appIndexData , flag:1,configindex:configIndex,configtype:configType,config:waitingItem}"> </appIndex>
                     </el-col>
                   </el-row>
-                  <div style="height:20px;" :key="waitingItem.act_id"></div>
+                  <div style="height:20px;" :key="waitingItem.act_id+watingIndex+1"></div>
                 </template>
                 <!-- 候补活动 -->
 
@@ -67,10 +67,10 @@
                     <el-button type="primary"  class="mt-lt-16" @click="saveCurAct(2 , '' )">保存</el-button>
                     <el-button type="danger"  class="mt-lt-16" @click="deleteCurAct(2 , '' )">删除默认活动</el-button>
                   </div>
-                  <el-col :span="14" >
+                  <el-col :span="16" >
                     <configForm :parentData="{config:item.configArr.default_activity , configType:configType}" :editData="{config:item.configArr.default_activity , configType:configType}"></configForm>
                   </el-col>
-                  <el-col :span="10" class="el-col-border" v-if="item.configArr.default_activity.appIndexData">
+                  <el-col :span="8" class="el-col-border" v-if="item.configArr.default_activity.appIndexData">
                     <appIndex :parentData="{data:item.configArr.default_activity.appIndexData , flag:1,configindex:configIndex,configtype:configType,config:item.configArr.default_activity}" 
                     :editData="{data:item.configArr.default_activity.appIndexData , flag:1,configindex:configIndex,configtype:configType,config:item.configArr.default_activity}"> </appIndex>
                   </el-col>
@@ -177,7 +177,7 @@ export default {
       configIndex:0,  
       configType:"", //类型： 比如九宫格 大图 1+2 轮播图 icon等
       configTitle:"",
-      activeUserGroupId: '', //默认选中
+      activeUserGroupId: '0', //默认选中
       addSubActForm:{
         act_type:"",
         plan_id:"",
@@ -259,7 +259,7 @@ export default {
       return this.actType[row.status];
     },
     urlValidCheck(url) {//检测url
-      var envType = location.href.indexOf("sit")>-1 ? 0 : 1;
+      var envType = location.origin.indexOf("sit") > -1 ? 0 : 1;
       var sitRegExp = /^https:\/\/cdnsit.jyblife.com/,
           productRegExp = /^https:\/\/cdn.jyblife.com/,
           appRegExp = /^jtjr:\/\//;
@@ -273,8 +273,8 @@ export default {
     },
     timeValidCheck(beginTime , endTime , effect_time , expire_time) {////检测时间
       if(effect_time && expire_time){//如果时间没有的就不校验
-        var startFlag = new Date(beginTime) >= new Date(actBeginTime),
-            endTimeFalg = new Date(endTime) <= new Date(actEndTime);
+        var startFlag = new Date(beginTime) >= new Date(effect_time),
+            endTimeFalg = new Date(endTime) <= new Date(expire_time);
         if(startFlag && endTimeFalg){
           return true;
         }else{
@@ -362,9 +362,10 @@ export default {
         }else if(plan_type == 2){//默认活动
           submitData = this.curActList.default_activity;
         }
-        if(!submitData.mta_id || !submitData.begin_at || !submitData.end_at || !submitData.act_id || !submitData.act_url || !submitData.act_url || !submitData.pic_url){
+        if(!submitData.mta_id || !submitData.begin_at || !submitData.end_at || !submitData.act_id || !submitData.act_url || !submitData.pic_url){
           return;
         }
+        
         if(!this.urlValidCheck(submitData.act_url)){
           this.$message({
             type: 'error',
@@ -450,7 +451,7 @@ export default {
           ).then(jsonData => {
           if (jsonData.code == 0) {
             this.$message({
-              message: '新增成功',
+              message: '保存成功',
               type: 'success'
             });
           }

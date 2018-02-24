@@ -877,9 +877,6 @@ export default {
 
       this.configTplHTML = this.syntaxHighlight(JSON.parse(this.tempChainConfig));
 
-      console.log(this.configTplHTML);
-      //console.log(this.chainsTplData.configData);
-
       this.chainsTplVisible = true;
 
     },

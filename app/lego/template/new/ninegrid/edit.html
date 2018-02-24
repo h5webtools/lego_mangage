@@ -1,568 +1,662 @@
 <div class="editBox">
-    <div class="editBox_2">
-        <h3>{{obj.componentName}} {{obj.uid}}</h3>
-        <p>
-            九宫格
-        </p>
+  <div class="editBox_2">
+    <h3>{{obj.componentName}} {{obj.uid}}</h3>
+    <p>
+      九宫格
+    </p>
 
-        <ul class="tab_hd">
-            <li v-bind:class="{ 'on': showStyle }" v-on:click="show(0)"><a href="javascript:;" title="设置样式">设置样式</a></li>
-            <li v-bind:class="{ 'on': showProperty }" v-on:click="show(1)"><a href="javascript:;" title="设置数据">设置宫格数据</a></li>
-        </ul>
-        <div v-show="showStyle" class="styleBox">
-            <div class="editArea">
-                <form class="form-horizontal" v-for="item in obj.com_extend">
-                    <div class="form-group" v-if="item.type == 'radio'">
-                        <label>{{item.name}}：</label>
-                        <div>
-                            <label v-for="item2 in item.data"><input type="radio" :name="obj.uid+'_'+item.nick" :value="item2.value" v-model="obj.data.extend[item.nick]"> {{item2.name}}</label>
-                        </div>
-                    </div>
-                    <div class="form-group" v-if="item.type == 'input'">
-                        <label style="float: left;padding-right:14px;"><strong></strong>{{item.name}}：</label>
-                        <input type="text" :class="item.class" :name="obj.uid+'_'+item.nick" v-model="obj.data.extend[item.nick]" :placeholder="item.placeholder"
-                            flag="extendtime" :nick="item.nick">
-                    </div>
-                </form>
+    <ul class="tab_hd">
+      <li v-bind:class="{ 'on': showStyle }" v-on:click="show(0)">
+        <a href="javascript:;" title="设置样式">设置样式</a>
+      </li>
+      <li v-bind:class="{ 'on': showProperty }" v-on:click="show(1)">
+        <a href="javascript:;" title="设置数据">设置宫格数据</a>
+      </li>
+    </ul>
+    <div v-show="showStyle" class="styleBox">
+      <div class="editArea">
+        <form class="form-horizontal" v-for="item in obj.com_extend">
+          <div class="form-group" v-if="item.type == 'radio'">
+            <label>{{item.name}}：</label>
+            <div>
+              <label v-for="item2 in item.data">
+                <input type="radio" :name="obj.uid+'_'+item.nick" :value="item2.value" v-model="obj.data.extend[item.nick]"> {{item2.name}}</label>
             </div>
-            <br>
-            <br>
-            <dl>
-                <dt>样式</dt>
-                <dd>
-                    <ul>
-                        <li v-for="item in arrStyle" :key="item.id">
-                            <div style="display:none;">
-                                {{item.com_desc}}<input type="radio" :name="obj.uid" :id="obj.uid+'_'+item.id" :value="item.id"
-                                    v-model="obj.data.styleKey"><br/>
-                            </div>
-                            <label :class="item.id == obj.data.styleKey ? 'on' : ''" :for="obj.uid+'_'+item.id"><img :src="item.image" alt=""></label>
-                            <div class="styleDesc">
-                                {{item.com_desc}}
-                            </div>
-                        </li>
-                    </ul>
-                </dd>
-            </dl>
+          </div>
+          <div class="form-group" v-if="item.type == 'input'">
+            <label style="float: left;padding-right:14px;">
+              <strong></strong>{{item.name}}：</label>
+            <input type="text" :class="item.class" :name="obj.uid+'_'+item.nick" v-model="obj.data.extend[item.nick]" :placeholder="item.placeholder"
+              flag="extendtime" :nick="item.nick">
+          </div>
+        </form>
+      </div>
+      <br>
+      <br>
+      <dl>
+        <dt>样式</dt>
+        <dd>
+          <ul>
+            <li v-for="item in arrStyle" :key="item.id">
+              <div style="display:none;">
+                {{item.com_desc}}
+                <input type="radio" :name="obj.uid" :id="obj.uid+'_'+item.id" :value="item.id" v-model="obj.data.styleKey">
+                <br/>
+              </div>
+              <label :class="item.id == obj.data.styleKey ? 'on' : ''" :for="obj.uid+'_'+item.id">
+                <img :src="item.image" alt="">
+              </label>
+              <div class="styleDesc">
+                {{item.com_desc}}
+              </div>
+            </li>
+          </ul>
+        </dd>
+      </dl>
 
 
-        </div>
-
-        <div v-show="showProperty" class="editArea">
-           
-            <form class="form-horizontal" v-if="obj.data.isShowNpmVersions == 9">
-                <div class="coupon-group">
-                <div class="form-group">
-                    <label><strong></strong>版本号：</label>
-                    <select name="action" @change="selectNpmVersion" v-model="obj.data.npmversion">
-                        <option :value="item.version" v-for="item in obj.data.npmversionArr">{{item.desc}}</option>
-                    </select>
-                </div>
-                </div>
-            </form>
-            <form class="form-horizontal">
-                <div class="coupon-group">
-                <div class="form-group">
-                    <label><strong></strong>模板选择：</label>
-                    <select name="action"  v-model="obj.data.tplid">
-                        <option :value="item.tpl_id" v-for="item in obj.data.tplList">{{item.remark}}</option>
-                    </select>
-                </div>
-                </div>
-            </form>
-            <form class="form-horizontal">
-                <div class="coupon-group">
-                <div class="form-group">
-                    <label><strong>*</strong>命令字：</label>
-                    <input type="text" v-model="obj.data.gridcmd">
-                </div>
-                <div class="form-group">
-                    <label><strong>*</strong>活动号：</label>
-                    <input type="text" v-model="obj.data.gridactid">
-                </div>
-                <div class="form-group" style="display:none">
-                    <label><strong>*</strong>配置参数：</label>
-                    <button type="button" @click="toConfigTree" class="jc-btn btn-primary">去配置</button>
-                </div>
-                </div>
-            </form>
-
-            <form class="form-horizontal">
-                <div class="coupon-group">
-                <div class="form-group">
-                    <label><strong></strong>上间距：</label>
-                    <input type="text" v-model="obj.data.gridspadding.pdtop" placeholder="单位是rem">
-                </div>
-                <div class="form-group">
-                    <label><strong></strong>下间距：</label>
-                    <input type="text" v-model="obj.data.gridspadding.pdbtm" placeholder="单位是rem">
-                </div>
-                <div class="form-group">
-                    <label><strong></strong>左右边距：</label>
-                    <input type="text" v-model="obj.data.gridspadding.pdlr" placeholder="默认是0.3">
-                </div>
-                </div>
-
-            </form>
-
-            <form class="form-horizontal">
-                <div class="coupon-group">
-                <div class="form-group">
-                    <label><strong></strong>角标图片：</label>
-                    <input type="text" v-model="obj.data.gridsOuter.cornerImg">
-                    <div class="fileupload1 fileupload" style="display:none">
-                    </div>
-                    <button class="jc-btn btn-primary unloadimg corneruploadimg">本地上传</button>
-                </div>
-
-                <div class="form-group">
-                    <label><strong></strong>外边框背景色：</label>
-                    <input type="color" v-model="obj.data.gridsOuter.outerbgcolor">
-                    <input type="text" class="colorFrameInput" v-model="obj.data.gridsOuter.outerbgcolor" value="" size="10">
-                </div>
-                <div class="form-group">
-                    <label><strong></strong>内部背景色：</label>
-                    <input type="color" v-model="obj.data.gridsOuter.innerbgcolor">
-                    <input type="text" class="colorFrameInput" v-model="obj.data.gridsOuter.innerbgcolor" value="" size="10">
-                </div>
-                <div class="form-group">
-                    <label><strong></strong>标题内容上：</label>
-                    <input type="text" v-model="obj.data.gridsOuter.titleup" placeholder="">
-                </div>
-                <div class="form-group">
-                    <label><strong></strong>标题内容下：</label>
-                    <input type="text" v-model="obj.data.gridsOuter.titledown" placeholder="">
-                </div>
-                <div class="form-group">
-                    <label><strong></strong>标题颜色：</label>
-                    <input type="color" v-model="obj.data.gridsOuter.titlecolor">
-                    <input type="text" class="colorFrameInput" v-model="obj.data.gridsOuter.titlecolor" value="" size="10">
-                </div>
-                <div class="form-radio" style="margin-left:110px;font-size:12px;margin-bottom: 7px;">
-                    <form >是否展示红包：
-                        <label>
-                            <input name="isshowbao" style="width:16px;height:16px;" type="radio" value="0" v-model="obj.data.gridsOuter.showbaoflag">展示
-                        </label> 
-                        <label>
-                            <input name="isshowbao" style="width:16px;height:16px" type="radio" value="1" v-model="obj.data.gridsOuter.showbaoflag">不展示
-                        </label> 
-                    </form>
-                </div>
-                <div class="form-group">
-                    <label><strong></strong>红包字体颜色：</label>
-                    <input type="color" v-model="obj.data.gridsOuter.baocolor">
-                    <input type="text" class="colorFrameInput" v-model="obj.data.gridsOuter.baocolor" value="" >
-                </div>
-                <div class="form-radio" style="margin-left:72px;font-size:12px;margin-bottom: 7px;">
-                    <form >是否展示抽奖次数：
-                        <label>
-                            <input name="isawardtime" style="width:16px;height:16px;" type="radio" value="0" v-model="obj.data.gridsOuter.isawardtimeflag">展示
-                        </label> 
-                        <label>
-                            <input name="isawardtime" style="width:16px;height:16px" type="radio" value="1" v-model="obj.data.gridsOuter.isawardtimeflag">不展示
-                        </label> 
-                    </form>
-                </div>
-                <div class="form-group">
-                    <label><strong></strong>抽奖次数颜色：</label>
-                    <input type="color" v-model="obj.data.gridsOuter.awardtimecolor">
-                    <input type="text" class="colorFrameInput" v-model="obj.data.gridsOuter.awardtimecolor" value="" >
-                </div>
-                <div class="form-group">
-                    <label><strong></strong>边框背景：</label>
-                    <input type="text" v-model="obj.data.gridsOuter.borderImg" placeholder="">
-                </div>
-                </div>
-
-            </form>
-
-            <form class="form-horizontal">
-                <div class="coupon-group">
-                <div class="form-group">
-                    <label><strong>*</strong>选择宫格：</label>
-                    <select v-model="obj.data.gridtype">
-                        <option value="0">宫格一</option>
-                        <option value="1">宫格二</option>
-                        <option value="2">宫格三</option>
-                        <option value="5">宫格四</option>
-                        <option value="8">宫格五</option>
-                        <option value="7">宫格六</option>
-                        <option value="6">宫格七</option>
-                        <option value="3">宫格八</option>
-                        <option value="4">提交宫格</option>
-                     </select>
-
-                </div>
-
-            </form>
-            <form class="form-horizontal">
-                <!-- 宫格1   对应1 -->
-                <div class="coupon-group" v-show="obj.data.gridtype==0">
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>描述1：</label>
-                        <input type="text" v-model="obj.data.gridList[0].desone" placeholder="折扣" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>描述2：</label>
-                        <input type="text" v-model="obj.data.gridList[0].destwo" placeholder="券" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>描述3：</label>
-                        <input type="text" v-model="obj.data.gridList[0].desthree" placeholder="折扣券" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>奖品描述：</label>
-                        <input type="text" v-model="obj.data.gridList[0].desfour" placeholder="用于中奖描述" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong></strong>跳转地址：</label>
-                        <input type="text" v-model="obj.data.gridList[0].useurl" placeholder="领券之后的跳转，可为空" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong></strong>红包面额颜色：</label>
-                        <input type="color" v-model="obj.data.gridList[0].updescolor">
-                        <input type="text" class="colorFrameInput" v-model="obj.data.gridList[0].updescolor" value="" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong></strong>红包描述颜色：</label>
-                        <input type="color" v-model="obj.data.gridList[0].downdescolor">
-                        <input type="text" class="colorFrameInput" v-model="obj.data.gridList[0].downdescolor" value="" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>背景图：</label>
-                        <input type="text" name="" v-model.lazy="obj.data.gridList[0].gridbackimg" placeholder="到图片服务器上传">
-                        <div class="fileupload0 fileupload" style="display:none">
-                        </div>
-                        <button class="jc-btn btn-primary unloadimg" style="display:none;">本地上传</button>
-                    </div>
-                </div>
-                <!-- 宫格1   对应1 -->
-
-                <!-- 宫格2   对应2 -->
-                <div class="coupon-group" v-show="obj.data.gridtype==1">
-
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>描述1：</label>
-                        <input type="text" v-model="obj.data.gridList[1].desone" placeholder="折扣" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>描述2：</label>
-                        <input type="text" v-model="obj.data.gridList[1].destwo" placeholder="券" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>描述3：</label>
-                        <input type="text" v-model="obj.data.gridList[1].desthree" placeholder="折扣券" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>奖品描述：</label>
-                        <input type="text" v-model="obj.data.gridList[1].desfour" placeholder="用于中奖描述" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong></strong>跳转地址：</label>
-                        <input type="text" v-model="obj.data.gridList[1].useurl" placeholder="领券之后的跳转，可为空" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong></strong>红包面额颜色：</label>
-                        <input type="color" v-model="obj.data.gridList[1].updescolor">
-                        <input type="text" class="colorFrameInput" v-model="obj.data.gridList[1].updescolor" value="" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong></strong>红包描述颜色：</label>
-                        <input type="color" v-model="obj.data.gridList[1].downdescolor">
-                        <input type="text" class="colorFrameInput" v-model="obj.data.gridList[1].downdescolor" value="" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>背景图：</label>
-                        <input type="text" name="" v-model.lazy="obj.data.gridList[1].gridbackimg" placeholder="到图片服务器上传">
-                        <div class="fileupload0 fileupload" style="display:none">
-                        </div>
-                        <button class="jc-btn btn-primary unloadimg" style="display:none;">本地上传</button>
-                    </div>
-                </div>
-                <!-- 宫格2   对应2 -->
-
-                <!-- 宫格3   对应3 -->
-                <div class="coupon-group" v-show="obj.data.gridtype==2">
-
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>描述1：</label>
-                        <input type="text" v-model="obj.data.gridList[2].desone" placeholder="折扣" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>描述2：</label>
-                        <input type="text" v-model="obj.data.gridList[2].destwo" placeholder="券" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>描述3：</label>
-                        <input type="text" v-model="obj.data.gridList[2].desthree" placeholder="折扣券" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>奖品描述：</label>
-                        <input type="text" v-model="obj.data.gridList[2].desfour" placeholder="用于中奖描述" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong></strong>跳转地址：</label>
-                        <input type="text" v-model="obj.data.gridList[2].useurl" placeholder="领券之后的跳转，可为空" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong></strong>红包面额颜色：</label>
-                        <input type="color" v-model="obj.data.gridList[2].updescolor">
-                        <input type="text" class="colorFrameInput" v-model="obj.data.gridList[2].updescolor" value="" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong></strong>红包描述颜色：</label>
-                        <input type="color" v-model="obj.data.gridList[2].downdescolor">
-                        <input type="text" class="colorFrameInput" v-model="obj.data.gridList[2].downdescolor" value="" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>背景图：</label>
-                        <input type="text" name="" v-model.lazy="obj.data.gridList[2].gridbackimg" placeholder="到图片服务器上传">
-                        <div class="fileupload0 fileupload" style="display:none">
-                        </div>
-                        <button class="jc-btn btn-primary unloadimg" style="display:none;">本地上传</button>
-                    </div>
-                </div>
-                <!-- 宫格3   对应3 -->
-
-                <!-- 宫格4   对应5 -->
-                <div class="coupon-group" v-show="obj.data.gridtype==5">
-
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>描述1：</label>
-                        <input type="text" v-model="obj.data.gridList[5].desone" placeholder="折扣" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>描述2：</label>
-                        <input type="text" v-model="obj.data.gridList[5].destwo" placeholder="券" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>描述3：</label>
-                        <input type="text" v-model="obj.data.gridList[5].desthree" placeholder="折扣券" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>奖品描述：</label>
-                        <input type="text" v-model="obj.data.gridList[5].desfour" placeholder="用于中奖描述" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong></strong>跳转地址：</label>
-                        <input type="text" v-model="obj.data.gridList[5].useurl" placeholder="领券之后的跳转，可为空" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong></strong>红包面额颜色：</label>
-                        <input type="color" v-model="obj.data.gridList[5].updescolor">
-                        <input type="text" class="colorFrameInput" v-model="obj.data.gridList[5].updescolor" value="" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong></strong>红包描述颜色：</label>
-                        <input type="color" v-model="obj.data.gridList[5].downdescolor">
-                        <input type="text" class="colorFrameInput" v-model="obj.data.gridList[5].downdescolor" value="" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>背景图：</label>
-                        <input type="text" name="" v-model.lazy="obj.data.gridList[5].gridbackimg" placeholder="到图片服务器上传">
-                        <div class="fileupload0 fileupload" style="display:none">
-                        </div>
-                        <button class="jc-btn btn-primary unloadimg" style="display:none;">本地上传</button>
-                    </div>
-                </div>
-                <!-- 宫格4   对应5 -->
-
-                <!-- 宫格5   对应8 -->
-                <div class="coupon-group" v-show="obj.data.gridtype==8">
-
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>描述1：</label>
-                        <input type="text" v-model="obj.data.gridList[8].desone" placeholder="折扣" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>描述2：</label>
-                        <input type="text" v-model="obj.data.gridList[8].destwo" placeholder="券" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>描述3：</label>
-                        <input type="text" v-model="obj.data.gridList[8].desthree" placeholder="折扣券" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>奖品描述：</label>
-                        <input type="text" v-model="obj.data.gridList[8].desfour" placeholder="用于中奖描述" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong></strong>跳转地址：</label>
-                        <input type="text" v-model="obj.data.gridList[8].useurl" placeholder="领券之后的跳转，可为空" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong></strong>红包面额颜色：</label>
-                        <input type="color" v-model="obj.data.gridList[8].updescolor">
-                        <input type="text" class="colorFrameInput" v-model="obj.data.gridList[8].updescolor" value="" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong></strong>红包描述颜色：</label>
-                        <input type="color" v-model="obj.data.gridList[8].downdescolor">
-                        <input type="text" class="colorFrameInput" v-model="obj.data.gridList[8].downdescolor" value="" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>背景图：</label>
-                        <input type="text" name="" v-model.lazy="obj.data.gridList[8].gridbackimg" placeholder="到图片服务器上传">
-                        <div class="fileupload0 fileupload" style="display:none">
-                        </div>
-                        <button class="jc-btn btn-primary unloadimg" style="display:none;">本地上传</button>
-                    </div>
-                </div>
-                <!-- 宫格5   对应8 -->
-
-                <!-- 宫格6   对应7 -->
-                <div class="coupon-group" v-show="obj.data.gridtype==7">
-
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>描述1：</label>
-                        <input type="text" v-model="obj.data.gridList[7].desone" placeholder="折扣" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>描述2：</label>
-                        <input type="text" v-model="obj.data.gridList[7].destwo" placeholder="券" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>描述3：</label>
-                        <input type="text" v-model="obj.data.gridList[7].desthree" placeholder="折扣券" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>奖品描述：</label>
-                        <input type="text" v-model="obj.data.gridList[7].desfour" placeholder="用于中奖描述" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong></strong>跳转地址：</label>
-                        <input type="text" v-model="obj.data.gridList[7].useurl" placeholder="领券之后的跳转，可为空" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong></strong>红包面额颜色：</label>
-                        <input type="color" v-model="obj.data.gridList[7].updescolor">
-                        <input type="text" class="colorFrameInput" v-model="obj.data.gridList[7].updescolor" value="" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong></strong>红包描述颜色：</label>
-                        <input type="color" v-model="obj.data.gridList[7].downdescolor">
-                        <input type="text" class="colorFrameInput" v-model="obj.data.gridList[7].downdescolor" value="" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>背景图：</label>
-                        <input type="text" name="" v-model.lazy="obj.data.gridList[7].gridbackimg" placeholder="到图片服务器上传">
-                        <div class="fileupload0 fileupload" style="display:none">
-                        </div>
-                        <button class="jc-btn btn-primary unloadimg" style="display:none;">本地上传</button>
-                    </div>
-                </div>
-                <!-- 宫格6   对应7 -->
-
-                <!-- 宫格7   对应6 -->
-                <div class="coupon-group" v-show="obj.data.gridtype==6">
-
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>描述1：</label>
-                        <input type="text" v-model="obj.data.gridList[6].desone" placeholder="折扣" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>描述2：</label>
-                        <input type="text" v-model="obj.data.gridList[6].destwo" placeholder="券" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>描述3：</label>
-                        <input type="text" v-model="obj.data.gridList[6].desthree" placeholder="折扣券" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>奖品描述：</label>
-                        <input type="text" v-model="obj.data.gridList[6].desfour" placeholder="用于中奖描述" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong></strong>跳转地址：</label>
-                        <input type="text" v-model="obj.data.gridList[6].useurl" placeholder="领券之后的跳转，可为空" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong></strong>红包面额颜色：</label>
-                        <input type="color" v-model="obj.data.gridList[6].updescolor">
-                        <input type="text" class="colorFrameInput" v-model="obj.data.gridList[6].updescolor" value="" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong></strong>红包描述颜色：</label>
-                        <input type="color" v-model="obj.data.gridList[6].downdescolor">
-                        <input type="text" class="colorFrameInput" v-model="obj.data.gridList[6].downdescolor" value="" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>背景图：</label>
-                        <input type="text" name="" v-model.lazy="obj.data.gridList[6].gridbackimg" placeholder="到图片服务器上传">
-                        <div class="fileupload0 fileupload" style="display:none">
-                        </div>
-                        <button class="jc-btn btn-primary unloadimg" style="display:none;">本地上传</button>
-                    </div>
-                </div>
-                <!-- 宫格7   对应6 -->
-
-                <!-- 宫格8   对应3 -->
-                <div class="coupon-group" v-show="obj.data.gridtype==3">
-
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>描述1：</label>
-                        <input type="text" v-model="obj.data.gridList[3].desone" placeholder="折扣" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>描述2：</label>
-                        <input type="text" v-model="obj.data.gridList[3].destwo" placeholder="券" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>描述3：</label>
-                        <input type="text" v-model="obj.data.gridList[3].desthree" placeholder="折扣券" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>奖品描述：</label>
-                        <input type="text" v-model="obj.data.gridList[3].desfour" placeholder="用于中奖描述" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong></strong>跳转地址：</label>
-                        <input type="text" v-model="obj.data.gridList[3].useurl" placeholder="领券之后的跳转，可为空" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong></strong>红包面额颜色：</label>
-                        <input type="color" v-model="obj.data.gridList[3].updescolor">
-                        <input type="text" class="colorFrameInput" v-model="obj.data.gridList[3].updescolor" value="" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong></strong>红包描述颜色：</label>
-                        <input type="color" v-model="obj.data.gridList[3].downdescolor">
-                        <input type="text" class="colorFrameInput" v-model="obj.data.gridList[3].downdescolor" value="" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>背景图：</label>
-                        <input type="text" name="" v-model.lazy="obj.data.gridList[3].gridbackimg" placeholder="到图片服务器上传">
-                        <div class="fileupload0 fileupload" style="display:none">
-                        </div>
-                        <button class="jc-btn btn-primary unloadimg" style="display:none;">本地上传</button>
-                    </div>
-                </div>
-                <!-- 宫格8   对应3 -->
-
-                <!-- 宫格9   对应4 -->
-                <div class="coupon-group" v-show="obj.data.gridtype==4">
-
-                    <div class="form-group form-ninegrid">
-                        <label><strong>*</strong>描述1：</label>
-                        <input type="text" v-model="obj.data.gridList[4].desone" placeholder="抽奖" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong></strong>颜色1：</label>
-                        <input type="color" v-model="obj.data.gridList[4].updescolor">
-                        <input type="text" class="colorFrameInput" v-model="obj.data.gridList[4].updescolor" value="" >
-                    </div>
-                    <div class="form-group form-ninegrid">
-                        <label><strong></strong>颜色2：</label>
-                        <input type="color" v-model="obj.data.gridList[4].downdescolor">
-                        <input type="text" class="colorFrameInput" v-model="obj.data.gridList[4].downdescolor" value="" >
-                    </div>
-
-                </div>
-                <!-- 宫格9   对应4 -->
-                </div>
-            </form>
-
-
-        </div>
     </div>
+
+    <div v-show="showProperty" class="editArea">
+
+      <form class="form-horizontal" v-if="obj.data.isShowNpmVersions == 9">
+        <div class="coupon-group">
+          <div class="form-group">
+            <label>
+              <strong></strong>版本号：</label>
+            <select name="action" @change="selectNpmVersion" v-model="obj.data.npmversion">
+              <option :value="item.version" v-for="item in obj.data.npmversionArr">{{item.desc}}</option>
+            </select>
+          </div>
+        </div>
+      </form>
+      <form class="form-horizontal">
+        <div class="coupon-group">
+          <div class="form-group">
+            <label>
+              <strong></strong>模板选择：</label>
+            <select name="action" v-model="obj.data.tplid">
+              <option :value="item.tpl_id" v-for="item in obj.data.tplList">{{item.remark}}</option>
+            </select>
+          </div>
+        </div>
+      </form>
+      <form class="form-horizontal">
+        <div class="coupon-group">
+          <div class="form-group">
+            <label>
+              <strong>*</strong>命令字：</label>
+            <input type="text" v-model="obj.data.gridcmd">
+          </div>
+          <div class="form-group">
+            <label>
+              <strong>*</strong>活动号：</label>
+            <input type="text" v-model="obj.data.gridactid">
+          </div>
+          <div class="form-group">
+            <label>
+              <strong>*</strong>配置参数：</label>
+            <button type="button" @click="toConfigTree" class="jc-btn btn-primary">去配置</button>
+          </div>
+        </div>
+      </form>
+
+      <form class="form-horizontal">
+        <div class="coupon-group">
+          <div class="form-group">
+            <label>
+              <strong></strong>上间距：</label>
+            <input type="text" v-model="obj.data.gridspadding.pdtop" placeholder="单位是rem">
+          </div>
+          <div class="form-group">
+            <label>
+              <strong></strong>下间距：</label>
+            <input type="text" v-model="obj.data.gridspadding.pdbtm" placeholder="单位是rem">
+          </div>
+          <div class="form-group">
+            <label>
+              <strong></strong>左右边距：</label>
+            <input type="text" v-model="obj.data.gridspadding.pdlr" placeholder="默认是0.3">
+          </div>
+        </div>
+
+      </form>
+
+      <form class="form-horizontal">
+        <div class="coupon-group">
+          <div class="form-group">
+            <label>
+              <strong></strong>角标图片：</label>
+            <input type="text" v-model="obj.data.gridsOuter.cornerImg">
+            <div class="fileupload1 fileupload" style="display:none">
+            </div>
+            <button class="jc-btn btn-primary unloadimg corneruploadimg">本地上传</button>
+          </div>
+
+          <div class="form-group">
+            <label>
+              <strong></strong>外边框背景色：</label>
+            <input type="color" v-model="obj.data.gridsOuter.outerbgcolor">
+            <input type="text" class="colorFrameInput" v-model="obj.data.gridsOuter.outerbgcolor" value="" size="10">
+          </div>
+          <div class="form-group">
+            <label>
+              <strong></strong>内部背景色：</label>
+            <input type="color" v-model="obj.data.gridsOuter.innerbgcolor">
+            <input type="text" class="colorFrameInput" v-model="obj.data.gridsOuter.innerbgcolor" value="" size="10">
+          </div>
+          <div class="form-group">
+            <label>
+              <strong></strong>标题内容上：</label>
+            <input type="text" v-model="obj.data.gridsOuter.titleup" placeholder="">
+          </div>
+          <div class="form-group">
+            <label>
+              <strong></strong>标题内容下：</label>
+            <input type="text" v-model="obj.data.gridsOuter.titledown" placeholder="">
+          </div>
+          <div class="form-group">
+            <label>
+              <strong></strong>标题颜色：</label>
+            <input type="color" v-model="obj.data.gridsOuter.titlecolor">
+            <input type="text" class="colorFrameInput" v-model="obj.data.gridsOuter.titlecolor" value="" size="10">
+          </div>
+          <div class="form-radio" style="margin-left:110px;font-size:12px;margin-bottom: 7px;">
+            <form>是否展示红包：
+              <label>
+                <input name="isshowbao" style="width:16px;height:16px;" type="radio" value="0" v-model="obj.data.gridsOuter.showbaoflag">展示
+              </label>
+              <label>
+                <input name="isshowbao" style="width:16px;height:16px" type="radio" value="1" v-model="obj.data.gridsOuter.showbaoflag">不展示
+              </label>
+            </form>
+          </div>
+          <div class="form-group">
+            <label>
+              <strong></strong>红包字体颜色：</label>
+            <input type="color" v-model="obj.data.gridsOuter.baocolor">
+            <input type="text" class="colorFrameInput" v-model="obj.data.gridsOuter.baocolor" value="">
+          </div>
+          <div class="form-radio" style="margin-left:72px;font-size:12px;margin-bottom: 7px;">
+            <form>是否展示抽奖次数：
+              <label>
+                <input name="isawardtime" style="width:16px;height:16px;" type="radio" value="0" v-model="obj.data.gridsOuter.isawardtimeflag">展示
+              </label>
+              <label>
+                <input name="isawardtime" style="width:16px;height:16px" type="radio" value="1" v-model="obj.data.gridsOuter.isawardtimeflag">不展示
+              </label>
+            </form>
+          </div>
+          <div class="form-group">
+            <label>
+              <strong></strong>抽奖次数颜色：</label>
+            <input type="color" v-model="obj.data.gridsOuter.awardtimecolor">
+            <input type="text" class="colorFrameInput" v-model="obj.data.gridsOuter.awardtimecolor" value="">
+          </div>
+          <div class="form-group">
+            <label>
+              <strong></strong>边框背景：</label>
+            <input type="text" v-model="obj.data.gridsOuter.borderImg" placeholder="">
+          </div>
+        </div>
+
+      </form>
+
+      <form class="form-horizontal">
+        <div class="coupon-group">
+          <div class="form-group">
+            <label>
+              <strong>*</strong>选择宫格：</label>
+            <select v-model="obj.data.gridtype">
+              <option value="0">宫格一</option>
+              <option value="1">宫格二</option>
+              <option value="2">宫格三</option>
+              <option value="5">宫格四</option>
+              <option value="8">宫格五</option>
+              <option value="7">宫格六</option>
+              <option value="6">宫格七</option>
+              <option value="3">宫格八</option>
+              <option value="4">提交宫格</option>
+            </select>
+
+          </div>
+
+      </form>
+      <form class="form-horizontal">
+        <!-- 宫格1   对应1 -->
+        <div class="coupon-group" v-show="obj.data.gridtype==0">
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>描述1：</label>
+            <input type="text" v-model="obj.data.gridList[0].desone" placeholder="折扣">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>描述2：</label>
+            <input type="text" v-model="obj.data.gridList[0].destwo" placeholder="券">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>描述3：</label>
+            <input type="text" v-model="obj.data.gridList[0].desthree" placeholder="折扣券">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>奖品描述：</label>
+            <input type="text" v-model="obj.data.gridList[0].desfour" placeholder="用于中奖描述">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong></strong>跳转地址：</label>
+            <input type="text" v-model="obj.data.gridList[0].useurl" placeholder="领券之后的跳转，可为空">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong></strong>红包面额颜色：</label>
+            <input type="color" v-model="obj.data.gridList[0].updescolor">
+            <input type="text" class="colorFrameInput" v-model="obj.data.gridList[0].updescolor" value="">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong></strong>红包描述颜色：</label>
+            <input type="color" v-model="obj.data.gridList[0].downdescolor">
+            <input type="text" class="colorFrameInput" v-model="obj.data.gridList[0].downdescolor" value="">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>背景图：</label>
+            <input type="text" name="" v-model.lazy="obj.data.gridList[0].gridbackimg" placeholder="到图片服务器上传">
+            <div class="fileupload0 fileupload" style="display:none">
+            </div>
+            <button class="jc-btn btn-primary unloadimg" style="display:none;">本地上传</button>
+          </div>
+        </div>
+        <!-- 宫格1   对应1 -->
+
+        <!-- 宫格2   对应2 -->
+        <div class="coupon-group" v-show="obj.data.gridtype==1">
+
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>描述1：</label>
+            <input type="text" v-model="obj.data.gridList[1].desone" placeholder="折扣">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>描述2：</label>
+            <input type="text" v-model="obj.data.gridList[1].destwo" placeholder="券">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>描述3：</label>
+            <input type="text" v-model="obj.data.gridList[1].desthree" placeholder="折扣券">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>奖品描述：</label>
+            <input type="text" v-model="obj.data.gridList[1].desfour" placeholder="用于中奖描述">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong></strong>跳转地址：</label>
+            <input type="text" v-model="obj.data.gridList[1].useurl" placeholder="领券之后的跳转，可为空">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong></strong>红包面额颜色：</label>
+            <input type="color" v-model="obj.data.gridList[1].updescolor">
+            <input type="text" class="colorFrameInput" v-model="obj.data.gridList[1].updescolor" value="">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong></strong>红包描述颜色：</label>
+            <input type="color" v-model="obj.data.gridList[1].downdescolor">
+            <input type="text" class="colorFrameInput" v-model="obj.data.gridList[1].downdescolor" value="">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>背景图：</label>
+            <input type="text" name="" v-model.lazy="obj.data.gridList[1].gridbackimg" placeholder="到图片服务器上传">
+            <div class="fileupload0 fileupload" style="display:none">
+            </div>
+            <button class="jc-btn btn-primary unloadimg" style="display:none;">本地上传</button>
+          </div>
+        </div>
+        <!-- 宫格2   对应2 -->
+
+        <!-- 宫格3   对应3 -->
+        <div class="coupon-group" v-show="obj.data.gridtype==2">
+
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>描述1：</label>
+            <input type="text" v-model="obj.data.gridList[2].desone" placeholder="折扣">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>描述2：</label>
+            <input type="text" v-model="obj.data.gridList[2].destwo" placeholder="券">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>描述3：</label>
+            <input type="text" v-model="obj.data.gridList[2].desthree" placeholder="折扣券">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>奖品描述：</label>
+            <input type="text" v-model="obj.data.gridList[2].desfour" placeholder="用于中奖描述">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong></strong>跳转地址：</label>
+            <input type="text" v-model="obj.data.gridList[2].useurl" placeholder="领券之后的跳转，可为空">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong></strong>红包面额颜色：</label>
+            <input type="color" v-model="obj.data.gridList[2].updescolor">
+            <input type="text" class="colorFrameInput" v-model="obj.data.gridList[2].updescolor" value="">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong></strong>红包描述颜色：</label>
+            <input type="color" v-model="obj.data.gridList[2].downdescolor">
+            <input type="text" class="colorFrameInput" v-model="obj.data.gridList[2].downdescolor" value="">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>背景图：</label>
+            <input type="text" name="" v-model.lazy="obj.data.gridList[2].gridbackimg" placeholder="到图片服务器上传">
+            <div class="fileupload0 fileupload" style="display:none">
+            </div>
+            <button class="jc-btn btn-primary unloadimg" style="display:none;">本地上传</button>
+          </div>
+        </div>
+        <!-- 宫格3   对应3 -->
+
+        <!-- 宫格4   对应5 -->
+        <div class="coupon-group" v-show="obj.data.gridtype==5">
+
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>描述1：</label>
+            <input type="text" v-model="obj.data.gridList[5].desone" placeholder="折扣">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>描述2：</label>
+            <input type="text" v-model="obj.data.gridList[5].destwo" placeholder="券">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>描述3：</label>
+            <input type="text" v-model="obj.data.gridList[5].desthree" placeholder="折扣券">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>奖品描述：</label>
+            <input type="text" v-model="obj.data.gridList[5].desfour" placeholder="用于中奖描述">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong></strong>跳转地址：</label>
+            <input type="text" v-model="obj.data.gridList[5].useurl" placeholder="领券之后的跳转，可为空">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong></strong>红包面额颜色：</label>
+            <input type="color" v-model="obj.data.gridList[5].updescolor">
+            <input type="text" class="colorFrameInput" v-model="obj.data.gridList[5].updescolor" value="">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong></strong>红包描述颜色：</label>
+            <input type="color" v-model="obj.data.gridList[5].downdescolor">
+            <input type="text" class="colorFrameInput" v-model="obj.data.gridList[5].downdescolor" value="">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>背景图：</label>
+            <input type="text" name="" v-model.lazy="obj.data.gridList[5].gridbackimg" placeholder="到图片服务器上传">
+            <div class="fileupload0 fileupload" style="display:none">
+            </div>
+            <button class="jc-btn btn-primary unloadimg" style="display:none;">本地上传</button>
+          </div>
+        </div>
+        <!-- 宫格4   对应5 -->
+
+        <!-- 宫格5   对应8 -->
+        <div class="coupon-group" v-show="obj.data.gridtype==8">
+
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>描述1：</label>
+            <input type="text" v-model="obj.data.gridList[8].desone" placeholder="折扣">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>描述2：</label>
+            <input type="text" v-model="obj.data.gridList[8].destwo" placeholder="券">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>描述3：</label>
+            <input type="text" v-model="obj.data.gridList[8].desthree" placeholder="折扣券">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>奖品描述：</label>
+            <input type="text" v-model="obj.data.gridList[8].desfour" placeholder="用于中奖描述">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong></strong>跳转地址：</label>
+            <input type="text" v-model="obj.data.gridList[8].useurl" placeholder="领券之后的跳转，可为空">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong></strong>红包面额颜色：</label>
+            <input type="color" v-model="obj.data.gridList[8].updescolor">
+            <input type="text" class="colorFrameInput" v-model="obj.data.gridList[8].updescolor" value="">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong></strong>红包描述颜色：</label>
+            <input type="color" v-model="obj.data.gridList[8].downdescolor">
+            <input type="text" class="colorFrameInput" v-model="obj.data.gridList[8].downdescolor" value="">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>背景图：</label>
+            <input type="text" name="" v-model.lazy="obj.data.gridList[8].gridbackimg" placeholder="到图片服务器上传">
+            <div class="fileupload0 fileupload" style="display:none">
+            </div>
+            <button class="jc-btn btn-primary unloadimg" style="display:none;">本地上传</button>
+          </div>
+        </div>
+        <!-- 宫格5   对应8 -->
+
+        <!-- 宫格6   对应7 -->
+        <div class="coupon-group" v-show="obj.data.gridtype==7">
+
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>描述1：</label>
+            <input type="text" v-model="obj.data.gridList[7].desone" placeholder="折扣">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>描述2：</label>
+            <input type="text" v-model="obj.data.gridList[7].destwo" placeholder="券">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>描述3：</label>
+            <input type="text" v-model="obj.data.gridList[7].desthree" placeholder="折扣券">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>奖品描述：</label>
+            <input type="text" v-model="obj.data.gridList[7].desfour" placeholder="用于中奖描述">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong></strong>跳转地址：</label>
+            <input type="text" v-model="obj.data.gridList[7].useurl" placeholder="领券之后的跳转，可为空">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong></strong>红包面额颜色：</label>
+            <input type="color" v-model="obj.data.gridList[7].updescolor">
+            <input type="text" class="colorFrameInput" v-model="obj.data.gridList[7].updescolor" value="">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong></strong>红包描述颜色：</label>
+            <input type="color" v-model="obj.data.gridList[7].downdescolor">
+            <input type="text" class="colorFrameInput" v-model="obj.data.gridList[7].downdescolor" value="">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>背景图：</label>
+            <input type="text" name="" v-model.lazy="obj.data.gridList[7].gridbackimg" placeholder="到图片服务器上传">
+            <div class="fileupload0 fileupload" style="display:none">
+            </div>
+            <button class="jc-btn btn-primary unloadimg" style="display:none;">本地上传</button>
+          </div>
+        </div>
+        <!-- 宫格6   对应7 -->
+
+        <!-- 宫格7   对应6 -->
+        <div class="coupon-group" v-show="obj.data.gridtype==6">
+
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>描述1：</label>
+            <input type="text" v-model="obj.data.gridList[6].desone" placeholder="折扣">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>描述2：</label>
+            <input type="text" v-model="obj.data.gridList[6].destwo" placeholder="券">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>描述3：</label>
+            <input type="text" v-model="obj.data.gridList[6].desthree" placeholder="折扣券">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>奖品描述：</label>
+            <input type="text" v-model="obj.data.gridList[6].desfour" placeholder="用于中奖描述">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong></strong>跳转地址：</label>
+            <input type="text" v-model="obj.data.gridList[6].useurl" placeholder="领券之后的跳转，可为空">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong></strong>红包面额颜色：</label>
+            <input type="color" v-model="obj.data.gridList[6].updescolor">
+            <input type="text" class="colorFrameInput" v-model="obj.data.gridList[6].updescolor" value="">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong></strong>红包描述颜色：</label>
+            <input type="color" v-model="obj.data.gridList[6].downdescolor">
+            <input type="text" class="colorFrameInput" v-model="obj.data.gridList[6].downdescolor" value="">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>背景图：</label>
+            <input type="text" name="" v-model.lazy="obj.data.gridList[6].gridbackimg" placeholder="到图片服务器上传">
+            <div class="fileupload0 fileupload" style="display:none">
+            </div>
+            <button class="jc-btn btn-primary unloadimg" style="display:none;">本地上传</button>
+          </div>
+        </div>
+        <!-- 宫格7   对应6 -->
+
+        <!-- 宫格8   对应3 -->
+        <div class="coupon-group" v-show="obj.data.gridtype==3">
+
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>描述1：</label>
+            <input type="text" v-model="obj.data.gridList[3].desone" placeholder="折扣">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>描述2：</label>
+            <input type="text" v-model="obj.data.gridList[3].destwo" placeholder="券">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>描述3：</label>
+            <input type="text" v-model="obj.data.gridList[3].desthree" placeholder="折扣券">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>奖品描述：</label>
+            <input type="text" v-model="obj.data.gridList[3].desfour" placeholder="用于中奖描述">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong></strong>跳转地址：</label>
+            <input type="text" v-model="obj.data.gridList[3].useurl" placeholder="领券之后的跳转，可为空">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong></strong>红包面额颜色：</label>
+            <input type="color" v-model="obj.data.gridList[3].updescolor">
+            <input type="text" class="colorFrameInput" v-model="obj.data.gridList[3].updescolor" value="">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong></strong>红包描述颜色：</label>
+            <input type="color" v-model="obj.data.gridList[3].downdescolor">
+            <input type="text" class="colorFrameInput" v-model="obj.data.gridList[3].downdescolor" value="">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>背景图：</label>
+            <input type="text" name="" v-model.lazy="obj.data.gridList[3].gridbackimg" placeholder="到图片服务器上传">
+            <div class="fileupload0 fileupload" style="display:none">
+            </div>
+            <button class="jc-btn btn-primary unloadimg" style="display:none;">本地上传</button>
+          </div>
+        </div>
+        <!-- 宫格8   对应3 -->
+
+        <!-- 宫格9   对应4 -->
+        <div class="coupon-group" v-show="obj.data.gridtype==4">
+
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong>*</strong>描述1：</label>
+            <input type="text" v-model="obj.data.gridList[4].desone" placeholder="抽奖">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong></strong>颜色1：</label>
+            <input type="color" v-model="obj.data.gridList[4].updescolor">
+            <input type="text" class="colorFrameInput" v-model="obj.data.gridList[4].updescolor" value="">
+          </div>
+          <div class="form-group form-ninegrid">
+            <label>
+              <strong></strong>颜色2：</label>
+            <input type="color" v-model="obj.data.gridList[4].downdescolor">
+            <input type="text" class="colorFrameInput" v-model="obj.data.gridList[4].downdescolor" value="">
+          </div>
+
+        </div>
+        <!-- 宫格9   对应4 -->
+        </div>
+      </form>
+
+
+    </div>
+  </div>
 </div>

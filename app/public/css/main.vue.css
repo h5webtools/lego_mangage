@@ -1,11 +1,11 @@
 .welcome {
   font-size: 30px;
   text-align: center;
-}.w-e-menu {
+}.w-e-menu__custom {
   z-index: 1 !important;
 }
 
-.w-e-text-container {
+.w-e-text-container__custom {
   z-index: 1 !important;
 }.el-select-dropdown__item.selected .dropdown__item--withdata {
   color: #fff;

@@ -485,7 +485,6 @@ function scrollTo(element, to, duration) {
   var difference = to - element.scrollTop;
   var perTick = difference / duration * 10;
   setTimeout(function () {
-    console.log(new Date());
     element.scrollTop = element.scrollTop + perTick;
     if (element.scrollTop === to) return;
     scrollTo(element, to, duration - 10);
@@ -2197,7 +2196,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }).then(function (jsonData) {
         if (jsonData.code == 0) {
           _this2.$set(row, 'showList', jsonData.data);
-          console.log(row);
         }
       });
     },

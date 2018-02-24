@@ -118,7 +118,6 @@ export default {
     sortTableByColum() {
     },
     editCmd(row) {
-      console.log(row);
       this.commandData.cmd_id = row.cmd_id;
       this.commandData.command = row.command;
       this.commandData.name = row.name;
@@ -139,7 +138,6 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           paramQuery.savePostCmd(this.commandData).then((jsonData) => {
-            console.log(jsonData);
             if(jsonData.code == 0){
               this.$confirm('活动保存成功', '提示').then(() => {
                   location.reload();

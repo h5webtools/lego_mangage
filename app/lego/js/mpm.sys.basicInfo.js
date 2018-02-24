@@ -17,9 +17,9 @@ define(function (require, exports, module) {
     bgColor = $('#bgColor'),				    //背景色
     bgColorTo = $('#bgColorTo'),				//渐变色
     pvEventid = $('#pvEventid'),				//上报ID
-    textShareImgUrl = $("#textShareImgUrl"),    //分享图标
-    textShareTitle = $("#textShareTitle"),      //分享标题
-    textShareDesc = $("#textShareDesc"),        //分享描述
+    textShareImgUrl = $('#textShareImgUrl'),    //分享图标
+    textShareTitle = $('#textShareTitle'),      //分享标题
+    textShareDesc = $('#textShareDesc'),        //分享描述
     shareInfoControl = $('#shareInfoControl'),
     basicInfoCancelBtn = $('#basicInfoCancelBtn'),
     basicInfoSaveBtn = $('#basicInfoSaveBtn'),
@@ -57,7 +57,7 @@ define(function (require, exports, module) {
     }
 
     curPage.type = selectPageType.val();
-    curPage.name = inputPageName.val().replace(/['"]/g, "");
+    curPage.name = inputPageName.val().replace(/['"]/g, '');
     curPage.expireUrl = expireUrl.val();
     curPage.oldPageMenu = inputOldPageMenu.val().trim();
     curPage.shareImgUrl = textShareImgUrl.val().trim();
@@ -86,7 +86,9 @@ define(function (require, exports, module) {
       moduleUtil.alert('目录已存在');
     }
     else {
+      var act_id = moduleUtil.getUrlQuery("act_id");
       curPage.path = newPath;
+      curPage.actId = act_id;
       if (creatingNew) {
         curPage.templateid = templateid;
         moduleDataCenter.createNewPage(curPage, function (json) {
@@ -96,9 +98,7 @@ define(function (require, exports, module) {
           }
           if (newId == 0) {
             moduleUtil.alert('新建页面失败');
-          }
-          else {
-            var act_id = moduleUtil.getUrlQuery("act_id");
+          } else {
             if (act_id) {
               moduleDataCenter.savePageRelaction(newId, act_id, function (json) {
                 console.log("上报成功");
@@ -111,14 +111,9 @@ define(function (require, exports, module) {
                 location.replace('?pageid=' + newId);
               }, 1000);
             }
-
-
           }
         });
       } else {
-        curPage;
-        oldPageInfo;
-        console.log(curPage);
         if (oldPageInfo.page_path != curPage.path) {
           moduleUtil.alert('目录名称和页面路径不可以修改');
           return;
@@ -154,6 +149,8 @@ define(function (require, exports, module) {
 
         curPage.id = d.page_id;
         oldPageInfo = d; //基本信息
+        d.share_title == 'undefined' ? d.share_title = '' : '';
+        d.share_desc == 'undefined' ? d.share_desc = '' : '';
         setInputValueByInfo(d);
       } else {
         moduleUtil.alert('页面不存在');
@@ -170,7 +167,7 @@ define(function (require, exports, module) {
     curPage.path = obj.page_path;
     curPage.datefolder = obj.date_folder;
     curPage.name = obj.page_name;
-    curPage.oldPageMenu = obj.oldPageMenu || obj.old_page_path || "";
+    curPage.oldPageMenu = obj.oldPageMenu || obj.old_page_path || '';
     curPage.content = obj.page_content;
     curPage.expireTime = obj.page_expire_time;
     curPage.expireUrl = obj.page_expire_url;
@@ -185,12 +182,12 @@ define(function (require, exports, module) {
     inputPageName.val(curPage.name);
     typeChange();
     var s = curPage.path.split('/');
-    var pathV = "";
+    var pathV = '';
     if (s.length > 2) {
       var menu = s[s.length - 2],
         pathV = s.slice(0, s.length - 2).join('/') + '/';
     } else {
-      pathV = "https://cdn.jyblife.com/act/pagemaker/";
+      pathV = 'https://cdn.jyblife.com/act/pagemaker/';
       menu = curPage.path;
     }
     selectPagePath.val(pathV);
@@ -205,23 +202,8 @@ define(function (require, exports, module) {
     bgColorTo.val(curPage.bgColorTo);
     pvEventid.val(curPage.pvEventid);
     /*路径和页面名称不可修改 */
-    selectPagePath.attr("disabled", "true");
-    inputPageMenu.attr("disabled", "true");
-    /*路径和页面名称不可修改*/
-    // if(curPage.actLevel == '0'){
-    //     actLevel.eq(1).attr("checked",true);
-    // }else{
-    //     curPage.actLevel = '1';
-    //     actLevel.eq(0).attr("checked",true);
-    // }
-
-    // if(curPage.actType == '3'){
-    //     actType.eq(1).attr("checked",true);
-    // }else{
-    //     curPage.actType = '2';
-    //     actType.eq(0).attr("checked",true);
-    // }
-
+    selectPagePath.attr('disabled', 'true');
+    inputPageMenu.attr('disabled', 'true');
     initExpireTime();
   }
 

@@ -485,7 +485,6 @@ function scrollTo(element, to, duration) {
   var difference = to - element.scrollTop;
   var perTick = difference / duration * 10;
   setTimeout(function () {
-    console.log(new Date());
     element.scrollTop = element.scrollTop + perTick;
     if (element.scrollTop === to) return;
     scrollTo(element, to, duration - 10);
@@ -2010,7 +2009,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.queryFilterList(false);
     },
     editSync: function editSync(row) {
-      console.log(row, '------------row');
       this.systemData.table_name = row.table_name;
       this.systemData.db_config = row.db_config;
       this.systemData.remote_db_config = row.remote_db_config;
@@ -2092,7 +2090,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.$refs[formName].validate(function (valid) {
         if (valid) {
           __WEBPACK_IMPORTED_MODULE_0_api_api_system_sync__["b" /* savePostSync */](_this4.systemData).then(function (jsonData) {
-            console.log(jsonData);
             if (jsonData.code == 0) {
               _this4.$confirm('活动保存成功', '提示').then(function () {
                 location.reload();

@@ -63,6 +63,7 @@ define(function (require, exports, module) {
     var config = this.config;
     var styleObj = this._getStyle();
 
+    /* 模板 */
     require.async('./mpm.sys.dataCenter', function (module) {
       moduleDataCenter = module;
     });
@@ -83,12 +84,13 @@ define(function (require, exports, module) {
       }
     });
 
-    moduleDataCenter.getTplList("2", function (e) {
-      var json = JSON.parse(e);
+    moduleDataCenter.getTplList("2", function (json) {
       if (json.code == 0) {
         that.obj.data.tplList = json.data.data;
       }
     });
+
+    /* 模板 */
 
     this.extendObj(styleObj.com_extend);
     this.obj.data.fnObj = window.vueFnObj['fn_' + this.obj.data.styleKey];
@@ -189,11 +191,12 @@ define(function (require, exports, module) {
             alert("请先选择对应的模板");
             return;
           }
-          var _url = "http://ac.sit.jyblife.com/" + "views/template/chaintpllego.html?" +
-            "tpl_id=" + _tpl_id +
-            "&pageid=" + _pageid +
-            "&comid=" + _comid +
-            "&act_id=" + _act_id,
+          // /ConfigTreeLego/:tpl_id/:pageid/:comid/:act_id
+          var _url = location.origin + '/#/ConfigTreeLego/' + 
+                    _tpl_id + '/' + 
+                    _pageid + '/' + 
+                    _comid + '/' + 
+                    _act_id,
             key = _pageid + "_" + _comid + "_" + _tpl_id + "_" + _act_id;
 
           divComponentIframe.find("iframe")[0].src = _url;
@@ -201,18 +204,13 @@ define(function (require, exports, module) {
 
           window.addEventListener("message", function (e) {
             var json = JSON.parse(e.data);
-            console.log(json);
             if (json[key]) {
-              console.log(json[key]);
               var cmds = JSON.parse(json[key]);
-              if (_tpl_id = 6) {
                 me.obj.data.gridcmd = cmds[0];
                 me.obj.data.gridactid = _act_id;
-              }
             }
           }, true);
         }
-
       }
     });
 

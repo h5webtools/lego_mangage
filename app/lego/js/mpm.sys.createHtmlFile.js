@@ -55,7 +55,7 @@ define(function (require, exports, module) {
     var allCss = moduleStructure.getAllCss();
     var extendJS = moduleStructure.getExtendJS();//window.vueFnObj
     var pageConfig = moduleStructure.getPageConfig();//window.pageConfig
-    var folderSet = moduleBasicInfo.showMeFolderName();
+    var folder = moduleBasicInfo.showMeFolderName();
     var inputPageName = moduleBasicInfo.showMeInputPageName();
     var sincludeFile = moduleUtil.component.getSincludeUrl();
 

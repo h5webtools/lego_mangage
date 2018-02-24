@@ -452,8 +452,12 @@ export default {
           actQuery
             .saveActConfig(submitInfo)
             .then(json => {
+              let w_e_menu = document.querySelector(".w-e-menu"),
+                  w_e_text_container = document.querySelector(".w-e-text-container");
               this.editLoading = false;
               if (json.code == 0) {
+                w_e_menu.className += ' w-e-menu__custom';
+                w_e_text_container.className += ' w-e-text-container__custom';
                 this.$confirm("活动配置保存成功", "提示").then(() => {
                   if (
                     new Date(submitInfo.expire_time).getTime() !=
@@ -470,7 +474,8 @@ export default {
                         type: "warning"
                       }
                     )
-                      .then(() => {})
+                      .then(() => {
+                      })
                       .catch(() => {});
                   } else {
                     // 跳转到活动列表
@@ -539,11 +544,11 @@ export default {
 };
 </script>
 <style lang="scss">
-.w-e-menu {
-  z-index: 1 !important;
-}
-.w-e-text-container {
-  z-index: 1 !important;
-}
+  .w-e-menu__custom {
+    z-index: 1 !important;
+  }
+  .w-e-text-container__custom {
+    z-index: 1 !important;
+  }
 </style>
 

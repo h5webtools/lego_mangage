@@ -94,7 +94,8 @@ define(function(require, exports, module) {
       shareTitle: page.shareTitle,
       shareDesc: page.shareDesc,
       templateId: page.templateid,
-      extraData: page.extraData
+      extraData: page.extraData,
+      actId: page.actId
     }, callback);
   };
 

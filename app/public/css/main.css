@@ -64932,6 +64932,10 @@ h2 input[type=checkbox] {
   margin-left: 16px;
 }
 
+.mt-lt-4 {
+  margin-left: 4px;
+}
+
 .mg-tp-10 {
   margin-top: 10px;
 }
@@ -65067,7 +65071,7 @@ h2 input[type=checkbox] {
 }
 
 .actid-custom__btn {
-  margin-left: 16px;
+  margin-left: 4px;
 }
 
 .mod-act-manager {

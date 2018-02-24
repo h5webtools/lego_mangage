@@ -13,11 +13,11 @@
         </el-select>
       </el-form-item>
       <el-form-item label="生效时间" prop="begin_at">
-        <el-date-picker v-model="ruleForm.icon.begin_at" type="datetime" placeholder="选择日期时间">
+        <el-date-picker v-model="ruleForm.icon.begin_at" value-format="yyyy-MM-dd HH:mm:ss" type="datetime" placeholder="选择日期时间">
         </el-date-picker>
       </el-form-item>
       <el-form-item label="失效时间" prop="end_at">
-        <el-date-picker v-model="ruleForm.icon.end_at" type="datetime" placeholder="选择日期时间">
+        <el-date-picker v-model="ruleForm.icon.end_at" value-format="yyyy-MM-dd HH:mm:ss" type="datetime" placeholder="选择日期时间">
         </el-date-picker>
       </el-form-item>
       <el-form-item label="状态" prop="statusvalue">
@@ -41,7 +41,7 @@
           <el-button type="primary" class="mt-lt-16" @click="saveIconConfig(index)">保存</el-button>
         </div>
         <div class="mod-delete-icon">
-          <el-button type="danger" class="mt-lt-16" @click="deleteIconConfig(index)">删除</el-button>
+          <el-button type="danger" class="mt-lt-4" @click="deleteIconConfig(index)">删除</el-button>
         </div>
         <el-form-item label="活动号" class="pd-tp-20" style="width:82%">
           <el-input v-model="item.act_id" placeholder="请输入活动号" class="mod-actid-custom"></el-input>
@@ -88,7 +88,7 @@
   <el-col :span="8" class="el-col-border"> 
     <el-carousel :interval="4000" type="card" height="200px">
       <el-carousel-item v-for="item in ruleForm.pictures" :key="item.act_id">
-        <img :src="item.imgUrl"/>
+        <img :src="item.pic_url"/>
       </el-carousel-item>
     </el-carousel>
   </el-col>
@@ -181,7 +181,7 @@ export default {
   },
   methods: {
     urlValidCheck(url) {//检测url
-      var envType = location.href.indexOf('sit')>-1 ? 0 : 1;
+      var envType = location.origin.indexOf('sit')> -1 ? 0 : 1;
       var sitRegExp = /^https:\/\/cdnsit.jyblife.com/,
           productRegExp = /^https:\/\/cdn.jyblife.com/,
           appRegExp = /^jtjr:\/\//;
@@ -195,8 +195,8 @@ export default {
     },
     timeValidCheck(beginTime , endTime , effect_time , expire_time) {////检测时间
       if(effect_time && expire_time){//如果时间没有的就不校验
-        var startFlag = new Date(beginTime) >= new Date(actBeginTime),
-            endTimeFalg = new Date(endTime) <= new Date(actEndTime);
+        var startFlag = new Date(beginTime) >= new Date(effect_time),
+            endTimeFalg = new Date(endTime) <= new Date(expire_time);
         if(startFlag && endTimeFalg){
           return true;
         }else{

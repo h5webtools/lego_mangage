@@ -322,7 +322,6 @@ export default {
       }).then((jsonData) => {
         if(jsonData.code == 0){
           this.$set(row,'showList',jsonData.data);
-          console.log(row);
         }
       });
     },

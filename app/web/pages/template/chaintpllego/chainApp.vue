@@ -276,7 +276,6 @@ export default {
     
       /* 循环检测每个是否配置OK */
       saveData.forEach(function(item,index){
-        console.log(item.chains);
         curChains = item.chains;
         if(item.chains.length == 0) {
           me.$message.error('第'+(index+1)+'个树尚未配置规则');
@@ -289,7 +288,6 @@ export default {
           if (chain.nodeType == 'action') {
             return false;
           } else {
-            console.log(hasError);
             if(hasError){
               isErrorFlag = true;
               me.$message.error('第'+(index+1)+'个树每一个分支都需要以动作结束');
@@ -319,12 +317,9 @@ export default {
 
         item.chains = ruleActionChain;
         ruleActionChain = [];
-        console.log(item.chains, "------==== ");
       })
       
       /* 循环检测每个是否配置OK */
-      
-        console.log(saveData);
 
         chainQuery.SaveChainsByComponentTemplate({ //saveComponentTemplateChains
           tpl_id: this.tpl_id,
@@ -525,7 +520,6 @@ export default {
       });
     },
     showEditDialog(data) {
-      console.log(data);
       if (data.data.id) {
         let saveData = this.treeData[data.data.id].tagData;
         this.dialogData.lock = data.lock;
@@ -743,7 +737,6 @@ export default {
       const cmdConfig = {};
       let defaultCmd = '';
       let curRuleActionList = this.ruleActionList;
-      console.log("curRuleActionList",curRuleActionList);
 
       for (let cmd in this.chainConfig) {
         let cmdItem = this.chainConfig[cmd].chains,
@@ -751,8 +744,6 @@ export default {
           editChainIdObj = {},
           len = cmdItem.length;
         !defaultCmd && (defaultCmd = cmd);
-
-        console.log(cmdItem);
         
         cmdConfig[cmd] = [];
         // 循环命令字下面的规则动作列表
@@ -1002,9 +993,6 @@ export default {
       this.chainsTplData.configData = this.tempChainConfig; 
 
       this.configTplHTML = this.syntaxHighlight(JSON.parse(this.tempChainConfig)); 
-
-      console.log(this.configTplHTML); 
-      //console.log(this.chainsTplData.configData);
       
       this.chainsTplVisible = true;
 

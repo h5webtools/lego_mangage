@@ -72,9 +72,7 @@ export default {
           doLogin(this.loginForm.account, sha1(this.loginForm.password)).then(jsonData => {
             this.loading = false;
             if (jsonData.code == 0) {
-              location.href = '/';
-              // var redirect = getQuery("redirect") || "index.html";
-              // location.href = decodeURIComponent(redirect);
+              //this.$router.push("/welcome");
             }
           });
         } else {

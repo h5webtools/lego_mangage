@@ -42,6 +42,49 @@ define(function (require, exports, module) {
       "data.evencolumncolor"]
   });
 
+  _Class.prototype.showCB = function () {
+    var that = this;
+    var config = this.config;
+    var styleObj = this._getStyle();
+
+    /* 模板 */
+    require.async('./mpm.sys.dataCenter', function (module) {
+      moduleDataCenter = module;
+    });
+    require.async('./mpm.sys.basicInfo', function (module) {
+      moduleBasicInfo = module;
+    });
+
+    var pageInfo = moduleBasicInfo.showMePageInfo();
+    var folderSet = moduleBasicInfo.showMeFolderName();
+
+    var path = pageInfo.datefolder + '/' + folderSet.sub + '/';
+
+    this.obj.data.isShowNpmVersions = LegoPageConfig.isPower;
+    moduleDataCenter.getnodeversions('@lego/jybranklist', path, function (json) {
+      that.obj.data.npmversionArr = json;
+      if (!that.obj.data.npmversion) {
+        that.obj.data.npmversion = json[json.length - 1].version;
+      }
+    });
+
+    moduleDataCenter.getTplList('4', function (json) {
+      if (json.code == 0) {
+        that.obj.data.tplList = json.data.data;
+      }
+    });
+
+    /* 模板 */
+
+    this.extendObj(styleObj.com_extend);
+    this.obj.data.fnObj = window.vueFnObj['fn_' + this.obj.data.styleKey];
+    this.domStyle = this.addCssByStyle(styleObj.com_css);
+
+    this._showRightList();
+    this._appendShowDom();
+    this._appendEditDom();
+  };
+
   //编辑功能
   _Class.prototype._appendEditDom = function () {
     var that = this;
@@ -140,6 +183,40 @@ define(function (require, exports, module) {
           moduleDataCenter.updataversion(this.obj.data.npmversion, '@lego/jybranklist', path, function () {
             console.log("update ok ");
           });
+        },
+        toConfigTree: function () {
+          var moduleUtil, me = this;
+          require.async('./mpm.sys.util', function (module) {
+            moduleUtil = module;
+          });
+          var divComponentIframe = $("#divComponentIframe");
+          var _pageid = moduleBasicInfo.showMePageInfo().id,
+            _tpl_id = this.obj.data.tplid,
+            _act_id = moduleUtil.getUrlQuery('act_id'),
+            _comid = this.obj.uid.replace("com_", "");
+          if (!_tpl_id) {
+            alert("请先选择对应的模板");
+            return;
+          }
+          // /ConfigTreeLego/:tpl_id/:pageid/:comid/:act_id
+          var _url = location.origin + '/#/ConfigTreeLego/' + 
+                    _tpl_id + '/' + 
+                    _pageid + '/' + 
+                    _comid + '/' + 
+                    _act_id,
+            key = _pageid + "_" + _comid + "_" + _tpl_id + "_" + _act_id;
+
+          divComponentIframe.find("iframe")[0].src = _url;
+          divComponentIframe.show();
+
+          window.addEventListener("message", function (e) {
+            var json = JSON.parse(e.data);
+            if (json[key]) {
+              var cmds = JSON.parse(json[key]);
+                // me.obj.data.gridcmd = cmds[0];
+                // me.obj.data.gridactid = _act_id;
+            }
+          }, true);
         }
 
       }

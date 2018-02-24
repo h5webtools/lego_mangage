@@ -154,7 +154,6 @@ export default {
       this.queryFilterList(false);
     },
     editSync(row) {
-      console.log(row,'------------row');
       this.systemData.table_name = row.table_name;
       this.systemData.db_config = row.db_config;
       this.systemData.remote_db_config = row.remote_db_config;
@@ -227,7 +226,6 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           paramQuery.savePostSync(this.systemData).then((jsonData) => {
-            console.log(jsonData);
             if(jsonData.code == 0){
               this.$confirm('活动保存成功', '提示').then(() => {
                   location.reload();
