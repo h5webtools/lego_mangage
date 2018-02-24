@@ -711,9 +711,10 @@ class LegoController extends Controller {
     let raw = this.ctx.request.rawBody,
         fromPage = raw.from,
         folder = raw.folder,
+        actId = raw.actId,
         time = await this.ctx.helper.dateFormat('yyyy-MM-dd hh:mm:ss', new Date()),
         dateFolder = await this.ctx.helper.dateFormat('yyyyMM00');
-    if(!fromPage || isNaN(fromPage)) {
+    if(!fromPage || isNaN(fromPage) || !actId) {
       this.ctx.body = errCode.INVALID_PARAM_FORMAT;
       return;
     }
@@ -728,7 +729,7 @@ class LegoController extends Controller {
         }
         return;
       }
-      let copyRet = await this.service.lego.legoService.insertCopyPage(fromPage, folder, dateFolder, time);
+      let copyRet = await this.service.lego.legoService.insertCopyPage(fromPage, folder, dateFolder, time, actId);
       this.ctx.logger.info('复制页面结果'+ copyRet);
       if(copyRet) {
         this.ctx.body = {

@@ -191,15 +191,16 @@ class LegoService extends Service {
    * @param {*} pageId 
    * @param {*} folder 
    * @param {*} dateFolder 
+   * @param {*} actId     活动号
    */
-  async insertCopyPage(pageId, folder, dateFolder, time) {
+  async insertCopyPage(pageId, folder, dateFolder, time, actId) {
     let insertRet = await this.app.mysql.get('dbLego').query(`INSERT INTO tb_page(page_type, page_name, page_path,
         share_img_url,share_title,share_desc,page_expire_time, 
         page_expire_url,page_bgcolor,page_content,
         page_thumb,page_addition,date_folder, 
-        page_author,page_createdate) (SELECT tp.page_type, tp.page_name, '${folder}', share_img_url, share_title, share_desc,
+        page_author,page_createdate,actId) (SELECT tp.page_type, tp.page_name, '${folder}', share_img_url, share_title, share_desc,
         tp.page_expire_time, tp.page_expire_url, tp.page_bgcolor, tp.page_content, tp.page_thumb, tp.page_addition, '${dateFolder}',
-        '${this.ctx.session.userAccount}', '${time}' FROM tb_page AS tp WHERE page_id=${pageId})`);
+        '${this.ctx.session.userAccount}', '${time}', '${actId}' FROM tb_page AS tp WHERE page_id=${pageId})`);
     return insertRet;
   }
 
