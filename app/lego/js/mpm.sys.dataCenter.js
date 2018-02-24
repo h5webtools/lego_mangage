@@ -4,7 +4,7 @@ define(function(require, exports, module) {
       if (json.code == 0) {
         callback(json);
       } else {
-        alert(json.msg);
+        //alert(json.msg);
       }
     }).fail(function() {
       alert('网络错误');
@@ -161,12 +161,14 @@ define(function(require, exports, module) {
    * @see http://mock.fe.jyb.com/#/doc/5a699394c2a30b22a4acc146/5a6f0a32a50df91e50c0a127
    * @param {*} pageId 
    * @param {*} folder 
+   * @param {*} actId
    * @param {*} callback 
    */
-  exports.copyPage = function(pageId, folder, callback) {
+  exports.copyPage = function(pageId, folder, actId, callback) {
     request('/lego/copyPage', {
       from: pageId,
-      folder
+      folder: folder,
+      actId: actId
     }, callback)
   };
 

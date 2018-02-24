@@ -2,20 +2,20 @@
   <div class="mg-tp-10 mg-bt-10" >
 
     <!-- 九宫格配置 实际是4*n -->
-    <el-row :gutter="20" v-if="editData.data">
+    <el-row :gutter="20" v-if="editData.data && (editData.flag == 0 || editData.configtype == 3 && editData.flag != 0)">
       <el-col :span="6" v-for="(item,index) in editData.data.jiugongge.content" :key="index">
         <div class="up-banner" :index="index"  @click="setAppIndexConfig('topbanner' , index , editData.data.jiugongge.type)">
           <img :src="item.pic_url || 'http://placeholder.qiniudn.com/120x120'"/>
+          <span class="up-banner__desc">{{item.title || '四个字长'}}</span>
         </div>
-        <span class="up-banner__desc">{{item.title || '四个字长'}}</span>
       </el-col>
     </el-row>
     <!-- 九宫格配置 实际是4*n -->
 
-    <div style="height:10px;width:100%;background-color:#f5f5f5;"></div>
+    <div style="height:10px;width:100%;background-color:#f5f5f5;" v-if="(editData.flag == 0 || editData.configtype == 3 && editData.flag != 0)"></div>
     
     <!-- 重大节日 -->
-    <el-row :gutter="24" class="mg-tp-10" v-if="editData.data">
+    <el-row :gutter="24" class="mg-tp-10" v-if="editData.data && (editData.flag == 0 || (editData.configtype == 22 && editData.flag != 0))">
       <el-col :span="24"  v-for="(item,index) in editData.data.banner.content" :key="index" v-if="index == 0">
         <div class="festival-banner" @click="setAppIndexConfig('festivalbanner' , index , editData.data.banner.type)">
           <img :src="item.pic_url" />
@@ -25,7 +25,7 @@
     <!-- 重大节日 -->
 
     <!-- 1+2 -->
-    <el-row :gutter="20" class="mg-tp-10" v-if="editData.data">
+    <el-row :gutter="20" class="mg-tp-10" v-if="editData.data && (editData.flag == 0 || editData.configtype == 10 && editData.flag == 1)">
       <el-col :span="12" v-for="(item,index) in editData.data.twoAddOne.content" :key="index" v-if="index==0">
         <div class="one-inthree-left" @click="setAppIndexConfig('oneaddtwo' , index , editData.data.twoAddOne.type)">
           <dl class="one-inthree__title one-inthree__title-left pd-tp-5">     
@@ -56,7 +56,7 @@
     <!-- 1+2 -->
 
     <!-- 轮播图 -->
-    <el-row :gutter="20" class="mg-tp-10"  v-if="editData.flag == 0 && editData.data">
+    <el-row :gutter="20" class="mg-tp-10"  v-if="editData.data && (editData.flag == 0 || editData.configtype == 9 && editData.flag == 1)">
       <el-col :span="24">
         <div class="block">
           <el-carousel  height="150px">

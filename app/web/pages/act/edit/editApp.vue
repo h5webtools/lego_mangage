@@ -10,11 +10,11 @@
           <el-form-item label="上线时间：" required prop="effect_time">
             <el-date-picker
               v-model="actInfo.effect_time" 
-              type="datetime" value-format="yyyy-MM-dd HH:mm:ss"
+              type="datetime" 
               placeholder="选择上线的日期时间">
             </el-date-picker>
           </el-form-item>
-          <el-form-item label="过期时间：" required prop="expire_time">
+          <el-form-item label="过期时间：" >
             <el-date-picker
               v-model="actInfo.expire_time"
               type="datetime" value-format="yyyy-MM-dd HH:mm:ss"
@@ -73,8 +73,8 @@
           <el-form-item label="可编辑的人：">
             <el-select v-model="actInfo.revisability" multiple filterable placeholder="请选择可修改此活动配置的用户" class="full-form-item">
               <el-option
-                v-for="item in enableEditUsers"
-                :key="item.user_id"
+                v-for="(item,index) in enableEditUsers"
+                :key="index"
                 :label="item.user_name"
                 :value="item.user_id">
                 <span style="float: left">{{ item.user_name }}</span>
@@ -403,6 +403,9 @@ export default {
     getUserList() {
       actQuery.getEnableEditUsersList().then(jsonData => {
         if (jsonData.code == 0) {
+          jsonData.data.forEach(element => {
+            element.user_id += ''; 
+          });
           this.enableEditUsers = jsonData.data;
         } else {
           this.$message.error(jsonData.msg);

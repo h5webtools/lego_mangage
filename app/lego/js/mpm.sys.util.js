@@ -314,8 +314,7 @@ define(function (require, exports, module) {
           }
 
           if (url) {
-            str = '<!-- for ' + item.config.obj.uid + ' -->\n<!--MPM#include virtual="' + url + '" -->\n';//legos的bug，必须隔开<!--和include
-            existUrl[url] = str;
+           
           } else {
             existUrl[url] = '';
           }
@@ -383,11 +382,7 @@ define(function (require, exports, module) {
           callback(list);
         }
       })
-      // $.get(location.origin + '' + '/handle?action=getallcomponents', function (data) {
-      //     //debugger;
-      //     list = data.result;
-      //     callback(list);
-      // });
+     
     };
   })();
 
@@ -424,62 +419,6 @@ define(function (require, exports, module) {
     }
   };
 
-
-  exports.checkEOSPower = function (name, cb) {
-    $.get(phpAction, {
-      action: 'checkEOSPower',
-      username: name
-    }, cb, 'json');
-  };
-
-  exports.registerEos = function (name, cb) {
-    $.get(CFG.phpRoot + 'registerEos.php', { user: name }, cb);
-  };
-
-  exports.recordEosReg = function (name, cb) {
-    $.get(phpAction, {
-      action: 'recordEosReg',
-      username: name
-    }, cb);
-  };
-
-  exports.syncToJFS = function (file, cb) {//jd file service 使用北京的图片服务
-    // $.get(CFG.phpRoot + "syncToJFS.php", { imgpath: file }, function (d) {
-    //     /*jfs那边返回格式需要处理一下
-    //      *
-    //      51
-    //      [{"id":"1","msg":"jfs/t1933/90/1841043256/40359/90026eda/5683cc89N5e069b60.jpg"}]
-    //      0
-    //      * */
-    //     if(d && d.indexOf('error')>-1){
-    //         JD.report.umpBiz({bizid:'285',operation:'18',result:'2',source:'0',message:'item imgupload timeout'});
-    //         exports.alert("网络超时,请重新上传！");
-    //     }else{
-
-    //         var list=JSON.parse(d.replace(/(^[^\[]*)|([^\]]+$)/g,''));
-    //         console.info('同步jfs返回',list);
-    //         if(list && list[0].msg==5){//上传图片报错
-    //             //给运营提示上传失败  并且上报错误
-    //             JD.report.umpBiz({bizid:'285',operation:'18',result:'1',source:'0',message:'item imgupload failed'});
-    //             exports.alert("上传图片失败,请联系产品或者开发");
-    //         }else if(list && list[0].id==1){ //成功
-
-    //             JD.report.umpBiz({bizid:'285',operation:'18',result:'0',source:'0',message:'item imgupload success'});
-    //         }else{
-    //             JD.report.umpBiz({bizid:'285',operation:'18',result:'3',source:'0',message:'item imgupload othererror'});
-    //             exports.alert("上传图片出现网络问题,请重新上传！");
-    //         }
-
-    //         if(list[0].msg.indexOf('jfs')<0){
-    //             console.error('同步jfs文件出错');
-    //             exports.alert("上传图片出现问题,请重新上传！");
-    //             return;
-    //         }
-    //         var img_url='http://img10.360buyimg.com/wq/'+list[0].msg;
-    //         cb(img_url);
-    //     }
-    // });
-  };
 
   exports.alert = function (txt, callback) {
     var html =
@@ -556,25 +495,7 @@ define(function (require, exports, module) {
     return r != null ? r[2] : "";
   };
 
-  //获取sinclude的内容，主要是样式文件
-  exports.getSincludeContent = (function () {
-    var map = {};
 
-    // url : /sinclude/cssi/h5/1111/wx_pinlei/index.shtml
-    return function (url, callback) {
-      if (map[url]) {
-        setTimeout(function () {
-          callback(map[url]);
-        });
-        return;
-      }
-
-      $.get('/martpagemaker' + url + '?r=' + Math.random(), function (str) {
-        map[url] = str;
-        callback(str);
-      });
-    }
-  })();
 
   exports.getTemplateByUrl = (function () {
     var map = {};
@@ -632,17 +553,7 @@ define(function (require, exports, module) {
         }
 
         if (domLink.length > 0) {
-          result.com_sinclude_url = domLink.attr('href');
-          exports.getSincludeContent(domLink.attr('href'), function (content) {
-            //参考http://mpm.wq.jd.com/martpagemaker/sinclude/cssi/h5/1111/wx_pinlei/index.shtml中的内容
-            let dom = document.createElement('div');//这里不可以直接用jquery创建，会把script做转换
-            dom.innerHTML = content;
-            dom = $(dom);
-            result.com_sinclude_content_url = dom.find('link').attr('href');
 
-            map[url] = result;
-            callback(result);
-          });
         } else {
           map[url] = result;
           callback(result);

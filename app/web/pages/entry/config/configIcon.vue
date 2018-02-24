@@ -73,12 +73,13 @@
           <el-input v-model="item.mta_id" placeholder="请输入MTAID"></el-input>
         </el-form-item>
         <el-form-item label="适用用户群" >
-          <el-select v-model="item.group_id" value-key="group_id" multiple placeholder="请选择">
+          <el-select v-model="item.group_id" filterable multiple placeholder="请选择">
             <el-option
-              v-for="item in userGroups"
-              :key="item.group_id"
+              v-for="(item, index) in userGroups"
+              :key="index"
               :label="item.name"
               :value="item.group_id">
+              <span style="float: left">{{ item.name }}</span>
             </el-option>
           </el-select>
         </el-form-item>
@@ -243,6 +244,7 @@ export default {
       }).then(jsonData => {
         if(jsonData.code == 0){
           this.userGroups = jsonData.data;
+          debugger;
           this.queryAppIndexData();
         }
       });
