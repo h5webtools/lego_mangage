@@ -11,6 +11,7 @@
             <el-date-picker
               v-model="actInfo.effect_time" 
               type="datetime" 
+              value-format="yyyy-MM-dd HH:mm:ss"
               placeholder="选择上线的日期时间">
             </el-date-picker>
           </el-form-item>
@@ -18,6 +19,7 @@
             <el-date-picker
               v-model="actInfo.expire_time"
               type="datetime" 
+              value-format="yyyy-MM-dd HH:mm:ss"
               placeholder="选择过期的日期时间">
             </el-date-picker>
           </el-form-item>
@@ -25,6 +27,7 @@
             <el-date-picker
               v-model="actInfo.end_time"
               type="datetime" 
+              value-format="yyyy-MM-dd HH:mm:ss"
               placeholder="选择活动结束的日期时间">
             </el-date-picker>
           </el-form-item>
@@ -297,16 +300,18 @@ export default {
         ],
         effect_time: [
           {
-            type: "date",
+            type: "string",
             required: true,
+            pattern: /\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}/,
             message: "请选择开始时间",
             trigger: "change"
           }
         ],
         expire_time: [
           {
-            type: "date",
+            type: "string",
             required: true,
+            pattern: /\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}/,
             message: "请选择结束时间",
             trigger: "change"
           }
@@ -381,12 +386,11 @@ export default {
           this.editLoading = false;
           if (json.code == 0) {
             this.actInfo = json.data;
-            this.actInfo.expire_time = new Date(this.actInfo.expire_time);
-            this.actInfo.effect_time = new Date(this.actInfo.effect_time);
-            this.actInfo.end_time = new Date(this.actInfo.end_time);
-            this.actInfo.pageids =
-              json.data.page_ids && json.data.page_ids.join("-");
+            this.actInfo.pageids = json.data.page_ids && json.data.page_ids.join("-");
             this.editor.txt.html(this.actInfo.rule_description);
+            // this.actInfo.expire_time = new Date(this.actInfo.expire_time);
+            // this.actInfo.effect_time = new Date(this.actInfo.effect_time);
+            // this.actInfo.end_time = new Date(this.actInfo.end_time);
             this.originEffectTime = this.actInfo.effect_time;
             this.originExpireTime = this.actInfo.expire_time;
           } else {
@@ -453,9 +457,6 @@ export default {
           this.editLoading = true;
           let submitInfo = Object.assign({}, this.actInfo);
           // 格式化时间
-          submitInfo.expire_time = util.parseTime(submitInfo.expire_time);
-          submitInfo.effect_time = util.parseTime(submitInfo.effect_time);
-          submitInfo.end_time = util.parseTime(submitInfo.end_time);
           submitInfo.page_ids = this.actInfo.pageids
             ? this.actInfo.pageids.split("-")
             : [];
