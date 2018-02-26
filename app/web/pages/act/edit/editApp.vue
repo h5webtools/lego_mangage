@@ -21,7 +21,7 @@
               placeholder="选择过期的日期时间">
             </el-date-picker>
           </el-form-item>
-          <el-form-item label="结束时间：" required prop="end_time">
+          <el-form-item label="结束时间：">
             <el-date-picker
               v-model="actInfo.end_time"
               type="datetime" 
@@ -304,14 +304,6 @@ export default {
           }
         ],
         expire_time: [
-          {
-            type: "date",
-            required: true,
-            message: "请选择结束时间",
-            trigger: "change"
-          }
-        ],
-        end_time: [
           {
             type: "date",
             required: true,

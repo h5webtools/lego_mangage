@@ -426,6 +426,7 @@ export default {
       });
     },
     submitSubAct(formName) {
+      debugger;
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.dialogAddSubActVisible = false;
@@ -446,16 +447,30 @@ export default {
           this.addSubActForm.location = this.configIndex;
           this.addSubActForm.entrance_type = this.configType;
           this.group_id = this.addSubActForm.checkedUserGroups;
-          actQuery.putEntrancePlan(
-            this.addSubActForm
-          ).then(jsonData => {
-          if (jsonData.code == 0) {
-            this.$message({
-              message: '保存成功',
-              type: 'success'
+          debugger;
+          if(!this.addSubActForm.plan_id){
+            actQuery.putEntrancePlan(
+              this.addSubActForm
+            ).then(jsonData => {
+            if (jsonData.code == 0) {
+              this.$message({
+                message: '保存成功',
+                type: 'success'
+              });
+            }
+            });
+          }else{
+            actQuery.postEntrancePlan(
+              this.addSubActForm
+            ).then(jsonData => {
+            if (jsonData.code == 0) {
+              this.$message({
+                message: '修改成功',
+                type: 'success'
+              });
+            }
             });
           }
-          });
         } else {
           return false;
         }
