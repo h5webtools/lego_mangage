@@ -72,7 +72,7 @@ export default {
           doLogin(this.loginForm.account, sha1(this.loginForm.password)).then(jsonData => {
             this.loading = false;
             if (jsonData.code == 0) {
-              //this.$router.push("/welcome");
+              location.href = '/#/welcome';
             }
           });
         } else {
