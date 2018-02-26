@@ -28,10 +28,6 @@ define(function (require, exports, module) {
   var cookieName = 'jybactconfig';
 
 
-
-
-  var CFG = require('./mpm.sys.config');
-
   var divComponentEdit = zepto('#divComponentEdit'),
     divLeftComList = zepto('#divLeftComList'),
     divComponentSetPanel = zepto('#divComponentSetPanel'),
@@ -65,15 +61,7 @@ define(function (require, exports, module) {
   };
 
   exports.ckeckIsLogin = function () {
-    var cookieName = "jybactconfig", userpower = "actconfiguserpower";
-    var user_name = exports.getCookie(cookieName);
-    var user_power = exports.getCookie(userpower);
-    $("#username").html(user_name);
-    if (user_name) {
-      return user_name;
-    } else {
-      location.href = CFG.phpRoot + "login.html";
-    }
+    
   }
 
   exports.component = (function () {
@@ -81,7 +69,7 @@ define(function (require, exports, module) {
     var allComponents = {};
 
     return {
-      //创建组件(不区分父子组件)
+      //创建组件(不区分父子组件)不区分
       create: function (obj) {
 
         if (!obj) {
@@ -398,25 +386,6 @@ define(function (require, exports, module) {
     var exp = new Date(), expires = arguments[2] || null, path = arguments[3] || "/", domain = arguments[4] || null, secure = arguments[5] || false;
     expires ? exp.setMinutes(exp.getMinutes() + parseInt(expires)) : "";
     document.cookie = name + '=' + escape(value) + (expires ? ';expires=' + exp.toGMTString() : '') + (path ? ';path=' + path : '') + (domain ? ';domain=' + domain : '') + (secure ? ';secure' : '');
-  };
-
-  exports.checkLogin = function (user_name, user_pwd) {
-    var userName = $.cookie(cookieName);
-    if (!userName || userName != user_name) {
-      $.get(CFG.phpRoot + "handle", { action: 'checkuser', username: user_name, userpwd: user_pwd }, function (d) {
-        if (d && d.res == 0) {
-          $.cookie(cookieName, user_name, { path: '/' });
-          $.cookie("actconfiguserpower", d.power, { path: '/' });
-          $.cookie("actconfiguserpublishid", d.publishid, { path: '/' });
-          location.href = CFG.phpRoot + "home.html";
-        } else {
-          alert("用户名或者密码错误");
-        }
-      }, 'json');
-    } else {
-      console.info('当前用户:', user_name);
-      location.href = CFG.phpRoot + "home.html";
-    }
   };
 
 
