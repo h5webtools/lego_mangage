@@ -244,7 +244,6 @@ export default {
       }).then(jsonData => {
         if(jsonData.code == 0){
           this.userGroups = jsonData.data;
-          debugger;
           this.queryAppIndexData();
         }
       });
