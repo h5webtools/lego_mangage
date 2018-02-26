@@ -37,7 +37,7 @@ define(function (require, exports, module) {
   }
 
   exports.init = function () {
-    pageId = moduleUtil.getUrlQuery('pageid');
+    pageId = moduleUtil.getUrlQuery('page_id');
     moduleUtil.getComponentList(function (list) {
       var grouparr = [];
       var des1 = { des: "外部注册", ishow: "block", val: [] },

@@ -216,7 +216,7 @@ define(function (require, exports, module) {
             if (actIdArr.length > 0) {
               getData.request({
                 act_id: actIdArr,
-                page_id: exports.getUrlQuery("pageid"),
+                page_id: exports.getUrlQuery("page_id"),
                 user_name: exports.getCookie("jybactconfig")
               }, "http://manage.jyblife.com/actManage/autoActMark", false, function (json) {
                 console.log(json);

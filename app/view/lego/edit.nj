@@ -96,7 +96,7 @@
       }
     }
     window.onerror = function(err) {
-      console.error(err);
+      console.error(arguments);
       window.trace(100);
     }
   </script>
@@ -346,7 +346,7 @@
   <!-- E选择子组件浮层 -->
 
   <script type="text/javascript">
-   window.ACT_DETAIL = {{actDetail | safe }};
+   window.ACT_DETAIL = {{ actDetail | safe }};
   </script>
 
   <script type="text/javascript" src="/public/js/lib/sea.js"></script>

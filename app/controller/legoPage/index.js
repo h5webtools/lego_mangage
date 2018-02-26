@@ -61,10 +61,12 @@ class LegoPageController extends Controller {
               userName: this.ctx.session.userName,
               time: +new Date()
             }), 'PX', 24 * 60 * 60 * 1000);
+
             await this.ctx.render('lego/edit', {
               title: actDetail.data.act_title,
               env: this.app.config.env,
-              lock: true
+              lock: true,
+              actDetail: JSON.stringify(actDetail.data)
             });
           }
         } else {

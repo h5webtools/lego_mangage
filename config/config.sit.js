@@ -39,17 +39,54 @@ module.exports = appInfo => {
     app: true
   }
 
+  config.jmfCommonParam = {
+    "env": "prod",
+    "set": "gz_jyb_idc", //使用URL中的set值
+    "group": "*", //使用URL中的group值
+    "version": "1.0.0", //使用URL中的version值
+    "method": "invoke"
+  }
+
   config.actEntryConfig = {
-    entryList: [{
-      ip: '',
-      jmf: ''
-    },{
-      ip: '',
-      jmf: ''
+    userGroupList: [{
+      ip: 'http://10.4.45.71:12056',
+      jmf: 'com.jyblife.complex.h5.act_manager.QueryUserGroupList'
     }],
-    auditList: [{
-      ip: '',
-      jmf: ''
+    entranceConf: [{
+      ip: 'http://10.4.45.71:12056',
+      jmf: 'com.jyblife.complex.h5.act_manager.GetEntranceConf'
+    }],
+    activityConfig: [{
+      ip: 'http://10.4.45.71:12056',
+      jmf: 'com.jyblife.complex.h5.act_manager.GetActivityConfig'
+    }],
+    deleteEntrancePlan: [{
+      ip: 'http://10.4.45.71:12056',
+      jmf: 'com.jyblife.complex.h5.act_manager.DeleteEntrancePlan'
+    }], 
+    getEntranceDetail: [{
+      ip: 'http://10.4.45.71:12056',
+      jmf: 'com.jyblife.complex.h5.act_manager.GetEntranceDetail'
+    }],
+    postEntrancePlan: [{
+      ip: 'http://10.4.45.71:12056',
+      jmf: 'com.jyblife.complex.h5.act_manager.PostEntrancePlan'
+    }],
+    putEntrancePlan: [{
+      ip: 'http://10.4.45.71:12056',
+      jmf: 'com.jyblife.complex.h5.act_manager.PutEntrancePlan'
+    }],
+    getEntrancePlanList: [{
+      ip: 'http://10.4.45.71:12056',
+      jmf: 'com.jyblife.complex.h5.act_manager.GetEntrancePlanList'
+    }],
+    postEntranceShelves: [{
+      ip: 'http://10.4.45.71:12056',
+      jmf: 'com.jyblife.complex.h5.act_manager.PostEntranceShelves'
+    }],
+    getIconEntranceDetail: [{
+      ip: 'http://10.4.45.71:12056',
+      jmf: 'com.jyblife.complex.h5.act_manager.GetIconEntranceDetail'
     }]
   }
 
@@ -75,7 +112,7 @@ module.exports = appInfo => {
   }
 
   config.legoConfig = {
-    path: '/data/www/lego/h5_lego_actpage/release/act',
+    path: '/data/www/lego/h5_lego_actpage/release/act/',
     templateJs: 'index.tjs',
     actJs: 'index.js',
     minifyJs: true,

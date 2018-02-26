@@ -106,7 +106,7 @@ module.exports = appInfo => {
   }
 
   config.legoConfig = {
-    path: '/data/www/lego',
+    path: '/data/www/lego/',
     templateJs: 'index_dev.tjs',
     actJs: 'index.js',
     minifyJs: false,

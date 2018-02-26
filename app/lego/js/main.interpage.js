@@ -95,9 +95,9 @@ define(function(require, exports, module){
     		toast("此页面已经被"+page_locker+"锁定，请联系他解锁");
     	}else{
     		if(location.href.indexOf('_dev')!=-1){
-    			location.href = 'edit.html?pageid='+pid+"&act_id="+act_id;
+    			location.href = 'edit.html?page_id='+pid+"&act_id="+act_id;
     		}else{
-    			location.href = 'edit.html?pageid='+pid+"&act_id="+act_id;
+    			location.href = 'edit.html?page_id='+pid+"&act_id="+act_id;
     		}
     	}
     }

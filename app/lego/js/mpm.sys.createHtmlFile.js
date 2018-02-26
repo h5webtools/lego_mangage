@@ -85,7 +85,7 @@ define(function (require, exports, module) {
     var devFlag = moduleUtil.getUrlQuery('mdev');
     var devFolder = devFlag ? "dev/" : "";
     var customCodeSource = "<!--custom template--> \n";
-    if (moduleUtil.getUrlQuery("pageid") == 19 || moduleUtil.getUrlQuery("pageid") > 236) {
+    if (moduleUtil.getUrlQuery("page_id") == 19 || moduleUtil.getUrlQuery("page_id") > 236) {
       for (var key in mpmData) {
         var _data = mpmData[key],
           _type = _data.type,
@@ -161,7 +161,7 @@ define(function (require, exports, module) {
     moduleDataCenter.packageAct({
       folder: folder,
       pagename: inputPageName,
-      pageid: moduleUtil.getUrlQuery('pageid'),
+      pageid: moduleUtil.getUrlQuery('page_id'),
       content: html,
       extendJS: extendJS,
       comConfig: comConfig,

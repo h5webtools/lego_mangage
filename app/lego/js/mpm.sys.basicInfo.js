@@ -101,14 +101,13 @@ define(function (require, exports, module) {
           } else {
             if (act_id) {
               moduleDataCenter.savePageRelaction(newId, act_id, function (json) {
-                console.log("上报成功");
                 setTimeout(function () {
-                  location.replace('?pageid=' + newId + "&act_id=" + act_id);
+                  location.replace('?page_id=' + newId + "&act_id=" + act_id);
                 }, 1000);
               });
             } else {
               setTimeout(function () {
-                location.replace('?pageid=' + newId);
+                location.replace('?page_id=' + newId);
               }, 1000);
             }
           }
@@ -222,7 +221,6 @@ define(function (require, exports, module) {
       y: 30,
       //选择完成后的回调事件
       callback: function (datepicker) {
-        console.log('选定日期', datepicker.value);
       }
     });
   }

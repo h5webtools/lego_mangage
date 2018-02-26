@@ -141,6 +141,10 @@ define(function (require, exports, module) {
         },
         loadActRule: function() {
           var actDetail = window.ACT_DETAIL;
+          if(!actDetail.rule_description) {
+            alert('活动规则配置为空');
+            return;
+          }
           actDetail.rule_description.replace("{{begin_time}}" , actDetail.effect_time).replace("{{end_time}}" , actDetail.expire_time);
           this.obj.data.rulesContentHtml = actDetail.rule_description;
         }
