@@ -4,7 +4,7 @@ define(function(require, exports, module) {
       if (json.code == 0) {
         callback(json);
       } else {
-        //alert(json.msg);
+        alert(json.msg);
       }
     }).fail(function() {
       alert('网络错误');

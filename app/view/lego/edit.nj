@@ -144,8 +144,7 @@
           <div class="form-group">
             <label class="must">页面路径：</label>
             <select id="selectPagePath">
-              <option value="0">选择路径</option>
-              <option value="">act</option>
+              <option value="act">act</option>
             </select>
             <em class="inputTips">*注意：保存后不可更改</em>
           </div>
