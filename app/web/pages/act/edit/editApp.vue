@@ -14,11 +14,18 @@
               placeholder="选择上线的日期时间">
             </el-date-picker>
           </el-form-item>
-          <el-form-item label="过期时间：" >
+          <el-form-item label="过期时间：" required prop="expire_time">
             <el-date-picker
               v-model="actInfo.expire_time"
-              type="datetime" value-format="yyyy-MM-dd HH:mm:ss"
+              type="datetime" 
               placeholder="选择过期的日期时间">
+            </el-date-picker>
+          </el-form-item>
+          <el-form-item label="结束时间：" required prop="end_time">
+            <el-date-picker
+              v-model="actInfo.end_time"
+              type="datetime" 
+              placeholder="选择活动结束的日期时间">
             </el-date-picker>
           </el-form-item>
           <el-form-item label="校验类型：" required prop="code_type">
@@ -264,6 +271,7 @@ export default {
         act_title: "", // 活动名
         effect_time: "", // 上线时间
         expire_time: "", // 过期时间
+        end_time:'', //活动结束时间
         code_type: "", // 活动校验类型
         act_url: "", // 活动链接
         act_content: "", // 活动描述文案
@@ -296,6 +304,14 @@ export default {
           }
         ],
         expire_time: [
+          {
+            type: "date",
+            required: true,
+            message: "请选择结束时间",
+            trigger: "change"
+          }
+        ],
+        end_time: [
           {
             type: "date",
             required: true,
@@ -375,6 +391,7 @@ export default {
             this.actInfo = json.data;
             this.actInfo.expire_time = new Date(this.actInfo.expire_time);
             this.actInfo.effect_time = new Date(this.actInfo.effect_time);
+            this.actInfo.end_time = new Date(this.actInfo.end_time);
             this.actInfo.pageids =
               json.data.page_ids && json.data.page_ids.join("-");
             this.editor.txt.html(this.actInfo.rule_description);
@@ -446,21 +463,17 @@ export default {
           // 格式化时间
           submitInfo.expire_time = util.parseTime(submitInfo.expire_time);
           submitInfo.effect_time = util.parseTime(submitInfo.effect_time);
+          submitInfo.end_time = util.parseTime(submitInfo.end_time);
           submitInfo.page_ids = this.actInfo.pageids
             ? this.actInfo.pageids.split("-")
             : [];
 
           delete submitInfo.pageids;
-
           actQuery
             .saveActConfig(submitInfo)
             .then(json => {
-              let w_e_menu = document.querySelector(".w-e-menu"),
-                  w_e_text_container = document.querySelector(".w-e-text-container");
               this.editLoading = false;
               if (json.code == 0) {
-                w_e_menu.className += ' w-e-menu__custom';
-                w_e_text_container.className += ' w-e-text-container__custom';
                 this.$confirm("活动配置保存成功", "提示").then(() => {
                   if (
                     new Date(submitInfo.expire_time).getTime() !=
@@ -547,11 +560,11 @@ export default {
 };
 </script>
 <style lang="scss">
-  .w-e-menu__custom {
-    z-index: 1 !important;
+  .el-select-dropdown{
+    z-index: 10002 !important;
   }
-  .w-e-text-container__custom {
-    z-index: 1 !important;
+  .el-message-box__wrapper{
+    z-index: 10002 !important;
   }
 </style>
 
