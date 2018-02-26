@@ -108,7 +108,7 @@
                 <el-dropdown-item divided>
                   <router-link :to="{name:'chainEdit', params: {act_id:props.row.act_id, status:props.row.status}}">规则配置</router-link>
                 </el-dropdown-item>
-                <el-dropdown-item  divided>  
+                <el-dropdown-item v-if="deploy" divided>  
                   <div @click="manual(props.row)">同步配置</div>
                 </el-dropdown-item>
                 <el-dropdown-item divided v-if="props.row.is_lego == '1'">
@@ -207,6 +207,7 @@ export default {
         page_size: 20,
         expire_time: ''
       },
+      deploy: window.currentEnv == 'prod' || window.currentEnv == 'uat',      // prod才展示同步配置入口
       opsLogsData:{
         source_id:'',
         type: 0,
@@ -255,7 +256,6 @@ export default {
   watch: {
     '$route': function(val) {
       this.showSubRoute = val.name != 'actList';
-      // this.currentRoute = val.name;
     }
   },
   created() {

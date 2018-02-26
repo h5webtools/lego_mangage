@@ -19,9 +19,5 @@ module.exports = app => {
   // 获取活动列表展示
   app.router.post('/ActParam/do', app.controller.act.list.index.getShowList);
   // 保存乐高活动配置页面和活动号的关联
-
-
-
   app.router.post('/act/SavePageActRelation', app.controller.act.detail.index.relateActAndPage);
- 
 };
