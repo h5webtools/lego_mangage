@@ -36,7 +36,8 @@ class LegoPageController extends Controller {
               await this.ctx.render('lego/edit', {
                 title: actDetail.data.act_title,
                 env: this.app.config.env,
-                lock: false
+                lock: false,
+                actDetail: JSON.stringify(actDetail.data)
               });
               return;
             }
