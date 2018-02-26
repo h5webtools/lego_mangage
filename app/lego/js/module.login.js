@@ -33,7 +33,7 @@ define(function (require, exports, module) {
 					if(!this.username || !this.userpwd){
 						alert("用户名和密码不能为空！");
 					}
-					moduleUtil.checkLogin(this.username.trim(), this.userpwd.trim());
+					//moduleUtil.checkLogin(this.username.trim(), this.userpwd.trim());
 				}
 			}
 		});

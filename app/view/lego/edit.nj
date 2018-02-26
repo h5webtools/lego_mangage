@@ -288,7 +288,7 @@
   <div id="divLeftComList" class="leftComList">
     <template v-if="true">
       <div v-for="itemparent in list" class="group open">
-        <div class="groupName"><span>{{itemparent.des}}</span>
+        <div class="groupName"><span v-text="itemparent.des"></span>
           <a href="javascript:;"></a>
         </div>
         <div class="list">
@@ -296,7 +296,7 @@
             <div class="comIcon">
               <img :mid="item.path_key" :componentkey="item.id" :title="item.tb_desc" :src="item.tb_thumb">
             </div>
-            <span class="comName">{{item.tb_name}}</span>
+            <span class="comName" v-text="item.tb_name"></span>
           </div>
         </div>
       </div>
@@ -345,6 +345,10 @@
     </div>
   </div>
   <!-- E选择子组件浮层 -->
+
+  <script type="text/javascript">
+   window.ACT_DETAIL = {{actDetail | safe }};
+  </script>
 
   <script type="text/javascript" src="/public/js/lib/sea.js"></script>
   <script type="text/javascript" src="/public/js/lib/seajs-text.js"></script>

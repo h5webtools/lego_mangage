@@ -1,6 +1,5 @@
 define(function (require, exports, module) {
   var $ = require('zepto'),
-    CFG = require('./mpm.sys.config'),
     moduleUtil = "",
     moduleBasicInfo = require('./mpm.sys.basicInfo'),
     previewURL = '',
@@ -17,12 +16,6 @@ define(function (require, exports, module) {
   require.async('./mpm.sys.util', function (module) {
     moduleUtil = module;
   });
-
-
-  var winOpenByUrl = function (url) {
-    //url = CFG.root + 'previewlocal.html?url=' + url;
-    open(url, "", "top=0,left=200,height=800,width=700,toolbar=no,directories=no,menubar=no,scrollbars=yes");
-  };
 
   function createCB(d) {
     console.log('生成文件:', d);

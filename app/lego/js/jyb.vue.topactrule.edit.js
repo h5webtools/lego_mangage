@@ -3,7 +3,7 @@ define(function (require, exports, module) {
   var vueComponent = require("./jyb.vue.commontag");
   var Factory = require('./jyb.vue.edit.factory');
   var defaultTplEdit = '/public/template/new/topactrule/edit.html';
-  var moduleDataCenter = "";
+  var moduleDataCenter = require('./mpm.sys.dataCenter');
   var moduleBasicInfo = "";
 
 
@@ -27,6 +27,7 @@ define(function (require, exports, module) {
       "imgurl": "",
       "isShowDialog": true,
       "rulesContent": [],
+      "rulesContentHtml":"",
       "rulesBgColor": "",
       "rulesContentColor": "",
       "npmversion": "",
@@ -137,8 +138,12 @@ define(function (require, exports, module) {
           moduleDataCenter.updataversion(this.obj.data.npmversion, '@lego/commontag', path, function () {
             console.log("update ok ");
           });
+        },
+        loadActRule: function() {
+          var actDetail = window.ACT_DETAIL;
+          actDetail.rule_description.replace("{{begin_time}}" , actDetail.effect_time).replace("{{end_time}}" , actDetail.expire_time);
+          this.obj.data.rulesContentHtml = actDetail.rule_description;
         }
-
       }
     });
 
