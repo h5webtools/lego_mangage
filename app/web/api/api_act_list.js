@@ -32,7 +32,7 @@ export function manual(data) {
 //手动触发同步
 export function getShowList(data) {
   return service({
-      url: '/ActParam/do',
+      url: '/ActShowParam/do',
       method: 'post',
       data
     });
