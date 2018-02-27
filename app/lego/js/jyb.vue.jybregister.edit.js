@@ -76,7 +76,7 @@ define(function (require, exports, module) {
 
     moduleDataCenter.getnodeversions("@lego/jybregister", path, function (json) {
       var _data = json.data;
-      that.obj.data.npmversionArr = _data;
+      that.obj.data.npmversionArr = _data.version_list;
       if (!that.obj.data.npmversion) {
         that.obj.data.npmversion = _data[_data.length - 1].version;
       }
