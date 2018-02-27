@@ -49,10 +49,10 @@
         <el-table-column type="expand">
           <template slot-scope="props">
             <el-button type="primary">
-              <router-link :to="{name:'chainEdit', params: {act_id:props.row.act_id, status:props.row.status}}">副本模板 <i class="el-icon-arrow-right"></i></router-link>
+              <router-link :to="{name:'chainEdit', params: {act_id:props.row.act_id, status:props.row.status, is_draft:'1'}}">副本模板 <i class="el-icon-arrow-right"></i></router-link>
             </el-button> 
             <el-button type="primary">
-              <router-link :to="{name:'chainEdit', params: {act_id:props.row.act_id, status:props.row.status , is_draft:'0'}}">正式模板 <i class="el-icon-arrow-right"></i></router-link>
+              <router-link :to="{name:'chainEdit', params: {act_id:props.row.act_id, status:props.row.status, is_draft:'0'}}">正式模板 <i class="el-icon-arrow-right"></i></router-link>
             </el-button>
             <p style="font-size: 16px;" class="ui-mt-20 ui-ta-c">更多活动配置信息</p>
             <el-table :data="[props.row]" stripe border highlight-current-row>
