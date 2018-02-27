@@ -87,7 +87,7 @@
         <el-table-column prop="effect_time" label="生效时间"></el-table-column>
         <el-table-column label="过期时间">
           <template slot-scope="props">
-            <span>{{deadlineNotify(props.row)}}</span>
+            <span v-html="deadlineNotify(props.row)"></span>
           </template>
         </el-table-column>
         <el-table-column prop="status" label="活动状态" width="120">
@@ -349,7 +349,7 @@ export default {
       let expireDate = new Date(row.expire_time);
       // 1天内的提醒
       if (Math.abs(expireDate - this.timestamp) < 86400000) {
-        return row.expire_time + "<br/><p class='textcenter' style='color: #ff2200;'>即将过期</p>"
+        return row.expire_time + "&nbsp;&nbsp;<span class='textcenter' style='color: #ff2200;'>即将过期</span>"
       } else {
         return row.expire_time;
       }
