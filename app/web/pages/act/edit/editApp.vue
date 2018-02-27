@@ -387,11 +387,7 @@ export default {
           if (json.code == 0) {
             this.actInfo = json.data;
             this.actInfo.pageids = json.data.page_ids && json.data.page_ids.join("-");
-            debugger;
             this.editor.txt.html(this.HTMLDecode(this.actInfo.rule_description));
-            // this.actInfo.expire_time = new Date(this.actInfo.expire_time);
-            // this.actInfo.effect_time = new Date(this.actInfo.effect_time);
-            // this.actInfo.end_time = new Date(this.actInfo.end_time);
             this.originEffectTime = this.actInfo.effect_time;
             this.originExpireTime = this.actInfo.expire_time;
           } else {
