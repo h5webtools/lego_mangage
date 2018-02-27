@@ -125,5 +125,12 @@ module.exports = appInfo => {
     RELEASE_PATH: 'http://release.jyblife.com/task/interface'
   }
 
+  config.userRole = {
+    admin: '',
+    operator: '',
+    tester: '',
+    dev: ''
+  }
+
   return config;
 };

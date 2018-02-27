@@ -42,13 +42,13 @@
       <el-tabs :active-name="dialogData.nodeType" type="card" @tab-click="toggleTab">
         <el-tab-pane :disabled="dialogData.lock || dialogData.lockRule" label="规则" name="rule">
           <el-select style="width:100%" @change="ruleActionChange" v-model="dialogData.chainName" filterable :disabled="dialogData.lock" placeholder="请选择规则">
-            <el-option v-for="(value, rule) in ruleActionList.rules" :key="rule" :label="value.name + '（'+ rule +'）'" :value="rule">
+            <el-option v-for="(value, rule) in ruleActionList.rules" v-if="rule" :key="rule" :label="value.name + '（'+ rule +'）'" :value="rule">
             </el-option>
           </el-select>
         </el-tab-pane>
         <el-tab-pane :disabled="dialogData.lock" label="动作" name="action">
           <el-select style="width:100%" v-model="dialogData.chainName" filterable :disabled="dialogData.lock" placeholder="请选择动作">
-            <el-option v-for="(value, action) in ruleActionList.actions" :key="action" :label="value.name + '（'+ action +'）'" :value="action">
+            <el-option v-for="(value, action) in ruleActionList.actions" v-if="action" :key="action" :label="value.name + '（'+ action +'）'" :value="action">
             </el-option>
           </el-select>
         </el-tab-pane>
@@ -80,7 +80,7 @@
           </el-button>
         </div>
       </div>
-      <div slot-scope="footer" class="dialog-footer">
+      <div slot="footer" class="dialog-footer">
         <el-button @click="cancelEdit">取 消</el-button>
         <el-button type="primary" @click="confirmEdit">确 定</el-button>
       </div>
