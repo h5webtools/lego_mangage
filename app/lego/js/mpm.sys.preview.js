@@ -9,6 +9,7 @@ define(function (require, exports, module) {
   var previewBtn = $('#previewBtn'),
     publishBtn = $("#publishBtn"),
     prePublishBtn = $("#prePublishBtn");
+ 
   var mpmStructureModule = require('./mpm.sys.structure');
 
   var publishSta = "save";

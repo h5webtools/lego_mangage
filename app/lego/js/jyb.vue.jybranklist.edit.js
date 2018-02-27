@@ -63,7 +63,7 @@ define(function (require, exports, module) {
     this.obj.data.isShowNpmVersions = LegoPageConfig.isPower;
     moduleDataCenter.getnodeversions('@lego/jybranklist', path, function (json) {
       var _data = json.data;
-      that.obj.data.npmversionArr = _data;
+      that.obj.data.npmversionArr = _data.version_list;
       if (!that.obj.data.npmversion) {
         that.obj.data.npmversion = _data[_data.length - 1].version;
       }
