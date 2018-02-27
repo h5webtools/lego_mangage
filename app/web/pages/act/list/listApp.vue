@@ -117,53 +117,20 @@
                   <a v-if="props.row.pageids.length > 0" target="_blank" :href="'/lego/editPage?pageid='+(props.row.page_ids[0] || '')+'&act_id='+props.row.crypt">编辑页面</a>
                   <a v-else target="_blank" :href="'/lego/homePage?act_id='+props.row.crypt">编辑页面</a>
                 </el-dropdown-item>
-                <!-- status=0 -->
-                <!-- <el-dropdown-item divided v-if="props.row.status==0 && userStatus!=0">待测试</el-dropdown-item> -->
                 <!-- 管理员 页面创建者 授权者 -->
                 <el-dropdown-item  divided v-if="props.row.status==0 && (props.row.creator == userIds || isAdmin ||  props.row.isRevisability)" >  
                    <el-button @click="submitTest(props)" type="info">转测试</el-button>
                 </el-dropdown-item>
-                <!-- status=0 -->
-
-                <!-- status=1 -->
-                <!-- <el-dropdown-item divided v-if="props.row.status==1 && userStatus!=1">测试中</el-dropdown-item> -->
                 <!-- 管理员 页面创建者 授权者 -->
                 <el-dropdown-item divided v-if="props.row.status==1 && isTester && props.row.isTestOwner"><!-- && userStatus==1  -->
                   <el-button @click="showTestResultDialog(props)" type="info">提交测试结果</el-button>
                 </el-dropdown-item>
-                <!-- status=1 -->
-
                 <el-dropdown-item  divided v-if="props.row.status==2 && (props.row.creator == userIds || isAdmin || props.row.isRevisability)" >  
-                   <el-button @click="submitApprove(props)" type="info">提交审批</el-button>
+                  <el-button @click="submitApprove(props)" type="info">提交审批</el-button>
                 </el-dropdown-item>
-
-                <!-- status=2 -->
-                <!-- <el-dropdown-item divided v-if="props.row.status==2">测试未通过</el-dropdown-item> -->
-                <!-- status=2 -->
-
-                <!-- status=3 -->
-                <!-- <el-dropdown-item divided v-if="props.row.status==3">测试通过</el-dropdown-item> -->
-                <!-- status=3 -->
-
-                <!-- status=4 -->
-                <!-- <el-dropdown-item divided v-if="props.row.status==4">待审核</el-dropdown-item> -->
-                <!-- status=4 -->
-
-                <!-- status=5 -->
-                <!-- <el-dropdown-item divided v-if="props.row.status==5">审核中</el-dropdown-item> -->
-                <!-- status=5 -->
-
-                <!-- status=6 -->
-                <!-- <el-dropdown-item divided v-if="props.row.status==6 && userStatus!=0">待发布</el-dropdown-item> -->
                 <el-dropdown-item divided v-if="props.row.status==6 && (props.row.creator == userIds || isAdmin || props.row.isRevisability)">
                   <el-button @click="toPublish(props)" type="info">发布</el-button>
                 </el-dropdown-item>
-                <!-- status=6 -->
-
-                <!-- status=7 -->
-                <!-- <el-dropdown-item divided v-if="props.row.status==6">已发布</el-dropdown-item> -->
-                <!-- status=7 -->
-
               </el-dropdown-menu>
             </el-dropdown>
           </template>
@@ -227,14 +194,6 @@ export default {
         ]
       },
       showSubRoute: false,
-      statusMap: {
-        0: '新建活动',
-        1: '审核中',
-        2: '审核成功',
-        3: '审核失败',
-        4: '已发布',
-        5: '内测'
-      },
       statusMapNew: { //测试以及发布状态
         0: '待测试',
         1: '测试中',
@@ -356,14 +315,7 @@ export default {
         return row.expire_time;
       }
     },
-    addNewAct() {
-
-    },
-    sortTableByColum() {
-
-    },
     submitTest(props) {
-      //props.row.act_id
       listQuery.updateActStatus({
         act_id:props.row.act_id,
         action:"initiateTest"
