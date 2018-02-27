@@ -563,5 +563,8 @@ export default {
   .el-message-box__wrapper{
     z-index: 10002 !important;
   }
+  .w-e-text-container{
+    z-index: 1000 !important;
+  }
 </style>
 

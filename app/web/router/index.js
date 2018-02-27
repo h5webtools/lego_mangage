@@ -57,7 +57,7 @@ const routes = [
           name: 'actEdit',
           title: '编辑活动'
         },{
-          path: '/act/chainEdit/:act_id/:status',
+          path: '/act/chainEdit/:act_id/:status/:is_draft',
           component: actChainConfig,
           name: 'chainEdit',
           title: '编辑配置树'

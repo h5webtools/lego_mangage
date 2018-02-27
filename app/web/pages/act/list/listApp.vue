@@ -49,12 +49,10 @@
         <el-table-column type="expand">
           <template slot-scope="props">
             <el-button type="primary">
-              <a target="_blank" class="btnchains"  :href="'chain.html?act_id='+props.row.act_id+'&status='+props.row.status">副本模板 <i class="el-icon-arrow-right"></i>
-              </a>
+              <router-link :to="{name:'chainEdit', params: {act_id:props.row.act_id, status:props.row.status, is_draft:'1'}}">副本模板 <i class="el-icon-arrow-right"></i></router-link>
             </el-button> 
             <el-button type="primary">
-              <a target="_blank" class="btnchains"  :href="'chain.html?tplflag=realtpl&act_id='+props.row.act_id+'&status='+props.row.status">正式模板 <i class="el-icon-arrow-right"></i>
-              </a>
+              <router-link :to="{name:'chainEdit', params: {act_id:props.row.act_id, status:props.row.status, is_draft:'0'}}">正式模板 <i class="el-icon-arrow-right"></i></router-link>
             </el-button>
             <p style="font-size: 16px;" class="ui-mt-20 ui-ta-c">更多活动配置信息</p>
             <el-table :data="[props.row]" stripe border highlight-current-row>
@@ -89,7 +87,7 @@
         <el-table-column prop="effect_time" label="生效时间"></el-table-column>
         <el-table-column label="过期时间">
           <template slot-scope="props">
-            <span>{{deadlineNotify(props.row)}}</span>
+            <span v-html="deadlineNotify(props.row)"></span>
           </template>
         </el-table-column>
         <el-table-column prop="status" label="活动状态" width="120">
@@ -114,7 +112,7 @@
                   <div @click="manual(props.row)">同步配置</div>
                 </el-dropdown-item>
                 <el-dropdown-item divided v-if="props.row.is_lego == '1'">
-                  <a v-if="props.row.pageids.length > 0" target="_blank" :href="'/lego/editPage?pageid='+(props.row.page_ids[0] || '')+'&act_id='+props.row.crypt">编辑页面</a>
+                  <a v-if="props.row.pageids.length > 0" target="_blank" :href="'/lego/editPage?page_id='+(props.row.page_ids[0] || '')+'&act_id='+props.row.crypt">编辑页面</a>
                   <a v-else target="_blank" :href="'/lego/homePage?act_id='+props.row.crypt">编辑页面</a>
                 </el-dropdown-item>
                 <!-- 管理员 页面创建者 授权者 -->
@@ -310,7 +308,7 @@ export default {
       let expireDate = new Date(row.expire_time);
       // 1天内的提醒
       if (Math.abs(expireDate - this.timestamp) < 86400000) {
-        return row.expire_time + "<br/><p class='textcenter' style='color: #ff2200;'>即将过期</p>"
+        return row.expire_time + "&nbsp;&nbsp;<span class='textcenter' style='color: #ff2200;'>即将过期</span>"
       } else {
         return row.expire_time;
       }
