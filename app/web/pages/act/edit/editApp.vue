@@ -387,7 +387,7 @@ export default {
           if (json.code == 0) {
             this.actInfo = json.data;
             this.actInfo.pageids = json.data.page_ids && json.data.page_ids.join("-");
-            this.editor.txt.html(this.HTMLDecode(this.actInfo.rule_description));
+            this.editor.txt.html(this.actInfo.rule_description);
             this.originEffectTime = this.actInfo.effect_time;
             this.originExpireTime = this.actInfo.expire_time;
           } else {
@@ -562,6 +562,9 @@ export default {
   }
   .el-message-box__wrapper{
     z-index: 10002 !important;
+  }
+  .w-e-text-container{
+    z-index: 1000 !important;
   }
 </style>
 

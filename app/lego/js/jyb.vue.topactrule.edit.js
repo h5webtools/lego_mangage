@@ -154,7 +154,7 @@ define(function (require, exports, module) {
             return;
           }
           var htmlEncode = actDetail.rule_description.replace("{{begin_time}}" , actDetail.effect_time).replace("{{end_time}}" , actDetail.expire_time);
-          this.obj.data.rulesContentHtml = this.HTMLDecode(htmlEncode);
+          this.obj.data.rulesContentHtml = htmlEncode;
           alert('活动规则加载成功');
         }
       }

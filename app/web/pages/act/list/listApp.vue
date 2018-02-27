@@ -49,12 +49,10 @@
         <el-table-column type="expand">
           <template slot-scope="props">
             <el-button type="primary">
-              <a target="_blank" class="btnchains"  :href="'chain.html?act_id='+props.row.act_id+'&status='+props.row.status">副本模板 <i class="el-icon-arrow-right"></i>
-              </a>
+              <router-link :to="{name:'chainEdit', params: {act_id:props.row.act_id, status:props.row.status}}">副本模板 <i class="el-icon-arrow-right"></i></router-link>
             </el-button> 
             <el-button type="primary">
-              <a target="_blank" class="btnchains"  :href="'chain.html?tplflag=realtpl&act_id='+props.row.act_id+'&status='+props.row.status">正式模板 <i class="el-icon-arrow-right"></i>
-              </a>
+              <router-link :to="{name:'chainEdit', params: {act_id:props.row.act_id, status:props.row.status , is_draft:'0'}}">正式模板 <i class="el-icon-arrow-right"></i></router-link>
             </el-button>
             <el-table :data="[props.row]" class="ui-mt-20" stripe border highlight-current-row>
               <el-table-column prop="act_channel" label="活动投放渠道" show-overflow-tooltip></el-table-column>
@@ -112,7 +110,7 @@
                   <div @click="manual(props.row)">同步配置</div>
                 </el-dropdown-item>
                 <el-dropdown-item divided v-if="props.row.is_lego == '1'">
-                  <a v-if="props.row.pageids.length > 0" target="_blank" :href="'/lego/editPage?pageid='+(props.row.page_ids[0] || '')+'&act_id='+props.row.crypt">编辑页面</a>
+                  <a v-if="props.row.pageids.length > 0" target="_blank" :href="'/lego/editPage?page_id='+(props.row.page_ids[0] || '')+'&act_id='+props.row.crypt">编辑页面</a>
                   <a v-else target="_blank" :href="'/lego/homePage?act_id='+props.row.crypt">编辑页面</a>
                 </el-dropdown-item>
                 <!-- status=0 -->
