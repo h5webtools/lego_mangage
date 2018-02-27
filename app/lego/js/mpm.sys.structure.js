@@ -14,7 +14,7 @@ define(function (require, exports, module) {
         divEditingPage = $('#divEditingPage'),
         divOperationItemList = $('#divOperationItemList'),
         tabNavRightNav = $("#tabNavRight"),
-
+        releaseLock = $('#releaseLock'),
         nameSetDOM = $('#divNameSet'),
         nameSetTitle = $('#divNameSetTitle'),
         nameSetNewName = $('#divSetNewName'),
@@ -632,6 +632,15 @@ define(function (require, exports, module) {
         newStructureInit(newDataStructrue);
     };
 
+    function toReleaseLock(){
+      moduleDataCenter.releaseLock(pageInfo.id , function(json){
+        if(json.code == 0){
+          alert('释放锁成功');
+        }else{
+          alert('解锁失败');
+        }
+      })
+    }
     exports.main = function () {
 
         LegoPageConfig.isPower = moduleUtil.getCookie("actconfiguserpower");
@@ -649,5 +658,7 @@ define(function (require, exports, module) {
         $("#divComponentSetPanel").on("change", "input[type='text']", function (e) {
             $(this).val($.trim($(this).val()));
         });
+
+        releaseLock.on("click", toReleaseLock);
     };
 });

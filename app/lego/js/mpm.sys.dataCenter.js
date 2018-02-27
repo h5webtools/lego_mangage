@@ -12,6 +12,16 @@ define(function(require, exports, module) {
   }
 
   /**
+   * 根据page_id释放锁
+   * @param {*} pageId
+   */
+  exports.releaseLock = function(page_id, callback) {
+    request('/lego/releaseLock', {
+      pageId: page_id
+    }, callback);
+  }
+
+  /**
    * 根据组件ID获取对应的规则树配置模板
    * @param {*} com_id 
    * @param {*} callback 
