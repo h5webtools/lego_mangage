@@ -208,12 +208,11 @@ export default {
         4: '待发布', // 待审核或者待发布
         5: '已发布'
       },
-      isAdmin:util.getCookie('auths') && util.getCookie('auths').indexOf("0") > -1, //管理员
-      isTester:util.getCookie('auths') && util.getCookie('auths').indexOf("1") > -1, //测试
-      // isTester:util.getCookie('auths').indexOf("2") > -1, //运营
-      // isTester:util.getCookie('auths').indexOf("3") > -1, //开发
-      userAuths: util.getCookie('auths') ,  // 
-      userIds: util.getCookie('user_id') ,  // 
+      isAdmin: window.userInfo.iaAdmin, //管理员
+      isTester: window.userInfo.isTester, //测试
+      isOperator: window.userInfo.isOperator, // 运营
+      isDev: window.userInfo.isDev, // 开发
+      userIds: userInfo.userid ,  
       tableData: [],
       logData: {},//日志流水
       listLoading: true,

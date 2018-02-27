@@ -10,6 +10,10 @@ const errCode = {
   LOGIN_SUCCESS: {
     code: 0
   },
+  ROLE_FAILED: {
+    code: 130013,
+    msg: '获取用户角色失败'
+  },
   NOT_LOGIN: {
     code: 130010,
     msg: '用户未登录'

@@ -126,10 +126,10 @@ module.exports = appInfo => {
   }
 
   config.userRole = {
-    admin: '',
-    operator: '',
-    tester: '',
-    dev: ''
+    admin: [46, 81],
+    operator: [74, 82, 57, 50],
+    tester: [95,87,69],
+    dev: [86]
   }
 
   return config;

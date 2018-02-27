@@ -119,5 +119,12 @@ module.exports = appInfo => {
     LEGO_BASE_API: 'http://172.16.1.10:3001'
   }
 
+  config.userRole = {
+    admin: [46],
+    operator: [84, 50],
+    tester: [85],
+    dev: []
+  }
+  
   return config;
 };
