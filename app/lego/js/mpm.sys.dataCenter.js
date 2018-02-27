@@ -222,7 +222,7 @@ define(function(require, exports, module) {
       folder: pageInfo.folder,
       pagename: pageInfo.pagename,
       pageid: pageInfo.pageid,
-      content: pageInfo.html,
+      content: pageInfo.content,
       extendJS: pageInfo.extendJS,
       comConfig: pageInfo.comConfig,
       datefolder: pageInfo.datefolder,
