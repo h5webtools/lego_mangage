@@ -139,14 +139,23 @@ define(function (require, exports, module) {
             console.log("update ok ");
           });
         },
+        HTMLDecode(text) { 
+          var temp = document.createElement("div"); 
+          temp.innerHTML = text; 
+          var output = temp.innerText || temp.textContent; 
+          temp = null; 
+          return output; 
+        },
         loadActRule: function() {
           var actDetail = window.ACT_DETAIL;
+          var actDetailHTML = '';
           if(!actDetail.rule_description) {
             alert('活动规则配置为空');
             return;
           }
-          actDetail.rule_description.replace("{{begin_time}}" , actDetail.effect_time).replace("{{end_time}}" , actDetail.expire_time);
-          this.obj.data.rulesContentHtml = actDetail.rule_description;
+          var htmlEncode = actDetail.rule_description.replace("{{begin_time}}" , actDetail.effect_time).replace("{{end_time}}" , actDetail.expire_time);
+          this.obj.data.rulesContentHtml = this.HTMLDecode(htmlEncode);
+          alert('活动规则加载成功');
         }
       }
     });

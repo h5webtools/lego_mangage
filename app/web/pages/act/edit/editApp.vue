@@ -387,7 +387,8 @@ export default {
           if (json.code == 0) {
             this.actInfo = json.data;
             this.actInfo.pageids = json.data.page_ids && json.data.page_ids.join("-");
-            this.editor.txt.html(this.actInfo.rule_description);
+            debugger;
+            this.editor.txt.html(this.HTMLDecode(this.actInfo.rule_description));
             // this.actInfo.expire_time = new Date(this.actInfo.expire_time);
             // this.actInfo.effect_time = new Date(this.actInfo.effect_time);
             // this.actInfo.end_time = new Date(this.actInfo.end_time);
@@ -446,6 +447,13 @@ export default {
         }
       });
       return this;
+    },
+    HTMLDecode(text) { 
+      var temp = document.createElement("div"); 
+      temp.innerHTML = text; 
+      var output = temp.innerText || temp.textContent; 
+      temp = null; 
+      return output; 
     },
     saveEdit() {
       this.$refs["form"].validate(valid => {
