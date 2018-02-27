@@ -12,7 +12,14 @@
         <el-form-item label="活动号：">
           <el-input v-model="queryData.act_id" placeholder="按活动号查询"></el-input>
         </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="queryFilterList(true)">查询</el-button>
+          <el-button type="success">
+            <router-link :to="{name: 'newAct'}"><i class="glyphicon glyphicon-plus"></i>新增活动</router-link>
+          </el-button>
+        </el-form-item>
       </el-form>
+      <!--
       <el-form :inline="true" label-width="90px">
         <el-form-item label="到期时间：">
           <el-date-picker
@@ -45,7 +52,8 @@
           </el-button>
         </el-form-item>
       </el-form>
-      <el-table @sort-change="sortTableByColum" :data="tableData" v-loading="listLoading" stripe border highlight-current-row @expand-change="getOpsLogs">
+      -->
+      <el-table :data="tableData" v-loading="listLoading" stripe border highlight-current-row @expand-change="getOpsLogs">
         <el-table-column type="expand">
           <template slot-scope="props">
             <el-button type="primary">
@@ -106,7 +114,7 @@
                   <router-link :to="{name:'actEdit', params: {act_id:props.row.act_id, status:props.row.status}}">编辑活动</router-link>
                 </el-dropdown-item>
                 <el-dropdown-item divided>
-                  <router-link :to="{name:'chainEdit', params: {act_id:props.row.act_id, status:props.row.status}}">规则配置</router-link>
+                  <router-link :to="{name:'chainEdit', params: {act_id:props.row.act_id, status:props.row.status,is_draft:1}}">规则配置</router-link>
                 </el-dropdown-item>
                 <el-dropdown-item v-if="deploy" divided>  
                   <div @click="manual(props.row)">同步配置</div>
