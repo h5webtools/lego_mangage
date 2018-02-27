@@ -75,7 +75,7 @@ class HomeController extends Controller {
         menu_id: '402'
       }]
     }];
-    if(this.app.config.env == 'prod' || this.app.config.env == 'uat') {
+    if(this.app.config.env == 'sit') {
       menuList.push({
         menu_name: '系统设置',
         icon: 'iconfont icon-shezhi',

@@ -54,13 +54,15 @@
             <el-button type="primary">
               <router-link :to="{name:'chainEdit', params: {act_id:props.row.act_id, status:props.row.status , is_draft:'0'}}">正式模板 <i class="el-icon-arrow-right"></i></router-link>
             </el-button>
-            <el-table :data="[props.row]" class="ui-mt-20" stripe border highlight-current-row>
+            <p style="font-size: 16px;" class="ui-mt-20 ui-ta-c">更多活动配置信息</p>
+            <el-table :data="[props.row]" stripe border highlight-current-row>
               <el-table-column prop="act_channel" label="活动投放渠道" show-overflow-tooltip></el-table-column>
               <el-table-column prop="url" label="活动地址" show-overflow-tooltip min-width="200"></el-table-column>
               <el-table-column prop="create_time" label="创建时间"></el-table-column>
               <el-table-column prop="creator_name" label="创建人"></el-table-column>
             </el-table>
-            <el-table :data="props.row.showList" class="ui-mt-20" stripe border highlight-current-row>
+            <p style="font-size: 16px;" class="ui-mt-20 ui-ta-c">关键配置项展示</p>
+            <el-table :data="props.row.showList" stripe border highlight-current-row>
               <el-table-column prop="cmd" label="cmd" ></el-table-column>
               <el-table-column prop="code" label="code" ></el-table-column>
               <el-table-column prop="name" label="name" ></el-table-column>
