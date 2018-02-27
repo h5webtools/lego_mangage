@@ -57,11 +57,10 @@ define(function (require, exports, module) {
     var path = pageInfo.datefolder + "/" + folderSet.sub + "/";
 
     moduleDataCenter.getnodeversions("@lego/commontag", path, function (json) {
-      that.obj.data.npmversionArr = json;
+      var _data = json.data;
+      that.obj.data.npmversionArr = _data.version_list;
       if (!that.obj.data.npmversion) {
-        that.obj.data.npmversion = json[json.length - 1].version;
-      } else {
-        console.info("headmap版本选择", that.obj.data.npmversion);
+        that.obj.data.npmversion = _data[_data.length - 1].version;
       }
     });
 

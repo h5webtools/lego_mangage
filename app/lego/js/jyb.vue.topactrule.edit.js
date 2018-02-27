@@ -162,7 +162,6 @@ define(function (require, exports, module) {
 
     $(that.domEdit.$el).attr('id', 'editbox_' + that.obj.uid);
 
-
   };
 
 

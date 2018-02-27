@@ -78,10 +78,13 @@ define(function (require, exports, module) {
 
     this.obj.data.isShowNpmVersions = LegoPageConfig.isPower;
     moduleDataCenter.getnodeversions("@lego/ninegrid", path, function (json) {
-      that.obj.data.npmversionArr = json;
+     if(json.code == 0){
+      var _data = json.data;
+      that.obj.data.npmversionArr = _data.version_list;
       if (!that.obj.data.npmversion) {
-        that.obj.data.npmversion = json[json.length - 1].version;
+        that.obj.data.npmversion = _data[_data.length - 1].version;
       }
+     }
     });
 
     moduleDataCenter.getTplList("2", function (json) {

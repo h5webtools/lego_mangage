@@ -159,7 +159,7 @@ define(function (require, exports, module) {
     html = html.replace('{{{customcode}}}', customCodeSource + "<!--custom template-->");
 
     moduleDataCenter.packageAct({
-      folder: folder,
+      folder: folder.sub,
       pagename: inputPageName,
       pageid: moduleUtil.getUrlQuery('page_id'),
       content: html,

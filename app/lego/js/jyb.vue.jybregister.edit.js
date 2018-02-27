@@ -75,13 +75,10 @@ define(function (require, exports, module) {
     var path = pageInfo.datefolder + "/" + folderSet.sub + "/";
 
     moduleDataCenter.getnodeversions("@lego/jybregister", path, function (json) {
-      console.log(json);
-      that.obj.data.npmversionArr = json;
-      //
+      var _data = json.data;
+      that.obj.data.npmversionArr = _data;
       if (!that.obj.data.npmversion) {
-        that.obj.data.npmversion = json[json.length - 1].version;
-      } else {
-        console.info("注册组件切换", that.obj.data.npmversion);
+        that.obj.data.npmversion = _data[_data.length - 1].version;
       }
     });
     /* npm管理 */

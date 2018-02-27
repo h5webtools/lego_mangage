@@ -61,7 +61,7 @@
       <el-table-column prop="page_createdate" min-width="160" label="页面创建时间"></el-table-column>
       <el-table-column label="操作">
         <template slot-scope="props">
-          <a target="_blank" class="color-primary" :href="'/public/edit.html?page_id='+ props.row.page_id + '&act_id='+ (props.row.page_act_id || '')">编辑页面</a>
+          <a target="_blank" class="color-primary" :href="'/lego/editPage?page_id='+props.row.page_id + '&act_id='+ (props.row.page_act_id || '')">编辑页面</a>
         </template>
       </el-table-column>
     </el-table>
