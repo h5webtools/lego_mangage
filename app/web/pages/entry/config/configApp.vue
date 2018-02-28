@@ -191,9 +191,9 @@ export default {
         title:"",
         mta_id:"",
         sub_title:"",
-        isIndeterminate:"",
-        checkAll:"",
-        checkedUserGroups:"",
+        isIndeterminate:true,
+        checkAll:false,
+        checkedUserGroups:[],
         userGroups:[]
       },
       SubActFormRules: {
@@ -588,9 +588,10 @@ export default {
       this.addSubActForm.isIndeterminate = false;
     },
     handlecheckedUserGroupsChange(value) {
-      let checkedCount = value.length;
-      this.addSubActForm.checkAll = checkedCount === this.userGroups.length;
-      this.addSubActForm.isIndeterminate = checkedCount > 0 && checkedCount < this.userGroups.length;
+      // let checkedCount = value.length;
+      // console.log(checkedCount , this.userGroups.length);
+      // this.addSubActForm.checkAll = checkedCount === this.userGroups.length;
+      // this.addSubActForm.isIndeterminate = checkedCount > 0 && checkedCount < this.userGroups.length;
     },
     handleClick(tab, event) {
       this.queryUserGroupConfig();
