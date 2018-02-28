@@ -101,15 +101,18 @@ define(function (require, exports, module) {
           } else {
             if (act_id) {
               moduleDataCenter.savePageRelaction(newId, act_id, function (json) {
-                setTimeout(function () {
-                  location.replace('?page_id=' + newId + "&act_id=" + act_id);
-                }, 1000);
+                if(json.code == 0){
+                  setTimeout(function () {
+                    location.replace('?page_id=' + newId + "&act_id=" + act_id);
+                  }, 1000);
+                }else{
+                  moduleUtil.alert('活动号未与页面关联，请联系开发');
+                  setTimeout(function () {
+                    location.replace('?page_id=' + newId + "&act_id=" + act_id);
+                  }, 1000);
+                }
               });
-            } else {
-              setTimeout(function () {
-                location.replace('?page_id=' + newId);
-              }, 1000);
-            }
+            } 
           }
         });
       } else {

@@ -29,15 +29,27 @@ define(function (require, exports, module) {
       }
       var all_path = _path;
       moduleDataCenter.checkPath(all_path, function (n) {
-        if (n > 0) {
+        if (-1 > 0) {
           alert('目录已存在');
         } else {
           moduleDataCenter.copyPage(_pageId, _path, _actId, function (json) {
-            if (!json) {
+            if (json.code == 0) {
               alert("复制失败");
               return;
+            }else{
+              moduleDataCenter.savePageRelaction(_pageId, _actId, function (json) {
+                if(json.code == 0){
+                  setTimeout(function () {
+                    location.href = location.origin + "/" + 'lego/editPage?page_id=' + json.page_id + '&act_id=' + _actId;
+                  }, 1000);
+                }else{
+                  alert('活动号未与页面关联，请联系开发');
+                  setTimeout(function () {
+                    location.href = location.origin + "/" + 'lego/editPage?page_id=' + json.page_id + '&act_id=' + _actId;
+                  }, 1000);
+                }
+              });
             }
-            location.href = location.origin + "/" + 'edit.html?pageid=' + json + '&act_id=' + _actId;
           });
         }
       });
