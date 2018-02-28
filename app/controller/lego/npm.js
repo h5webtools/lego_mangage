@@ -43,11 +43,11 @@ class NpmController extends Controller {
         // 获取最新的版本号
         let latestVersion = versionList[versionList.length - 1].version;
         // 读取活动目录下的package.json文件
-        let packageFile = JSON.parse(fs.readFileSync(`${actPath}/package.json`, 'utf-8'));
+        let packageFile = JSON.parse(fs.readFileSync(`${actPath}package.json`, 'utf-8'));
         // 更新指定包的最新版本号
         packageFile.dependencies[npmName] = '^'+latestVersion;
         // 回写package.json文件
-        let writeRet = await this.writePackageFile(`${actPath}/package.json`, JSON.stringify(packageFile), 1);
+        let writeRet = await this.writePackageFile(`${actPath}package.json`, JSON.stringify(packageFile), 1);
         if(writeRet == errCode.ACTION_SUCCESS) {
           // 响应数据
           this.ctx.body = {

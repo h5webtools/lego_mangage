@@ -116,7 +116,7 @@ module.exports = appInfo => {
   config.envConfig = {
     BASE_API: 'http://172.16.1.8:9014/hanyi/manage',
     RELEASE_PATH: 'http://r.jtjr.com/task/interface',
-    LEGO_BASE_API: 'http://172.16.1.10:3001'
+    CDN_PREFIX: 'https://cdnsit.jyblife.com/act/'
   }
 
   config.userRole = {

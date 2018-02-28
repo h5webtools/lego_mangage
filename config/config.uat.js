@@ -84,7 +84,8 @@ module.exports = appInfo => {
 
   config.envConfig = {
     BASE_API: 'http://manage.sit.jyblife.com',
-    RELEASE_PATH: 'http://release.jyblife.com/task/interface'
+    RELEASE_PATH: 'http://release.jyblife.com/task/interface',
+    CDN_PREFIX: 'https://cdn.jyblife.com/act/'
   }
 
   return config;

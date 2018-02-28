@@ -37,6 +37,7 @@ class LegoPageController extends Controller {
                 title: actDetail.data.act_title,
                 env: this.app.config.env,
                 lock: false,
+                actId,
                 actDetail: JSON.stringify(actDetail.data)
               });
               return;
@@ -66,6 +67,7 @@ class LegoPageController extends Controller {
               title: actDetail.data.act_title,
               env: this.app.config.env,
               lock: true,
+              actId,
               actDetail: JSON.stringify(actDetail.data)
             });
           }

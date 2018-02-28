@@ -31,6 +31,8 @@ const INSERT_DATA_FAILED = 710011;    // 插入数据库失败
 const UPDATE_DATA_FAILED = 710012;    // 更新数据失败
 const ACT_DIR_EXIST = 710013;         // 活动目录有冲突
 const COPY_ACT_PAGE_FAILED = 710014;  // 拷贝新页面失败
+const RELATE_PAGE_ACT_FAILED = 810010;  // 关联页面和活动号失败
+
 const PAGE_TYPE_COMMON = 1;
 const PAGE_TYPE_SHARE = 2;
 const PAGE_TYPE_PAY = 3;
@@ -227,12 +229,15 @@ class LegoController extends Controller {
         createTime: now,
         extra: raw.extraData ? JSON.stringify(raw.extraData) : '',
       });
+      const relateRet = await this._relatePageAndAct(raw.actId, insertInfo.insertId, `${dateFolder}/${folder}/index.html?actId=${raw.actId}`);
       this.ctx.body = {
-        code: 0,
+        code: relateRet ? 0 : RELATE_PAGE_ACT_FAILED,
         data: {
-          pageId: insertInfo.insertId
+          page_id: insertInfo.insertId,
+          date_folder: dateFolder,
+          cdn_prefix: this.config.envConfig.CDN_PREFIX
         }
-      };
+      }
     } catch(e) {
       this.ctx.body = {
         code: INSERT_DATA_FAILED,
@@ -714,7 +719,9 @@ class LegoController extends Controller {
         folder = raw.folder,
         actId = raw.actId,
         time = await this.ctx.helper.dateFormat('yyyy-MM-dd hh:mm:ss', new Date()),
-        dateFolder = await this.ctx.helper.dateFormat('yyyyMM00');
+        dateFolder = await this.ctx.helper.dateFormat('yyyyMM00'),
+        actPath = `${this.config.legoConfig.path}/${dateFolder}/${folder}`;
+
     if(!fromPage || isNaN(fromPage) || !actId) {
       this.ctx.body = errCode.INVALID_PARAM_FORMAT;
       return;
@@ -730,13 +737,54 @@ class LegoController extends Controller {
         }
         return;
       }
+      // 创建活动目录
+      this.ctx.logger.info('create new act directory');
+      try {
+        await this.makeDirectory(actPath);
+        await this.makeDirectory(`${actPath}/assets/js`);
+        await this.makeDirectory(`${actPath}/assets/image`);
+      } catch(e) {
+        this.ctx.logger.error('初始化目标活动目录失败 '+ e.message);
+        this.ctx.body = {
+          code: MKDIR_FAILED,
+          msg: e.message
+        }
+        return;
+      }
+      try {
+        packageJson.name = folder;
+        packageJson.description = 'copy from ' + fromPage;
+        this.ctx.logger.info('writing file package.json');
+        let writeRet = fs.writeFileSync(`${actPath}/package.json`, JSON.stringify(packageJson), 'utf-8');
+        // 写文件有问题
+        if(writeRet) {
+          this.ctx.logger.error('create package.json failded');
+          this.ctx.body = {
+            code: WRITE_DEPENDENCYFILE_FAILED,
+            msg: '创建package.json文件失败'
+          }
+          return;
+        }
+      } catch(e) {
+        this.ctx.logger.error('生成package.json文件失败 '+ e.message);
+        this.ctx.body = {
+          code: WRITE_DEPENDENCYFILE_FAILED,
+          msg: e.message
+        }
+        return;
+      }
+      this.ctx.logger.info('insert new lego page');
       let copyRet = await this.service.lego.legoService.insertCopyPage(fromPage, folder, dateFolder, time, actId);
       this.ctx.logger.info('复制页面结果'+ copyRet);
       if(copyRet) {
+        const relateRet = await this._relatePageAndAct(actId, copyRet.insertId, `${dateFolder}/${folder}/index.html?actId=${actId}`);
+        this.ctx.logger.info('关联活动和乐高页面结果：'+ relateRet);
         this.ctx.body = {
-          code: 0,
+          code: relateRet ? 0 : RELATE_PAGE_ACT_FAILED,
           data: {
-            page_id: copyRet.insertId
+            page_id: copyRet.insertId,
+            date_folder: dateFolder,
+            cdn_prefix: this.config.envConfig.CDN_PREFIX
           }
         }
       } else {
@@ -787,6 +835,25 @@ class LegoController extends Controller {
           code: 0
         };
       }
+    }
+  }
+  async _relatePageAndAct(actId, pageId, pageUrl) {
+    try {
+      const actDetail = await this.service.act.detailService.aisleService('/act/getActDetail', {
+        act_id: actId
+      });
+      if(actDetail.code == 0) {
+        actDetail.data.act_url = this.config.envConfig.CDN_PREFIX + pageUrl;
+        actDetail.data.page_ids.push(pageId);
+        const saveRet = await this.service.act.detailService.aisleService('/act/postAct', actDetail.data);
+        if(saveRet && saveRet.code == 0) {
+          return true;
+        }
+      }
+      return false;
+    } catch(e) {
+      this.ctx.logger.error('更新活动号与页面关联信息失败'+ e.message)
+      return false;
     }
   }
   /**

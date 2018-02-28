@@ -269,7 +269,8 @@
     </div>
   </div>
   <div class="homeTopHead editTopHead">
-    <a href="/lego/homePage" class="sysName" style="color:#fff;font-weight:normal">加油宝活动配置平台</a>
+    <a href="javascript:void(0)" class="sysName" style="color:#fff;font-weight:normal">加油宝活动配置平台</a>
+    <a href="/lego/homePage?act_id={{actId}}" target="_blank" style="color:#fff">新增活动</a>
   </div>
   <!--顶部菜单-->
   <div class="topMenu" id="divTopMenu">

@@ -32,7 +32,7 @@
       <div class="navbar-collapse collapse" id="navbar-main">
         <ul class="nav navbar-nav">
           <li>
-            <a href="/lego/editPage?act_id={{act_id}}">新建页面</a>
+            <!-- <a href="/lego/editPage?act_id={{act_id}}">新建页面</a> -->
           </li>
         </ul>
       </div>
