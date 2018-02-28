@@ -1,5 +1,5 @@
 <template>
-  <div class="mg-tp-10 mg-bt-10" >
+  <div class="mg-tp-10 mg-bt-10" style="font-size:12px;">
 
     <!-- 九宫格配置 实际是4*n -->
     <el-row :gutter="20" v-if="editData.data && (editData.flag == 0 || editData.configtype == 3 && editData.flag != 0)">
@@ -40,7 +40,7 @@
       </el-col>
       
       <el-col :span="12">
-        <el-row :gutter="24" v-for="(item,index) in editData.data.twoAddOne.content" :key="index" v-if="index>0">
+        <el-row :gutter="24" v-for="(item,index) in editData.data.twoAddOne.content" :key="index" v-if="index>0 && index <3">
           <el-col :span="24" style="padding-left:0px;" v-bind:class="[(index == 2) ? 'pd-tp-6' : '']">
             <div class="one-inthree-right" @click="setAppIndexConfig('oneaddtwo' , index , editData.data.twoAddOne.type)">
               <dl class="one-inthree__title one-inthree__title-right">     

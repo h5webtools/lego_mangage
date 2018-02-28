@@ -123,19 +123,21 @@
                   <a v-if="props.row.pageids.length > 0" target="_blank" :href="'/lego/editPage?page_id='+(props.row.page_ids[0] || '')+'&act_id='+props.row.crypt">编辑页面</a>
                   <a v-else target="_blank" :href="'/lego/homePage?act_id='+props.row.crypt">编辑页面</a>
                 </el-dropdown-item>
-                <!-- 管理员 页面创建者 授权者 -->
+                <!-- 管理员 页面创建者 授权者 可以提交转测试 -->
                 <el-dropdown-item  divided v-if="props.row.status==0 && (props.row.creator == userIds || isAdmin ||  props.row.isRevisability)" >  
-                   <el-button @click="submitTest(props)" type="info">转测试</el-button>
+                   <el-button @click="submitTest(props)" type="primary">转测试</el-button>
                 </el-dropdown-item>
-                <!-- 管理员 页面创建者 授权者 -->
+                <!-- 测试负责人 可以提交测试结果 -->
                 <el-dropdown-item divided v-if="props.row.status==1 && isTester && props.row.isTestOwner"><!-- && userStatus==1  -->
-                  <el-button @click="showTestResultDialog(props)" type="info">提交测试结果</el-button>
+                  <el-button @click="showTestResultDialog(props)" type="primary">提交测试结果</el-button>
                 </el-dropdown-item>
+                <!-- 管理员 页面创建者 授权者 可以提交审批 -->
                 <el-dropdown-item  divided v-if="props.row.status==2 && (props.row.creator == userIds || isAdmin || props.row.isRevisability)" >  
-                  <el-button @click="submitApprove(props)" type="info">提交审批</el-button>
+                  <el-button @click="submitApprove(props)" type="primary">提交审批</el-button>
                 </el-dropdown-item>
-                <el-dropdown-item divided v-if="props.row.status==6 && (props.row.creator == userIds || isAdmin || props.row.isRevisability)">
-                  <el-button @click="toPublish(props)" type="info">发布</el-button>
+                <!-- 管理员 页面创建者 授权者 可以提交发布 -->
+                <el-dropdown-item divided v-if="props.row.status==4 && (props.row.creator == userIds || isAdmin || props.row.isRevisability)">
+                  <el-button @click="toPublish(props)" type="primary">发布</el-button>
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
@@ -206,7 +208,8 @@ export default {
         2: '待审批',
         3: '审批中',
         4: '待发布', // 待审核或者待发布
-        5: '已发布'
+        5: '已发布',
+        6: '测试未通过'
       },
       isAdmin: window.userInfo.iaAdmin, //管理员
       isTester: window.userInfo.isTester, //测试
