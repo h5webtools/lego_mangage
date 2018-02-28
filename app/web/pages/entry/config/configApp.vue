@@ -490,7 +490,7 @@ export default {
         if (jsonData.code == 0) {
           var actData = jsonData.data,
               curSubActForm = this.addSubActForm;
-          curSubActForm.actUrl = actData.act_url;
+          curSubActForm.act_url = actData.act_url;
           curSubActForm.effect_time = actData.effect_time;
           curSubActForm.expire_time = actData.expire_time;
           this.$message({

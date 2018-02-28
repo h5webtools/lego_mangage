@@ -39,10 +39,6 @@
     </div>
   </div>
 
-  <script>
-    window.LegoPageConfig = {
-      isPower: 0
-    }
   </script>
   <div class="home-content">
     <div class="container">

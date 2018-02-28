@@ -100,18 +100,9 @@ define(function (require, exports, module) {
             moduleUtil.alert('新建页面失败');
           } else {
             if (act_id) {
-              moduleDataCenter.savePageRelaction(newId, act_id, function (json) {
-                if(json.code == 0){
-                  setTimeout(function () {
-                    location.replace('?page_id=' + newId + "&act_id=" + act_id);
-                  }, 1000);
-                }else{
-                  moduleUtil.alert('活动号未与页面关联，请联系开发');
-                  setTimeout(function () {
-                    location.replace('?page_id=' + newId + "&act_id=" + act_id);
-                  }, 1000);
-                }
-              });
+              setTimeout(function () {
+                location.replace('?page_id=' + newId + "&act_id=" + act_id);
+              }, 1000);
             } 
           }
         });

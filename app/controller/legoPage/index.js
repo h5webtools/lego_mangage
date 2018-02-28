@@ -3,10 +3,28 @@
 const Controller = require('egg').Controller;
 const errCode = require('../../constant/errCode');
 
+
 class LegoPageController extends Controller {
   async editPage() {
     let pageId = this.ctx.query.page_id,
         actId = this.ctx.query.act_id;
+    let userId = this.ctx.session.userid;
+    let roleMap = this.config.userRole,
+        userInfo = {
+          userid: this.ctx.session.userid,
+          userName: this.ctx.session.userName,
+          userAccount: this.ctx.session.userAccount
+        };
+  
+    // 遍历角色
+    for (let role in roleMap) {
+      userInfo[
+        "is" +
+          role.replace(/\w/, function($1, $2, $3) {
+            return $1.toUpperCase();
+          })
+      ] = roleMap[role].indexOf(Number(userId)) != -1;
+    }
     if(!actId) {
       this.ctx.logger.info('进入乐高活动编辑页，没有活动号');
       await this.ctx.render('error/error', {
@@ -37,7 +55,8 @@ class LegoPageController extends Controller {
                 title: actDetail.data.act_title,
                 env: this.app.config.env,
                 lock: false,
-                actDetail: JSON.stringify(actDetail.data)
+                actDetail: JSON.stringify(actDetail.data),
+                userInfo: JSON.stringify(userInfo)
               });
               return;
             }
@@ -66,7 +85,8 @@ class LegoPageController extends Controller {
               title: actDetail.data.act_title,
               env: this.app.config.env,
               lock: true,
-              actDetail: JSON.stringify(actDetail.data)
+              actDetail: JSON.stringify(actDetail.data),
+              userInfo: JSON.stringify(userInfo)
             });
           }
         } else {

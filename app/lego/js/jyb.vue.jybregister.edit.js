@@ -18,7 +18,7 @@ define(function (require, exports, module) {
       "didTrigger": false, //生成页面的时候，这里为False
       "didFinish": false, //生成页面的时候，这里为False
       "lazyLoad": false,
-      "isShowNpmVersions": LegoPageConfig.isPower,
+      "isShowNpmVersions": USER_INFOR.isAdmin,
       "inputarr": [],
       "inputtypevalue": 0,
       "buttoncolor": '',
@@ -61,7 +61,7 @@ define(function (require, exports, module) {
     var fileUploader, maxImageSize = 1024 * 100;
 
     /* npm管理 */
-    that.obj.data.isShowNpmVersions = LegoPageConfig.isPower;
+    that.obj.data.isShowNpmVersions = USER_INFOR.isAdmin;
     require.async('./mpm.sys.dataCenter', function (module) {
       moduleDataCenter = module;
     });
@@ -75,10 +75,12 @@ define(function (require, exports, module) {
     var path = pageInfo.datefolder + "/" + folderSet.sub + "/";
 
     moduleDataCenter.getnodeversions("@lego/jybregister", path, function (json) {
-      var _data = json.data;
-      that.obj.data.npmversionArr = _data.version_list;
-      if (!that.obj.data.npmversion) {
-        that.obj.data.npmversion = _data[_data.length - 1].version;
+      if(json.code == 0){
+        var _data = json.data.version_list;
+        that.obj.data.npmversionArr = _data;
+        if (!that.obj.data.npmversion) {
+          that.obj.data.npmversion = _data[_data.length - 1].version;
+        }
       }
     });
     /* npm管理 */

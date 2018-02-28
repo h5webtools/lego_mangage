@@ -13,7 +13,7 @@ define(function (require, exports, module) {
       "didTrigger": false,//生成页面的时候，这里为False
       "didFinish": false,//生成页面的时候，这里为False
       "lazyLoad": false,
-      "isShowNpmVersions": LegoPageConfig.isPower,
+      "isShowNpmVersions": USER_INFOR.isAdmin,
       "coupontitle": "话费充值",
       "prdvalue": "300",
       "backtimedes": "(分3次返还)",

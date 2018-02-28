@@ -17,7 +17,7 @@ define(function (require, exports, module) {
       "didTrigger": false,//生成页面的时候，这里为False
       "didFinish": false,//生成页面的时候，这里为False
       "lazyLoad": false,
-      "isShowNpmVersions": LegoPageConfig.isPower,
+      "isShowNpmVersions": USER_INFOR.isAdmin, 
       "gridtype": 0,
       "gridcmd": "",
       "gridactid": "",
@@ -76,11 +76,11 @@ define(function (require, exports, module) {
 
     var path = pageInfo.datefolder + "/" + folderSet.sub + "/";
 
-    this.obj.data.isShowNpmVersions = LegoPageConfig.isPower;
+    this.obj.data.isShowNpmVersions = USER_INFOR.isAdmin;
     moduleDataCenter.getnodeversions("@lego/ninegrid", path, function (json) {
      if(json.code == 0){
-      var _data = json.data;
-      that.obj.data.npmversionArr = _data.version_list;
+      var _data = json.data.version_list;
+      that.obj.data.npmversionArr = _data;
       if (!that.obj.data.npmversion) {
         that.obj.data.npmversion = _data[_data.length - 1].version;
       }

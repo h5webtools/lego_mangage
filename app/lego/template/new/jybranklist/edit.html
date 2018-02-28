@@ -10,7 +10,7 @@
         <a href="javascript:;" title="设置样式">设置样式</a>
       </li>
       <li v-bind:class="{ 'on': showProperty }" v-on:click="show(1)">
-        <a href="javascript:;" title="设置数据">设置标题数据</a>
+        <a href="javascript:;" title="设置数据">设置数据</a>
       </li>
     </ul>
     <div v-show="showStyle" class="styleBox">
@@ -58,7 +58,7 @@
     </div>
 
     <div v-show="showProperty" class="editArea">
-      <form class="form-horizontal" v-if="obj.data.isShowNpmVersions == 9">
+      <form class="form-horizontal" v-if="obj.data.isShowNpmVersions">
         <div class="coupon-group">
           <div class="form-group">
             <label>
