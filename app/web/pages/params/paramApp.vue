@@ -340,6 +340,7 @@ export default {
               item.param = item.param.map((param) => {
                 if (!param.show_type) {
                   param.show_type = "";
+                  param.is_show = 1;
                   param.paramData = [];
                   // 初始化校验对象
                   param.rule = {
@@ -350,6 +351,7 @@ export default {
                 } else {
                   let defaultParam = JSON.parse(param.default);
                   param.paramData = JSON.parse(param.val_data);
+                  param.is_show = 1;
                   param.defaultData = defaultParam instanceof Array ? {} : defaultParam;
                   // 初始化校验对象
                   param.rule = !param.rule ? {
@@ -539,6 +541,7 @@ export default {
         p_name: "",
         show_type: "sinput",
         config_show: true,
+        is_show: 1,
         paramData: [],
         defaultData: {},
         rule: {
@@ -564,6 +567,7 @@ export default {
         source_id: param.source_id,
         name: param.p_name,
         show_type: param.show_type,
+        is_show: param.is_show,
         code: param.p_code,
         rule: param.rule || {},
         struct: param.paramData,
