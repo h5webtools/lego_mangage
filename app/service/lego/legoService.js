@@ -198,7 +198,7 @@ class LegoService extends Service {
         share_img_url,share_title,share_desc,page_expire_time, 
         page_expire_url,page_bgcolor,page_content,
         page_thumb,page_addition,date_folder, 
-        page_author,page_createdate,actId) (SELECT tp.page_type, tp.page_name, '${folder}', share_img_url, share_title, share_desc,
+        page_author,page_createdate,page_act_id) (SELECT tp.page_type, tp.page_name, '${folder}', share_img_url, share_title, share_desc,
         tp.page_expire_time, tp.page_expire_url, tp.page_bgcolor, tp.page_content, tp.page_thumb, tp.page_addition, '${dateFolder}',
         '${this.ctx.session.userAccount}', '${time}', '${actId}' FROM tb_page AS tp WHERE page_id=${pageId})`);
     return insertRet;

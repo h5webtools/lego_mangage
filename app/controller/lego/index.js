@@ -706,6 +706,7 @@ class LegoController extends Controller {
    * @description 拷贝新页面
    * @param from      从哪个页面ID拷贝
    * @param folder    拷贝后的目录名
+   * @param actId     活动号
    */
   async copyPage() {
     let raw = this.ctx.request.rawBody,

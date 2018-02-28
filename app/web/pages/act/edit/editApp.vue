@@ -472,7 +472,7 @@ export default {
             .then(json => {
               this.editLoading = false;
               if (json.code == 0) {
-                this.$confirm("活动配置保存成功', '提示").then(() => {
+                this.$confirm('活动配置保存成功', '提示').then(() => {
                   if (
                     new Date(submitInfo.expire_time).getTime() !=
                       new Date(this.originExpireTime).getTime() ||
