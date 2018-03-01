@@ -22,6 +22,7 @@ class LegoService extends Service {
         'p.last_save_erp',
         'p.last_publish_erp',
         'p.page_locker',
+        'p.page_act_id',
         'DATE_FORMAT(p.page_expire_time ,"%Y-%m-%d %H:%i:%s") as page_expire_time',
       ];
     if (condition.pageOwner) {
