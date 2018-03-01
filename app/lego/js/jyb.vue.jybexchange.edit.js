@@ -107,9 +107,7 @@ define(function (require, exports, module) {
       },
       created: function () {
         // `this` 指向 vm 实例
-        console.log('a is: ' + this.obj);
         Object.assign(this.oldObj.data, this.obj.data);
-        console.log(this.oldObj);
       },
       events: {},
       watch: {

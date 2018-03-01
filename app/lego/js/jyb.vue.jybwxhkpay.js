@@ -16,12 +16,8 @@ define(function (require, exports, module) {
         };
       },
       mounted: function () {
-        console.log(this.params.rulesContent);
       },
       created: function () {
-
-        console.log("created");
-        console.log("--" + this.params.rulesContent);
         try {
           if (this.params.rulesContent && this.params.rulesContent.length > 0) {
             this.params.rulesContent.forEach(function (item) {

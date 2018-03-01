@@ -18,11 +18,9 @@ define(function (require, exports, module) {
       },
 
       mounted: function () {
-        console.log("mounted");
       },
       created: function () {
 
-        console.log("created");
         this.loadData();
 
       },

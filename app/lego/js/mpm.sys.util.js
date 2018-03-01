@@ -103,7 +103,6 @@ define(function (require, exports, module) {
       },
       //删除组件
       remove: function (uid) {
-        console.log(uid);
         exports.uniqueId.del(uid);
         var component = allComponents[uid];
         if (!component) {//有的组件重复添加子组件
