@@ -18,15 +18,17 @@ class AuthController extends Controller {
     const match = await this.service.login.loginService.find(user, pwd);
     if(match) {
       try {
-        const role = await this.service.login.loginService.findRole(match.user_id);
-        if(role) {
+        const roleList = await this.service.login.loginService.findRole(match.user_id);
+        if(roleList) {
           // 刷新csrftoken的值
           this.ctx.rotateCsrfSecret();
           // 写session
           this.ctx.session.userid = match.user_id;
           this.ctx.session.userName = match.user_name;
           this.ctx.session.userAccount = match.user_account;
-          this.ctx.session.role = role.role_id;
+          this.ctx.session.roles = roleList.map(role => {
+            return role.role_id;
+          });
           // 登录成功
           this.ctx.body = errCode.LOGIN_SUCCESS;
         }

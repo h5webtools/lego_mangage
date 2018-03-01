@@ -106,20 +106,18 @@ class HomeController extends Controller {
       });
     }
     let roleMap = this.config.userRole,
-      userInfo = {
-        userid: this.ctx.session.userid,
-        userName: this.ctx.session.userName,
-        userAccount: this.ctx.session.userAccount
-      };
-
+        userRoles = this.ctx.session.roles,
+        userInfo = {
+          userid: this.ctx.session.userid,
+          userName: this.ctx.session.userName,
+          userAccount: this.ctx.session.userAccount
+        };
+    
     // 遍历角色
     for (let role in roleMap) {
-      userInfo[
-        "is" +
-          role.replace(/\w/, function($1, $2, $3) {
-            return $1.toUpperCase();
-          })
-      ] = roleMap[role].indexOf(Number(userId)) != -1;
+      userInfo["is" + role.replace(/\w/, ($1, $2, $3) => $1.toUpperCase())] = userRoles.some(ur => {
+        return roleMap[role].indexOf(Number(ur)) != -1
+      })
     }
     await this.ctx.render("layout/layout", {
       keywords: "加油宝,乐高,管理系统",

@@ -12,7 +12,7 @@ class UserService extends Service {
    * @param {*} userId 
    */
   async findRole(userId) {
-    const queryResult = await this.app.mysql.get('dbMain').get('t_user_role', {user_id: userId});
+    const queryResult = await this.app.mysql.get('dbMain').query(`select * from t_user_role where user_id=${userId}`);
     return queryResult;
   }
 }

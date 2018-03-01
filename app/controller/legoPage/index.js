@@ -10,21 +10,20 @@ class LegoPageController extends Controller {
         actId = this.ctx.query.act_id;
     let userId = this.ctx.session.userid;
     let roleMap = this.config.userRole,
+        userRoles = this.ctx.session.roles,
         userInfo = {
           userid: this.ctx.session.userid,
           userName: this.ctx.session.userName,
           userAccount: this.ctx.session.userAccount
         };
-  
     // 遍历角色
     for (let role in roleMap) {
-      userInfo[
-        "is" +
-          role.replace(/\w/, function($1, $2, $3) {
-            return $1.toUpperCase();
-          })
-      ] = roleMap[role].indexOf(Number(userId)) != -1;
+      userInfo["is" + role.replace(/\w/, ($1, $2, $3) => $1.toUpperCase())] = userRoles.some(ur => {
+        return roleMap[role].indexOf(Number(ur)) != -1
+      })
     }
+    
+    console.log(userInfo);
     if(!actId) {
       this.ctx.logger.info('进入乐高活动编辑页，没有活动号');
       await this.ctx.render('error/error', {
