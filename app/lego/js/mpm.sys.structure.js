@@ -642,9 +642,6 @@ define(function (require, exports, module) {
       })
     }
     exports.main = function () {
-
-        LegoPageConfig.isPower = moduleUtil.getCookie("actconfiguserpower");
-        LegoPageConfig.publishid = moduleUtil.getCookie("actconfiguserpublishid");
         divEditingPage.css('min-height', window.innerHeight - 90 > 620 ? window.innerHeight - 90 : 620);
         divLeftComList.find('img.comIcon').attr('draggable', false);
         $(document).on('subeditstart', function () {

@@ -69,8 +69,18 @@
               <el-table-column prop="create_time" label="创建时间"></el-table-column>
               <el-table-column prop="creator_name" label="创建人"></el-table-column>
             </el-table>
-            <p style="font-size: 16px;" class="ui-mt-20 ui-ta-c">关键配置项展示</p>
-            <el-table :data="props.row.showList" stripe border highlight-current-row>
+            <p style="font-size: 16px;" class="ui-mt-20 ui-ta-c">关键配置项展示(副本)</p>
+            <el-table :data="props.row.showList.copy" stripe border highlight-current-row v-if="props.row.showList">
+              <el-table-column prop="cmd" label="cmd" ></el-table-column>
+              <el-table-column prop="code" label="code" ></el-table-column>
+              <el-table-column prop="name" label="name" ></el-table-column>
+              <el-table-column prop="p_code" label="p_code" ></el-table-column>
+              <el-table-column prop="type" label="type" ></el-table-column>
+              <el-table-column prop="p_name" label="p_name" ></el-table-column>
+              <el-table-column prop="p_value" label="p_value" ></el-table-column>
+            </el-table>
+            <p style="font-size: 16px;" class="ui-mt-20 ui-ta-c">关键配置项展示(正式)</p>
+            <el-table :data="props.row.showList.live" stripe border highlight-current-row v-if="props.row.showList">
               <el-table-column prop="cmd" label="cmd" ></el-table-column>
               <el-table-column prop="code" label="code" ></el-table-column>
               <el-table-column prop="name" label="name" ></el-table-column>

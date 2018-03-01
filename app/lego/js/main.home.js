@@ -39,14 +39,7 @@ define(function (require, exports, module) {
               return;
             }else{
               _newPageId = json.data.page_id;
-              moduleDataCenter.savePageRelaction(_newPageId, _actId, function (json) {
-                if(json.code == 0){
-                  location.href = location.origin + "/" + 'lego/editPage?page_id=' + _newPageId + '&act_id=' + _actId;
-                }else{
-                  alert('活动号未与页面关联，请联系开发');
-                  location.href = location.origin + "/" + 'lego/editPage?page_id=' + _newPageId + '&act_id=' + _actId;
-                }
-              });
+              location.href = location.origin + "/" + 'lego/editPage?page_id=' + _newPageId + '&act_id=' + _actId;
             }
           });
         }

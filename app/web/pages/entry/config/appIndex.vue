@@ -112,13 +112,13 @@ export default {
 </script>
 <style lang="scss">
 .up-banner__desc{
-  font-size: 13px;
+  font-size: 12px;
   line-height: 1.6;
   color: #333;
 }
 
 .one-inthree__title{
-  font-size: 13px;
+  font-size: 12px;
   line-height: 1.6;
   color: #333;
 }

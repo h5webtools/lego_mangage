@@ -277,7 +277,7 @@ define(function (require, exports, module) {
       var objData = this.obj.data;
 
       /* npm管理 */
-      that.obj.data.isShowNpmVersions = LegoPageConfig.isPower;
+      that.obj.data.isShowNpmVersions = USER_INFOR.isAdmin;
       require.async('./mpm.sys.dataCenter', function (module) {
         moduleDataCenter = module;
       });
@@ -292,9 +292,12 @@ define(function (require, exports, module) {
 
       if (objData.npmname) { //仅仅为了兼容老的页面而已
         moduleDataCenter.getnodeversions(objData.npmname, path, function (json) {
-          if (json.code == 0) {
-            that.obj.data.npmversionArr = json.data.version_list;
-            that.obj.data.npmversion = json.data.latest;
+          if(json.code == 0){
+            var _data = json.data.version_list;
+            that.obj.data.npmversionArr = _data;
+            if (!that.obj.data.npmversion) {
+              that.obj.data.npmversion = _data[_data.length - 1].version;
+            }
           } else {
             alert(json.msg);
           }
