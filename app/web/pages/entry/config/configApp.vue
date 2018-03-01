@@ -426,7 +426,6 @@ export default {
       });
     },
     submitSubAct(formName) {
-      debugger;
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.dialogAddSubActVisible = false;
@@ -446,8 +445,7 @@ export default {
           }
           this.addSubActForm.location = this.configIndex;
           this.addSubActForm.entrance_type = this.configType;
-          this.group_id = this.addSubActForm.checkedUserGroups;
-          debugger;
+          this.addSubActForm.group_id = this.addSubActForm.checkedUserGroups;
           if(!this.addSubActForm.plan_id){
             actQuery.putEntrancePlan(
               this.addSubActForm
@@ -500,7 +498,28 @@ export default {
         }
       });
     },
+    initNewSubAct() {
+      this.addSubActForm = {
+        act_type:"",
+        plan_id:"",
+        entrance_type:"",
+        act_id:"",
+        begin_at:"",
+        end_at:"",
+        pic_url:"",
+        act_url:"",
+        status:"",
+        title:"",
+        mta_id:"",
+        sub_title:"",
+        isIndeterminate:true,
+        checkAll:false,
+        checkedUserGroups:[],
+        userGroups:[]
+      }
+    },
     addNewSubAct() {
+      this.initNewSubAct();
       this.dialogAddSubActVisible = true;
     },
     checkSubActs() {
