@@ -327,8 +327,10 @@ export default {
     deadlineNotify(row) {
       let expireDate = new Date(row.expire_time);
       // 1天内的提醒
-      if (Math.abs(expireDate - this.timestamp) < 86400000) {
+      if (expireDate - this.timestamp < 86400000 && expireDate - this.timestamp > 0) {
         return row.expire_time + "&nbsp;&nbsp;<span class='textcenter' style='color: #ff2200;'>即将过期</span>"
+      } else if(expireDate - this.timestamp < 0) {
+        return row.expire_time + "&nbsp;&nbsp;<span class='textcenter' style='color: #ff2200;'>已过期</span>"
       } else {
         return row.expire_time;
       }
