@@ -34,7 +34,7 @@
         </ul>
       </div>
       <div class="ui-mt-20 ui-ta-c">
-        <el-button type="primary" v-if="user_stauts == 0" @click="generateConfig">保存配置</el-button>
+        <el-button type="primary" v-if="user_stauts == 0 || user_stauts == 6" @click="generateConfig">保存配置</el-button>
         <el-button type="primary"  disabled v-else >保存配置</el-button>
       </div>
     </div>
