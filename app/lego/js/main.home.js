@@ -33,18 +33,31 @@ define(function (require, exports, module) {
           alert('目录已存在');
         } else {
           moduleDataCenter.copyPage(_pageId, _path, _actId, function (json) {
-            var _newPageId = '';
-            if (json.code != 0) {
-              alert("复制失败");
-              return;
-            }else{
-              _newPageId = json.data.page_id;
+            var _newPageId = '',
+                act_url = '';
+
+            if (json.code == 0) {//创建页面成功
+              var _data = json.data;
+              _newPageId = _data.page_id;
               location.href = location.origin + "/" + 'lego/editPage?page_id=' + _newPageId + '&act_id=' + _actId;
+            } else if(json.code == '810010'){//页面创建成功 但是未关联page_id与act_id
+              var _data = json.data;
+              _newPageId = _data.page_id;
+              act_url = _data.cdn_prefix + _data.date_folder + '/' + _path + '/' + 'index.html' + '?actId=' + _actId;
+              moduleDataCenter.savePageRelaction(_newPageId, _actId, act_url , function (json) {
+                if(json.code == 0){
+                  location.href = location.origin + "/" + 'lego/editPage?page_id=' + _newPageId + '&act_id=' + _actId;
+                }else{
+                  moduleUtil.alert('活动号未与页面关联，请联系开发');
+                  location.href = location.origin + "/" + 'lego/editPage?page_id=' + _newPageId + '&act_id=' + _actId;
+                }
+              });
+            } else {
+              moduleUtil.alert('新建页面失败');
             }
           });
         }
       });
-
     });
   }
 

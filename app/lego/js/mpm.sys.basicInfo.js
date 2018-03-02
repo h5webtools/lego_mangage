@@ -92,18 +92,32 @@ define(function (require, exports, module) {
       if (creatingNew) {
         curPage.templateid = templateid;
         moduleDataCenter.createNewPage(curPage, function (json) {
-          var newId = 0;
-          if (json.code == 0) {
-            newId = json.data.pageId;
-          }
-          if (newId == 0) {
-            moduleUtil.alert('新建页面失败');
+          var newId = 0,
+              act_url = '';
+          var replaceUrl = function(url){
+            setTimeout(function () {
+              location.replace(url);
+            }, 1000);
+          };
+
+          if (json.code == 0) {//创建页面成功
+            var _data = json.data;
+            newId = _data.page_id;
+            replaceUrl('?page_id=' + newId + "&act_id=" + act_id);
+          } else if(json.code == '810010'){//页面创建成功 但是未关联page_id与act_id
+            var _data = json.data;
+            newId = _data.page_id;
+            act_url = _data.cdn_prefix + _data.date_folder + '/' + curPage.path + '/' + 'index.html' + '?actId=' + act_id;
+            moduleDataCenter.savePageRelaction(newId, act_id, act_url , function (json) {
+              if(json.code == 0){
+                replaceUrl('?page_id=' + newId + "&act_id=" + act_id);
+              }else{
+                moduleUtil.alert('活动号未与页面关联，请联系开发');
+                replaceUrl('?page_id=' + newId + "&act_id=" + act_id);
+              }
+            });
           } else {
-            if (act_id) {
-              setTimeout(function () {
-                location.replace('?page_id=' + newId + "&act_id=" + act_id);
-              }, 1000);
-            } 
+            moduleUtil.alert('新建页面失败');
           }
         });
       } else {

@@ -38,10 +38,11 @@ define(function(require, exports, module) {
    * @param {*} actId   活动号
    * @param {*} cb 回调函数
    */
-  exports.savePageRelaction = function(pageId, actId, callback) {
+  exports.savePageRelaction = function(pageId, actId, actUrl , callback) {
     request('/act/SavePageActRelation', {
       page_id: pageId,
-      act_id: actId
+      act_id: actId,
+      act_url: actUrl
     }, callback);
   }
 
