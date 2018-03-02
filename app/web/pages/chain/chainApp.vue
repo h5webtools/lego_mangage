@@ -756,9 +756,9 @@ export default {
             };
           });
           cmdConfig[cmd].push(tempObj);
-          // 查找根节点
-          this.findRootTree(cmdConfig[cmd], cmd);
         });
+        // 查找根节点
+        this.findRootTree(cmdConfig[cmd], cmd);
       }
       // 默认一个命令字
       this.cmdData.cmd = defaultCmd;
