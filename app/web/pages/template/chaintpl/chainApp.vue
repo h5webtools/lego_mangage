@@ -309,7 +309,6 @@ export default {
       let isErrorFlag = false;
       /* 循环检测每个是否配置OK */
       saveData.forEach(function(item,index){
-        console.log(item.chains);
         curChains = item.chains;
         if(item.chains.length == 0) {
           me.$message.error('第'+(index+1)+'个树尚未配置规则');
@@ -322,7 +321,6 @@ export default {
           if (chain.nodeType == 'action') {
             return false;
           } else {
-            console.log(hasError);
             if(hasError){
               isErrorFlag = true;
               me.$message.error('第'+(index+1)+'个树每一个分支都需要以动作结束');
@@ -356,7 +354,6 @@ export default {
 
       /* 循环检测每个是否配置OK */
       
-        console.log('save---------------------------->',saveData);
         chainQuery.saveComponentTemplateChains({ //saveComponentTemplateChains
           tpl_id: this.tpl_id ,
           data: saveData
@@ -549,10 +546,7 @@ export default {
     },
     showEditDialog(data) {
 
-      console.log('data----------->',data);
       if (data.data.id) {
-        console.log(data.data.id,'data.data.id')
-        console.log(this.treeData,'this.treeData')
         let saveData = this.treeData[data.data.id].tagData;
         this.dialogData.lock = data.lock;
         this.dialogData.contentDesc = data.data.contentDesc;
@@ -633,7 +627,6 @@ export default {
       }); 
     },
     confirmEdit() {
-      console.log('this.dialogData----------->',this.dialogData);
       // TODO 做表单校验
       if (!this.dialogData.chainName) {
         this.$message.error("请选择规则/动作");
@@ -801,7 +794,6 @@ export default {
             currentLoop,
             tempObj = {};
           tempObj.chainId = chain.chainId;
-          //console.log(ruleList , actionList);
           // 将规则链保存到该id下
           ruleList.forEach((ruleItem, index) => {
             uniqId = this.guid();
@@ -902,17 +894,14 @@ export default {
             };
           });
           cmdConfig[cmd].push(tempObj);
-          // 查找根节点
-          this.findRootTree(cmdConfig[cmd], cmd);
         });
+        // 查找根节点
+        this.findRootTree(cmdConfig[cmd], cmd);
       }
       // 默认一个命令字
       this.cmdData.cmd = defaultCmd;
       this.cmdData.lastCmd = defaultCmd;
       this.chainConfigObj = this.chainConfig;
-      console.log("---------",this.chainConfig);
-      console.info(this.chainConfigObj[0].chains);
-     
     },
     /**
      * 查找根节点
@@ -1049,8 +1038,6 @@ export default {
 
       this.configTplHTML = this.syntaxHighlight(JSON.parse(this.tempChainConfig)); 
 
-      console.log(this.configTplHTML); 
-      //console.log(this.chainsTplData.configData);
       
       this.chainsTplVisible = true;
 
