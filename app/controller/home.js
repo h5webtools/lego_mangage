@@ -115,7 +115,7 @@ class HomeController extends Controller {
     
     // 遍历角色
     for (let role in roleMap) {
-      userInfo["is" + role.replace(/\w/, ($1, $2, $3) => $1.toUpperCase())] = userRoles.some(ur => {
+      userInfo["is" + role.replace(/\w/, ($1, $2, $3, $4) => $1.toUpperCase())] = userRoles.some(ur => {
         return roleMap[role].indexOf(Number(ur)) != -1
       })
     }

@@ -63,9 +63,8 @@
                 <!-- 默认活动 -->
                 <el-row @click="selectConfig(2 ,index)" :gutter="20" v-bind:class="[item.configArr.default_activity.selectedstatus == 1 ? 'mod-actrule  mod-actrule--selected' : 'mod-actrule']" > 
                   <h4 @click="selectConfig(2,index)" class="textleft actconfig__title">默认活动</h4>
-                  <div class="mod-delete-act">
-                    <el-button type="primary"  class="mt-lt-16" @click="saveCurAct(2 , '' )">保存</el-button>
-                    <el-button type="danger"  class="mt-lt-16" @click="deleteCurAct(2 , '' )">删除默认活动</el-button>
+                  <div class="mod-delete-act" >
+                    <el-button type="primary"  class="mt-lt-16" @click="saveCurAct(2 , '' )" v-if="isOperatorAdmin">保存</el-button>
                   </div>
                   <el-col :span="16" >
                     <configForm :parentData="{config:item.configArr.default_activity , configType:configType}" :editData="{config:item.configArr.default_activity , configType:configType}"></configForm>
@@ -174,6 +173,7 @@ export default {
       configType:"", //类型： 比如九宫格 大图 1+2 轮播图 icon等
       configTitle:"",
       activeUserGroupId: '0', //默认选中
+      isOperatorAdmin:userInfo.isOperatorAdmin,
       addSubActForm:{
         plan_type:"",
         plan_id:"",
