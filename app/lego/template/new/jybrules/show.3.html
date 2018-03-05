@@ -54,46 +54,26 @@
     <commontag uid="commontag" v-bind:params="data" inline-template>
         <div v-bind:style="{background:params.rulesBgColor}" class="jybrules-show-3 comm-padding ui-mt-30 f-24">
             <template v-if="true">
-                <div class="mod-notify" v-bind:style="{color:params.rulesContentColor}">
-                    <span>{{params.rulesTitle}}</span>
-                </div>
-                <dl class="f-22 color-999 ui-mt-20">
-                    <template v-if="true && params.rulesContent && params.rulesContent.length>0" v-for="(item ,index) in params.rulesContent">
-                        <dd v-if="index==0">
-                            {{index+1}}、{{item.rulesDes}}
-                        </dd>
-                        <dd class="ui-mt-10" v-if="index>0">
-                            {{index+1}}、{{item.rulesDes}}
-                        </dd>
-                    </template>
-
-                </dl>
+              <div v-if="!params.rulesContentHtml">
+                  <div class="mod-notify" v-bind:style="{color:params.rulesContentColor}">
+                      <span>{{params.rulesTitle}}</span>
+                  </div>
+                  <dl class="f-22 color-999 ui-mt-20">
+                      <template v-if="true && params.rulesContent && params.rulesContent.length>0" v-for="(item ,index) in params.rulesContent">
+                          <dd v-if="index==0">
+                              {{index+1}}、{{item.rulesDes}}
+                          </dd>
+                          <dd class="ui-mt-10" v-if="index>0">
+                              {{index+1}}、{{item.rulesDes}}
+                          </dd>
+                      </template>
+                  </dl>
+              </div>
+              <div v-else="params.rulesContentHtml" v-html="params.rulesContentHtml"></div>
             </template>
         </div>
 
     </commontag>
-
-    <!--<commontag uid="commontag" v-bind:params="data" inline-template>
-        <div>
-            <template v-if="true">
-                <div class="jybrules-show-3 ui-pt-40 ui-pb-40 f-24" v-bind:style="{background:params.rulesBgColor}">
-                    <p class="ui-ta-c f-28" v-on:click="switchtips" v-bind:style="{color:params.rulesContentColor}">{{params.rulesTitle}}<i class="arrow-down" :style="{borderRight: '2px solid ' + params.rulesContentColor , borderTop: '2px solid ' + params.rulesContentColor}"></i></p>
-                    <div class="mod-more-detail">
-                        <div v-show="!params.showTipsFlag">
-                            <template v-if="true && params.rulesContent && params.rulesContent.length>0" v-for="(item ,index) in params.rulesContent">
-                                <dl class="ui-mb-20">
-                                    <dt v-bind:style="{color:params.rulesContentColor}">{{index+1}}.{{item.rulesTitle}}</dt>
-                                    <dd v-for="(items ,indexs) in params.fnObj.getRuleList(item.rulesDes)" v-bind:style="{color:params.rulesContentColor}">{{items}}</dd>
-                                </dl>
-                            </template>
-                        </div>
-
-                    </div>
-                </div>
-            </template>
-        </div>
-
-    </commontag>-->
 
 </template>
 <!-- 下面的属性控制MPM中编辑界面 -->

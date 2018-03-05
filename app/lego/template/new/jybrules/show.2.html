@@ -36,7 +36,7 @@
         <div>
             <template v-if="true">
                 <div class='lego-jybrules-show2  ' v-bind:style="{background:params.rulesBgColor}">
-                    <div class="desc-wrap ui-pb-20 f-11">
+                    <div class="desc-wrap ui-pb-20 f-11" v-if="!params.rulesContentHtml">
                         <div v-show="!params.showTipsFlag">
                             <template v-if="true && params.rulesContent && params.rulesContent.length>0" v-for="(item ,index) in params.rulesContent">
                                 <dl class="ui-mb-25">
@@ -46,6 +46,7 @@
                             </template>
                         </div>
                     </div>
+                    <div v-else="params.rulesContentHtml" v-html="params.rulesContentHtml"></div>
                 </div>
             </template>
         </div>
