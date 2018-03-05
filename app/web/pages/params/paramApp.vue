@@ -36,8 +36,8 @@
               </el-form-item>
               <el-form-item label="是否展示给测试检查：">
                 <el-radio-group v-model="param.is_show">
-                  <el-radio :label="1">是</el-radio>
-                  <el-radio :label="0">否</el-radio>
+                  <el-radio label="1">是</el-radio>
+                  <el-radio label="0">否</el-radio>
                 </el-radio-group>
               </el-form-item>
               <el-form-item>
@@ -335,6 +335,7 @@ export default {
         this.listLoading = false;
         if (jsonData.code == 0) {
           // 为每个元素都添加show_type字段
+          debugger;
           this.tableData = jsonData.data.data.map((item) => {
             if (item.param) {
               item.param = item.param.map((param) => {

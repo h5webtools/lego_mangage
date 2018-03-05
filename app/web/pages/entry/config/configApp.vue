@@ -97,10 +97,6 @@
 
     <el-dialog title="新增/编辑候补活动" class="el-dialog__title" :visible.sync="dialogAddSubActVisible">
       <el-form :model="addSubActForm" :SubActFormRules="SubActFormRules" ref="addSubActForm">  
-        <el-form-item label="活动类别：" prop="act_type" required :label-width="formLabelWidth">
-          <el-radio v-model="addSubActForm.act_type" label="1">候补活动</el-radio>
-          <el-radio v-model="addSubActForm.act_type" label="2">默认活动</el-radio>
-        </el-form-item>
         <el-form-item label="活动号：" :label-width="formLabelWidth">
           <el-input v-model="addSubActForm.act_id" auto-complete="off" style="width:70%"></el-input>
           <el-button type="primary" class="actid-custom__btn" @click="getActInfo(addSubActForm.act_id)">加载配置</el-button>
@@ -179,7 +175,7 @@ export default {
       configTitle:"",
       activeUserGroupId: '0', //默认选中
       addSubActForm:{
-        act_type:"",
+        plan_type:"",
         plan_id:"",
         entrance_type:"",
         act_id:"",
@@ -197,9 +193,6 @@ export default {
         userGroups:[]
       },
       SubActFormRules: {
-        act_type: [
-          { required: true, message: '请选择活动类别', trigger: 'change' }
-        ],
         begin_at: [
           { type: 'date', required: true, message: '请选择投放开始时间', trigger: 'change' }
         ],
@@ -380,7 +373,7 @@ export default {
           }); 
           return;     
         }
-        submitData.type = submitData.act_type;
+        submitData.plan_type = 2;
         submitData.group_id = [this.activeUserGroupId];
         delete submitData.appIndexData;
         actQuery.postEntrancePlan(submitData).then(jsonData => {
@@ -500,7 +493,7 @@ export default {
     },
     initNewSubAct() {
       this.addSubActForm = {
-        act_type:"",
+        plan_type:"",
         plan_id:"",
         entrance_type:"",
         act_id:"",
@@ -531,7 +524,7 @@ export default {
       this.checkSubActsListVisible = false;
       Object.assign(this.addSubActForm,scope.row); 
       this.addSubActForm.checkedUserGroups = scope.row.group_id;
-      this.addSubActForm.act_type = scope.row.status;
+      this.addSubActForm.plan_type = scope.row.status;
     },
     selectConfig(flag , index , waitingIndex) {
       var initData = this.userGroups[index].configArr;

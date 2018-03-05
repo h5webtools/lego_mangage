@@ -64,8 +64,8 @@
             </el-button>
             <p style="font-size: 16px;" class="ui-mt-20 ui-ta-c">更多活动配置信息</p>
             <el-table :data="[props.row]" stripe border highlight-current-row>
-              <el-table-column prop="act_channel" label="活动投放渠道" show-overflow-tooltip></el-table-column>
-              <el-table-column prop="url" label="活动地址" show-overflow-tooltip min-width="200"></el-table-column>
+              <el-table-column prop="business_channel" label="活动投放渠道" show-overflow-tooltip></el-table-column>
+              <el-table-column prop="act_url" label="活动地址" show-overflow-tooltip min-width="200"></el-table-column>
               <el-table-column prop="create_time" label="创建时间"></el-table-column>
               <el-table-column prop="creator_name" label="创建人"></el-table-column>
             </el-table>
