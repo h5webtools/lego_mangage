@@ -933,15 +933,32 @@ class LegoController extends Controller {
         filename: 'index.bundle.js'
       },
       module: {
-        loaders: [{
-          test: /\.js$/,
-          exclude: /(node_modules|bower_components)/,
-          loader: 'babel-loader',
-          query: {
-            presets: [require.resolve('babel-preset-es2015')]
+        rules: [
+          {
+            test: /\.js$/,
+            exclude: /(node_modules|bower_components)/,
+            use: {
+              loader: 'babel-loader',
+              options: {
+                presets: ['env']
+              }
+            }
           }
-        }]
-      }
+        ]
+      },     
+      plugins: [
+        new webpack.optimize.UglifyJsPlugin({
+            beautify: false,
+            mangle: {
+                screw_ie8: true,
+                keep_fnames: true
+            },
+            compress: {
+                screw_ie8: true
+            },
+            comments: false
+        })
+    ]
     };
     if (this.config.legoConfig.minifyJs == 0) {
       webPackConfig["devtool"] = 'eval-source-map';

@@ -60,6 +60,7 @@ define(function (require, exports, module) {
       created: function () {
         // `this` 指向 vm 实例
         Object.assign(this.oldObj.data, this.obj.data);
+        this.loadActRule(true);
       },
       events: {},
       watch: {
@@ -144,16 +145,16 @@ define(function (require, exports, module) {
           temp = null; 
           return output; 
         },
-        loadActRule: function() {
+        loadActRule: function(tipsFlag) {
           var actDetail = window.ACT_DETAIL;
           var actDetailHTML = '';
           if(!actDetail.rule_description) {
-            alert('活动规则配置为空');
+            !tipsFlag && alert('活动规则配置为空');
             return;
           }
           var htmlEncode = actDetail.rule_description.replace("{{begin_time}}" , actDetail.effect_time).replace("{{end_time}}" , actDetail.expire_time);
           this.obj.data.rulesContentHtml = htmlEncode;
-          alert('活动规则加载成功');
+          !tipsFlag && alert('活动规则加载成功');
         }
       }
     });
