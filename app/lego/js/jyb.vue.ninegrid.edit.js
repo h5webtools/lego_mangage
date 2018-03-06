@@ -24,7 +24,8 @@ define(function (require, exports, module) {
       "npmversion": "",
       "npmversionArr": [],
       "npmname": "@lego/ninegrid",
-      "tplid": "",
+      "tplid": "", //模板ID 
+      'comTplId': '2',//组件ID
       "gridspadding": {
         "pdtop": "",
         "pdbtm": "",
@@ -87,7 +88,7 @@ define(function (require, exports, module) {
      }
     });
 
-    moduleDataCenter.getTplList("2", function (json) {
+    moduleDataCenter.getTplList( me.obj.data.comTplId || '2', function (json) { // 由组件ID获取对应组件的所有模板
       if (json.code == 0) {
         that.obj.data.tplList = json.data.data;
       }

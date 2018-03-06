@@ -28,6 +28,7 @@
     "element-ui": "^2.0.11",
     "nprogress": "^0.2.0",
     "sha1": "^1.1.1",
+    "uglifyjs-webpack-plugin": "^1.2.2",
     "vue": "^2.5.0",
     "vue-router": "^2.5.3",
     "wangeditor": "^3.0.15"
