@@ -66,8 +66,8 @@ define(function (require, exports, module) {
     _target.hasClass("previews") ? publishSta = "preview" : "";
     _target.hasClass("prepublishs") ? publishSta = "prepublish" : "";
     _target.hasClass("publishs") ? publishSta = "publish" : "";
-    mpmStructureModule.savePageData(function (num) {
-      if (num >= 0) {
+    mpmStructureModule.savePageData(function (json) {
+      if (json.code == 0) {
         moduleCreateFile.createFile(createCB, publishSta);
       } else {
         moduleUtil.alert('生成文件失败(savePageData)');

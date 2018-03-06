@@ -1,129 +1,166 @@
 <div class="editBox">
-    <div class="editBox_2">
-        <h3>{{obj.componentName}} {{obj.uid}}</h3>
-        <p >
-        购买金额组件
-        </p>
+  <div class="editBox_2">
+    <h3>{{obj.componentName}} {{obj.uid}}</h3>
+    <p>
+      购买金额组件
+    </p>
 
-        <ul class="tab_hd">
-            <li v-bind:class="{ 'on': showStyle }" v-on:click="show(0)"><a href="javascript:;" title="设置样式">设置样式</a></li>
-            <li v-bind:class="{ 'on': showProperty }" v-on:click="show(1)"><a href="javascript:;" title="设置数据">设置数据</a></li>
-        </ul>
-        <div v-show="showStyle" class="styleBox">
-               <div class="editArea">
-                <form class="form-horizontal" v-for="item in obj.com_extend">
-                    <div class="form-group" v-if="item.type == 'radio'">
-                        <label>{{item.name}}：</label>
-                        <div>
-                            <label v-for="item2 in item.data"><input type="radio" :name="obj.uid+'_'+item.nick" :value="item2.value" v-model="obj.data.extend[item.nick]"> {{item2.name}}</label>
-                        </div>
-                    </div>
-                    <div class="form-group" v-if="item.type == 'input'">
-                        <label style="float: left;padding-right:14px;"><strong></strong>{{item.name}}：</label>
-                        <input type="text" :class="item.class" :name="obj.uid+'_'+item.nick" v-model="obj.data.extend[item.nick]" :placeholder="item.placeholder" 
-                        flag="extendtime"  :nick="item.nick">
-                    </div>
-                </form>
+    <ul class="tab_hd">
+      <li v-bind:class="{ 'on': showStyle }" v-on:click="show(0)">
+        <a href="javascript:;" title="设置样式">设置样式</a>
+      </li>
+      <li v-bind:class="{ 'on': showProperty }" v-on:click="show(1)">
+        <a href="javascript:;" title="设置数据">设置数据</a>
+      </li>
+    </ul>
+    <div v-show="showStyle" class="styleBox">
+      <div class="editArea">
+        <form class="form-horizontal" v-for="item in obj.com_extend">
+          <div class="form-group" v-if="item.type == 'radio'">
+            <label>{{item.name}}：</label>
+            <div>
+              <label v-for="item2 in item.data">
+                <input type="radio" :name="obj.uid+'_'+item.nick" :value="item2.value" v-model="obj.data.extend[item.nick]"> {{item2.name}}</label>
             </div>
-            <br>
-            <br>
-            <dl>
-                <dt>样式</dt>
-                <dd>
-                    <ul>
-                        <li v-for="item in arrStyle" :key="item.id">
-                            <div style="display:none;">
-                                {{item.com_desc}}<input type="radio" :name="obj.uid"  :id="obj.uid+'_'+item.id"
-                                                        :value="item.id" v-model="obj.data.styleKey"><br/>
-                            </div>
-                            <label :class="item.id == obj.data.styleKey ? 'on' : ''" :for="obj.uid+'_'+item.id"><img :src="item.image" alt=""></label>
-                            <div class="styleDesc">
-                                {{item.com_desc}}
-                            </div>
-                        </li>
-                    </ul>
-                </dd>
-            </dl>
+          </div>
+          <div class="form-group" v-if="item.type == 'input'">
+            <label style="float: left;padding-right:14px;">
+              <strong></strong>{{item.name}}：</label>
+            <input type="text" :class="item.class" :name="obj.uid+'_'+item.nick" v-model="obj.data.extend[item.nick]" :placeholder="item.placeholder"
+              flag="extendtime" :nick="item.nick">
+          </div>
+        </form>
+      </div>
+      <br>
+      <br>
+      <dl>
+        <dt>样式</dt>
+        <dd>
+          <ul>
+            <li v-for="item in arrStyle" :key="item.id">
+              <div style="display:none;">
+                {{item.com_desc}}
+                <input type="radio" :name="obj.uid" :id="obj.uid+'_'+item.id" :value="item.id" v-model="obj.data.styleKey">
+                <br/>
+              </div>
+              <label :class="item.id == obj.data.styleKey ? 'on' : ''" :for="obj.uid+'_'+item.id">
+                <img :src="item.image" alt="">
+              </label>
+              <div class="styleDesc">
+                {{item.com_desc}}
+              </div>
+            </li>
+          </ul>
+        </dd>
+      </dl>
 
-         
-        </div>
 
-        <div v-show="showProperty" class="editArea">
-                <form class="form-horizontal"  v-if="obj.data.isShowNpmVersions">
-                        <div class="coupon-group">
-                        <div class="form-group">
-                            <label><strong></strong>版本号：</label>
-                            <select name="action" @change="selectNpmVersion" v-model="obj.data.npmversion">
-                                <option :value="item.version" v-for="item in obj.data.npmversionArr">{{item.desc}}</option>
-                            </select>
-                        </div>
-                        </div>
-                    </form>
-            <form class="form-horizontal">
-                <div class="form-group">
-                    <label><strong></strong>命令字: </label>
-                    <input type="text" name="" v-model.lazy="obj.data.cmd" placeholder="" > 
-
-                </div>
-                <div class="form-group">
-                    <label><strong>*</strong>活动号: </label>
-                    <input type="text" v-model="obj.data.actid" placeholder=""> 
-                </div>
-                <div class="form-group">
-                    <label><strong>*</strong>tab排序: </label>
-                    <input type="text" v-model="obj.data.tab" placeholder=""> 
-                </div>
-                <div class="form-group">
-                    <label><strong></strong>图片地址: </label>
-                    <input type="text" v-model="obj.data.img" placeholder="如需要则填写 不需要则不填"> 
-                </div>
-
-                <div class="form-group">
-                    <label><strong></strong>距离顶部: </label>
-                    <input type="text" v-model="obj.data.totop" placeholder="单位rem"> 
-                </div>
-
-                <div class="form-group">
-                    <label><strong></strong>宽度: </label>
-                    <input type="text" v-model="obj.data.outterwidth" placeholder="单位rem"> 
-                </div>
-
-                <div class="form-group">
-                    <label><strong></strong>背景颜色：</label>
-                    <input type="color" v-model="obj.data.bgcolor"> 
-                    <input type="text"  class="colorFrameInput" v-model="obj.data.bgcolor"  value="" >
-                </div>
-            </form>
-
-            <!-- 文案描述 -->
-            <br><br><br><strong style="font-size:16px;">设置文案</strong><br><br><br>
-            <form class="form-horizontal">
-                <div class="coupon-group" v-for="(item,index) in obj.data.descContent">
-                    <h4>文案{{index + 1}}</h4>
-                    <button type="button" class="jc-btn btn-primary delBtn" @click="deleteDescpoint(index)">删除</button>
-                    <div class="form-group">
-                        <label><strong></strong>文案：</label>
-                        <input type="text" name="" v-model.lazy="item.desc" placeholder="描述" > 
-                    </div>
-                    <div class="form-group">
-                        <label><strong></strong>字体颜色：</label>
-                        <input type="color" v-model="item.color">
-                        <input type="text"  class="colorFrameInput" v-model="item.color"  value="" size="10">  
-                    </div>
-                    <div class="form-group">
-                        <label><strong></strong>字体大小：</label>
-                        <input type="number" v-model="item.desfontsize" placeholder="单位是rem"> 
-                    </div>
-                    <div class="form-group">
-                        <label><strong></strong>背景色：</label>
-                        <input type="color" v-model="item.backgroundcolor">
-                        <input type="text"  class="colorFrameInput" v-model="item.backgroundcolor"  value="" size="10">  
-                    </div>
-                </div>
-            </form>
-            <div class="text-right">
-                <button type="button" class="jc-btn btn-primary" @click="addDescpoint()">增加文案</button>
-            </div>
-        </div>
     </div>
+
+    <div v-show="showProperty" class="editArea">
+      <form class="form-horizontal" v-if="obj.data.isShowNpmVersions">
+        <div class="coupon-group">
+          <div class="form-group">
+            <label>
+              <strong></strong>版本号：</label>
+            <select name="action" @change="selectNpmVersion" v-model="obj.data.npmversion">
+              <option :value="item.version" v-for="item in obj.data.npmversionArr">{{item.desc}}</option>
+            </select>
+          </div>
+        </div>
+      </form>
+      <form class="form-horizontal">
+        <div class="coupon-group">
+          <div class="form-group">
+            <label>
+              <strong></strong>模板选择：</label>
+            <select name="action" v-model="obj.data.tplid">
+              <option :value="item.tpl_id" v-for="item in obj.data.tplList">{{item.remark}}</option>
+            </select>
+          </div>
+        </div>
+      </form>
+      <form class="form-horizontal">
+        <div class="form-group">
+          <label>
+            <strong></strong>命令字: </label>
+          <input type="text" name="" v-model.lazy="obj.data.cmd" placeholder="">
+
+        </div>
+        <div class="form-group">
+          <label>
+            <strong>*</strong>活动号: </label>
+          <input type="text" v-model="obj.data.actid" placeholder="">
+        </div>
+        <div class="form-group">
+          <label>
+            <strong>*</strong>tab排序: </label>
+          <input type="text" v-model="obj.data.tab" placeholder="">
+        </div>
+        <div class="form-group">
+          <label>
+            <strong></strong>图片地址: </label>
+          <input type="text" v-model="obj.data.img" placeholder="如需要则填写 不需要则不填">
+        </div>
+
+        <div class="form-group">
+          <label>
+            <strong></strong>距离顶部: </label>
+          <input type="text" v-model="obj.data.totop" placeholder="单位rem">
+        </div>
+
+        <div class="form-group">
+          <label>
+            <strong></strong>宽度: </label>
+          <input type="text" v-model="obj.data.outterwidth" placeholder="单位rem">
+        </div>
+
+        <div class="form-group">
+          <label>
+            <strong></strong>背景颜色：</label>
+          <input type="color" v-model="obj.data.bgcolor">
+          <input type="text" class="colorFrameInput" v-model="obj.data.bgcolor" value="">
+        </div>
+        <div class="form-group">
+          <label>
+            <strong>*</strong>配置参数：</label>
+          <button type="button" @click="toConfigTree" class="jc-btn btn-primary">去配置</button>
+        </div>
+      </form>
+
+      <!-- 文案描述 -->
+      <strong style="font-size:16px;">设置文案</strong>
+      <form class="form-horizontal">
+        <div class="coupon-group" v-for="(item,index) in obj.data.descContent">
+          <h4>文案{{index + 1}}</h4>
+          <button type="button" class="jc-btn btn-primary delBtn" @click="deleteDescpoint(index)">删除</button>
+          <div class="form-group">
+            <label>
+              <strong></strong>文案：</label>
+            <input type="text" name="" v-model.lazy="item.desc" placeholder="描述">
+          </div>
+          <div class="form-group">
+            <label>
+              <strong></strong>字体颜色：</label>
+            <input type="color" v-model="item.color">
+            <input type="text" class="colorFrameInput" v-model="item.color" value="" size="10">
+          </div>
+          <div class="form-group">
+            <label>
+              <strong></strong>字体大小：</label>
+            <input type="number" v-model="item.desfontsize" placeholder="单位是rem">
+          </div>
+          <div class="form-group">
+            <label>
+              <strong></strong>背景色：</label>
+            <input type="color" v-model="item.backgroundcolor">
+            <input type="text" class="colorFrameInput" v-model="item.backgroundcolor" value="" size="10">
+          </div>
+        </div>
+      </form>
+      <div class="text-right">
+        <button type="button" class="jc-btn btn-primary" @click="addDescpoint()">增加文案</button>
+      </div>
+    </div>
+  </div>
 </div>

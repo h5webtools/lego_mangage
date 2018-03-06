@@ -22,7 +22,7 @@ var childComponent = {
         //查询出 uid为此uid的数据 将其lazyLoad设置为true即可
         $$.componentConfig.forEach(function (item, index) {
             if (item.uid == uid) {
-                item.data.lazyLoad = true; //设置为true 
+                item.data.lazyLoad = true; //设置为true
             }
         });
     },
@@ -38,11 +38,7 @@ var childComponent = {
                         _val.forEach(function (inVal, inIndex) {
                             childComponent.lazyChildComponent(inVal);
                             $("[uid='" + inVal + "']").hide()
-                        });
-                    }
-                });
-            }
-        }
+                                                                                                                                                          1,1          顶端
     }
 }
 

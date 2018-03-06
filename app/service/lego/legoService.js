@@ -155,9 +155,9 @@ class LegoService extends Service {
     return insertData;
   }
   async updatePageInfo(data) {
-    let result = await this.app.mysql.get('dbLego').query(`update tb_page set 
-      page_content='${data.pageContent}', page_editdate='${data.updateTime}', last_save_erp='${data.user}'
-      where page_id=${data.pageId}`);
+    let result = await this.app.mysql.get('dbLego').query(`update tb_page set page_content = ? , page_editdate = ? , last_save_erp = ? 
+        where page_id= ? ` 
+    , [data.pageContent, data.updateTime , data.user , data.pageId]);
     return result.affectedRows === 1;
   }
   async updateBaseInfo(data){

@@ -30,6 +30,7 @@ define(function (require, exports, module) {
       "rulesContentColor": "",
       "npmversion": "",
       "npmversionArr": [],
+      'rulesContentHtml':'',
       "npmname": "@lego/commontag",
       "showTipsFlag": false
     },
@@ -59,6 +60,7 @@ define(function (require, exports, module) {
       created: function () {
         // `this` 指向 vm 实例
         Object.assign(this.oldObj.data, this.obj.data);
+        this.loadActRule(true);
       },
       events: {},
       watch: {
@@ -121,6 +123,17 @@ define(function (require, exports, module) {
         },
         deleteRulespoint: function (index) {
           var deleteItem = this.obj.data.rulesContent.splice(index - 0, 1);
+        },
+        loadActRule: function(tipsFlag) {
+          var actDetail = window.ACT_DETAIL;
+          var actDetailHTML = '';
+          if(!actDetail.rule_description) {
+            !tipsFlag && alert('活动规则配置为空');
+            return;
+          }
+          var htmlEncode = actDetail.rule_description.replace("{{begin_time}}" , actDetail.effect_time).replace("{{end_time}}" , actDetail.expire_time);
+          this.obj.data.rulesContentHtml = htmlEncode;
+          !tipsFlag && alert('活动规则加载成功');
         },
         selectNpmVersion: function () { /* npm管理 */
           console.info("切换到活动规则的版本是", this.obj.data.npmversion);

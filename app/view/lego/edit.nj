@@ -138,7 +138,7 @@
             <input type="text" name="" id="inputPageName" placeholder="最少3个字符">
             <!--<em class="inputTips">最少3个字符</em>-->
           </div>
-          <div class="form-group">
+          <div class="form-group" style="display:none">
             <label class="must">页面路径：</label>
             <select id="selectPagePath">
               <option value="act">act</option>
@@ -150,7 +150,7 @@
             <input type="text" name="" id="inputPageMenu" placeholder="如:starbucks0510">
             <em class="inputTips">*只能使用字母，数字，下划线，注意：保存后不可更改</em>
           </div>
-          <div class="form-group">
+          <div class="form-group" style="display:none">
             <label>老链接迁移：</label>
             <input type="text" name="" size="40" id="inputOldPageMenu" placeholder="如:201701/gaodehuafei/pay.html">
             <em class="inputTips">*日期+目录名+文件名称</em>
@@ -191,15 +191,15 @@
           <h3 class="formAreaHeader" id="shareInfoControl">分享设置(仅选择分享模板才可使用，其他模板无效)</h3>
           <div id="divShareInfoSet">
             <div class="form-group">
-              <label class="must">分享图片：</label>
+              <label >分享图片：</label>
               <input type="text" name="" id="textShareImgUrl">
             </div>
             <div class="form-group">
-              <label class="must">分享标题：</label>
+              <label >分享标题：</label>
               <input type="text" name="" id="textShareTitle">
             </div>
             <div class="form-group">
-              <label class="control-label must">分享描述：</label>
+              <label class="control-label">分享描述：</label>
               <input type="text" name="" id="textShareDesc">
             </div>
           </div>

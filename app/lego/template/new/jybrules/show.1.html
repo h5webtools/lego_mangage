@@ -74,7 +74,7 @@
         <div>
             <template v-if="true">
                 <div class='mod-txauto-wrap f-11 ' v-bind:style="{background:params.rulesBgColor}">
-                    <div class="desc-wrap ui-pb-20">
+                    <div class="desc-wrap ui-pb-20" v-if="!params.rulesContentHtml">
                         <dt class="ui-ta-c ui-pt-20 ui-pb-15 title f-14 titleabsolute" v-on:click="switchtips" v-bind:style="{color:params.rulesContentColor}">{{params.rulesTitle}}
                             <i class="arrow-down" :style="{borderRight: '2px solid ' + params.rulesContentColor , borderTop: '2px solid ' + params.rulesContentColor}"></i>
                         </dt>
@@ -87,6 +87,7 @@
                             </template>
                         </div>
                     </div>
+                    <div v-else="params.rulesContentHtml" v-html="params.rulesContentHtml"></div>
                 </div>
             </template>
         </div>

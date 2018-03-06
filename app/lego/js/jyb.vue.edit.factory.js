@@ -305,6 +305,16 @@ define(function (require, exports, module) {
       }
       /* npm管理 */
 
+      /* 模板管理 */
+      if(that.obj.data.comTplId){
+        moduleDataCenter.getTplList( that.obj.data.comTplId, function (json) { // 由组件ID获取对应组件的所有模板
+          if (json.code == 0) {
+            that.obj.data.tplList = json.data.data;
+          }
+        });
+      }
+      /* 模板管理 */
+
       //扩展js
       if (styleObj.com_js) {
         try {
