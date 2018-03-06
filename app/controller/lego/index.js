@@ -837,6 +837,12 @@ class LegoController extends Controller {
       }
     }
   }
+  /**
+   * @description 关联活动页面和活动号，回写活动URL
+   * @param {*} actId 
+   * @param {*} pageId 
+   * @param {*} pageUrl 
+   */
   async _relatePageAndAct(actId, pageId, pageUrl) {
     try {
       const actDetail = await this.service.act.detailService.aisleService('/act/getActDetail', {
