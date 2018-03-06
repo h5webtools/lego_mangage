@@ -255,7 +255,7 @@ class LegoController extends Controller {
         expireTime: raw.expireTime,
         expireUrl: raw.expireUrl,
         templateId: raw.templateId,
-        author: this.ctx.session.userName,
+        author: this.ctx.session.userAccount,
         shareImage: raw.shareImage,
         shareTitle: raw.shareTitle,
         shareDesc: raw.shareDesc,
