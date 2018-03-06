@@ -45,6 +45,55 @@ const publishMap = {
 
 
 class LegoController extends Controller {
+  async syncResultCallback() {
+    let raw = this.ctx.request.rawBody;
+    let pageId = raw.page_id;
+    let _this = this;
+    if(!pageId) {
+      this.ctx.body = errCode.INVALID_PARAM_FORMAT;
+      return;
+    }
+    this.ctx.logger.info('sync lego files callback: '+ JSON.stringify(raw));
+    try {
+      let pageDetail = await this.service.lego.legoService.queryPageDetail(pageId);
+      if(pageDetail) {
+        this.ctx.logger.info('start commit git');
+        await this._submitGit(pageDetail.date_folder, pageDetail.page_path, pageDetail.page_name).then(async (commitId, preCommitId) => {
+          _this.ctx.logger.info('commit git success, prepare create publish task');
+          raw.pagename = pageDetail.page_name;
+          raw.pageid = pageDetail.page_id;
+          raw.folder = pageDetail.page_path;
+          raw.datefolder = pageDetail.date_folder;
+          // 提交git仓库成功，创建发布单
+          let publishRet = await _this._createPublishTask(commitId, preCommitId, raw);
+          // 发布失败
+          if(!publishRet) {
+            _this.ctx.body = {
+              code: 0,
+              msg: 'success'
+            }
+          } else {
+            _this.ctx.body = {
+              code: CREATE_RELEASETASK_FAILED,
+              msg: '创建发布单失败，请重试，如果仍然失败请联系开发'
+            }
+          }
+        }).catch((error) => {
+          _this.ctx.logger.error('提交GIT失败：' + error);
+          _this.ctx.body = {
+            code: SUBMIT_GIT_FAILED,
+            msg: '提交GIT失败' + error
+          }
+        });
+      }
+    } catch(e) {
+      _this.ctx.logger.error(error);
+      _this.ctx.body = {
+        code: SUBMIT_GIT_FAILED,
+        msg: e.message
+      }
+    }
+  }
   /**
    * 创建活动，生成活动脚手架
    */
@@ -113,7 +162,7 @@ class LegoController extends Controller {
           if (doSubmit) {
             await _this._submitGit(_datefolder, _folder, _pagename).then(async (commitId, preCommitId) => {
               // 提交git仓库成功，创建发布单
-              let publishRet = await _this._createPublishTask(commitId, preCommitId);
+              let publishRet = await _this._createPublishTask(commitId, preCommitId, rawBody);
               // 发布失败
               if(!publishRet) {
                 ctx.body = {
@@ -1037,10 +1086,10 @@ class LegoController extends Controller {
    * 创建发布任务单
    * @param {*} commitId      本次提交的hash
    * @param {*} preCommitId   上次提交的hash
+   * @param {object}  rawBody http请求的参数对象
    */
-  async _createPublishTask(commitId, preCommitId) {
+  async _createPublishTask(commitId, preCommitId, rawBody) {
     this.ctx.logger.info('创建发布单'+ commitId);
-    let rawBody = this.ctx.request.rawBody;
     // 根据flag判断发布目标环境
     let project_level = publishMap[rawBody.publishflag] || publishMap.sit
     let releaseData = {

@@ -75,7 +75,7 @@ module.exports = appInfo => {
   }
 
   config.legoConfig = {
-    path: '/data/www/lego/h5_lego_actpage/release/act',
+    path: '/data/www/lego/h5_lego_actpage/release/act/',
     templateJs: 'index.tjs',
     actJs: 'index.js',
     minifyJs: true,
