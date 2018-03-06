@@ -26,6 +26,7 @@ class AuthController extends Controller {
           this.ctx.session.userid = match.user_id;
           this.ctx.session.userName = match.user_name;
           this.ctx.session.userAccount = match.user_account;
+          this.ctx.session.userEmail = match.mail;
           this.ctx.session.roles = roleList.map(role => {
             return role.role_id;
           });

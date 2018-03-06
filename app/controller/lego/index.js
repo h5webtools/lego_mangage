@@ -60,23 +60,9 @@ class LegoController extends Controller {
         this.ctx.logger.info('start commit git');
         await this._submitGit(pageDetail.date_folder, pageDetail.page_path, pageDetail.page_name).then(async (commitId, preCommitId) => {
           _this.ctx.logger.info('commit git success, prepare create publish task');
-          raw.pagename = pageDetail.page_name;
-          raw.pageid = pageDetail.page_id;
-          raw.folder = pageDetail.page_path;
-          raw.datefolder = pageDetail.date_folder;
-          // 提交git仓库成功，创建发布单
-          let publishRet = await _this._createPublishTask(commitId, preCommitId, raw);
-          // 发布失败
-          if(!publishRet) {
-            _this.ctx.body = {
-              code: 0,
-              msg: 'success'
-            }
-          } else {
-            _this.ctx.body = {
-              code: CREATE_RELEASETASK_FAILED,
-              msg: '创建发布单失败，请重试，如果仍然失败请联系开发'
-            }
+          _this.ctx.body = {
+            code: 0,
+            msg: 'success'
           }
         }).catch((error) => {
           _this.ctx.logger.error('提交GIT失败：' + error);
@@ -1111,12 +1097,12 @@ class LegoController extends Controller {
     let project_level = publishMap[rawBody.publishflag] || publishMap.sit
     let releaseData = {
       project_name: "h5_web.actpage", 
-      project_level: JSON.stringify(projLevel), 
+      project_level: JSON.stringify(project_level), 
       title: `${rawBody.pagename}_${rawBody.pageid}_${rawBody.folder}`,
       commit_id: commitId,
-      pre_commit_id: preCommitId,
+      pre_commit_id: preCommitId || commitId,
       branch: this.config.legoConfig.branchName,
-      user_id: 63,
+      email: this.ctx.session.userEmail,
       file_transmission_mode: 2,
       file_list: ["release/act/" + rawBody.datefolder + "/" + rawBody.folder]
     };

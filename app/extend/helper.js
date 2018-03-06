@@ -121,7 +121,7 @@ module.exports = {
   async get(url, data) {
     const ctx = this.ctx;
     ctx.logger.info('target get url: ' + decodeURIComponent(url));
-    const result = await ctx.curl(url + '?ts=' + (+new Date()), {
+    const result = await ctx.curl(url, {
       // 必须指定 method
       method: 'get',
       contentType: 'json',

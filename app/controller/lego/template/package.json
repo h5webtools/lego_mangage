@@ -7,6 +7,6 @@
   "license": "ISC",
   "dependencies": {
     "@jyb/lib-bimta": "^1.0.10",
-    "@jyb/lib-tracker": "^1.0.3"
+    "@jyb/lib-tracker": "^1.1.4"
   }
 }
