@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
   function request(url, data, callback) {
     $.post(url, JSON.stringify(data)).done(function(json) {
-      if (json.code == 0) {
+      if (json.code == 0 || json.code == '810010') {
         callback(json);
       } else {
         alert(json.msg);

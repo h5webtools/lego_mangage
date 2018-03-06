@@ -51,43 +51,43 @@ module.exports = appInfo => {
   config.actEntryConfig = {
     userGroupList: [{
       ip: 'http://172.16.1.35:12053',
-      jmf: 'com.jyblife.complex.h5.act_manager.QueryUserGroupList'
+      jmf: 'com.jyblife.complex.h5.act_console.QueryUserGroupList'
     }],
     entranceConf: [{
       ip: 'http://172.16.1.35:12053',
-      jmf: 'com.jyblife.complex.h5.act_manager.GetEntranceConf'
+      jmf: 'com.jyblife.complex.h5.act_console.GetEntranceConf'
     }],
     activityConfig: [{
       ip: 'http://172.16.1.35:12053',
-      jmf: 'com.jyblife.complex.h5.act_manager.GetActivityConfig'
+      jmf: 'com.jyblife.complex.h5.act_console.GetActivityConfig'
     }],
     deleteEntrancePlan: [{
       ip: 'http://172.16.1.35:12053',
-      jmf: 'com.jyblife.complex.h5.act_manager.DeleteEntrancePlan'
+      jmf: 'com.jyblife.complex.h5.act_console.DeleteEntrancePlan'
     }], 
     getEntranceDetail: [{
       ip: 'http://172.16.1.35:12053',
-      jmf: 'com.jyblife.complex.h5.act_manager.GetEntranceDetail'
+      jmf: 'com.jyblife.complex.h5.act_console.GetEntranceDetail'
     }],
     postEntrancePlan: [{
       ip: 'http://172.16.1.35:12053',
-      jmf: 'com.jyblife.complex.h5.act_manager.PostEntrancePlan'
+      jmf: 'com.jyblife.complex.h5.act_console.PostEntrancePlan'
     }],
     putEntrancePlan: [{
       ip: 'http://172.16.1.35:12053',
-      jmf: 'com.jyblife.complex.h5.act_manager.PutEntrancePlan'
+      jmf: 'com.jyblife.complex.h5.act_console.PutEntrancePlan'
     }],
     getEntrancePlanList: [{
       ip: 'http://172.16.1.35:12053',
-      jmf: 'com.jyblife.complex.h5.act_manager.GetEntrancePlanList'
+      jmf: 'com.jyblife.complex.h5.act_console.GetEntrancePlanList'
     }],
     postEntranceShelves: [{
       ip: 'http://172.16.1.35:12053',
-      jmf: 'com.jyblife.complex.h5.act_manager.PostEntranceShelves'
+      jmf: 'com.jyblife.complex.h5.act_console.PostEntranceShelves'
     }],
     getIconEntranceDetail: [{
       ip: 'http://172.16.1.35:12053',
-      jmf: 'com.jyblife.complex.h5.act_manager.GetIconEntranceDetail'
+      jmf: 'com.jyblife.complex.h5.act_console.GetIconEntranceDetail'
     }]
   }
 
