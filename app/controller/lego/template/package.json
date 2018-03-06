@@ -5,5 +5,8 @@
   "main": "index.js",
   "author": "lego",
   "license": "ISC",
-  "dependencies": {}
+  "dependencies": {
+    "@jyb/lib-tracker":"^1.0.3",
+    "@jyb/lib-bimta":"^1.1.4"
+  }
 }

@@ -69,7 +69,7 @@ tracker.init({
 
 var bimta = new Bimta({
   platform: ['mta'],
-  env:'test',
+  env:'prod',
   createCommonParams: function(defaults) {
     return {
       uuid: Date.now()
