@@ -106,7 +106,7 @@ module.exports = appInfo => {
   }
 
   config.legoConfig = {
-    path: 'D:\\legotest\\',
+    path: '/data/www/lego/h5_lego_actpage/release/act/',
     templateJs: 'index_dev.tjs',
     actJs: 'index.js',
     minifyJs: false,
@@ -123,8 +123,7 @@ module.exports = appInfo => {
     admin: [46],
     operator: [84, 50],
     tester: [85],
-    dev: [],
-    operatorAdmin: [122]
+    dev: []
   }
   
   return config;
