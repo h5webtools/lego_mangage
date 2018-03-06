@@ -2,7 +2,6 @@ pagebegin
 
 import tracker from '@jyb/lib-tracker';
 import Bimta from '@jyb/lib-bimta';
-//import timecutdown  from '@lego/timecutdown';
 
 //注册
 for (var componentname in vuecomponents) {
@@ -22,7 +21,7 @@ var childComponent = {
         //查询出 uid为此uid的数据 将其lazyLoad设置为true即可
         $$.componentConfig.forEach(function (item, index) {
             if (item.uid == uid) {
-                item.data.lazyLoad = true; //设置为true
+                item.data.lazyLoad = true; //设置为true 
             }
         });
     },
@@ -34,11 +33,15 @@ var childComponent = {
                 var _tabs = _val.data.tabs;
                 _tabs.forEach(function (val, index) {
                     var _val = val.sub;
-                    if (index != 0) {
+                    if (index > -1) {
                         _val.forEach(function (inVal, inIndex) {
                             childComponent.lazyChildComponent(inVal);
                             $("[uid='" + inVal + "']").hide()
-                                                                                                                                                          1,1          顶端
+                        });
+                    }
+                });
+            }
+        }
     }
 }
 
@@ -69,7 +72,7 @@ tracker.init({
 
 var bimta = new Bimta({
   platform: ['mta'],
-  env: 'prod',
+  env:'prod',
   createCommonParams: function(defaults) {
     return {
       uuid: Date.now()

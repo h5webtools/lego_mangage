@@ -422,7 +422,9 @@ define(function (require, exports, module) {
             savePageData(function (json) {
                 if (json.code == 0) {
                     moduleUtil.alert('保存成功');
-                    moduleCreateFile.createFile();
+                    moduleCreateFile.createFile(function(){
+
+                    } , 'save');
                 } else {
                     moduleUtil.alert('保存失败');
                 }

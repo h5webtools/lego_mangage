@@ -683,7 +683,7 @@ class LegoController extends Controller {
       error = '活动目录不能为空';
     } else if(!pageType) {
       error = '活动模板类型不能为空';
-    } else if(pageType == PAGE_TYPE_COMMON) {
+    } else if(pageType == PAGE_TYPE_SHARE) {
       if(!shareImage || !shareDesc || !shareTitle) {
         error = '分享参数不能为空';
       }
