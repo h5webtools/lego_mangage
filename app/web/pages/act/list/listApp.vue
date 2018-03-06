@@ -308,7 +308,8 @@ export default {
     //手动触发同步配置
     manual(row){
       listQuery.manual({
-        act_id: row.act_id
+        act_id: row.act_id,
+        page_id: row.page_ids
       }).then((jsonData) => {
         if (jsonData.code == 0) {
           this.$alert('同步到集成环境成功');
