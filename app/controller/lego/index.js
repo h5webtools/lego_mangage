@@ -1111,12 +1111,12 @@ class LegoController extends Controller {
     let project_level = publishMap[rawBody.publishflag] || publishMap.sit
     let releaseData = {
       project_name: "h5_web.actpage", 
-      project_level: projLevel, 
+      project_level: JSON.stringify(projLevel), 
       title: `${rawBody.pagename}_${rawBody.pageid}_${rawBody.folder}`,
       commit_id: commitId,
       pre_commit_id: preCommitId,
       branch: this.config.legoConfig.branchName,
-      user_id: this.ctx.session.userid || 63,
+      user_id: 63,
       file_transmission_mode: 2,
       file_list: ["release/act/" + rawBody.datefolder + "/" + rawBody.folder]
     };
