@@ -25,6 +25,7 @@ define(function (require, exports, module) {
       "toppadding": "",//上边距
       "downpadding": "",//下边距
       "finaItem": [],//
+      "eventid":"",
       "npmversion": "",
       "npmversionArr": [],
       "npmname": "@lego/commontag",

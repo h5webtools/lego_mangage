@@ -71,12 +71,13 @@
       </form>
       <form class="form-horizontal">
         <div class="coupon-group">
-        <div class="form-group">
-            <label><strong></strong>模板选择：</label>
-            <select name="action"  v-model="obj.data.tplid">
-                <option :value="item.tpl_id" v-for="item in obj.data.tplList">{{item.remark}}</option>
+          <div class="form-group">
+            <label>
+              <strong></strong>模板选择：</label>
+            <select name="action" v-model="obj.data.tplid">
+              <option :value="item.tpl_id" v-for="item in obj.data.tplList">{{item.remark}}</option>
             </select>
-        </div>
+          </div>
         </div>
       </form>
       <form class="form-horizontal">
@@ -95,8 +96,9 @@
             <strong>*</strong>活动号：</label>
           <input type="text" v-model="obj.data.actId" placeholder="">
         </div>
-        <div class="form-group" >
-          <label><strong>*</strong>配置参数：</label>
+        <div class="form-group">
+          <label>
+            <strong>*</strong>配置参数：</label>
           <button type="button" @click="toConfigTree" class="jc-btn btn-primary">去配置</button>
         </div>
         <div class="form-group">
@@ -156,50 +158,63 @@
       </form>
 
 
-      <!-- 文案描述 -->
-    
-      <strong style="font-size:16px;">设置兑换列表</strong>
-  
-      <form class="form-horizontal">
-        <div class="coupon-group" v-for="(item,index) in obj.data.exchangeItem">
-          <h4>奖品{{index + 1}}</h4>
-          <button type="button" class="jc-btn btn-primary delBtn" @click="deleteExchangeItem(index)">删除</button>
-          <div class="form-group" style="margin-right: 100px;margin-left: 10px;">
-            <label>
-              <strong>*</strong>顶部描述：</label>
+<!-- 文案描述 -->
+<br><br><br><strong style="font-size:16px;">设置兑换列表</strong><br><br><br>
+<form class="form-horizontal">
+    <div class="coupon-group" v-for="(item,index) in obj.data.exchangeItem">
+        <h4>奖品{{index + 1}}</h4>
+        <button type="button" class="jc-btn btn-primary delBtn" @click="deleteExchangeItem(index)">删除</button>
+        <div class="form-group" style="margin-right: 100px;margin-left: 10px;">
+            <label><strong>*</strong>顶部描述：</label>
             <input type="text" v-model="item.topDes" placeholder="">
-          </div>
-          <div class="form-group" style="margin-right: 100px;margin-left: 10px;">
-            <label>
-              <strong>*</strong>图片地址：</label>
-            <input type="text" v-model="item.awardImg" placeholder="请到图片服务器上传图片">
-          </div>
-          <div class="form-group" style="margin-right: 100px;margin-left: 34px;">
-            <label>
-              <strong>*</strong>兑换描述：</label>
-            <input type="text" v-model="item.exchangeDes" placeholder="">
-          </div>
-          <div class="form-group" style="margin-right: 100px;margin-left: 34px;">
-            <label>
-              <strong>*</strong>兑换条件：</label>
-            <input type="text" v-model="item.exchangelevel" placeholder="">
-          </div>
-          <div class="form-group" style="margin-right: 100px;margin-left: 34px;">
-            <label>
-              <strong>*</strong>图片类型：</label>
-            <!-- <form class="form-radio"> -->
-            <label style="width:50px;">
-              <input v-bind:name="'inputtype'+index" style="width:16px;height:16px; " type="radio" value="0" v-model="item.imgtype">宽图</label>
-            <label style="width:50px;">
-              <input v-bind:name="'inputtype'+index" style="width:16px;height:16px" type="radio" value="1" v-model="item.imgtype">廋图</label>
-
-            <!-- </form> -->
-          </div>
         </div>
-      </form>
-      <div class="text-right">
-        <button type="button" class="jc-btn btn-primary" @click="addExchangeItem()">增加</button>
-      </div>
+        <div class="form-group" style="margin-right: 100px;margin-left: 10px;">
+            <label><strong>*</strong>图片地址：</label>
+            <input type="text" v-model="item.awardImg" placeholder="请到图片服务器上传图片">
+        </div>
+        <div class="form-group" style="margin-right: 100px;margin-left: 34px;">
+            <label><strong>*</strong>兑换描述：</label>
+            <input type="text" v-model="item.exchangeDes" placeholder="">
+        </div>
+        <div class="form-group" style="margin-right: 100px;margin-left: 34px;">
+            <label><strong>*</strong>兑换条件：</label>
+            <input type="text" v-model="item.exchangelevel" placeholder="">
+        </div>
+        <div class="form-group" style="margin-right: 100px;margin-left: 34px;">
+            <label><strong>*</strong>图片类型：</label>
+            <label style="width:50px;"><input v-bind:name="'inputtype'+index" style="width:16px;height:16px; " type="radio" value="0" v-model="item.imgtype">宽图</label>
+            <label style="width:50px;"><input v-bind:name="'inputtype'+index" style="width:16px;height:16px" type="radio" value="1" v-model="item.imgtype">廋图</label>
+        </div>
+        <div class="form-group" style="margin-right: 100px;margin-left: 34px;">
+            <label><strong>*</strong>奖品类型：</label>
+            <label style="width:50px;"><input v-bind:name="'awardtype'+index" style="width:16px;height:16px; " type="radio" value="0" v-model="item.awardtype">实物</label>
+            <label style="width:50px;"><input v-bind:name="'awardtype'+index" style="width:16px;height:16px" type="radio" value="1" v-model="item.awardtype">红包</label>
+        </div>
+        <div class="form-group" style="margin-right: 100px;margin-left: 34px;">
+            <label><strong>*</strong>奖励描述1：</label>
+            <input type="text" v-model="item.awarddes1" placeholder="比如：恭喜您获得500元现金红包">
+        </div>
+        <div class="form-group" style="margin-right: 100px;margin-left: 34px;">
+            <label><strong>*</strong>奖励描述2：</label>
+            <input type="text" v-model="item.awarddes2" placeholder="比如：您可在首页我的红包中查看使用">
+        </div>
+        <div class="form-group" style="margin-right: 100px;margin-left: 34px;">
+            <label><strong>*</strong>红包跳转地址：</label>
+            <input type="text" v-model="item.awardhref" placeholder="实物不用填写">
+        </div>
+        <div class="form-group" style="margin-right: 100px;margin-left: 34px;">
+            <label><strong>*</strong>按钮文案：</label>
+            <input type="text" v-model="item.btndesc" placeholder="按钮文案">
+        </div>
+        <div class="form-group" style="margin-right: 100px;margin-left: 34px;">
+            <label><strong>*</strong>统计ID：</label>
+            <input type="text" v-model="item.eventid" placeholder="">
+        </div>
     </div>
-  </div>
+</form>
+<div class="text-right">
+    <button type="button" class="jc-btn btn-primary" @click="addExchangeItem()">增加</button>
+</div>
+</div>
+</div>
 </div>

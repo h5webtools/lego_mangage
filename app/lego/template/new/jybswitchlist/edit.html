@@ -1,172 +1,169 @@
 <div class="editBox">
-    <div v-show="!obj.data.mpmData.showSubTab" class="parentBox">
+  <div v-show="!obj.data.mpmData.showSubTab" class="parentBox">
 
-        <div class="editBox_2">
-            <h3>{{obj.componentName}} {{obj.uid}}</h3>
-            <p>
-                tab切换组件
-            </p>
+    <div class="editBox_2">
+      <h3>{{obj.componentName}} {{obj.uid}}</h3>
+      <p>
+        tab切换组件
+      </p>
 
-            <ul class="tab_hd">
-                <li v-bind:class="{ 'on': showStyle }" v-on:click="show(0)"><a href="javascript:;" title="设置样式">设置样式</a></li>
-                <li v-bind:class="{ 'on': showProperty }" v-on:click="show(1)"><a href="javascript:;" title="设置数据">设置tab数据</a></li>
-            </ul>
+      <ul class="tab_hd">
+        <li v-bind:class="{ 'on': showStyle }" v-on:click="show(0)">
+          <a href="javascript:;" title="设置样式">设置样式</a>
+        </li>
+        <li v-bind:class="{ 'on': showProperty }" v-on:click="show(1)">
+          <a href="javascript:;" title="设置数据">设置tab数据</a>
+        </li>
+      </ul>
 
-            <div v-show="showStyle" class="styleBox">
-                <div class="editArea">
-                    <form class="form-horizontal" v-for="item in obj.com_extend">
-                        <div class="form-group" v-if="item.type == 'radio'">
-                            <label :title="item.desc">{{item.name}}：</label>
-                            <div>
-                                <label v-for="item2 in item.data"><input type="radio" :name="obj.uid+'_'+item.nick" :value="item2.value" v-model="obj.data.extend[item.nick]"> {{item2.name}}</label>
-                            </div>
-                        </div>
-                        <div class="form-group" v-if="item.type == 'input'">
-                            <label :title="item.desc">{{item.name}}：</label>
-                            <input type="text" :class="item.class" :name="obj.uid+'_'+item.nick" :nick="item.nick" v-model.trim.lazy="obj.data.extend[item.nick]"
-                                :placeholder="item.desc">
-                        </div>
-                    </form>
-                </div>
-                <dl>
-                    <dt>样式</dt>
-                    <dd>
-                        <ul>
-                            <li v-for="item in arrStyle">
-                                <div style="display:none;">
-                                    {{item.com_desc}}<input type="radio" :name="obj.uid" :id="obj.uid+'_'+item.id" :value="item.id"
-                                        v-model="obj.data.styleKey"><br/>
-                                </div>
-                                <label :class="item.id == obj.data.styleKey ? 'on' : ''" :for="obj.uid+'_'+item.id"><img :src="item.image" alt=""></label>
-                                <div class="styleDesc">
-                                    {{item.com_desc}}
-                                </div>
-                            </li>
-                        </ul>
-                    </dd>
-                </dl>
-
+      <div v-show="showStyle" class="styleBox">
+        <div class="editArea">
+          <form class="form-horizontal" v-for="item in obj.com_extend">
+            <div class="form-group" v-if="item.type == 'radio'">
+              <label :title="item.desc">{{item.name}}：</label>
+              <div>
+                <label v-for="item2 in item.data">
+                  <input type="radio" :name="obj.uid+'_'+item.nick" :value="item2.value" v-model="obj.data.extend[item.nick]"> {{item2.name}}</label>
+              </div>
             </div>
-
-
-
-            <div v-show="!showStyle" class="editArea">
-                    <form class="form-horizontal" v-if="obj.data.isShowNpmVersions">
-                            <div class="coupon-group">
-                            <div class="form-group">
-                                <label><strong></strong>版本号：</label>
-                                <select name="action" @change="selectNpmVersion" v-model="obj.data.npmversion">
-                                    <option :value="item.version" v-for="item in obj.data.npmversionArr">{{item.desc}}</option>
-                                </select>
-                            </div>
-                            </div>
-                        </form>
-                <form class="form-horizontal">
-                    <div class="form-group">
-                        <label><strong></strong>背景色：</label>
-                        <input type="color" v-model="obj.data.bgcolor">
-                        <input type="text"  class="colorFrameInput" v-model="obj.data.bgcolor"  value="" >
-                    </div>
-                    <div class="form-group">
-                        <label><strong></strong>内容颜色：</label>
-                        <input type="color" v-model="obj.data.contentColor"> 
-                        <input type="text"  class="colorFrameInput" v-model="obj.data.contentColor"  value="" >
-                    </div>
-                    <div class="form-group">
-                        <label><strong></strong>选中背景色：</label>
-                        <input type="color" v-model="obj.data.selectedbgcolor">
-                        <input type="text"  class="colorFrameInput" v-model="obj.data.selectedbgcolor"  value="" >
-                    </div>
-                    <div class="form-group">
-                        <label><strong></strong>选中内容颜色：</label>
-                        <input type="color" v-model="obj.data.selectedcontentColor"> 
-                        <input type="text"  class="colorFrameInput" v-model="obj.data.selectedcontentColor"  value="" >
-                    </div>
-                    <div class="form-group">
-                        <label><strong></strong>左右边距：</label>
-                        <input type="text" v-model="obj.data.LRPadding" placeholder="">
-                    </div>
-                </form>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>序号</th>
-                            <!-- <th>Tab名称</th>
-                            <th>HOT角标</th>
-                            <th>ptag</th>
-                            <th>bi设置</th>
-                            <th>流量比例</th> -->
-                            <th>Tab名称</th>
-                            <th>&nbsp;</th>
-                            <th>&</th>
-                            <th>&nbsp;</th>
-                            <th>&</th>
-                            <th>其他操作</th>
-                        </tr>
-                    </thead>
-                    <tbody v-for="(item,index) in obj.data.tabs" @click="selectTab(index)" :class="{'on':(obj.data.mpmData.currentTab == index)}"
-                        :pindex="index">
-                        <tr :pindex="index" :len="item.sub.length">
-                            <td>{{index + 1}}</td>
-                            <td>
-                                <input type="text" v-model.trim="item.tabTitle" placeholder="tab名称">
-                            </td>
-                            <!-- <td >
-                                <input type="checkbox" v-model.trim="item.hot" />
-                            </td>
-
-                            <td>
-                                <input type="text" v-model.trim="item.ptag" placeholder="ptag" />
-                            </td>
-                            <td>
-                                楼层id:<input style="width: 70px;" type="number" placeholder="floorid" class="floorid" v-model.trim="item.floorid"/>
-                            </td>
-                            <td class="flowRadioTd">
-                                <input type="text" name="" v-model.trim="obj.data.defaultRate[index]">%
-                            </td> -->
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>
-                                <a href="javascript:;" @click="up(index)">前移</a>
-                                <a href="javascript:;" @click="down(index)">后移</a>
-                                <a href="javascript:;" @click="deleteone(index)">删除</a>
-                                <a href="javascript:;" @click="addSub">增加内容</a>
-                            </td>
-                        </tr>
-
-                        <tr :index="sindex" v-for="(subItem,sindex) in item.sub" track-by="sindex">
-                            <td>&nbsp;</td>
-                            <td :title="subItem">
-                                {{obj.getComponentInfo(subItem).obj.componentName}}{{subItem.replace("com",'')}}
-                            </td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <!-- <td>分会场id:<input style="width: 70px;"  type="number" placeholder="shallid" class="shallid" v-model.trim="item.shallid[subItem]"/></td> -->
-                            <td class="flowRadioTd" @click="editSub">
-                                点击编辑
-                            </td>
-                            <td>
-                                <a href="javascript:;" @click="upSub">上移</a>
-                                <a href="javascript:;" @click="downSub">下移</a>
-                                <a href="javascript:;" @click="deleteSub">删除</a>
-                            </td>
-                        </tr>
-
-                    </tbody>
-                </table>
-                <div class="text-right">
-                    <button type="button" class="jc-btn btn-primary" @click="add()">新增TAB</button>
-                </div>
+            <div class="form-group" v-if="item.type == 'input'">
+              <label :title="item.desc">{{item.name}}：</label>
+              <input type="text" :class="item.class" :name="obj.uid+'_'+item.nick" :nick="item.nick" v-model.trim.lazy="obj.data.extend[item.nick]"
+                :placeholder="item.desc">
             </div>
-
+          </form>
         </div>
-    </div>
+        <dl>
+          <dt>样式</dt>
+          <dd>
+            <ul>
+              <li v-for="item in arrStyle">
+                <div style="display:none;">
+                  {{item.com_desc}}
+                  <input type="radio" :name="obj.uid" :id="obj.uid+'_'+item.id" :value="item.id" v-model="obj.data.styleKey">
+                  <br/>
+                </div>
+                <label :class="item.id == obj.data.styleKey ? 'on' : ''" :for="obj.uid+'_'+item.id">
+                  <img :src="item.image" alt="">
+                </label>
+                <div class="styleDesc">
+                  {{item.com_desc}}
+                </div>
+              </li>
+            </ul>
+          </dd>
+        </dl>
 
-    <div v-show="obj.data.mpmData.showSubTab" class="subEdit" style="display:none">
-        <div class="subBack" @click="back">返回</div>
+      </div>
+
+
+
+      <div v-show="!showStyle" class="editArea">
+        <form class="form-horizontal" v-if="obj.data.isShowNpmVersions">
+          <div class="coupon-group">
+            <div class="form-group">
+              <label>
+                <strong></strong>版本号：</label>
+              <select name="action" @change="selectNpmVersion" v-model="obj.data.npmversion">
+                <option :value="item.version" v-for="item in obj.data.npmversionArr">{{item.desc}}</option>
+              </select>
+            </div>
+          </div>
+        </form>
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label>
+              <strong></strong>背景色：</label>
+            <input type="color" v-model="obj.data.bgcolor">
+            <input type="text" class="colorFrameInput" v-model="obj.data.bgcolor" value="">
+          </div>
+          <div class="form-group">
+            <label>
+              <strong></strong>内容颜色：</label>
+            <input type="color" v-model="obj.data.contentColor">
+            <input type="text" class="colorFrameInput" v-model="obj.data.contentColor" value="">
+          </div>
+          <div class="form-group">
+            <label>
+              <strong></strong>选中背景色：</label>
+            <input type="color" v-model="obj.data.selectedbgcolor">
+            <input type="text" class="colorFrameInput" v-model="obj.data.selectedbgcolor" value="">
+          </div>
+          <div class="form-group">
+            <label>
+              <strong></strong>选中内容颜色：</label>
+            <input type="color" v-model="obj.data.selectedcontentColor">
+            <input type="text" class="colorFrameInput" v-model="obj.data.selectedcontentColor" value="">
+          </div>
+          <div class="form-group">
+            <label>
+              <strong></strong>左右边距：</label>
+            <input type="text" v-model="obj.data.LRPadding" placeholder="">
+          </div>
+        </form>
+        <table>
+          <thead>
+            <tr>
+              <th>序号</th>
+              <th>Tab名称</th>
+              <th>统计ID</th>
+              <th>&</th>
+              <th>&nbsp;</th>
+              <th>&</th>
+              <th>其他操作</th>
+            </tr>
+          </thead>
+          <tbody v-for="(item,index) in obj.data.tabs" @click="selectTab(index)" :class="{'on':(obj.data.mpmData.currentTab == index)}"
+            :pindex="index">
+            <tr :pindex="index" :len="item.sub.length">
+              <td>{{index + 1}}</td>
+              <td>
+                <input type="text" v-model.trim="item.tabTitle" placeholder="tab名称">
+              </td>
+              <td>
+                <input type="text" v-model.trim="item.eventid" style="width:120px;" placeholder="比如：30000.1.2" />
+              </td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>
+                <a href="javascript:;" @click="up(index)">前移</a>
+                <a href="javascript:;" @click="down(index)">后移</a>
+                <a href="javascript:;" @click="deleteone(index)">删除</a>
+                <a href="javascript:;" @click="addSub">增加内容</a>
+              </td>
+            </tr>
+
+            <tr :index="sindex" v-for="(subItem,sindex) in item.sub" track-by="sindex">
+              <td>&nbsp;</td>
+              <td :title="subItem">
+                {{obj.getComponentInfo(subItem).obj.componentName}}{{subItem.replace("com",'')}}
+              </td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td class="flowRadioTd" @click="editSub">
+                点击编辑
+              </td>
+              <td>
+                <a href="javascript:;" @click="upSub">上移</a>
+                <a href="javascript:;" @click="downSub">下移</a>
+                <a href="javascript:;" @click="deleteSub">删除</a>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+        <div class="text-right">
+          <button type="button" class="jc-btn btn-primary" @click="add()">新增TAB</button>
+        </div>
+      </div>
 
     </div>
+  </div>
+
+  <div v-show="obj.data.mpmData.showSubTab" class="subEdit" style="display:none">
+    <div class="subBack" @click="back">返回</div>
+
+  </div>
 </div>

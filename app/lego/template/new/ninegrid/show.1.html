@@ -214,7 +214,7 @@
                                                 <p class="ui-mt-10 f-24">{{item.desthree}}</p>
                                             </div>
                                         </li>
-                                         <li class="reward-item get" v-on:click="gridcommit" v-if="index==4">
+                                         <li class="reward-item get" v-on:click="gridcommit" v-bind:data-stat-id="params.eventid || ''" v-if="index==4">
                                             <div class="reward-inner">
                                                 {{item.desone}}
                                             </div>

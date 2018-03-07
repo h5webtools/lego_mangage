@@ -1,0 +1,147 @@
+<style>
+
+.mod-c-tab {
+  width: 7.2rem;
+  margin: 0 auto;
+  background: url(https://images.jyblife.com/lego/nianzhong/tab-bg.png) no-repeat;
+  background-size: 7.2rem 0.95rem;
+  height: 0.8rem;
+}
+
+.mod-c-tab .c-tab__lists {
+  padding-top: 0.1rem;
+  height: 0.6rem;
+  width: 87%;
+  margin: 0 auto;
+  padding-top: 0.1rem;
+  height: 0.6rem;
+}
+
+.mod-c-tab .c-tab__lists .tab-lists__item {
+  width: 0.3rem;
+  height: 0.3rem;
+  border: 1px solid #a2231a;
+  border-radius: 0.3rem;
+  background: #ec4234;
+  margin: 0 auto;
+  float: left;
+  margin-right: 0.6rem;
+  position: relative;
+}
+
+.mod-c-tab .c-tab__lists .tab-lists__item:after {
+  content: "";
+  width: 0.6rem;
+  height: 0.04rem;
+  background-color: #e24b3e;
+  display: block;
+  z-index: 1000;
+  position: relative;
+  left: 0.32rem;
+  top: 0.15rem;
+}
+
+.mod-c-tab .c-tab__lists .tab-lists__item.tab-lists__item_selected span {
+  color: #7e0f00;
+  font-weight: 700;
+  left: -0.25rem;
+}
+
+.mod-c-tab .c-tab__lists .tab-lists__item.tab-lists__item_selected:before {
+  content: "";
+  width: 0.2rem;
+  height: 0.2rem;
+  background-color: #fcf551;
+  display: block;
+  z-index: 1000;
+  position: relative;
+  left: 0.05rem;
+  top: 0.05rem;
+  border-radius: 0.2rem;
+}
+
+.mod-c-tab .c-tab__lists .tab-lists__item.tab-lists__item_selected:after {
+  top: -0.05rem;
+}
+
+.mod-c-tab .c-tab__lists .tab-lists__item:last-child:after {
+  width: 0rem;
+  height: 0rem;
+  left: 0rem;
+  top: 0rem;
+}
+
+.mod-c-tab .c-tab__lists .tab-lists__item span {
+  color: #d02f1a;
+  font-size: 0.2rem;
+  display: inline-block;
+  position: absolute;
+  width: 1rem;
+  top: 0.38rem;
+  left: -0.25rem;
+}
+
+.mod-c-tab .c-tab__lists .tab-lists__item:last-child {
+  margin-right: 0rem;
+}
+
+</style>
+
+
+
+<template class="showTemplate">
+    <jybswitchlist uid="switchlist" v-bind:params="data" inline-template>
+        <div class="lego-jybswitchlist-show4" >
+            <div class="mod-c-tab">
+                <div class="c-tab__lists">
+                    <template v-if="true"  v-for="(item,index) in params.tabs">
+                            <div v-if="index == data.tabIndex" :tab="index" :data-stat-id="item.eventid || ''" @click="toggleTabs(index)" class="tab-lists__item tab-lists__item_selected">
+                                <span>{{(data.tabInitIndex == index) ? '今日榜单' : item.tabTitle}}</span>
+                            </div>
+                            <div v-else="" @click="toggleTabs(index)" :tab="index" :data-stat-id="item.eventid || ''" class="tab-lists__item">
+                                <span>{{(data.tabInitIndex == index) ? '今日榜单' : item.tabTitle}}</span>
+                            </div>
+                    </template>
+                </div> 
+            </div>
+        </div>
+    </jybswitchlist>
+
+    <div class="childBox">
+    </div>
+
+</template>
+
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExt">
+    var com_ext = {}
+
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+    var com_extend = []
+
+</script>
+<!-- <script class="forMPMExtend">
+    var com_extend =  [{
+            "name": "导航位置",
+            "nick": "position",
+            "type": "radio",
+            "data": [
+                {
+                    "name": "不吸顶",
+                    "value": "0"
+                },
+                {
+                    "name": "滚动吸顶",
+                    "value": "1"
+                }
+            ]
+        }]
+</script> -->
+
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {};
+
+</script>

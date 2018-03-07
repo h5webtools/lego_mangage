@@ -209,7 +209,7 @@
 .lego-jybexchange-show2 .ui-mt-35 {
     margin-top: 0.35rem;
 }
-.lego-jybexchange-show2 prd-status1 {
+.lego-jybexchange-show2 .prd-status1 {
     background: -webkit-gradient(linear, left top, right top, from(#966be4), to(#d257e8));
     background: -webkit-linear-gradient(left, #966be4, #d257e8);
     background: -o-linear-gradient(left, #966be4, #d257e8);
@@ -237,10 +237,10 @@
         <div class="lego-jybexchange-show2" v-bind:style="{paddingLeft:params.LRpadding+'rem', paddingRight:params.LRpadding+'rem'}">
                 <template v-if="true">
             <div class="prd-content ui-ta-c" v-bind:style="{background:params.bgcolor}">
-                <p class="f-22 color-7d87aa ui-mt-25">已购买:{{data.buycount}}元</p>
+                <p class="f-22 color-7d87aa ui-mt-25" v-bind:style="{color:params.buiedcolor,fontSize:params.buiedsize+'px'}">已购买:{{data.buycount}}元</p>
                 <div class="ui-ta-c color-7d87aa f-22">
                     <div class="prd-box ui-mt-25" v-for="(item , index) in params.exchangeItem">
-                        <p class="ui-pt-50 ui-ta-c"><img :src="item.awardImg" alt="" width="70%"></p>
+                        <p class="ui-pt-50 ui-ta-c"><img :src="item.awardImg" alt="" width="60%"></p>
                         <p class="f-22 ui-mt-35">{{item.topDes}}</p>
                         <p>{{item.exchangeDes}}</p>
 
@@ -248,10 +248,10 @@
                             <p class="mod-btn prd-status2" :type="params.actType" :flag="index+1">未到兑换时间</p>
                         </template>
                         <template v-if="data.timeFlag==true">
-                            <p class="mod-btn prd-status2" :type="params.actType" :flag="index+1" v-if="item.awardFlag == 2 && data.exchangeFlag == false">立即兑换</p>
-                            <p class="mod-btn prd-status1" :type="params.actType" :flag="index+1" v-on:click="toexchange($event)" v-if="item.awardFlag == 2 && data.exchangeFlag == true">立即兑换</p>
-                            <p class="mod-btn prd-status2" :type="params.actType" :flag="index+1" v-if="item.awardFlag == 1">已兑换</p>
-                            <p class="mod-btn prd-status2" :type="params.actType" :flag="index+1" v-if="item.awardFlag == 0">未满额</p>
+                            <p class="mod-btn prd-status2" :awardindex="index" :type="params.actType" :flag="index+1" v-if="item.awardFlag == 2 && data.exchangeFlag == false">立即兑换</p>
+                            <p class="mod-btn prd-status1" :awardindex="index"  :type="params.actType" :flag="index+1" :data-stat-id="item.eventid || ''" v-on:click="toexchange($event)" v-if="item.awardFlag == 2 && data.exchangeFlag == true">立即兑换</p>
+                            <p class="mod-btn prd-status2" :awardindex="index" :type="params.actType" :flag="index+1" v-if="item.awardFlag == 1">已兑换</p>
+                            <p class="mod-btn prd-status2" :awardindex="index" :type="params.actType" :flag="index+1" v-if="item.awardFlag == 0">未满额</p>
                         </template>
                     </div>
                 </div>

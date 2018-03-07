@@ -42,10 +42,7 @@ define(function (require, exports, module) {
       moduleUtil.alert('名称长度不能小于3');
       return;
     }
-    // if (selectPagePath.val() == 0) {
-    //   moduleUtil.alert('请选择路径');
-    //   return;
-    // }
+    
     if (!menuReg.test(inputPageMenu.val())) {
       moduleUtil.alert('目录名称不合法');
       return;

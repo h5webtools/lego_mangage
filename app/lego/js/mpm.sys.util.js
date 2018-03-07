@@ -23,6 +23,9 @@ define(function (require, exports, module) {
   var jybcommpadding = require("./jyb.vue.jybcommpadding.edit");
   var jybpay = require("./jyb.vue.jybpay.edit");
   var jybfigure = require("./jyb.vue.jybfigure.edit");
+  var jybimgmap = require("./jyb.vue.jybimgmap.edit");
+  // var jybsignin = require("./jyb.vue.jybsignin.edit");
+  // var jybtasks = require("./jyb.vue.jybtasks.edit");
 
   var getData = require('./common/request');
   var cookieName = 'jybactconfig';
@@ -57,7 +60,8 @@ define(function (require, exports, module) {
     'jybactrolling': jybactrolling,
     'jybcommpadding': jybcommpadding,
     'jybpay': jybpay,
-    'jybfigure': jybfigure
+    'jybfigure': jybfigure,
+    'jybimgmap': jybimgmap
   };
 
   exports.ckeckIsLogin = function () {

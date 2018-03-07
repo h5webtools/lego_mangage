@@ -14,8 +14,8 @@
         height: .9rem;
         line-height: .9rem;
         background: #f8b21a;
-        position: fixed;
-        bottom: 0;
+        /* position: fixed;
+        bottom: 0; */
         z-index: 1000;
     }
 
@@ -64,7 +64,7 @@
     <commontag uid="uid" v-bind:params="data" inline-template>
         <div class="jyb-jybsuctionbtn-show1 jyb-jybsuctionbtn-parent">
             <div class="ui-ta-c color-fff f-36 mod-prd-btn" v-bind:style="{color:params.fontcolor , backgroundColor:params.backgroundcolor}">
-                <a v-bind:href="params.tourl" v-bind:style="{color:params.fontcolor }" style="display: block;width:100%;height: 100%;">{{params.btndes}}&gt;&gt;</a>
+                <a v-bind:data-stat-id="params.eventid || ''" v-bind:href="params.tourl" v-bind:style="{color:params.fontcolor }" style="display: block;width:100%;height: 100%;">{{params.btndes}}&gt;&gt;</a>
             </div>
         </div>
     </commontag>

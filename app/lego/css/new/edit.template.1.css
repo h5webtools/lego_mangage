@@ -313,7 +313,6 @@ img.preview{
 /* table.css 结束 */
 
 
-/* 购物圈 开始 */
 form{
   padding:0 0 0 15px;
 }
@@ -346,10 +345,9 @@ label{
 .form-group label+*>div>label{
   margin-right: 5px;
 }
-/* 购物圈 结束 */
 
 
-/* 优惠卷 开始 */
+
 label strong{
   color: red;
   padding-right: 3px
@@ -378,7 +376,7 @@ label strong{
   right: 0;
   top: 0;
 }
-/* 优惠卷 结束 */
+
 
 
 /*焦点展示 开始*/
@@ -405,7 +403,6 @@ label strong{
   max-width: 100%;
 }
 /*焦点展示 结束*/
-
 
 /* 发布状态 开始 */
 .pushStatusTable{
@@ -946,3 +943,9 @@ br+.inputTips{
   }
 
 /* 组件弹框结束 */
+
+.mod-group-select{
+  margin-left: 150px;
+  display: inline-block;
+  margin-top: 2px;
+}

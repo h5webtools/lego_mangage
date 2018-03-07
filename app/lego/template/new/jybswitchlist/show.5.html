@@ -1,0 +1,112 @@
+<style>
+.lego-jybswitchlist-show5 .mod-c-tab {
+  width: 100%;
+  position: relative;
+  line-height: 0rem;
+  margin-bottom: 0.15rem;
+}
+
+.lego-jybswitchlist-show5 .mod-c-tab .c-tab__scroller {
+  overflow-x: scroll;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  line-height: 0rem;
+}
+
+.lego-jybswitchlist-show5 .mod-c-tab .c-tab__scroller::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+.lego-jybswitchlist-show5 .mod-c-tab .c-tab__scroller .tab-sctoller__wrap {
+  padding-left: 0.15rem;
+  padding-right: 0.15rem;
+  line-height: 0rem;
+}
+
+.lego-jybswitchlist-show5 .mod-c-tab .c-tab__scroller .tab-sctoller__wrap .tab-sctoller__content {
+  display: inline-block;
+  font-size: 0.28rem;
+  /* overflow: hidden; */
+  -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  width: 2.71rem;
+  height: 0.87rem;
+  background: url(https://images.jyblife.com/lego/licaizhuti/tab-bg.png) no-repeat;
+  background-size: 2.71rem 0.87rem;
+  text-align: center;
+  line-height: 0.80rem;
+  color: #ff9c7a;
+  font-weight: bold;
+  padding-right: 0.15rem;
+}
+
+.lego-jybswitchlist-show5 .mod-c-tab .c-tab__scroller .tab-sctoller__wrap .tab-sctoller__content.tab-sctoller__content_active {
+  background: url(https://images.jyblife.com/lego/licaizhuti/tab-bg-active.png) no-repeat;
+  color: #ff2514;
+  background-size:2.71rem 0.87rem;
+}
+
+</style>
+
+<template class="showTemplate">
+    <jybswitchlist uid="switchlist" v-bind:params="data" inline-template>
+        <div class="lego-jybswitchlist-show5" >
+            <div class="mod-c-tab">
+                <div class="c-tab__scroller">
+                    <ul class="tab-sctoller__wrap">
+                    <template v-if="true"  v-for="(item,index) in params.tabs">
+                        <li v-if="index == data.tabIndex" :tab="index" :data-stat-id="item.eventid || ''" @click="toggleTabs(index)" class="tab-sctoller__content tab-sctoller__content_active">
+                            {{item.tabTitle}}
+                        </li>
+                        <li v-else="" @click="toggleTabs(index)" :tab="index" :data-stat-id="item.eventid || ''" class="tab-sctoller__content">
+                            {{item.tabTitle}}
+                        </li>
+                    </template>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </jybswitchlist>
+
+    <div class="childBox">
+    </div>
+
+</template>
+
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExt">
+    var com_ext = {}
+
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+    var com_extend = []
+
+</script>
+<!-- <script class="forMPMExtend">
+    var com_extend =  [{
+            "name": "导航位置",
+            "nick": "position",
+            "type": "radio",
+            "data": [
+                {
+                    "name": "不吸顶",
+                    "value": "0"
+                },
+                {
+                    "name": "滚动吸顶",
+                    "value": "1"
+                }
+            ]
+        }]
+</script> -->
+
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {};
+
+</script>

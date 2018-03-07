@@ -1,0 +1,328 @@
+<style>
+    /* 弹框公共 */
+
+    .overlay {
+        background-color: #000;
+        filter: alpha(opacity=60);
+        opacity: 0.6;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        position: fixed;
+        z-index: 1024;
+        -webkit-backface-visibility: hidden;
+        font-size: 0.26rem;
+        line-height: 1.2;
+        color: #333;
+    }
+
+    .mod-dialog {
+        border-radius: 3px;
+        width: 90%;
+        position: fixed;
+        top: 25%;
+        left: 50%;
+        -webkit-transform: translateX(-50%);
+        transform: translateX(-50%);
+        z-index: 8888;
+        overflow: hidden;
+        font-size: 0.36rem;
+        line-height: 1.2;
+        color: #333;
+    }
+
+    .ui-mb-20 {
+        margin-bottom: 0.2rem;
+    }
+
+    .mod-dialog .dialog-title {
+        background-color: #fff;
+        padding-top: 0.2rem;
+        padding-bottom: 0.2rem;
+        text-align: center;
+        position: relative;
+        border-bottom: 1px solid #e6e6e6;
+        color: #333;
+    }
+
+    .ui-bb-n {
+        border-bottom: none !important;
+    }
+
+    .mod-dialog .dialog-content {
+        box-sizing: border-box;
+        overflow: hidden;
+        background-color: #fff;
+    }
+    /* 弹框公共 */
+    /* 确认框 */
+
+    .comm-padding {
+        padding-left: 0.3rem;
+        padding-right: 0.3rem;
+    }
+
+    .ui-pb-60 {
+        padding-bottom: 0.6rem;
+    }
+
+    .ui-mt-90 {
+        margin-top: 0.9rem;
+    }
+
+    .ui-ta-c {
+        text-align: center;
+    }
+
+    .f-36 {
+        font-size: 0.36rem;
+    }
+
+    p {
+        margin: 0;
+        padding: 0;
+        font-size: 100%;
+    }
+
+    .f-54 {
+        font-size: 0.54rem;
+    }
+
+    .ui-mt-10 {
+        margin-top: 0.1rem;
+    }
+
+    .f-36 {
+        font-size: 0.36rem;
+    }
+
+    .ui-mt-10 {
+        margin-top: 0.1rem;
+    }
+
+    .mod-btn2 {
+        display: -webkit-box;
+        -webkit-box-pack: center;
+        -webkit-box-align: center;
+        -webkit-box-pack: justify;
+    }
+
+    .mod-btn2 div:nth-child(1) {
+        width: 45%;
+    }
+
+    .mod-btn2 .btn {
+        height: 0.86rem;
+        line-height: 0.86rem;
+        background: #FF6E34;
+        color: #fff;
+        margin-right: 5%;
+        border-radius: 0.05rem;
+    }
+
+    .mod-btn2 div {
+        -webkit-box-flex: 1;
+        position: relative;
+    }
+
+    .ui-mt-100 {
+        margin-top: 1rem;
+    }
+
+    .mod-btn2 .btn:last-child {
+        margin-right: 0;
+    }
+
+    .mod-btn2 div:nth-child(2) {
+        width: 45%;
+    }
+    /* 确认框 */
+    /* 结果框 */
+
+    .f-44 {
+        font-size: 0.44rem;
+    }
+
+    .ui-ta-c {
+        text-align: center;
+    }
+
+    .f-28 {
+        font-size: 0.28rem;
+    }
+
+    .ui-mt-10 {
+        margin-top: 0.1rem;
+    }
+
+    .mod-btn {
+        display: block;
+        background-color: #FF6E34;
+        text-align: center;
+        color: #fff;
+        position: relative;
+        border-radius: 3px;
+        height: 0.86rem;
+        line-height: 0.86rem;
+        width: 100%;
+    }
+
+    .ui-mt-100 {
+        margin-top: 1rem;
+    }
+    /* 结果框 */
+
+    .lego-jybexchange-show3 .prd-content__title {
+        text-align: center;
+        font-size: 0rem;
+      }
+      
+      .lego-jybexchange-show3 .prd-content__title .prd-content__img {
+        width: 4.54rem;
+        height: 0.43rem;
+        margin-top: 0.5rem;
+      }
+      
+      .lego-jybexchange-show3 .prd-content {
+        width: 7.2rem;
+        min-height: 13.3rem;
+        margin-left: 0.15rem;
+        margin-right: 0.15rem;
+        /* padding-bottom: .35rem; */
+        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAtAAAAV/CAYAAACUutopAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpENjMyNzdBMTA1RjcxMUU4OEYyRTlENjBDNzNGQkQ3OSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpENjMyNzdBMjA1RjcxMUU4OEYyRTlENjBDNzNGQkQ3OSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkQ2MzI3NzlGMDVGNzExRTg4RjJFOUQ2MEM3M0ZCRDc5IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkQ2MzI3N0EwMDVGNzExRTg4RjJFOUQ2MEM3M0ZCRDc5Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+pms36gAAHcZJREFUeNrs3c1vHGcd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CGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAAhoAAAQ0AAAIKABAAABDQAAAhoAAAQ0AAAIaAAAENAAACCgAQAAAQ0AAAIaAAAENAAACGgAABDQAAAgoAEAAAENAAACGgAABDQAAByigF5ZjpifdEQBAGgsqVFTqzZcQC/NRNy44gMCAKCxpEZNrdpwAQ0AAEeAgAYAAAENAAACGgAABDQAAAhoAAA4pForf8e7n21I9JaI3hccaQAA9t+9/1S65vP+BnRTFsptvRG3PinmVh7k8+cFNAAAT8EXf4pYzQK6+Vgxlxo1NWnDBXT78Yhz3y/PTY+VgxoAAPbbyLcj+l/et7d3DTQAAOxCdWegl2YjvviwPPdwPhsLEWPvF3MDZ7PfCF5y5AEA2Lvpf0XcuV7Xn1l7TlzN5m6U93v+zYi2ngYL6HS98+x4xKnXirmFqYgH9yN6RvLtOzez7VkfNAAA1UhtmXpz4JV8e34yoqM/GyeKfdIlxalVK1L9KhwnL9T9RjAWMTdRzM3d9iEDAFCtdJNgrTcnr0X0ni5fA13xPXmugQYAAAENAAD7o/pLOK79vnhcWwe63sTfIqaub//6kdcjjp/2yQAAEDHz74jxj7d/fnkpoutkeW78o4gv/3IAAvpYd8To5c3zzXUBna5NSStz7KTzhB8UAACKNqxfpGLLou0sHj9/aetvIkyt2nAB3dIW0ffizvt0D/khAADgyaXw7dtF/Pbu/zdg7z2gF2fy5esAAKDRpXZ9pgGdvmN8+mY+AADgIGjv33NAz61vra7s7tWvfM8HAADA4Va+pvpeWsau+J7D9NWHAABAYbnUyDdTQP+fvftnSSiM4jh+FAkRImqLpuagor3JocZ8Cw21NvQyeg2NgVtNgbRpjtE/ilpMipIkSkoTsuwc7/W5Kho2qt8P/OCey33u8Ew/RO6TcWP1lQ0CAAAAWlXfWqdjK9BZN34U2CAAAACgVXtHzlqBzrvx/cH7GDUAAAAArxtbRw7kw7K8Y/+K3muMPzWRlxs2CgAAADDWja0je6wzf4f9Ycs9VLwQ+SqzWQAAABht1omtGwcanblZoIuaZOPKGvZ9+v+ftAMAAACGhXVh68TBr89JvzO7Am023FX5WRdkKNEAAAAY0fKc8TpxYLN50Vqg7VzDOTeV7kRyRyK1TzYRAAAAo8G6r3Vg68IB68ilbgXaXGnibioXRG4PRIqXnSewAAAAAMPDuq51Xuu+5bbP1sX9juyE6vW6SHq78xULmtO2O5GoyMSsyPi0SHRS55iuDrHZAAAAGDzWgWsV7yDB9yeRUq7bqdyLmrPOm5Eer7QHpzS7mrXGHXvhy7UXAAAAYHjta9Y1XY/pDv+x0BYkNDOaFPsIAACAIZfyu2+iV3k2kT5e9KhZ0cQ08/71qmZJM8Y+AwAAYADZ8dsnmkO/OJ9rKv0s/BVgALgyxlRH2glqAAAAAElFTkSuQmCC) no-repeat;
+        background-size: 100% 13.3rem;
+      }
+      
+      .lego-jybexchange-show3 .ui-ta-c {
+        text-align: center;
+      }
+      
+      .lego-jybexchange-show3 .color-000000 {
+        color: #000;
+      }
+      
+      .lego-jybexchange-show3 .color-8b2515 {
+        color: #8b2515;
+      }
+      
+      .lego-jybexchange-show3 .f-22 {
+        font-size: 0.22rem;
+      }
+      
+      .lego-jybexchange-show3 .ui-mt-15 {
+        margin-top: 0.15rem;
+      }
+      
+      .lego-jybexchange-show3 p {
+        margin: 0;
+        padding: 0;
+        font-size: 100%;
+      }
+      
+      .lego-jybexchange-show3 .prd-box {
+        float: left;
+        width: 3.2rem;
+        background: #fff;
+        margin-left: 0.28rem;
+        border: 1px solid #9e2313;
+        border-radius: 0.1rem;
+      }
+      .lego-jybexchange-show3 .prd-box:nth-child(even) {
+        margin-left: 0.18rem !important;
+      }
+      .lego-jybexchange-show3 .ui-pt-25 {
+        padding-top: 0.25rem;
+      }
+      
+      .lego-jybexchange-show3 .ui-mt-28 {
+        margin-top: 0.28rem;
+      }
+      
+      .lego-jybexchange-show3 .prd-status1 {
+        background: -webkit-gradient(linear, left top, right top, from(#966be4), to(#d257e8));
+        background: -webkit-linear-gradient(left, #966be4, #d257e8);
+        background: -o-linear-gradient(left, #966be4, #d257e8);
+        background: linear-gradient(left, #966be4, #d257e8);
+      }
+      
+      .lego-jybexchange-show3 .mod-btn {
+        width: 2rem;
+        height: .65rem;
+        line-height: .65rem;
+        border-radius: .2rem;
+        margin: .2rem auto;
+        color: #000;
+        background: #ffa800;
+        font-size: 0.28rem;
+        font-weight: bold;
+        border: 1px solid #000;
+      }
+      
+      .lego-jybexchange-show3 .prd-status2 {
+        background: #b5b2cf;
+      }
+      
+      .lego-jybexchange-show3 .prd-box:nth-child(even) {
+        margin-right: 0;
+      }
+      .lego-jybexchange-show3 .prd-box__title{
+        color:#333;
+        font-size:0.28rem;
+        font-weight: bold;
+        margin-top:0.16rem;
+    }
+    .lego-jybexchange-show3 .prd-box__vic-title{
+        color:#ff1b15;
+        margin-top:0.06rem;
+    }
+</style>
+
+
+<template class="showTemplate">
+    <jybexchange uid="uid" v-bind:params="data" inline-template>
+        <div class="lego-jybexchange-show3" v-bind:style="{paddingLeft:params.LRpadding+'rem', paddingRight:params.LRpadding+'rem'}">
+            <template v-if="true">
+            <div class="prd-content ui-ta-c" v-bind:style="{background:params.bgcolor}">
+                <div class="prd-content__title"><img class="prd-content__img" :src="params.topDesc"/></div>
+                <p class="f-22 color-8b2515 ui-mt-15" >{{params.bottomdesc}}</p>
+                <div class="ui-ta-c color-000000 f-22">
+                    <div class="prd-box ui-mt-15" v-for="(item , index) in params.exchangeItem">
+                        <p class="ui-pt-25 ui-ta-c"><img :src="item.awardImg" alt="" width="60%"></p>
+                        <p class="prd-box__title">{{item.exchangeDes}}</p>
+                        <p class="f-22 prd-box__vic-title">{{item.topDes}}</p>
+                        <template v-if="data.timeFlag==false">
+                            <p class="mod-btn prd-status2" :type="params.actType" :flag="index+1">未到兑换时间</p>
+                        </template>
+                        <template v-if="data.timeFlag==true">
+                            <p class="mod-btn prd-status2" :awardindex="index" :type="params.actType" :flag="(params.actType-1)*6 + index+1" v-if="item.awardFlag == 2 && data.exchangeFlag == false">立即兑换</p>
+                            <p class="mod-btn prd-status1" :awardindex="index"  :type="params.actType" :flag="(params.actType-1)*6 + index+1" :data-stat-id="item.eventid || ''" v-on:click="toexchange($event)" v-if="item.awardFlag == 2 && data.exchangeFlag == true">立即兑换</p>
+                            <p class="mod-btn prd-status2" :awardindex="index" :type="params.actType" :flag="index+1" v-if="item.awardFlag == 1">已兑换</p>
+                            <p class="mod-btn prd-status2" :awardindex="index" :type="params.actType" :flag="(params.actType-1)*6 + index+1"v-if="item.awardFlag == 0">未满额</p>
+                        </template>
+                    </div>
+                </div>
+            </div>
+                </template>
+        </div>
+
+    </jybexchange>
+</template>
+
+
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExt">
+    var com_ext = {}
+
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+    var com_extend = []
+
+</script>
+
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {};
+
+</script>

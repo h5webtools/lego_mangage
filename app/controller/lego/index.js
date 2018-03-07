@@ -71,6 +71,12 @@ class LegoController extends Controller {
             msg: '提交GIT失败' + error
           }
         });
+      } else {
+        _this.ctx.logger.error('query page detail failed');
+        _this.ctx.body = {
+          code: QUERY_DATABASE_FAILED,
+          msg: '没有该活动号的活动详情'
+        }
       }
     } catch(e) {
       _this.ctx.logger.error(error);

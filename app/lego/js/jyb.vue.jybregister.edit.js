@@ -45,6 +45,10 @@ define(function (require, exports, module) {
       "areaJumpUrl": "",//归属地
       "checkoutPrices": "",
       "identycodecolor": "",
+      "eventid_submit":"",
+      "eventid_code":"", //获取验证码
+      "eventid_check":"", //查看红包
+      "eventid_back":"", //返回兑换
       "npmversion": "",
       "npmversionArr": [],
       "npmname": "@lego/jybregister",

@@ -1,23 +1,24 @@
 <style>
-    
-    .jyb-jybsuctionbtn-show2    .mod-link {
-    display: block;
-    width: 100%;
-    height: 1rem;
-    line-height: 1rem;
-    
-    text-align: center;
-    
-    color: #fff;
-}
-.jyb-jybsuctionbtn-show2 .f-28 {
-    font-size: 0.28rem;
-}
 
-.jyb-jybsuctionbtn-show2 a {
+.mod-fixed-button {
+    height: .86rem;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    line-height: .86rem;
+    font-weight: 700;
+    background-color: #eeb444;
+    color: #fff;
+    z-index: 1011;
+    display: block;
+}
+.f-36 {
+    font-size: .36rem;
+}
+a {
     text-decoration: none;
-    background: 0 0;
-    color: inherit;
 }
 
 </style>
@@ -25,10 +26,12 @@
 
 <template class="showTemplate">
     <commontag uid="uid" v-bind:params="data" inline-template>
-        <div class="jyb-jybsuctionbtn-show2" >
+        <div>
             <template v-if="true">
-                <a v-bind:data-stat-id="params.eventid || ''" v-bind:style="{color:params.fontcolor , backgroundColor:params.backgroundcolor}" v-bind:href="params.tourl" class="mod-link f-28">{{params.btndes}}&gt;</a>
-            </template>
+                <a v-bind:data-stat-id="params.eventid || ''" v-bind:href="params.tourl"  class="mod-fixed-button f-36 ui-ta-c">
+                    {{params.btndes}}&gt;&gt;
+                </a>
+            </template> 
         </div>
     </commontag>
 </template>

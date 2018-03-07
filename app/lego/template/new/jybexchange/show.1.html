@@ -268,12 +268,10 @@ p{
                                         <img :src="item.awardImg" alt="" width="40.6%" v-else>
                                     </p>  
                                     <p class="color-999 f-20">{{item.exchangeDes}}</p> 
-                                    <p class="ui-mt-10 prd-status2" :type="params.actType" :flag="index+1" v-if="item.awardFlag == 2 && data.exchangeFlag != true">立即兑换</p>
-                                    <p class="ui-mt-10 prd-status1" :type="params.actType" :flag="index+1"  v-on:click="toexchange($event)" v-if="item.awardFlag == 2 && data.exchangeFlag == true">立即兑换</p>
-                                    <p class="ui-mt-10 prd-status2" :type="params.actType" :flag="index+1" v-if="item.awardFlag == 1">已兑换</p>    
-                                    <p class="ui-mt-10 prd-status2" :type="params.actType" :flag="index+1" v-if="item.awardFlag == 0">未满额</p>
-                                    
-                                     
+                                    <p class="ui-mt-10 prd-status2" :awardindex="index" :type="params.actType" :flag="index+1" v-if="item.awardFlag == 2 && data.exchangeFlag != true">立即兑换</p>
+                                    <p class="ui-mt-10 prd-status1" :awardindex="index" :data-stat-id="item.eventid || ''" :type="params.actType" :flag="index+1"  v-on:click="toexchange($event)" v-if="item.awardFlag == 2 && data.exchangeFlag == true">立即兑换</p>
+                                    <p class="ui-mt-10 prd-status2" :awardindex="index" :type="params.actType" :flag="index+1" v-if="item.awardFlag == 1">已兑换</p>    
+                                    <p class="ui-mt-10 prd-status2" :awardindex="index" :type="params.actType" :flag="index+1" v-if="item.awardFlag == 0">未满额</p>
                                 </div>   
                                
                             </div> 

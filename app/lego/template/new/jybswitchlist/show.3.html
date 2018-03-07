@@ -51,7 +51,7 @@
         <div class="lego-jybswitchlist-show3" >
             <div class="tab-nav f-28 ui-ta-c" v-bind:style="{paddingLeft:params.LRPadding+'rem',paddingRight:params.LRPadding+'rem'}">
                 <template v-if="true"  v-for="(item,index) in params.tabs">
-                    <div v-if="index == data.tabIndex" @click="toggleTabs(index)" v-bind:style="{width:(100/params.tabs.length)+'%' ,
+                    <div v-if="index == data.tabIndex" :data-stat-id="item.eventid || ''" @click="toggleTabs(index)" v-bind:style="{width:(100/params.tabs.length)+'%' ,
                      color:params.selectedcontentColor,
                      borderBottom:'1px solid '+ params.selectedbgcolor,
                      backgroundColor:params.selectedbgcolor}" 
@@ -60,7 +60,7 @@
                         {{item.tabTitle}}
                     </div>
 
-                    <div v-else @click="toggleTabs(index)" v-bind:style="{width:(100/params.tabs.length)+'%' , 
+                    <div v-else @click="toggleTabs(index)" :data-stat-id="item.eventid || ''" v-bind:style="{width:(100/params.tabs.length)+'%' , 
                     color:params.contentColor,
                     borderBottom:'1px solid '+ params.selectedbgcolor,
                     backgroundColor:params.bgcolor}"

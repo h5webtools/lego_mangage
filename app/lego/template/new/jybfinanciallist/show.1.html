@@ -161,7 +161,7 @@
                 <div class="content-box product" v-bind:style="{backgroundColor:params.bgcolor , width:params.conwidth+'rem',marginTop:params.toppadding+'rem',marginBottom:params.downpadding+'rem'}">
                     <div class="title">{{params.prddes}}</div>
                     <div class="mod-prd-list" id="productlist">
-                        <a :href="item.buyurl" class="box-wrap prd-item" v-for="(item , index) in params.finaItem" v-if="index < 2">
+                        <a :href="item.buyurl" v-bind:data-stat-id="params.eventid || ''" class="box-wrap prd-item" v-for="(item , index) in params.finaItem" v-if="index < 2">
                             <div class="prd-info">
                                 <p class="f-32 ui-pt-30 ui-pb-16 common-text-color ui-text-strong">{{item.topDes}}</p>
                                 <div class="declare-bg  f-32">

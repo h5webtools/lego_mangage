@@ -102,9 +102,9 @@
                         <p class="ui-mt-75 f-34 color-content" id="coupon_title">{{item.topDes}}</p>
                         <p class="ui-mt-50 f-62" style="color: #e7471a;">￥<span class="f-130 ui-text-strong coupon_reward">{{item.des1}}</span></p>
                         <p class="ui-mt-50 f-26 color-content">{{item.des2}}</p>
-                        <a class="mod-btn-coupon" :href="item.buyurl" id="btn_coupon"></a>
+                        <a v-bind:data-stat-id="params.eventid || ''" class="mod-btn-coupon" :href="item.buyurl" id="btn_coupon"></a>
                     </div>
-                    <a class="ui-fl-r ui-mr-50 ui-mt-30 f-24 color-content" href="jtjr://coupon">我的红包&gt;</a>
+                    <a  class="ui-fl-r ui-mr-50 ui-mt-30 f-24 color-content" href="jtjr://coupon">我的红包&gt;</a>
                 </div>
             </template>
         </div>

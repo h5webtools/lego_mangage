@@ -29,7 +29,7 @@
     <commontag uid="uid" v-bind:params="data" inline-template>
         <div class="jyb-jybsuctionbtn-show3"  v-bind:style="{width:params.outterwidth+'rem' , backgroundColor:params.outterbgcolor}">
             <template v-if="true">
-                <a v-bind:href="params.tourl" class="mod-link " v-bind:style="{color:params.fontcolor , background:params.backgroundcolor}">{{params.btndes}}</a>
+                <a v-bind:data-stat-id="params.eventid || ''" v-bind:href="params.tourl" class="mod-link " v-bind:style="{color:params.fontcolor , background:params.backgroundcolor}">{{params.btndes}}</a>
             </template>
         </div>
     </commontag>

@@ -121,20 +121,18 @@
     <commontag uid="commontag" v-bind:params="data" inline-template>
         <div class="lego-topactrule-show3">
             <template v-if="true">
-                <div class="mod-fixed-rule f-20" v-bind:style='{backgroundImage: "url("+params.imgurl+")",top:params.toprem+"rem",right:params.leftrem+"rem"}' v-on:click="showRulesDialog" >{{params.rulesTitle}}</div>
+                <div class="mod-fixed-rule f-20" v-bind:data-stat-id="params.eventid || ''"  v-bind:style='{backgroundImage: "url("+params.imgurl+")",top:params.toprem+"rem",right:params.leftrem+"rem"}' v-on:click="showRulesDialog" >{{params.rulesTitle}}</div>
                 <div id="dialog-wrapper" v-bind:class="{ dialogWrapper: params.isShowDialog }">
                     <div class="overlay"></div>
                     <div class="mod-dialog ui-mb-20">
                         <div class="dialog-content ui-ov-h">
                             <div class="mod-act-rule">
                                 <p class="ui-ta-c ui-text-strong ui-pb-10" style="font-size: .38rem;">{{params.rulesTitle}}</p>
-                                <div class="rule-content" v-if="params.rulesContentHtml">
+                                <div class="rule-content">
                                     <dl class="ui-mb-20" v-for="(item ,index) in params.rulesContent">
                                         <dt>{{index+1}}.{{item.rulesTitle}}</dt>
                                         <dd v-for="(items ,indexs) in params.fnObj.getRuleList(item.rulesDes)">{{items}}</dd>
                                     </dl>
-                                </div>
-                                <div class="rule-content" v-else="!params.rulesContentHtml" v-html="params.rulesContentHtml">
                                 </div>
                                 <div class="mod-btn ui-mt-20" v-bind:style='{background: params.rulesBgColor, color: params.rulesContentColor}' v-on:click="hideRulesDialog">确定</div>
                             </div>

@@ -1,0 +1,138 @@
+<div class="editBox">
+  <div class="editBox_2">
+    <h3>{{obj.componentName}} {{obj.uid}}</h3>
+    <p>
+      热区组件
+    </p>
+
+    <ul class="tab_hd">
+      <li v-bind:class="{ 'on': showStyle }" v-on:click="show(0)">
+        <a href="javascript:;" title="设置样式">设置样式</a>
+      </li>
+      <li v-bind:class="{ 'on': showProperty }" v-on:click="show(1)">
+        <a href="javascript:;" title="设置数据">设置数据</a>
+      </li>
+    </ul>
+
+    <div v-show="showStyle" class="styleBox">
+      <div class="editArea">
+        <form class="form-horizontal" v-for="item in obj.com_extend">
+          <div class="form-group" v-if="item.type == 'radio'">
+            <label>{{item.name}}：</label>
+            <div>
+              <label v-for="item2 in item.data">
+                <input type="radio" :name="obj.uid+'_'+item.nick" :value="item2.value" v-model="obj.data.extend[item.nick]"> {{item2.name}}</label>
+            </div>
+          </div>
+          <div class="form-group" v-if="item.type == 'input'">
+            <label style="float: left;padding-right:14px;">
+              <strong>*</strong>{{item.name}}：</label>
+            <input type="text" :class="item.class" :name="obj.uid+'_'+item.nick" v-model="obj.data.extend[item.nick]" :placeholder="item.placeholder"
+              flag="extendtime" :nick="item.nick">
+          </div>
+        </form>
+      </div>
+      <br>
+      <br>
+      <dl>
+        <dt>样式</dt>
+        <dd>
+          <ul>
+            <li v-for="item in arrStyle" v-if="item.priority != 10000">
+              <div style="display:none;">
+                {{item.com_desc}}
+                <input type="radio" :name="obj.uid" :id="obj.uid+'_'+item.id" :value="item.id" v-model="obj.data.styleKey">
+                <br/>
+              </div>
+              <label :class="item.id == obj.data.styleKey ? 'on' : ''" :for="obj.uid+'_'+item.id">
+                <img :src="item.image" alt="">
+              </label>
+              <div class="styleDesc">
+                {{item.com_desc}}
+              </div>
+            </li>
+          </ul>
+        </dd>
+      </dl>
+    </div>
+
+    <div v-show="showProperty" class="editArea">
+      <form class="form-horizontal" v-if="obj.data.isShowNpmVersions == 9">
+        <div class="coupon-group">
+          <div class="form-group">
+            <label>
+              <strong></strong>版本号：</label>
+            <select name="action" @change="selectNpmVersion" v-model="obj.data.npmversion">
+              <option :value="item.version" v-for="item in obj.data.npmversionArr">{{item.desc}}</option>
+            </select>
+          </div>
+        </div>
+      </form>
+      <form class="form-horizontal">
+        <div class="coupon-group">
+          <div class="form-group">
+            <label>
+              <strong>*</strong>图片地址：</label>
+            <input type="text" name="" v-model.lazy="obj.data.imgUrl" placeholder="请手动填写图片地址">
+            <div class="fileupload" style="display:none">
+            </div>
+          </div>
+        </div>
+      </form>
+      <!-- 文案描述 -->
+      <br>
+      <br>
+      <br>
+      <strong style="font-size:16px;">设置热区</strong>
+      <br>
+      <br>
+      <br>
+      <form class="form-horizontal">
+        <div class="coupon-group" v-for="(item,index) in obj.data.imageMap" @click="addHighlight(index)" :class="index == obj.data.tabIndex ? 'coupon-group-on' : '' "
+          style="overflow:hidden;">
+          <h4>热区{{index + 1}}</h4>
+          <button type="button" class="jc-btn btn-primary delBtn" @click="deleteImageMap(index)">删除</button>
+          <select class="mod-group-select" v-model="item.selected">
+            <option disabled value="">请选择热区方式：</option>
+            <option value="link">链接</option>
+            <option value="coupon">红包</option>
+          </select>
+          <div style="margin-top:30px" v-show="item.selected == 'link'">
+            <div class="form-group">
+              <label>
+                <strong>*</strong>填写链接：</label>
+              <input type="text" v-model="item.imageMapLink" size="40">
+            </div>
+            <div class="form-group">
+              <label>
+                <strong>*</strong>上报ID：</label>
+              <input type="text" v-model="item.eventid" size="40">
+            </div>
+          </div>
+          <div style="margin-top:30px" v-show="item.selected == 'coupon'">
+            <div class="form-group">
+              <label>
+                <strong>*</strong>活动号：</label>
+              <input type="text" v-model="item.couponActId" size="40" placeholder="请输入活动号">
+            </div>
+            <div class="form-group">
+              <label>
+                <strong>*</strong>命令字：</label>
+              <input type="text" v-model="item.couponCmd" size="40" placeholder="请输入命令字">
+            </div>
+            <div class="form-group">
+              <label>
+                <strong>*</strong>奖品描述：</label>
+              <input type="text" v-model="item.couponDesc" size="40" placeholder="请输入命令字">
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="text-right">
+        <button type="button" class="jc-btn btn-primary" @click="addImageMap()">添加热区</button>
+      </div>
+
+    </div>
+
+  </div>
+</div>

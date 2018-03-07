@@ -31,6 +31,7 @@ define(function (require, exports, module) {
         "pdbtm": "",
         "pdlr": ""
       },
+      "eventid":"",
       "gridsOuter": {
         "cornerImg": "",
         "outerbgcolor": "",

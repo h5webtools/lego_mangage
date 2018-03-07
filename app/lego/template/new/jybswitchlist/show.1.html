@@ -327,7 +327,7 @@
                 <div class="o2_column_nav_wp">
                     <div :class="{ 'o2_column_nav': true }">
                         <template v-if="true">
-                            <a href="javascript:;" :ptag="item.ptag" @click="toggleTabs(index)" v-for="(item,index) in params.tabs" :tab="index" :class="index == data.tabIndex ? 'o2_on' : '' "
+                            <a href="javascript:;" :data-stat-id="item.eventid || ''" @click="toggleTabs(index)" v-for="(item,index) in params.tabs" :tab="index" :class="index == data.tabIndex ? 'o2_on' : '' "
                                 :title="item.tabTitle">{{item.tabTitle}}</a>
                         </template>
                     </div>

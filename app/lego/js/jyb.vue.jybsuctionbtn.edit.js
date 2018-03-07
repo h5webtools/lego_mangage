@@ -20,8 +20,8 @@ define(function (require, exports, module) {
       "backgroundcolor": "",
       "fontcolor": '',
       "outterbgcolor": "",
-      "outterwidth": ""
-
+      "outterwidth": "",
+      "eventid":""
     },
     watch: ['data.styleKey', "data.btndes", "data.tourl", "data.backgroundcolor", "data.fontcolor"]
   });

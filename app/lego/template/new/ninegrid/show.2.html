@@ -92,11 +92,11 @@
     display: inline-block;
     line-height: .61rem;
 }
-.lego-ninegrid-show2 .f-34 {
-    font-size: .34rem;
+.lego-ninegrid-show2 .f-30 {
+    font-size: .3rem;
 }
-.lego-ninegrid-show2 .f-24 {
-    font-size: .24rem;
+.lego-ninegrid-show2 .f-22 {
+    font-size: .22rem;
 }
 .lego-ninegrid-show2 .ui-mt-5 {
     margin-top: .05rem;
@@ -189,12 +189,12 @@
                                             <li class="reward-item" :index="item.flag" v-bind:desc="item.desfour"  v-if="index!=4">
                                                 <div class="reward-inner">
                                                     <div class="coupon-icon" v-bind:style="{backgroundImage: 'url('+ item.gridbackimg +')',color:item.updescolor}">
-                                                        <span class="f-34">{{item.desone}}</span><span class="f-24">{{item.destwo}}</span>
+                                                        <span class="f-30">{{item.desone}}</span><span class="f-22">{{item.destwo}}</span>
                                                     </div>
-                                                    <p class="f-24 ui-mt-5" v-bind:style="{color:item.downdescolor}">{{item.desthree}}</p>
+                                                    <p class="f-22 ui-mt-5" v-bind:style="{color:item.downdescolor}">{{item.desthree}}</p>
                                                 </div>
                                             </li>
-                                            <li class="reward-item reward-item--touch" v-on:click="gridcommit" v-if="index==4">
+                                            <li class="reward-item reward-item--touch" v-bind:data-stat-id="params.eventid || ''" v-on:click="gridcommit" v-if="index==4">
                                                     <div class="reward-inner"> {{item.desone}}</div>
                                             </li>
                                         </template>

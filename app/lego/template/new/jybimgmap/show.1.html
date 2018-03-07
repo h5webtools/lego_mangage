@@ -1,0 +1,115 @@
+<style>
+    .map_position .map_position_bg {
+        background-color: #000;
+        filter: alpha(opacity=50);
+        opacity: 0.5;
+        width: 100%;
+        height: 100%;
+    }
+
+    .map_selected_position .map_position_bg {
+        background-color: #fff;
+    }
+
+    .position_container {
+        position: absolute;
+    }
+
+    .map_position {
+        border: 1px solid #2c2c2c;
+        position: absolute;
+        cursor: move;
+        z-index: 1;
+    }
+
+    .map_selected_position {
+        border: 1px solid #868686;
+        z-index: 2;
+    }
+
+    .map_position .link_number_text {
+        color: #fff;
+        position: absolute;
+        top: -16px;
+        left: -1px;
+        background-color: #FE6700;
+        border: 1px solid #FE6700;
+        padding: 0 2px;
+    }
+
+    .map-selected-position .link-number-text {
+        background-color: #c00;
+        border: 1px solid #c00;
+    }
+
+    .map_position .resize {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 5px;
+        height: 5px;
+        border: 1px solid #BABABD;
+        background: #464646;
+        filter: alpha(opacity=90);
+        opacity: 0.9;
+        cursor: nw-resize;
+    }
+
+    .map_position .delete {
+        width: 13px;
+        height: 13px;
+        font-size: 20px;
+        line-height: 10px;
+        text-align: center;
+        color: #fff;
+        background: #999;
+        position: absolute;
+        top: 0;
+        right: 0;
+        cursor: pointer;
+    }
+
+    .map_position_save {
+        border: none;
+    }
+
+    .hot_area {
+        position: relative;
+        font-size: 0px;
+    }
+</style>
+
+<template class="showTemplate">
+    <jybimgmap uid="jybimgmap" v-bind:params="data" inline-template>
+        <div class="hot_area">
+            <template v-if="true">
+                <div class="" name="imageMap" id="image_map">
+                    <img :src="params.imgUrl" ref="imageMap" id="photo" width="100%" draggable="false" />
+                    <a class="map_position" target="blank" v-for="(item , index) in params.imageMap" @click="addHighlight(index)" :class="index == params.tabIndex ? 'map_selected_position' : '' "
+                        :href="item.imageMapLink" v-bind:data-stat-id="item.eventid || ''" v-bind:style="{left: item.left + '%',top: item.top + '%',width: item.width + '%',height: item.height + '%',}">
+                        <div class="map_position_bg" v-swipe="{fn:moveEvent,index:index}" draggable="true"></div>
+                        <span class="link_number_text"> {{index + 1}}</span>
+                        <span class="delete" @click="deleteImageMap(index)">×</span>
+                        <span class="resize" v-resize="{fn:resizeEvent,index:index}" draggable="true"></span>
+                    </a>
+                </div>
+            </template>
+        </div>
+    </jybimgmap>
+</template>
+<!-- 下面的属性控制编辑界面 -->
+<script class="forMPMExt">
+    var com_ext = {}
+
+</script>
+<!-- 下面的属性控制编辑界面 -->
+<script class="forMPMExtend">
+    var com_extend = []
+
+</script>
+
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {};
+
+</script>

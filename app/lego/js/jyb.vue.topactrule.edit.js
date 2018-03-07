@@ -30,6 +30,7 @@ define(function (require, exports, module) {
       "rulesContentHtml":"",
       "rulesBgColor": "",
       "rulesContentColor": "",
+      "eventid":"",
       "npmversion": "",
       "npmversionArr": [],
       "npmname": "@lego/commontag"

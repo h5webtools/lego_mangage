@@ -77,7 +77,7 @@
                     <div class="mod-prd-wrap" v-bind:style="{backgroundColor:params.bgcolor , width:params.conwidth+'rem',marginTop:params.toppadding+'rem',marginBottom:params.downpadding+'rem'}">
                         <div class="prd-content ui-ta-c prd-radius">
                             <div class="ui-ta-c color-7d87aa f-22">
-                                <a v-bind:href="item.buyurl" class="prd-box ui-mt-35" v-for="(item , index) in params.finaItem">
+                                <a  v-bind:data-stat-id="params.eventid || ''" v-bind:href="item.buyurl" class="prd-box ui-mt-35" v-for="(item , index) in params.finaItem">
                                     <p class="ui-pt-50 ui-ta-c"><img :src="item.des3" alt="" width="70%"></p>
                                     <p class="f-22 ui-mt-35">{{item.topDes}}</p>
                                     <p>{{item.des1}}</p>
