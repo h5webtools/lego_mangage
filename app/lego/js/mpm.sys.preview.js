@@ -23,7 +23,7 @@ define(function (require, exports, module) {
     var folderSet = moduleBasicInfo.showMePageInfo();
     var _oldPagePath = folderSet.oldPageMenu,
       _fileName = "index.html",
-      _path = folderSet.path.split("/")[5];
+      _path = folderSet.path;
     try {
       if (_oldPagePath) {
         var pathArr = _oldPagePath.split("/"),
