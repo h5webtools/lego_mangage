@@ -155,13 +155,14 @@
         'vuefe': 'vuefe'
 
       },
-      // map:[
-      // 	['.js','.js?v=20171029']//映射规则
-      // ]
+      map: [
+        [ /(.*?)jyb.vue(.*?)(\.js)$/i,"$1jyb.vue$2.js?v="+"20180307" ],
+        [ /(.*?)mpm.sys(.*?)(\.js)$/i,"$1mpm.sys$2.js?v="+"20180307" ]
+  	  ]
     });
   </script>
   <script type="text/javascript">
-    seajs.use('/public/js/main.home.js?v=20171029', function(m) {
+    seajs.use('/public/js/main.home.js?v=20180307', function(m) {
       m.main()
     });
   </script>
