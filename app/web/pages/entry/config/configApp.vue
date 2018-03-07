@@ -28,7 +28,7 @@
                 <el-row :gutter="20" @click="selectConfig(0 , index)" v-bind:class="[item.configArr.current_entrance.selectedstatus == 1 ? 'mod-actrule  mod-actrule--selected' : 'mod-actrule']"> 
                   <h4 @click="selectConfig(0 , index)" class="textleft actconfig__title">当前活动</h4>
                   <div class="mod-delete-act">
-                    <el-button type="primary"  class="mt-lt-16" @click="takeOffCurAct">下架当前活动</el-button>
+                    <el-button type="primary"  class="mt-lt-16" @click="takeOffCurAct" v-if="isOperatorAdmin">下架当前活动</el-button>
                   </div>
                   <el-col :span="16" > 
                     <configForm :parentData="{config:item.configArr.current_entrance , configType:configType}" :editData="{config:item.configArr.current_entrance, configType:configType}"></configForm>
@@ -67,7 +67,7 @@
                     <el-button type="primary"  class="mt-lt-16" @click="saveCurAct(2 , '' )" v-if="isOperatorAdmin">保存</el-button>
                   </div>
                   <el-col :span="16" >
-                    <configForm :parentData="{config:item.configArr.default_activity , configType:configType}" :editData="{config:item.configArr.default_activity , configType:configType}"></configForm>
+                    <configForm :parentData="{config:item.configArr.default_activity , configType:configType ,actType:2}" :editData="{config:item.configArr.default_activity , configType:configType ,actType:2}"></configForm>
                   </el-col>
                   <el-col :span="8" class="el-col-border" v-if="item.configArr.default_activity.appIndexData">
                     <appIndex style="transform:scale(0.9, 0.9)" :parentData="{data:item.configArr.default_activity.appIndexData , flag:1,configindex:configIndex,configtype:configType,config:item.configArr.default_activity}" 
@@ -356,6 +356,10 @@ export default {
           submitData = this.curActList.default_activity;
         }
         if(!submitData.mta_id || !submitData.begin_at || !submitData.end_at || !submitData.act_id || !submitData.act_url || !submitData.pic_url){
+          this.$message({
+            type: 'error',
+            message: '活动信息填写不完整'
+          }); 
           return;
         }
         
@@ -366,7 +370,7 @@ export default {
           }); 
           return;     
         } 
-        if(!this.timeValidCheck(submitData.begin_at , submitData.end_at , submitData.effect_time,submitData.expire_time)){
+        if(plan_type == 1 && !this.timeValidCheck(submitData.begin_at , submitData.end_at , submitData.effect_time,submitData.expire_time)){
           this.$message({
             type: 'error',
             message: '投放时间不在活动有效时间段之内'
