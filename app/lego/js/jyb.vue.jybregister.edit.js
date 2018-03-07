@@ -48,7 +48,9 @@ define(function (require, exports, module) {
       "npmversion": "",
       "npmversionArr": [],
       "npmname": "@lego/jybregister",
-      "jumptypeval": 0 //跳转类型：0弹框 1：归属地 2：红包结果页面
+      "jumptypeval": 0 ,//跳转类型：0弹框 1：归属地 2：红包结果页面
+      "tplid": "", //模板ID 
+      'comTplId': '5',//组件ID
     },
     watch: ['data.checoutkurl', 'data.inputarr', 'data.styleKey', "data.buttoncolor", "data.backgroundcolor", "data.bordercolor",
       "data.innerInsetcolor", "data.btntextcolor", "data.btndowninsetcolor", "data.inputnamecolor", "data.buttondes", "data.identycodecolor"]
@@ -85,7 +87,7 @@ define(function (require, exports, module) {
     });
     /* npm管理 */
 
-    moduleDataCenter.getTplList('5', function (json) {
+    moduleDataCenter.getTplList( that.obj.data.comTplId || '5', function (json) {
       if (json.code == 0) {
         that.obj.data.tplList = json.data.data;
       }
@@ -223,8 +225,9 @@ define(function (require, exports, module) {
             var json = JSON.parse(e.data);
             if (json[key]) {
               var cmds = JSON.parse(json[key]);
-                // me.obj.data.gridcmd = cmds[0];
-                // me.obj.data.gridactid = _act_id;
+                me.obj.data.cmdid = cmds[0];
+                cmds.length > 1 ? (me.obj.data.areacmdid = cmds[1]) : '';
+                me.obj.data.activeid = _act_id;
             }
           }, true);
         }

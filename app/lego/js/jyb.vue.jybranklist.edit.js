@@ -36,6 +36,11 @@ define(function (require, exports, module) {
       "npmversion": "",
       "npmversionArr": [],
       "npmname": "@lego/jybranklist",
+      "comTplId": "4",
+      "tplid": "", //模板ID 
+      "rankcmd":'',
+      'rankactid':''
+
     },
     watch: ['data.styleKey', "data.rankpadding", "data.headbgcolor", "data.headwordColor", "data.contentbgcolor",
       "data.contentwordColor", "data.footbgcolor", "data.footwordColor", "data.tableContentArr", "data.borderradiusval",
@@ -71,7 +76,7 @@ define(function (require, exports, module) {
       }
     });
 
-    moduleDataCenter.getTplList('4', function (json) {
+    moduleDataCenter.getTplList(that.obj.data.comTplId || '4', function (json) {
       if (json.code == 0) {
         that.obj.data.tplList = json.data.data;
       }
@@ -214,8 +219,8 @@ define(function (require, exports, module) {
             var json = JSON.parse(e.data);
             if (json[key]) {
               var cmds = JSON.parse(json[key]);
-                // me.obj.data.gridcmd = cmds[0];
-                // me.obj.data.gridactid = _act_id;
+                me.obj.data.rankcmd = cmds[0];
+                me.obj.data.rankactid = _act_id;
             }
           }, true);
         }

@@ -37,6 +37,8 @@ define(function (require, exports, module) {
       "npmversion": "",
       "npmversionArr": [],
       "npmname": "@lego/jybexchange",
+      "tplid": '', //模板ID 
+      'comTplId': '3',//组件ID
     },
     watch: ['data.styleKey', 'data.bgcolor', 'data.exchangeItem', 'data.TopPadding', 'data.DownPadding', "data.cmd",
       "data.actId", "data.actType"]
@@ -70,7 +72,7 @@ define(function (require, exports, module) {
       }
     });
 
-    moduleDataCenter.getTplList('3', function (json) {
+    moduleDataCenter.getTplList( that.obj.data.comTplId || '3', function (json) { // 由组件ID获取对应组件的所有模板
       if (json.code == 0) {
         that.obj.data.tplList = json.data.data;
       }
@@ -230,8 +232,9 @@ define(function (require, exports, module) {
             var json = JSON.parse(e.data);
             if (json[key]) {
               var cmds = JSON.parse(json[key]);
-                me.obj.data.gridcmd = cmds[0];
-                me.obj.data.gridactid = _act_id;
+                me.obj.data.cmd = cmds[0];
+                cmds.length > 1 ? (me.obj.data.exchangecmd = cmds[1]) : (me.obj.data.exchangecmd = cmds[0]);
+                me.obj.data.actId = _act_id;
             }
           }, true);
         }
