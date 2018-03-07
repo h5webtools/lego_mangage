@@ -261,7 +261,7 @@ export default {
       }else if(envType == 1 && (productRegExp.test(url) || appRegExp.test(url))){
         return true;
       }else{
-        return false;
+        return true;
       }
     },
     timeValidCheck(beginTime , endTime , effect_time , expire_time) {////检测时间
@@ -332,7 +332,7 @@ export default {
           }else{
             this.$message({
               type: 'error',
-              message: '下架失败'
+              message: jsonData.msg
             });
           }
         });
@@ -375,6 +375,8 @@ export default {
         }
         submitData.plan_type = 2;
         submitData.group_id = [this.activeUserGroupId];
+        submitData.entrance_type = this.configType;
+        submitData.location = this.configIndex;
         delete submitData.appIndexData;
         actQuery.postEntrancePlan(submitData).then(jsonData => {
           if (jsonData.code == 0) {

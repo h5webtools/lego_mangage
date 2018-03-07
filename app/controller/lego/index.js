@@ -1116,7 +1116,7 @@ class LegoController extends Controller {
       commit_id: commitId,
       pre_commit_id: preCommitId,
       branch: this.config.legoConfig.branchName,
-      user_id: 63,
+      email: this.ctx.session.userEmail,
       file_transmission_mode: 2,
       file_list: ["release/act/" + rawBody.datefolder + "/" + rawBody.folder]
     };
