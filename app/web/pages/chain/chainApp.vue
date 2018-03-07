@@ -47,7 +47,7 @@
           </el-select>
         </el-tab-pane>
         <el-tab-pane :disabled="dialogData.lock" label="动作" name="action">
-          <el-select style="width:100%" v-model="dialogData.chainName" filterable :disabled="dialogData.lock" placeholder="请选择动作">
+          <el-select style="width:100%" @change="ruleActionChange" v-model="dialogData.chainName" filterable :disabled="dialogData.lock" placeholder="请选择动作">
             <el-option v-for="(value, action) in ruleActionList.actions" v-if="action" :key="action" :label="value.name + '（'+ action +'）'" :value="action">
             </el-option>
           </el-select>
@@ -298,13 +298,15 @@ export default {
         };
         let ret = [obj];
         if (json[0].params[0].subAction.length > 0) {
-          ret.push(getSubAction(json[0].params[0].subAction)[0]);
+          ret = ret.concat(getSubAction(json[0].params[0].subAction));
         }
         return ret;
       }
 
       function convertData(json, pushData) {
+        // 一个节点可能拥有多个参数
         json.params.forEach(param => {
+          // 一条路径的最后一个节点一定是动作
           if (json.nodeType == 'action') {
             pushData.actionChain.push({
               key: param.chainName || json.chainName,
@@ -312,9 +314,11 @@ export default {
               is: '',
               params: param.param
             });
+            // 到最后一个节点时，动作和规则的长度都是0
             if (pushData.actionChain.length == 0 && pushData.ruleChain.length == 0) {
               ruleActionChain.push(pushData);
             } else {
+              // 遍历子动作
               if (param.subAction.length > 0) {
                 pushData.actionChain = pushData.actionChain.concat(getSubAction(param.subAction));
               }

@@ -378,7 +378,7 @@ export default {
         };
         let ret = [obj];
         if (json[0].params[0].subAction.length > 0) {
-          ret.push(getSubAction(json[0].params[0].subAction)[0]);
+          ret = ret.concat(getSubAction(json[0].params[0].subAction));
         }
         return ret;
       }
