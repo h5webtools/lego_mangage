@@ -377,7 +377,6 @@ export default {
           }); 
           return;     
         }
-        submitData.plan_type = 2;
         submitData.group_id = [this.activeUserGroupId];
         submitData.entrance_type = this.configType;
         submitData.location = this.configIndex;
@@ -442,6 +441,7 @@ export default {
             }); 
             return;     
           }
+          this.addSubActForm.plan_type = 1;
           this.addSubActForm.location = this.configIndex;
           this.addSubActForm.entrance_type = this.configType;
           this.addSubActForm.group_id = this.addSubActForm.checkedUserGroups;
@@ -518,7 +518,7 @@ export default {
       }
     },
     addNewSubAct() {
-      this.initNewSubAct();
+      //this.initNewSubAct();
       this.dialogAddSubActVisible = true;
     },
     checkSubActs() {
