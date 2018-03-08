@@ -355,10 +355,18 @@ export default {
         }else if(plan_type == 2){//默认活动
           submitData = this.curActList.default_activity;
         }
-        if(!submitData.mta_id || !submitData.begin_at || !submitData.end_at || !submitData.act_id || !submitData.act_url || !submitData.pic_url){
+        if(!submitData.mta_id || !submitData.act_id || !submitData.act_url || !submitData.pic_url){
           this.$message({
             type: 'error',
             message: '活动信息填写不完整'
+          }); 
+          return;
+        }
+
+        if(plan_type == 1 && (!submitData.begin_at || !submitData.end_at)){
+          this.$message({
+            type: 'error',
+            message: '投放时间填写不完整'
           }); 
           return;
         }
@@ -518,7 +526,9 @@ export default {
       }
     },
     addNewSubAct() {
-      //this.initNewSubAct();
+      if(this.addSubActForm.plan_type){
+        this.initNewSubAct();
+      }
       this.dialogAddSubActVisible = true;
     },
     checkSubActs() {
