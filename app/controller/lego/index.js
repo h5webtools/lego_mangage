@@ -1055,7 +1055,7 @@ class LegoController extends Controller {
    * @param {*} actName   活动名
    */
   async _submitGit(monthDir, folder, actName) {
-    let name = this.ctx.session.userName,
+    let name = this.ctx.session.userName || 'system-async',
         targetDir = `${this.config.legoConfig.path}/${monthDir}/${folder}`;
     return new Promise((resolve, reject) => {
       simpleGit(this.config.legoConfig.path + '/' + monthDir).add([folder], (err, res) => {
