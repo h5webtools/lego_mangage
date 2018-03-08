@@ -772,10 +772,8 @@ export default {
           }); 
           return;
       }
-      //debugger;
       const cmdConfig = {};
       let defaultCmd = '';
-      //debugger;
       // 循环命令字对象
       for (let cmd in this.chainConfig) {
         let cmdItem = this.chainConfig[cmd].chains,

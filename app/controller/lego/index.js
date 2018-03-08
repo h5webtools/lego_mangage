@@ -305,7 +305,7 @@ class LegoController extends Controller {
     // 按时间范围筛选
     if(createRange && createRange.length > 1) {
       createStartTime = createRange[0] + ' 00:00:00';
-      createEndTime = createRange[0] + ' 23:59:59';
+      createEndTime = createRange[1] + ' 23:59:59';
     }
     let queryCondition = {
       pageSize,

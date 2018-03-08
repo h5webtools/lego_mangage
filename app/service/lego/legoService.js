@@ -29,7 +29,7 @@ class LegoService extends Service {
       where.push(`page_author='${condition.pageOwner}'`);
     }
     if (condition.pageName) {
-      where.push(`page_name like '%${condition.pageOwner}%'`);
+      where.push(`page_name like '%${condition.pageName}%'`);
     }
     if (condition.pageActId) {
       where.push(`page_act_id='${condition.pageActId}'`);
