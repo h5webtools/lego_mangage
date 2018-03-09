@@ -19,47 +19,14 @@
           </el-button>
         </el-form-item>
       </el-form>
-      <!--
-      <el-form :inline="true" label-width="90px">
-        <el-form-item label="到期时间：">
-          <el-date-picker
-            v-model="queryData.expire_time"
-            type="datetime"
-            value-format="yyyy-MM-dd HH:mm:ss"
-            placeholder="活动到期时间">
-          </el-date-picker>
-        </el-form-item>
-        <el-form-item label="创建时间：">
-          <el-date-picker
-            v-model="queryData.create_time"
-            type="datetime"
-            value-format="yyyy-MM-dd HH:mm:ss"
-            placeholder="活动创建时间">
-          </el-date-picker>
-        </el-form-item>
-        <el-form-item label="结束时间：">
-          <el-date-picker
-            v-model="queryData.end_time"
-            type="datetime"
-            value-format="yyyy-MM-dd HH:mm:ss"
-            placeholder="活动结束时间">
-          </el-date-picker>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="queryFilterList(true)">查询</el-button>
-          <el-button type="success">
-            <router-link :to="{name: 'newAct'}"><i class="glyphicon glyphicon-plus"></i>新增活动</router-link>
-          </el-button>
-        </el-form-item>
-      </el-form>
-      -->
+
       <el-table :data="tableData" v-loading="listLoading" stripe border highlight-current-row @expand-change="getOpsLogs">
         <el-table-column type="expand">
           <template slot-scope="props">
-            <el-button type="primary">
-              <router-link :to="{name:'chainEdit', params: {act_id:props.row.act_id, status:props.row.status, is_draft:'1'}}">副本模板 <i class="el-icon-arrow-right"></i></router-link>
+            <el-button type="primary" v-if="props.row.is_lego == 0 || (props.row.is_lego == 1 && isAdmin)">
+              <router-link :to="{name:'chainEdit', params: {act_id:props.row.act_id, status:props.row.status, is_draft:'1'}}">副本模板<i class="el-icon-arrow-right"></i></router-link>
             </el-button> 
-            <el-button type="primary">
+            <el-button type="primary" v-if="props.row.is_lego == 0 || (props.row.is_lego == 1 && isAdmin)">
               <router-link :to="{name:'chainEdit', params: {act_id:props.row.act_id, status:props.row.status, is_draft:'0'}}">正式模板 <i class="el-icon-arrow-right"></i></router-link>
             </el-button>
             <p style="font-size: 16px;" class="ui-mt-20 ui-ta-c">更多活动配置信息</p>
@@ -123,7 +90,7 @@
                 <el-dropdown-item>
                   <router-link :to="{name:'actEdit', params: {act_id:props.row.act_id, status:props.row.status}}">编辑活动</router-link>
                 </el-dropdown-item>
-                <el-dropdown-item divided>
+                <el-dropdown-item divided v-if="props.row.is_lego == 0 || (props.row.is_lego == 1 && isAdmin)">
                   <router-link :to="{name:'chainEdit', params: {act_id:props.row.act_id, status:props.row.status,is_draft:1}}">规则配置</router-link>
                 </el-dropdown-item>
                 <el-dropdown-item v-if="deploy" divided>  
@@ -221,11 +188,11 @@ export default {
         5: '已发布',
         6: '测试未通过'
       },
-      isAdmin: window.userInfo.iaAdmin, //管理员
-      isTester: window.userInfo.isTester, //测试
-      isOperator: window.userInfo.isOperator, // 运营
-      isDev: window.userInfo.isDev, // 开发
-      userIds: userInfo.userid ,  
+      isAdmin: '', //管理员
+      isTester: '', //测试
+      isOperator: '', // 运营
+      isDev: '', // 开发
+      userIds: '',  
       tableData: [],
       logData: {},//日志流水
       listLoading: true,
@@ -242,8 +209,16 @@ export default {
     if(!this.showSubRoute) {
       this.queryFilterList(true);
     }
+    this.initUserInfo();
   },
   methods: {
+    initUserInfo(){
+      this.isAdmin = window.userInfo.isAdmin; //管理员
+      this.isTester = window.userInfo.isTester;//测试
+      this.isOperator = window.userInfo.isOperator;// 运营
+      this.isDev = window.userInfo.isDev; // 开发
+      this.userIds = window.userInfo.userid;
+    },
     queryFilterList(refresh) {
       this.listLoading = true;
       listQuery.getActList(this.queryData).then((jsonData) => {
