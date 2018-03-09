@@ -2,7 +2,6 @@
   <div>
     <div class="martop20">
       <el-table :header-cell-style="{'color': '#333'}" :data="enterListData" v-loading="listLoading" stripe border highlight-current-row>
-        <el-table-column prop="act_title" label="页面标题" width="140"></el-table-column>
         <el-table-column prop="act_id" label="活动号" width="100"></el-table-column>
         <el-table-column prop="title" label="主标题" width="100"></el-table-column>
         <el-table-column prop="sub_title" label="副标题" width="100"></el-table-column>
@@ -50,8 +49,11 @@ export default {
         0:'icon'
       },
       actStatus:{
-        0:'待审核',
-        1:'审核通过'
+        1:'待审核',
+        2:'已上线',
+        3:'已下线',
+        4:'审核通过',
+        5:'审核拒绝'
       }
     };
   },

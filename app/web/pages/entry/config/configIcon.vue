@@ -150,10 +150,22 @@ export default {
           type: 'text', required: true, message: '请选择展示类型', trigger: 'change'
         }],
         begin_at: [
-          { type: 'date', required: true, message: '请填写投放日期', trigger: 'change' }
+          {
+            type: 'string',
+            required: true,
+            pattern: /\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}/,
+            message: '请填写投放日期',
+            trigger: 'change'
+          }
         ],
         end_at: [
-          { type: 'date', required: true, message: '请填写下线日期', trigger: 'change' }
+          {
+            type: 'string',
+            required: true,
+            pattern: /\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}/,
+            message: '请填写下线日期',
+            trigger: 'change'
+          }
         ],
         pic_url: [
           { type: 'text', required: true, message: '请填写图片地址', trigger: 'change' }

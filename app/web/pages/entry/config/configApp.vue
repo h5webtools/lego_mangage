@@ -22,7 +22,7 @@
             <config-icon></config-icon>
           </el-row>
 
-          <el-tabs v-model="activeUserGroupId" @tab-click="handleClick" v-if="configFlag && (configFlag == 'topbanner' || configFlag == 'oneaddtwo' || configFlag=='slider' || configFlag=='festivalbanner') ">
+          <el-tabs type="card" v-model="activeUserGroupId" @tab-click="handleClick" v-if="configFlag && (configFlag == 'topbanner' || configFlag == 'oneaddtwo' || configFlag=='slider' || configFlag=='festivalbanner') ">
             <el-tab-pane v-for="(item,index) in userGroups" :index="index" :label="item.name" :name="item.group_id" :key="item.group_id">
                 <!-- 当前活动 -->
                 <el-row :gutter="20" @click="selectConfig(0 , index)" v-bind:class="[item.configArr.current_entrance.selectedstatus == 1 ? 'mod-actrule  mod-actrule--selected' : 'mod-actrule']"> 
@@ -42,7 +42,7 @@
                 <!-- 当前活动 -->
                 <!-- 候补活动 -->
                 <template v-for="(waitingItem , watingIndex) in item.configArr.waiting_activity" >
-                  <el-row :key="waitingItem.act_id" @click="selectConfig(1,index,watingIndex)" :gutter="20" v-bind:class="[waitingItem.selectedstatus == 1 ? 'mod-actrule  mod-actrule--selected' : 'mod-actrule']">
+                  <el-row :key="waitingItem.act_id + watingIndex" @click="selectConfig(1,index,watingIndex)" :gutter="20" v-bind:class="[waitingItem.selectedstatus == 1 ? 'mod-actrule  mod-actrule--selected' : 'mod-actrule']">
                     <h4 @click="selectConfig(1,index,watingIndex)" class="textleft actconfig__title">后补活动{{watingIndex+1}}</h4>
                     <div class="mod-delete-act" >
                       <el-button type="primary"  class="mt-lt-16" @click="saveCurAct(1 , waitingItem.plan_id , watingIndex)">保存</el-button>
@@ -81,12 +81,16 @@
       </el-col>
     </el-row>
 
-    <el-dialog title="查看/编辑候补活动" :visible.sync="checkSubActsListVisible">
-      <el-table :data="subActsList">
-        <el-table-column prop="status" :formatter="filterActType" label="活动类别" width="150"></el-table-column>
-        <el-table-column prop="title" label="活动标题" width="200"></el-table-column>
-        <el-table-column prop="begin_at" label="生效时间"></el-table-column>
-        <el-table-column prop="actaction" label="操作">
+    <el-dialog title="查看/编辑候补活动" class="el-dialog__title el-dialog__title_weigth" :visible.sync="checkSubActsListVisible">
+      <el-table height="400" border style="width: 100%" :data="subActsList">
+        <el-table-column prop="title" label="活动标题" width="150"></el-table-column>
+        <el-table-column prop="begin_at" label="生效时间" width="150"></el-table-column>
+        <el-table-column prop="group_id" label="用户群">
+          <template slot-scope="scope">
+            <el-tag v-for="item in scope.row.group_id" :key="item" style="margin-left:5px;">{{filterUserGroupDesc(item)}}</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column prop="actaction" label="操作" width="70">
           <template slot-scope="scope">
             <el-button type="text" size="small" @click="editSpecifyAct(scope)">编辑</el-button>
           </template>
@@ -94,7 +98,7 @@
       </el-table>
     </el-dialog>
 
-    <el-dialog title="新增/编辑候补活动" class="el-dialog__title" :visible.sync="dialogAddSubActVisible">
+    <el-dialog title="新增/编辑候补活动" class="el-dialog__title el-dialog__title_weigth" :visible.sync="dialogAddSubActVisible">
       <el-form :model="addSubActForm" :SubActFormRules="SubActFormRules" ref="addSubActForm">  
         <el-form-item label="活动号：" :label-width="formLabelWidth">
           <el-input v-model="addSubActForm.act_id" auto-complete="off" style="width:70%"></el-input>
@@ -194,10 +198,22 @@ export default {
       },
       SubActFormRules: {
         begin_at: [
-          { type: 'date', required: true, message: '请选择投放开始时间', trigger: 'change' }
+          {
+            type: 'string',
+            required: true,
+            pattern: /\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}/,
+            message: '请填写投放日期',
+            trigger: 'change'
+          }
         ],
         end_at: [
-          { type: 'date', required: true, message: '请选择投放下线时间', trigger: 'change' }
+          {
+            type: 'string',
+            required: true,
+            pattern: /\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}/,
+            message: '请填写下线日期',
+            trigger: 'change'
+          }
         ],
         title: [
           { required: true, message: '请填写主标题', trigger: 'change' }
@@ -248,7 +264,16 @@ export default {
     this.queryUserGroupList();//用户群
   },
   methods: {
-    filterActType(row)  {
+    filterUserGroupDesc(row) {
+      var curGroupDesc = '';
+      this.userGroups.forEach(function(item){
+        if(item.group_id == row){
+          curGroupDesc = item.name;
+        }
+      });
+      return curGroupDesc;
+    },
+    filterActType(row) {
       return this.actType[row.status];
     },
     urlValidCheck(url) {//检测url
