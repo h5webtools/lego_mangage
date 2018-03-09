@@ -79,7 +79,7 @@ class LegoService extends Service {
                   tb_thumb,tb_group,DATE_FORMAT(create_date ,"%Y-%m-%d %H:%i:%s") as create_date,
                   DATE_FORMAT(edit_date ,"%Y-%m-%d %H:%i:%s") as edit_date,
                   component_group 
-                  from ${table} ${whereStr} order by create_date desc limit ${offset},${limit}`)
+                  from ${table} ${whereStr} order by id asc limit ${offset},${limit}`)
       ]);
       return queryResult;
     } catch (e) {
