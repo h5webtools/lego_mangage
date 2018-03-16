@@ -60,13 +60,11 @@
         <el-form v-for="key in Object.keys(param)" :inline="true" :key="key">
           <el-row :gutter="20">
             <el-col :span="6" class="ui-ta-r">
-              <el-form-item>
-                <div>{{dialogData.paramDesc.params[key].params.p_name+'（'+ key +'）:'}}</div>
-                <!-- <el-input :value="dialogData.paramDesc.params[key].params.p_name+'（'+ key +'）'" readonly placeholder="输入参数名"></el-input> -->
+              <el-form-item :label="dialogData.paramDesc.params[key].params.p_name+'（'+ key +'）:'" :required="dialogData.paramDesc.params[key] | getRequired">
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item :required="dialogData.paramDesc.params[key] | getRequired">
+              <el-form-item>
                 <component :groupIndex="index" :param="param" :paramKey="key" :defaultValue="dialogData.paramDesc.params[key].p_value" :optionList="dialogData.paramDesc.params[key].val_data" :ruleConfig="ruleConfig" :rule="dialogData.paramDesc.params[key].rule" v-if="dialogData.paramDesc.params[key].params.show_type" v-bind:is="dialogData.paramDesc.params[key].params.show_type"></component>
                 <el-input v-else v-model="param[key]" placeholder="请输入内容"></el-input>
                 <div class="el-form-item__error" style="width: 150%;" :id="key + '_'+ index"></div>
@@ -448,6 +446,7 @@ export default {
         data: {},
         lock: false
       });
+      // 根节点
       event.$once("confirm-param-edit", (config) => {
         let exist = this.cmdData.configData.some((chain) => {
           return chain.chainName == config.chainName;
