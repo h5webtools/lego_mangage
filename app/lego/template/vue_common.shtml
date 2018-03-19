@@ -31,8 +31,8 @@
 </head>
 <script type="text/javascript">
 
-  {{{ pageConfig }}};
-  {{{ extendJS }}};
+  {{{pageConfig}}};
+  {{{extendJS}}};
 
   if (window.mpmPageExtraData && window.mpmPageExtraData.expireTime) {//处理过期跳转
     if (Date.now() - new Date(window.mpmPageExtraData.expireTime) >= 0) {
@@ -44,7 +44,7 @@
   }
 </script>
 <script type="text/javascript">
-  {{{ data }}};
+  {{{data}}};
 </script>
 
 <body {{{bodyBgColor}}}>
