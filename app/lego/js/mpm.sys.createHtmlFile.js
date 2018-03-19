@@ -74,7 +74,6 @@ define(function (require, exports, module) {
     html = html.replace('{{{engine}}}', engineEntranceFile);
     html = html.replace('{{{shareInfo}}}', shareInfo);
     html = html.replace('{{{timestamp}}}', 't=' + (new Date()).getTime());
-    html = html.replace('$$$' , '');
 
     var bodyBgColor = pageInfo.bgColor;
     bodyBgColor = bodyBgColor ? 'style=background-color:' + bodyBgColor : '';

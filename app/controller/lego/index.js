@@ -126,12 +126,15 @@ class LegoController extends Controller {
         return;
       }
     }
+
     // 替换index.html文件数据
     if (this.config.legoConfig.minifyJs) {
       _content = _content.replace("{{[extendJS]}}", UglifyJS.minify(_extendJS).code).replace("{{[data]}}", UglifyJS.minify(_mpmPageContent).code);
     } else {
       _content = _content.replace("{{[extendJS]}}", _extendJS).replace("{{[data]}}", _mpmPageContent);
     }
+    //替换为include
+    _content = _content.replace('$$$','');
     // 执行依赖安装和JS模板替换
     let templateRet = await Promise.all([this._installNpmPackages(actFolder), this._replaceJsTemplate(_comConfig, actFolder)]);
     // 两步动作都成功
