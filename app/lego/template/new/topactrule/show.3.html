@@ -134,7 +134,7 @@
                                       <dd v-for="(items ,indexs) in params.fnObj.getRuleList(item.rulesDes)">{{items}}</dd>
                                   </dl>
                                 </div>
-                                <div class="rule-content" v-else="params.rulesContentHtml" v-html="params.rulesContentHtml">
+                                <div class="rule-content" v-else v-html="params.rulesContentHtml">
                                 </div>
                                 <div class="mod-btn ui-mt-20" v-bind:style='{background: params.rulesBgColor, color: params.rulesContentColor}' v-on:click="hideRulesDialog">确定</div>
                             </div>
