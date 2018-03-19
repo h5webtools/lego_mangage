@@ -81,7 +81,7 @@ export default {
       });
       event.$once("confirm-param-edit", (config) => {
         if(!this.checkNodeParamRepeat(this.editData[chainIndex].params, config.params[0].param)) {
-          // TODO 检查参数是否重复
+          // 检查参数是否重复
           this.editData[chainIndex].params[paramIndex].param = config.params[0].param;
         } else {
           this.$message.error('已经存在相同的参数');
@@ -147,7 +147,7 @@ export default {
       });
     },
     addNewActionNode(index) {
-      let tempData = this.editData[0].params[0];
+      let tempData = this.editData[index].params[0];
       event.$emit('showParamDialog', {
         data: {
           nodeType: 'action'

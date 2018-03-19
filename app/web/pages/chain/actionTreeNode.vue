@@ -36,7 +36,6 @@ export default {
           this.$message.error('不能添加相同名字的动作节点');
           return;
         }
-        // editNode.params[0].param = config.params[0].param;
         if(this.subAction[0].params[0].subAction.length > 0) {
           config.params[0].subAction = this.subAction[0].params[0].subAction;
           this.subAction[0].params[0].subAction = [config];

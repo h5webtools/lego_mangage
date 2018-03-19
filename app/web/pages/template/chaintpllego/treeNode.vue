@@ -145,7 +145,7 @@ export default {
       });
     },
     addNewActionNode(index) {
-      let tempData = this.editData[0].params[0];
+      let tempData = this.editData[index].params[0];
       event.$emit('showParamDialog', {
         data: {
           nodeType: 'action'
