@@ -59,7 +59,7 @@
       }
     })();
   </script>
-  <!--#$$$include virtual="/sinclude/env.tpl"-->
+  <!--$$$#include virtual="/sinclude/env.tpl"-->
 
   <script>
     var ua = navigator.userAgent.toLowerCase(),

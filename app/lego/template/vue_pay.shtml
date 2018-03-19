@@ -95,7 +95,7 @@
     }    
   </script>
 
-  <!--#$$$include virtual="/sinclude/env.tpl"-->
+  <!--$$$#include virtual="/sinclude/env.tpl"-->
 
   <script type="text/javascript" src="/static/js/lib/jsapi.js"></script>
   <script src="/static/js/lib/vue.min.js"></script>
