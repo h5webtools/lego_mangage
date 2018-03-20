@@ -13,6 +13,7 @@
     "inPages": true
   },
   "server": {
+    "port": 3000,
     "opnPath": {
       "local": "/public/pages/index.html",
       "build": "/act/199701/test/pages/index.html"

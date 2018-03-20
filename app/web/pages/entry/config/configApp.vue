@@ -305,7 +305,8 @@ export default {
     querySubActsList() {//type index
       actQuery.getEntrancePlanList({
         type:this.configType,
-        location:this.configIndex
+        location:this.configIndex,
+        filter:1
       }).then(jsonData => {
         if (jsonData.code == 0) {
           this.subActsList = jsonData.data.data;

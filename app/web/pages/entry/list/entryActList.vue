@@ -3,6 +3,7 @@
     <div class="martop20">
       <el-table :header-cell-style="{'color': '#333'}" :data="enterListData" v-loading="listLoading" stripe border highlight-current-row>
         <el-table-column prop="act_id" label="活动号" width="100"></el-table-column>
+        <el-table-column prop="plan_id" label="计划ID" width="50"></el-table-column>
         <el-table-column prop="title" label="主标题" width="100"></el-table-column>
         <el-table-column prop="sub_title" label="副标题" width="100"></el-table-column>
         <el-table-column  label="图标" width="90">
