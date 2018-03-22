@@ -40,8 +40,11 @@
         <div class="mod-save-icon">
           <el-button type="primary" class="mt-lt-16" @click="saveIconConfig(index)">保存</el-button>
         </div>
-        <div class="mod-delete-icon">
+        <div class="mod-delete-icon" v-if="item.status != 2">
           <el-button type="danger" class="mt-lt-4" @click="deleteIconConfig(index)">删除</el-button>
+        </div>
+        <div class="mod-delete-icon" v-if="item.status == 2">
+          <el-button type="danger" class="mt-lt-4" @click="takeOffCurAct(item)">下架</el-button>
         </div>
         <el-form-item label="活动号" class="pd-tp-20" style="width:82%">
           <el-input v-model="item.act_id" placeholder="请输入活动号" class="mod-actid-custom"></el-input>
@@ -343,6 +346,36 @@ export default {
         this.$message({
           type: 'info',
           message: '取消保存'
+        });          
+      });
+    },
+    takeOffCurAct(item) {
+      this.$confirm('你确定要下架该活动?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        actQuery.postEntranceShelves({
+          type:'0', 
+          location:item.location , 
+          group_id:item.group_id
+        }).then(jsonData => {
+          if (jsonData.code == 0) {
+            this.$message({
+              type: 'success',
+              message: '下架成功!'
+            });
+          }else{
+            this.$message({
+              type: 'error',
+              message: jsonData.msg
+            });
+          }
+        });
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消下架'
         });          
       });
     },
