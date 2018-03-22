@@ -358,7 +358,8 @@ export default {
         actQuery.postEntranceShelves({
           type:'0', 
           location:item.location , 
-          group_id:item.group_id
+          group_id:item.group_id,
+          plan_id:item.plan_id
         }).then(jsonData => {
           if (jsonData.code == 0) {
             this.$message({
