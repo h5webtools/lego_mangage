@@ -29,10 +29,10 @@ module.exports = appInfo => {
         database: "db_jyb"
       },
       dbLego: {
-        host: '10.23.143.124',
+        host: '10.23.9.235',
         port: 3306,
-        user: 'jybread',
-        password: 'Pub@read$sh18;;',
+        user: 'jyb',
+        password: 'YHNBGT',
         database: "db_act_config"
       }
     },

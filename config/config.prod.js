@@ -31,8 +31,8 @@ module.exports = appInfo => {
       dbLego: {
         host: '10.23.9.235',
         port: 3306,
-        user: 'jybread',
-        password: 'Pub@read$sh18;;',
+        user: 'jyb',
+        password: 'YHNBGT',
         database: "db_act_config"
       }
     },
@@ -92,7 +92,8 @@ module.exports = appInfo => {
     admin: [46, 81],
     operator: [74, 82, 57, 50],
     tester: [95, 87, 69],
-    dev: [86]
+    dev: [86],
+    operatorAdmin: [122]
   }
 
   return config;
