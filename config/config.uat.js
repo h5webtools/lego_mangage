@@ -40,16 +40,46 @@ module.exports = appInfo => {
   }
 
   config.actEntryConfig = {
-    entryList: [{
-      ip: '',
-      jmf: ''
-    },{
-      ip: '',
-      jmf: ''
+    userGroupList: [{
+      ip: 'http://10.23.50.153:12066',
+      jmf: 'com.jyblife.complex.h5.act_console.QueryUserGroupList'
     }],
-    auditList: [{
-      ip: '',
-      jmf: ''
+    entranceConf: [{
+      ip: 'http://10.23.50.153:12066',
+      jmf: 'com.jyblife.complex.h5.act_console.GetEntranceConf'
+    }],
+    activityConfig: [{
+      ip: 'http://10.23.50.153:12066',
+      jmf: 'com.jyblife.complex.h5.act_console.GetActivityConfig'
+    }],
+    deleteEntrancePlan: [{
+      ip: 'http://10.23.50.153:12066',
+      jmf: 'com.jyblife.complex.h5.act_console.DeleteEntrancePlan'
+    }], 
+    getEntranceDetail: [{
+      ip: 'http://10.23.50.153:12066',
+      jmf: 'com.jyblife.complex.h5.act_console.GetEntranceDetail'
+    }],
+    postEntrancePlan: [{
+      ip: 'http://10.23.50.153:12066',
+      jmf: 'com.jyblife.complex.h5.act_console.PostEntrancePlan'
+    }],
+    putEntrancePlan: [{
+      ip: 'http://10.23.50.153:12066',
+      jmf: 'com.jyblife.complex.h5.act_console.PutEntrancePlan'
+      
+    }],
+    getEntrancePlanList: [{
+      ip: 'http://10.23.50.153:12066',
+      jmf: 'com.jyblife.complex.h5.act_console.GetEntrancePlanList'
+    }],
+    postEntranceShelves: [{
+      ip: 'http://10.23.50.153:12066',
+      jmf: 'com.jyblife.complex.h5.act_console.PostEntranceShelves'
+    }],
+    getIconEntranceDetail: [{
+      ip: 'http://10.23.50.153:12066',
+      jmf: 'com.jyblife.complex.h5.act_console.GetIconEntranceDetail'
     }]
   }
 
