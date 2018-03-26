@@ -46,7 +46,7 @@ export default {
           errmsg = this.paramKey + '参数是必填项';
         }
       }
-      this.param[this.paramKey] = this.formatDate.value ? util.parseTime(this.formatDate.value, "{y}/{m}/{d} {h}:{m}:{s}") : "";
+      this.param[this.paramKey] = this.formatDate.value ? util.parseTime(this.formatDate.value, "{y}/{m}/{d} {h}:{i}:{s}") : "";
       event.$emit(this.paramKey + '-validate-notify-'+ this.groupIndex, {
         pass: !errmsg,
         msg: errmsg
