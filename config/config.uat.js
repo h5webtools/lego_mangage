@@ -126,5 +126,13 @@ module.exports = appInfo => {
     CDN_PREFIX: 'https://cdn.jyblife.com/act/'
   }
 
+  config.userRole = {
+    admin: [46, 81],
+    operator: [74, 82, 57, 50],
+    tester: [95, 87, 69],
+    dev: [86],
+    operatorAdmin: [122]
+  }
+
   return config;
 };
