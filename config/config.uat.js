@@ -19,6 +19,14 @@ module.exports = appInfo => {
     dir: [path.join(appInfo.baseDir, 'app/public'), path.join(appInfo.baseDir, 'app/lego')]
   }
 
+  config.jmfCommonParam = {
+    "env": "prod",
+    "set": "gz_jyb_idc", //使用URL中的set值
+    "group": "*", //使用URL中的group值
+    "version": "1.0.0", //使用URL中的version值
+    "method": "invoke"
+  }
+
   config.mysql = {
     clients: {
       dbMain: {
