@@ -231,6 +231,7 @@ export default {
     }
   },
   created() {
+    console.log('进入chainApp');
     this.tpl_id = this.$route.params.tpl_id;
     this.getActCmdList().getRuleAction();
   },
