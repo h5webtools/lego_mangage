@@ -46,6 +46,9 @@
 </template>
 <script>
 import sidebarItem from './sidebar-item.vue';
+import routes from '../../router/route'
+import {walkRoute} from '@jyb/common-menu' 
+
 export default {
   name: 'loan_menu',
   components: {
@@ -53,7 +56,7 @@ export default {
   },
   data() {
     return {
-      menuList: window.menuData,
+      menuList: [],
       isCollapse: false,
       levelList: [],
       menuFolded: false,
@@ -61,7 +64,8 @@ export default {
     }
   },
   created() {
-    this.getBreadcrumb()
+    this.getBreadcrumb();
+    this.getMenuData();
   },
   methods: {
     toggleMenu() {
@@ -74,6 +78,10 @@ export default {
       //   matched = [{ name: '主页', path: '/' }].concat(matched)
       // }
       this.levelList = matched;
+    },
+    getMenuData() {
+       this.menuList = walkRoute(routes, menuData, 'name');
+       debugger
     }
   },
   watch: {

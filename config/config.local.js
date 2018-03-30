@@ -125,6 +125,10 @@ module.exports = appInfo => {
     tester: [85],
     dev: []
   }
+
+  config.passportJyb = {
+    'menu_code': 'lego_manage'
+  };
   
   return config;
 };

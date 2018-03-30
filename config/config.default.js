@@ -36,7 +36,13 @@ module.exports = appInfo => {
   };
 
   // add your config here
-  config.middleware = ['requestParam', 'userAuth'];
+  // config.middleware = ['requestParam', 'userAuth'];
+  config.middleware = ['requestParam'];
+
+  config.passportJyb = {
+    'userDBClient': 'dbMain',
+    'menu_code': 'lego_manage'
+  };
 
   return config;
 };

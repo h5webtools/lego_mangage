@@ -15,18 +15,24 @@ class AuthController extends Controller {
     let rawBody = this.ctx.request.rawBody;
     const user = rawBody.username;
     const pwd = rawBody.password;
-    const match = await this.service.login.loginService.find(user, pwd);
+    // const match = await this.service.login.loginService.find(user, pwd);
+
+    const match = await this.ctx.passportLogin({
+      username: user,
+      password: pwd
+    })
     if(match) {
+      const operateUser = match.operateUser;
       try {
-        const roleList = await this.service.login.loginService.findRole(match.user_id);
+        const roleList = await this.service.login.loginService.findRole(operateUser.userId);
         if(roleList) {
           // 刷新csrftoken的值
           this.ctx.rotateCsrfSecret();
           // 写session
-          this.ctx.session.userid = match.user_id;
-          this.ctx.session.userName = match.user_name;
-          this.ctx.session.userAccount = match.user_account;
-          this.ctx.session.userEmail = match.mail;
+          // this.ctx.session.userid = operateUser.userId;
+          // this.ctx.session.userName = operateUser.userName;
+          // this.ctx.session.userAccount = operateUser.userAccount;
+          // this.ctx.session.userEmail = operateUser.email;
           this.ctx.logger.info('用户信息：'+ JSON.stringify(match));
           this.ctx.session.roles = roleList.map(role => {
             return role.role_id;
