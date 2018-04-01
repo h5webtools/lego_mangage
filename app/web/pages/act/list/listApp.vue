@@ -38,23 +38,23 @@
             </el-table>
             <p style="font-size: 16px;" class="ui-mt-20 ui-ta-c">关键配置项展示(副本)</p>
             <el-table :data="props.row.showList.copy" stripe border highlight-current-row v-if="props.row.showList">
-              <el-table-column prop="cmd" label="cmd" ></el-table-column>
-              <el-table-column prop="code" label="code" ></el-table-column>
-              <el-table-column prop="name" label="name" ></el-table-column>
-              <el-table-column prop="p_code" label="p_code" ></el-table-column>
-              <el-table-column prop="type" label="type" ></el-table-column>
-              <el-table-column prop="p_name" label="p_name" ></el-table-column>
-              <el-table-column prop="p_value" label="p_value" ></el-table-column>
+              <el-table-column prop="cmd" label="命令字" ></el-table-column>
+              <el-table-column prop="code" label="逻辑码" ></el-table-column>
+              <el-table-column prop="name" label="逻辑名" ></el-table-column>
+              <el-table-column prop="p_code" label="参数码" ></el-table-column>
+              <el-table-column prop="type" label="逻辑类型" ></el-table-column>
+              <el-table-column prop="p_name" label="参数名" ></el-table-column>
+              <el-table-column prop="p_value" label="参数值" ></el-table-column>
             </el-table>
             <p style="font-size: 16px;" class="ui-mt-20 ui-ta-c">关键配置项展示(正式)</p>
             <el-table :data="props.row.showList.live" stripe border highlight-current-row v-if="props.row.showList">
-              <el-table-column prop="cmd" label="cmd" ></el-table-column>
-              <el-table-column prop="code" label="code" ></el-table-column>
-              <el-table-column prop="name" label="name" ></el-table-column>
-              <el-table-column prop="p_code" label="p_code" ></el-table-column>
-              <el-table-column prop="type" label="type" ></el-table-column>
-              <el-table-column prop="p_name" label="p_name" ></el-table-column>
-              <el-table-column prop="p_value" label="p_value" ></el-table-column>
+              <el-table-column prop="cmd" label="命令字" ></el-table-column>
+              <el-table-column prop="code" label="逻辑码" ></el-table-column>
+              <el-table-column prop="name" label="逻辑名" ></el-table-column>
+              <el-table-column prop="p_code" label="参数码" ></el-table-column>
+              <el-table-column prop="type" label="逻辑类型" ></el-table-column>
+              <el-table-column prop="p_name" label="参数名" ></el-table-column>
+              <el-table-column prop="p_value" label="参数值" ></el-table-column>
             </el-table>
             <div style="margin-top:30px;">
                 <el-steps direction="vertical" space='80px' :active='1'>

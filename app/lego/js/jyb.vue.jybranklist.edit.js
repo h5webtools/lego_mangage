@@ -198,7 +198,7 @@ define(function (require, exports, module) {
           var divComponentIframe = $("#divComponentIframe");
           var _pageid = moduleBasicInfo.showMePageInfo().id,
             _tpl_id = this.obj.data.tplid,
-            _act_id = moduleUtil.getUrlQuery('act_id'),
+            _act_id = encodeURIComponent(moduleUtil.getUrlQuery('act_id')),
             _comid = this.obj.uid.replace("com_", "");
           if (!_tpl_id) {
             alert("请先选择对应的模板");

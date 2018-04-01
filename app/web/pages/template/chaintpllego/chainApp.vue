@@ -156,7 +156,7 @@ export default {
       tpl_id: this.$route.params.tpl_id,
       pageid: this.$route.params.pageid,
       comid: this.$route.params.comid,
-      act_id: this.$route.params.act_id,
+      act_id: decodeURIComponent(this.$route.params.act_id),
       path: process.env.BASE_API,
       chainLoading: false,
       cmdList: [], 
