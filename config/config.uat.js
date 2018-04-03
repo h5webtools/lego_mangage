@@ -91,13 +91,6 @@ module.exports = appInfo => {
     }]
   }
 
-  config.sysConfig = {
-    sync: [{
-      ip: '',
-      jmf: ''
-    }]
-  }
-
   config.redis = {
     client: {
       port: 6379,          // Redis port
