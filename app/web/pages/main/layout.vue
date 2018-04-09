@@ -46,6 +46,7 @@
 </template>
 <script>
 import sidebarItem from './sidebar-item.vue';
+
 export default {
   name: 'loan_menu',
   components: {
@@ -61,7 +62,7 @@ export default {
     }
   },
   created() {
-    this.getBreadcrumb()
+    this.getBreadcrumb();
   },
   methods: {
     toggleMenu() {

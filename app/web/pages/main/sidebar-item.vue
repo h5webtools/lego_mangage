@@ -12,7 +12,7 @@
       <!-- </router-link> -->
       <el-submenu :index="item.menu_name" v-if="item.children.length > 0">
         <template slot="title">
-          <i :class="item.icon" :title="item.menu_name"></i><span slot="title">{{item.menu_name}}</span>
+          <i :class="item.icon_name" :title="item.menu_name"></i><span slot="title">{{item.menu_name}}</span>
         </template>
         <template v-for="child in item.children">
           <sidebar-item v-if="child.children && child.children.length > 0" :menusList='child.children'></sidebar-item>

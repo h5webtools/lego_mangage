@@ -26,7 +26,7 @@
 <script>
 import { trim, getQuery } from "assets/js/util";
 import { doLogin } from "api/api-login";
-import sha1 from "sha1";
+import md5 from "md5";
 
 export default {
   name: "login",
@@ -69,10 +69,11 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true;
-          doLogin(this.loginForm.account, sha1(this.loginForm.password)).then(jsonData => {
+          doLogin(this.loginForm.account, md5(this.loginForm.password)).then(jsonData => {
             this.loading = false;
             if (jsonData.code == 0) {
-              location.href = '/#/welcome';
+              // location.href = '/#/welcome';
+              location.href = '/';
             }
           });
         } else {

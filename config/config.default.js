@@ -36,7 +36,10 @@ module.exports = appInfo => {
   };
 
   // add your config here
-  config.middleware = ['requestParam', 'userAuth'];
+  // config.middleware = ['requestParam', 'userAuth'];
+  config.middleware = ['requestParam'];
+
+
 
   return config;
 };
