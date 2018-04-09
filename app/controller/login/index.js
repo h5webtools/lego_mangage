@@ -28,11 +28,11 @@ class AuthController extends Controller {
         if(roleList) {
           // 刷新csrftoken的值
           this.ctx.rotateCsrfSecret();
-          // 写session
-          // this.ctx.session.userid = operateUser.userId;
-          // this.ctx.session.userName = operateUser.userName;
-          // this.ctx.session.userAccount = operateUser.userAccount;
-          // this.ctx.session.userEmail = operateUser.email;
+          // 写session， 兼容老版本中用的session
+          this.ctx.session.userid = operateUser.userId;
+          this.ctx.session.userName = operateUser.userName;
+          this.ctx.session.userAccount = operateUser.userAccount;
+          this.ctx.session.userEmail = operateUser.email;
           this.ctx.logger.info('用户信息：'+ JSON.stringify(match));
           this.ctx.session.roles = roleList.map(role => {
             return role.role_id;
