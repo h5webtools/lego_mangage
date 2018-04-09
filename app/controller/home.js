@@ -12,7 +12,7 @@ class HomeController extends Controller {
     // }
     const operateUser = this.ctx.session.passportJyb.operateUser;
     
-    const menu = (await this.ctx.passportGetMenu(operateUser.userId)) || []; 
+    const menu = await this.ctx.passportGetMenu(); 
 
     /* const menu = [
       {
