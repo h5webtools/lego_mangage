@@ -48,23 +48,46 @@ module.exports = appInfo => {
   }
 
   config.actEntryConfig = {
-    entryList: [{
-      ip: '',
-      jmf: ''
-    },{
-      ip: '',
-      jmf: ''
+    userGroupList: [{
+      ip: 'http://10.23.169.214:12066',
+      jmf: 'com.jyblife.complex.h5.act_console.QueryUserGroupList'
     }],
-    auditList: [{
-      ip: '',
-      jmf: ''
-    }]
-  }
-
-  config.sysConfig = {
-    sync: [{
-      ip: '',
-      jmf: ''
+    entranceConf: [{
+      ip: 'http://10.23.169.214:12066',
+      jmf: 'com.jyblife.complex.h5.act_console.GetEntranceConf'
+    }],
+    activityConfig: [{
+      ip: 'http://10.23.169.214:12066',
+      jmf: 'com.jyblife.complex.h5.act_console.GetActivityConfig'
+    }],
+    deleteEntrancePlan: [{
+      ip: 'http://10.23.169.214:12066',
+      jmf: 'com.jyblife.complex.h5.act_console.DeleteEntrancePlan'
+    }], 
+    getEntranceDetail: [{
+      ip: 'http://10.23.169.214:12066',
+      jmf: 'com.jyblife.complex.h5.act_console.GetEntranceDetail'
+    }],
+    postEntrancePlan: [{
+      ip: 'http://10.23.169.214:12066',
+      jmf: 'com.jyblife.complex.h5.act_console.PostEntrancePlan'
+    }],
+    putEntrancePlan: [{
+      ip: 'http://10.23.169.214:12066',
+      jmf: 'com.jyblife.complex.h5.act_console.PutEntrancePlan'
+      
+    }],
+    getEntrancePlanList: [{
+      ip: 'http://10.23.169.214:12066',
+      jmf: 'com.jyblife.complex.h5.act_console.GetEntrancePlanList'
+    }],
+    postEntranceShelves: [{
+      ip: 'http://10.23.169.214:12066',
+      jmf: 'com.jyblife.complex.h5.act_console.PostEntranceShelves'
+    }],
+    getIconEntranceDetail: [{
+      ip: 'http://10.23.169.214:12066',
+      jmf: 'com.jyblife.complex.h5.act_console.GetIconEntranceDetail'
     }]
   }
 
@@ -83,7 +106,7 @@ module.exports = appInfo => {
   }
 
   config.legoConfig = {
-    path: '/data/www/lego/h5_lego_actpage/release/act',
+    path: '/data/www/lego/h5_lego_actpage/release/act/',
     templateJs: 'index.tjs',
     actJs: 'index.js',
     minifyJs: true,
@@ -91,7 +114,7 @@ module.exports = appInfo => {
   }
 
   config.envConfig = {
-    BASE_API: 'http://manage.jyblife.com',
+    BASE_API: 'https://manage.jyblife.com',
     RELEASE_PATH: 'http://release.jyblife.com/task/interface',
     CDN_PREFIX: 'https://cdn.jyblife.com/act/'
   }

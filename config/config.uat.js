@@ -91,13 +91,6 @@ module.exports = appInfo => {
     }]
   }
 
-  config.sysConfig = {
-    sync: [{
-      ip: '',
-      jmf: ''
-    }]
-  }
-
   config.redis = {
     client: {
       port: 6379,          // Redis port
@@ -121,7 +114,7 @@ module.exports = appInfo => {
   }
 
   config.envConfig = {
-    BASE_API: 'http://manage.jyblife.com',
+    BASE_API: 'https://manage.jyblife.com',
     RELEASE_PATH: 'http://release.jyblife.com/task/interface',
     CDN_PREFIX: 'https://cdn.jyblife.com/act/'
   }
