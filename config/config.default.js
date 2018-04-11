@@ -39,6 +39,16 @@ module.exports = appInfo => {
   // config.middleware = ['requestParam', 'userAuth'];
   config.middleware = ['requestParam'];
 
+  config.passportJyb = {
+    clients: {
+      mysqlOperate: {
+        'userDBClient': 'dbMain'
+     }
+    },
+    'selfSystem': {  
+      'noAuth': [/^\/lego\/syncCallback/]
+    }
+  }
 
 
   return config;

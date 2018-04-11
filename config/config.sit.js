@@ -136,13 +136,9 @@ module.exports = appInfo => {
 
 
   config.passportJyb = {
-    'userDBClient': 'dbMain',
     'menu_code': 'lego_manage',
     'client_id': 'lego_manage',        
-    'secret_key': 'aa12b55645fb110f403efbf6bff23186',      
-    'selfSystem': {  
-      'noAuth': [/^\/lego\/syncCallback/]
-    }
+    'secret_key': 'aa12b55645fb110f403efbf6bff23186'
   };
 
   return config;
