@@ -9,8 +9,8 @@
           </el-form-item>
           <el-form-item label="上线时间：" required prop="effect_time">
             <el-date-picker
-              v-model="actInfo.effect_time" 
-              type="datetime" 
+              v-model="actInfo.effect_time"
+              type="datetime"
               value-format="yyyy-MM-dd HH:mm:ss"
               placeholder="选择上线的日期时间">
             </el-date-picker>
@@ -18,7 +18,7 @@
           <el-form-item label="过期时间：" required prop="expire_time">
             <el-date-picker
               v-model="actInfo.expire_time"
-              type="datetime" 
+              type="datetime"
               value-format="yyyy-MM-dd HH:mm:ss"
               placeholder="选择过期的日期时间">
             </el-date-picker>
@@ -26,7 +26,7 @@
           <el-form-item label="结束时间：">
             <el-date-picker
               v-model="actInfo.end_time"
-              type="datetime" 
+              type="datetime"
               value-format="yyyy-MM-dd HH:mm:ss"
               placeholder="选择活动结束的日期时间">
             </el-date-picker>
@@ -54,10 +54,20 @@
             </el-radio-group>
           </el-form-item>
 
+          <el-form-item label="接口版本：">
+              <el-select v-model="actInfo.version" placeholder="请选择" class="full-form-item">
+                <el-option
+                  v-for="item in versionList"
+                  :key="item.value"
+                  :label="item.key"
+                  :value="item.value">
+                </el-option>
+              </el-select>
+            </el-form-item>
           <el-form-item label="测试负责人：">
             <el-select v-model="actInfo.tests" multiple filterable placeholder="请选择该活动的测试人员,默认别少,可选多人" class="full-form-item">
               <el-option
-                v-for="(item,index) in testersList" 
+                v-for="(item,index) in testersList"
                 :key="index"
                 :label="item.user_name"
                 :value="item.user_id">
@@ -66,7 +76,7 @@
               </el-option>
             </el-select>
           </el-form-item>
-          
+
           <el-form-item label="活动链接：" prop="act_url">
             <el-input v-model="actInfo.act_url" placeholder="请输入活动跳转链接"></el-input>
           </el-form-item>
@@ -257,6 +267,16 @@ export default {
           value: '3'
         }
       ],
+      versionList:[
+        {
+          key:'v1',
+          value:'1'
+        },
+        {
+          key:'v2',
+          value:'2'
+        },
+      ],
       channelList: [],
       editLoading: false,
       relatedCoupons: [], // 关联红包列表
@@ -271,6 +291,7 @@ export default {
       actInfo: {
         is_inner: '1', // 活动类型（是否是内部活动）
         is_lego: '', //是否是乐高搭建
+        version: '1',
         act_title: '', // 活动名
         effect_time: '', // 上线时间
         expire_time: '', // 过期时间
@@ -415,7 +436,7 @@ export default {
       actQuery.getEnableEditUsersList().then(jsonData => {
         if (jsonData.code == 0) {
           jsonData.data.forEach(element => {
-            element.user_id += ''; 
+            element.user_id += '';
           });
           this.enableEditUsers = jsonData.data;
         } else {
@@ -445,12 +466,12 @@ export default {
       });
       return this;
     },
-    HTMLDecode(text) { 
-      var temp = document.createElement('div'); 
-      temp.innerHTML = text; 
-      var output = temp.innerText || temp.textContent; 
-      temp = null; 
-      return output; 
+    HTMLDecode(text) {
+      var temp = document.createElement('div');
+      temp.innerHTML = text;
+      var output = temp.innerText || temp.textContent;
+      temp = null;
+      return output;
     },
     saveEdit() {
       this.$refs['form'].validate(valid => {
