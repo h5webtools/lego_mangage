@@ -46,7 +46,7 @@ module.exports = appInfo => {
      }
     },
     'selfSystem': {  
-      'noAuth': [/^\/lego\/syncCallback/]
+      'noAuth': [/\/login\/doLogin/, /^\/lego\/syncCallback/]
     }
   }
 
