@@ -99,7 +99,7 @@ class HomeController extends Controller {
     
     // 自定义修改需要加入的路由
     if (this.app.config.env == "sit") {
-      menuList.push({
+      menu.push({
         menu_name: "系统设置",
         icon: "iconfont icon-shezhi",
         children: [
