@@ -621,6 +621,7 @@ export default {
         return;
       }
       let id = this.dialogData.id || this.guid();
+      let curParamsType = this.dialogData.paramDesc.type;
       let configObj = {
         chainName: this.dialogData.chainName,
         id: id,
@@ -630,7 +631,7 @@ export default {
           {
             id: id,
             chainName: this.dialogData.chainName,
-            param: this.dialogData.params,
+            param: curParamsType =='object'?this.dialogData.params[0] : this.dialogData.params,
             editParams: this.dialogData.editParams,
             contentDesc: this.dialogData.contentDesc,
             paramsFixed: this.dialogData.paramsFixed,
