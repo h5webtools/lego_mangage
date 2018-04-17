@@ -24,7 +24,7 @@ define(function (require, exports, module) {
       "showType": "1",
       "showNum": 1000,
       "isShowAll": 0,
-      "jumpUrl": "",
+      "jumpUrl": "", 
       "eventid": "",
       "buyBtnBg":"",
       "buyColor":"",

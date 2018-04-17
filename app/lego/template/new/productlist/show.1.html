@@ -108,6 +108,7 @@ h1, h2, h3 {
                     <li class="prd-item ui-fl-l" v-on:click="toBuy(item.free_prd_id)" v-bind:data-stat-id="params.eventid || ''"  :prdid="item.free_prd_id" v-for="item in data.paramList"> 
                         <img :src="item.image_url" :alt="item.prd_name"> 
                         <h2>{{item.prd_name}}</h2>
+                        
                         <template v-if="params.showType == '1'">
                             <p class="item-price">存入<span>￥{{item.min_pur_amount}}</span>起</p>     
                             <div class="item-btn" v-bind:style="{backgroundColor:params.buyBtnBg,color:params.buyColor}"

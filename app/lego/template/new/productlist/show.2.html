@@ -102,7 +102,7 @@
 
 <template class="showTemplate">
 	<productlist uid="productlist" v-bind:params="data" inline-template>
-        <div class="lego-productlist-show2">
+        <div class="lego-productlist-show2"> 
             <ul class="mod-c-list">
                 <template v-if="true"> 
                 <li   v-on:click="toBuy(item.free_prd_id)" :prdid="item.free_prd_id" v-bind:data-stat-id="params.eventid || ''" v-for="item in data.paramList"> 
