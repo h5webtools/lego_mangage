@@ -4,7 +4,7 @@ define(function(require, exports, module) {
       if (json.code == 0 || json.code == '810010') {
         callback(json);
       } else {
-        //alert(json.msg);
+        alert(json.msg);
       }
     }).fail(function() {
       alert('网络错误');
@@ -232,8 +232,7 @@ define(function(require, exports, module) {
       publishflag: pageInfo.publishflag,
       mdev: pageInfo.mdev,
       jsmin: pageInfo.jsmin,
-      publishid:pageInfo.publishid,
-      pveventid:pageInfo.pveventid
+      publishid:pageInfo.publishid
     } , cb)
   }
 
