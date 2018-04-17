@@ -24,8 +24,10 @@ define(function (require, exports, module) {
       "showType": "1",
       "showNum": 1000,
       "isShowAll": 0,
-      "jumpUrl": "",
+      "jumpUrl": "", 
       "eventid": "",
+      "buyBtnBg":"",
+      "buyColor":"",
       "advertUrl": "https://img11.360buyimg.com/mcoss/jfs/t12676/217/2503090753/59495/2e58f921/5a4de03fN38dacbf3.jpg.webp",
       "isShowSubject": 0, //是否展示主题头部 默认展示
       "subjectDesc": "圣诞必买清单",

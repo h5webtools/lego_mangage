@@ -102,7 +102,7 @@
 
 <template class="showTemplate">
 	<productlist uid="productlist" v-bind:params="data" inline-template>
-        <div class="lego-productlist-show2">
+        <div class="lego-productlist-show2"> 
             <ul class="mod-c-list">
                 <template v-if="true"> 
                 <li   v-on:click="toBuy(item.free_prd_id)" :prdid="item.free_prd_id" v-bind:data-stat-id="params.eventid || ''" v-for="item in data.paramList"> 
@@ -114,7 +114,8 @@
                             <span class="f-40 comm-color">¥{{item.show_price}}</span>&nbsp;
                             <del class="f-26 color-999" v-if="item.show_price != item.origin_price">￥{{item.origin_price}}</del> 
                         </div> 
-                        <div  class="mod-btn f-30" v-bind:data-stat-id="params.eventid || ''">立即购买</div> 
+                        <div  class="mod-btn f-30" v-bind:style="{backgroundColor:params.buyBtnBg,color:params.buyColor}"
+                        v-bind:data-stat-id="params.eventid || ''">立即购买</div> 
                     </div> 
                 </li>
                 </template> 

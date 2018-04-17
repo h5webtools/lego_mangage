@@ -73,10 +73,10 @@ h1, h2, h3 {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
-.prd-item .item-btn {
+/* .prd-item .item-btn {
     background-color: #ff6478 !important;
     color: #ffe0e3 !important;
-}
+} */
 .prd-item .item-btn {
     position: absolute;
     bottom: -1px;
@@ -108,15 +108,18 @@ h1, h2, h3 {
                     <li class="prd-item ui-fl-l" v-on:click="toBuy(item.free_prd_id)" v-bind:data-stat-id="params.eventid || ''"  :prdid="item.free_prd_id" v-for="item in data.paramList"> 
                         <img :src="item.image_url" :alt="item.prd_name"> 
                         <h2>{{item.prd_name}}</h2>
+                        
                         <template v-if="params.showType == '1'">
                             <p class="item-price">存入<span>￥{{item.min_pur_amount}}</span>起</p>     
-                            <div class="item-btn" v-bind:data-stat-id="params.eventid || ''">立即白拿</div>
+                            <div class="item-btn" v-bind:style="{backgroundColor:params.buyBtnBg,color:params.buyColor}"
+                             v-bind:data-stat-id="params.eventid || ''">立即白拿</div>
                         </template>
                         <template v-else="params.showType == '2'">
                             <div class="item-price">抢购价
                                 <div class="ui-fl-r"><span>{{item .show_price}}</span>元</div>
                             </div>  
-                            <div class="item-btn" v-bind:data-stat-id="params.eventid || ''">立即购买</div>
+                            <div class="item-btn" v-bind:style="{backgroundColor:params.buyBtnBg,color:params.buyColor}"
+                            v-bind:data-stat-id="params.eventid || ''">立即购买</div>
                         </template>
                     </li>
                 </template>
