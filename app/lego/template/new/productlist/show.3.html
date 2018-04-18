@@ -380,7 +380,10 @@
                         <span class="goods-subject__time-border">{{data.times.minute}}</span> :
                         <span class="goods-subject__time-border">{{data.times.sec}}</span>
                     </div>
-                    <div class="mod-goods__banner" v-on:click="toBuy(item.free_prd_id)" v-if="index == 0 " :prdid="item.free_prd_id" v-bind:data-stat-id="params.eventid || ''"
+                    <div class="mod-goods__banner" v-on:click="toBuy(item.free_prd_id)" 
+                    v-bind:data-stat-para="JSON.stringify({'pageActId':params.pageActId,'pageId':params.pageId,
+                    'comDesc':params.comDesc , 'itemTitle':item.prd_name,'freeId':item.free_prd_id})"
+                        v-if="index == 0 " :prdid="item.free_prd_id" v-bind:data-stat-id="params.eventid || ''"
                         v-for="(item , index) in data.paramList">
                         <img class="goods-banner__img" :lazy="params.advertUrl">
                         <h2>{{item.prd_name}}</h2>
@@ -391,7 +394,10 @@
                     </div>
                     <div class="mod-goods__list">
                         <ul class="goods-list__container">
-                            <li class="goods-list__item" v-on:click="toBuy(item.free_prd_id)" v-if="index > 0 &amp;&amp; index < params.showNum " :prdid="item.free_prd_id"
+                            <li class="goods-list__item" v-on:click="toBuy(item.free_prd_id)" 
+                              v-bind:data-stat-para="JSON.stringify({'pageActId':params.pageActId,'pageId':params.pageId,
+                              'comDesc':params.comDesc , 'itemTitle':item.prd_name,'freeId':item.free_prd_id})"
+                                v-if="index > 0 &amp;&amp; index < params.showNum " :prdid="item.free_prd_id"
                                 v-bind:data-stat-id="params.eventid || ''" v-for="(item , index) in data.paramList">
                                 <img :lazy="item.image_url">
                                 <h2>{{item.prd_name}}</h2>

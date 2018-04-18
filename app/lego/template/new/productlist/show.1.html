@@ -73,10 +73,10 @@ h1, h2, h3 {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
-.prd-item .item-btn {
+/* .prd-item .item-btn {
     background-color: #ff6478 !important;
     color: #ffe0e3 !important;
-}
+} */
 .prd-item .item-btn {
     position: absolute;
     bottom: -1px;
@@ -108,11 +108,13 @@ h1, h2, h3 {
                     <li class="prd-item ui-fl-l" v-on:click="toBuy(item.free_prd_id)" v-bind:data-stat-id="params.eventid || ''"  :prdid="item.free_prd_id" v-for="item in data.paramList"> 
                         <img :src="item.image_url" :alt="item.prd_name"> 
                         <h2>{{item.prd_name}}</h2>
+                        
                         <template v-if="params.showType == '1'">
                             <p class="item-price">存入<span>￥{{item.min_pur_amount}}</span>起</p>     
                             <div class="item-btn" v-bind:data-stat-id="params.eventid || ''"  
                             v-bind:data-stat-para="JSON.stringify({'pageActId':params.pageActId,'pageId':params.pageId,
                             'comDesc':params.comDesc , 'itemTitle':item.prd_name,'freeId':item.free_prd_id})"
+                            v-bind:style="{backgroundColor:params.buyBtnBg,color:params.buyColor}"
                             >立即白拿</div>
                         </template>
                         <template v-else="params.showType == '2'">
@@ -122,6 +124,7 @@ h1, h2, h3 {
                             <div class="item-btn" v-bind:data-stat-id="params.eventid || ''"
                             v-bind:data-stat-para="JSON.stringify({'pageActId':params.pageActId,'pageId':params.pageId,
                             'comDesc':params.comDesc , 'itemTitle':item.prd_name,'freeId':item.free_prd_id})"
+                            v-bind:style="{backgroundColor:params.buyBtnBg,color:params.buyColor}"
                             >立即购买</div>
                         </template>
                     </li>
