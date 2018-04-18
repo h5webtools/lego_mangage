@@ -103,6 +103,7 @@ class LegoController extends Controller {
       _publishflag = rawBody.publishflag,
       _pagename = rawBody.pagename,
       _pageid = rawBody.pageid,
+      _pveventid = rawBody.pveventid || '',
       _fileName = "index.html",
       actFolder = `${this.config.legoConfig.path}/${_datefolder}/${_folder}`;
     // 判断是否执行提交GIT动作
@@ -953,7 +954,7 @@ class LegoController extends Controller {
         msg: '读取js模板文件失败'
       }
     }
-    let replaceData = templateJs.toString().replace("pagebegin", template);
+    let replaceData = templateJs.toString().replace("pagebegin", template).replace('pveventid',_pveventid);
     let writeRet = fs.writeFileSync(`${dir}/${this.config.legoConfig.actJs}`, replaceData, 'utf-8');
     if (!writeRet) {
       this.ctx.logger.info(`在${dir}下创建脚本文件成功`);

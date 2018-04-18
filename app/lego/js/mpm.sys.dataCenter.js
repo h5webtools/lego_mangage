@@ -232,7 +232,8 @@ define(function(require, exports, module) {
       publishflag: pageInfo.publishflag,
       mdev: pageInfo.mdev,
       jsmin: pageInfo.jsmin,
-      publishid:pageInfo.publishid
+      publishid:pageInfo.publishid,
+      pveventid:pageInfo.pveventid
     } , cb)
   }
 

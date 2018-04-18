@@ -71,7 +71,7 @@ tracker.init({
 });
 
 var bimta = new Bimta({
-  platform: ['mta'],
+  platform: ['mta','bi'],
   env:'prod',
   createCommonParams: function(defaults) {
     return {

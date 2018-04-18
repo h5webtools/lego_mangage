@@ -112,7 +112,7 @@ h1, h2, h3 {
                         <template v-if="params.showType == '1'">
                             <p class="item-price">存入<span>￥{{item.min_pur_amount}}</span>起</p>     
                             <div class="item-btn" v-bind:data-stat-id="params.eventid || ''"  
-                            v-bind:data-stat-para="JSON.stringify({'pageActId':params.pageActId,'pageId':params.pageId,
+                            v-bind:data-stat-para="JSON.stringify({pageActId:params.pageActId,'pageId':params.pageId,
                             'comDesc':params.comDesc , 'itemTitle':item.prd_name,'freeId':item.free_prd_id})"
                             v-bind:style="{backgroundColor:params.buyBtnBg,color:params.buyColor}"
                             >立即白拿</div>

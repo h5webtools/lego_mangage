@@ -232,6 +232,19 @@ define(function (require, exports, module) {
           console.log("上报活动ID");
         }
 
+        $.get('http://bi.jyblife.com/legao/config', {
+          param:JSON.stringify({
+            pvEventId: $('#pvEventid').val(),
+            pageId:exports.getUrlQuery("page_id"),
+            pageActId:exports.getUrlQuery("act_id"),
+            pageTitle:$('#inputPageName').val()
+          }),
+          type:1
+        }, function(json){
+          
+        }, 'json');
+        
+
 
         for (var o in allComponents) {
           var item = allComponents[o];
