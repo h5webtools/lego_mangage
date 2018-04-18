@@ -137,7 +137,7 @@ class LegoController extends Controller {
     //替换为include
     _content = _content.replace('$$$','');
     // 执行依赖安装和JS模板替换
-    let templateRet = await Promise.all([this._installNpmPackages(actFolder), this._replaceJsTemplate(_comConfig, actFolder)]);
+    let templateRet = await Promise.all([this._installNpmPackages(actFolder), this._replaceJsTemplate(_comConfig, actFolder,_pveventid)]);
     // 两步动作都成功
     if (templateRet[0].code == 0 && templateRet[1].code == 0) {
       // 执行nodejs的webpack打包命令
@@ -942,7 +942,7 @@ class LegoController extends Controller {
    * 读取js模板文件，做关键字替换
    * @param {*} template 
    */
-  async _replaceJsTemplate(template, dir) {
+  async _replaceJsTemplate(template, dir,pveventid) {
     this.ctx.logger.info(`读取模板并替换pagebegin关键字${template}`);
     let templateJs;
     try {
@@ -954,7 +954,7 @@ class LegoController extends Controller {
         msg: '读取js模板文件失败'
       }
     }
-    let replaceData = templateJs.toString().replace("pagebegin", template).replace('pveventid',_pveventid);
+    let replaceData = templateJs.toString().replace("pagebegin", template).replace('pveventid',pveventid);
     let writeRet = fs.writeFileSync(`${dir}/${this.config.legoConfig.actJs}`, replaceData, 'utf-8');
     if (!writeRet) {
       this.ctx.logger.info(`在${dir}下创建脚本文件成功`);
