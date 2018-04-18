@@ -4,7 +4,13 @@ define(function (require, exports, module) {
   var Factory = require('./jyb.vue.edit.factory');
   var DateInputLib = require('./mpm.sys.calendar').mpmDateInputLib;
   var defaultTplEdit = '/public/template/new/productlist/edit.html';
-
+  var getUrlQuery = function (name, url) {
+    //参数：变量名，url为空则表从当前页面的url中取
+    var u = url || window.location.search,
+      reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"),
+      r = u.substr(u.indexOf("\?") + 1).match(reg);
+    return r != null ? r[2] : "";
+  };
 
   var _Class = Factory.getClass({
     vueComponent: vueComponent,
@@ -26,11 +32,16 @@ define(function (require, exports, module) {
       "isShowAll": 0,
       "jumpUrl": "",
       "eventid": "",
+      "buyBtnBg":"",
+      "buyColor":"",
       "advertUrl": "https://img11.360buyimg.com/mcoss/jfs/t12676/217/2503090753/59495/2e58f921/5a4de03fN38dacbf3.jpg.webp",
       "isShowSubject": 0, //是否展示主题头部 默认展示
       "subjectDesc": "圣诞必买清单",
       "timerDesc": "距离结束还有",
-      "isShowTimer": 0
+      "isShowTimer": 0,
+      "pageActId":getUrlQuery('act_id'),
+      "pageId":getUrlQuery('page_id'),
+      "comDesc":''
     },
     watch: ['data.styleKey', 'data.showType']
   });
@@ -101,6 +112,8 @@ define(function (require, exports, module) {
             this.showStyle = false;
             this.showProperty = true;
           }
+          
+          
           this.$nextTick(function () {
             var today = new Date();
             DateInputLib($("#editbox_" + that.obj.uid).find(".selecttime[settime!='1']"), {
@@ -125,6 +138,7 @@ define(function (require, exports, module) {
 
         selectNpmVersion: function () { /* npm管理 */
           console.info("切换排行榜组件的版本是", this.obj.data.npmversion);
+          this.obj.data.comDesc = this.obj.componentName + this.obj.uid;
           require.async('./mpm.sys.basicInfo', function (module) {
             moduleBasicInfo = module;
           });

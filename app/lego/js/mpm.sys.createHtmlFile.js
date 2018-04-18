@@ -112,7 +112,13 @@ define(function (require, exports, module) {
           comConfig += "jybpay:require('@lego/jybpay'), \n "
         } else if (_type == 'jybfigure' && comConfig.indexOf("jybfigure") == -1) {
           comConfig += "jybfigure:require('@lego/jybfigure'), \n "
-        }
+        } else if (_type == 'jybimgmap' && comConfig.indexOf(".jybimgmap") == -1) {
+          comConfig += "jybimgmap:require('@lego/jybimgmap'), \n "
+        } else if (_type == 'jybtasks' && comConfig.indexOf(".jybtasks") == -1) {
+            comConfig += "jybtasks:require('@lego/jybtasks'), \n "
+        } else if (_type == 'jybsignin' && comConfig.indexOf(".jybsignin") == -1) {
+            comConfig += "jybsignin:require('@lego/jybsignin'), \n "
+        }  
         //获取自定义代码 
         if (_name == 'customcode') {
           customCodeSource += _data.data.code + "\n";
