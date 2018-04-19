@@ -112,6 +112,13 @@ class HomeController extends Controller {
       });
     }
 
+    if(!this.ctx.session.userid) {
+      this.ctx.session.userid = operateUser.userId;
+      this.ctx.session.userName = operateUser.userName;
+      this.ctx.session.userAccount = operateUser.userAccount;
+      this.ctx.session.userEmail = operateUser.email;
+    }
+
     if(!this.ctx.session.roles) {
       const roleList = await this.service.login.loginService.findRole(operateUser.userId);
       if(roleList) {
