@@ -216,14 +216,17 @@ define(function (require, exports, module) {
                 actIdArr.push(_act_id);
               }
             }
-            if (actIdArr.length > 0) {
-              getData.request({
-                act_id: actIdArr,
-                page_id: exports.getUrlQuery("page_id"),
-                user_name: exports.getCookie("jybactconfig")
-              }, "http://manage.jyblife.com/actManage/autoActMark", false, function (json) {
-                console.log(json);
-              });
+            if (data.name == 'productlist') {
+              var _act_id = data.data.actId;
+              var _pvEventid = $('#pvEventid').val();
+              if (_act_id && _pvEventid) {
+                //上报下
+                $.get(' http://bi.jyblife.com/legao/act', {
+                  actid: _act_id,
+                  metaid: _pvEventid
+                }, function(json){
+                }, 'json');
+              }
             }
 
           }
