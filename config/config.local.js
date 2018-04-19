@@ -47,7 +47,13 @@ module.exports = appInfo => {
     "version": "1.0.0", //使用URL中的version值
     "method": "invoke"
   }
-
+  //乐高微服务
+  config.actLegoConfig = {
+    GetActivityDraftConfig: [{
+      ip: 'http://172.16.1.35:12053',
+      jmf: 'com.jyblife.complex.h5.act_console.GetActivityDraftConfig'
+    }]
+  }
   config.actEntryConfig = {
     userGroupList: [{
       ip: 'http://172.16.1.35:12053',
@@ -90,7 +96,6 @@ module.exports = appInfo => {
       jmf: 'com.jyblife.complex.h5.act_console.GetIconEntranceDetail'
     }]
   }
-
   config.redis = {
     client: {
       port: 6379,          // Redis port

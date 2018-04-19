@@ -20,4 +20,6 @@ module.exports = app => {
   app.router.post('/ActShowParam/do', app.controller.act.list.index.getShowList);
   // 保存乐高活动配置页面和活动号的关联
   app.router.post('/act/SavePageActRelation', app.controller.act.detail.index.relateActAndPage);
+  // 获取副本信息
+  app.router.post('/act/GetActivityDraftConfig', app.controller.act.detail.index.GetActivityDraftConfig);
 };

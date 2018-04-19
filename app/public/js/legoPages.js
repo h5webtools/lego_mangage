@@ -1825,9 +1825,9 @@ module.exports = function spread(callback) {
 var disposed = false
 var Component = __webpack_require__(46)(
   /* script */
-  __webpack_require__(344),
+  __webpack_require__(348),
   /* template */
-  __webpack_require__(346),
+  __webpack_require__(350),
   /* styles */
   null,
   /* scopeId */
@@ -1860,12 +1860,12 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 344:
+/***/ 348:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_api_api_lego_pages__ = __webpack_require__(345);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_api_api_lego_pages__ = __webpack_require__(349);
 //
 //
 //
@@ -2002,7 +2002,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 345:
+/***/ 349:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2020,7 +2020,7 @@ function getActPages(data) {
 
 /***/ }),
 
-/***/ 346:
+/***/ 350:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
