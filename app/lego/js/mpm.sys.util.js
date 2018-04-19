@@ -221,7 +221,7 @@ define(function (require, exports, module) {
               var _pvEventid = $('#pvEventid').val();
               if (_act_id && _pvEventid) {
                 //上报下
-                $.get(' http://bi.jyblife.com/legao/act', {
+                $.get('http://bi.jyblife.com/legao/act', {
                   actid: _act_id,
                   metaid: _pvEventid
                 }, function(json){
