@@ -5,6 +5,11 @@ const errCode = require('../../constant/errCode');
 
 class AuthController extends Controller {
   async loginPage() {
+    if(this.ctx.session.passportJyb && this.ctx.session.passportJyb.user_id) {
+      this.ctx.redirect('/');
+      return;
+    }
+
     await this.ctx.render('login/login', {
       keywords: '加油宝,乐高,管理系统',
       description: '加油宝乐高配置管理系统',
