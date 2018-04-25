@@ -30,6 +30,7 @@ service.interceptors.response.use(
      * 如通过xmlhttprequest 状态码标识 逻辑可写在下面error中
      */
     const code = response.data.code;
+    
     // 50014:Token 过期了 50012:其他客户端登录了 50008:非法的token
     if (code == "1601000014" || code == "1601000013") {
       Message({
@@ -38,7 +39,8 @@ service.interceptors.response.use(
         duration: 3 * 1000
       });
       // 跳转去登录页
-      location.replace("/login?redirect=" + encodeURIComponent(location.href));
+      // location.replace("/login?redirect=" + encodeURIComponent(location.href));
+      location.replace("/login");
       return Promise.reject();
     } else if (code != 0) {
       Message({

@@ -46,7 +46,31 @@ module.exports = appInfo => {
      }
     },
     'selfSystem': {  
-      'noAuth': [/\/login\/doLogin/, /^\/lego\/syncCallback/]
+      'noAuth': [/\/login\/doLogin/, /^\/lego\/syncCallback/],
+      'hook': {
+        async logoutCallbackbefore(ctx) {
+          const {path} = ctx.request;
+          const rules = [/^\/$/, /\/login/, /\/login\/loginOut/]
+          
+          const state = rules.find(rule => {
+            if(rule.test(path)) {
+              return true;
+            }
+          })
+
+          if(!state) {
+            ctx.body = {
+              code: '1601000014',
+              msg: '用户未登录'
+            }
+            return true;
+
+          } else {
+            return false;
+          }
+
+        }
+      }
     }
   }
 
