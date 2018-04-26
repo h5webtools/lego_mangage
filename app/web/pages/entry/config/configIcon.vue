@@ -402,7 +402,7 @@ export default {
             plan_id:submitData.plan_id
           }).then(jsonData => {
             if (jsonData.code == 0) {
-              this.deleteAppointCon();
+              this.deleteAppointCon(index);
             }
           });
         }
