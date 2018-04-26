@@ -16,6 +16,19 @@ module.exports = appInfo => {
     encrypt: true,
   };
 
+  config.bodyParser = {
+    enable:true,
+    encoding:'utf8',
+    formLimit:'5mb',
+    jsonLimit:'5mb',
+    strict:true,
+    queryString:{
+      arrayLimit:100,
+      depth:5,
+      parameterLimit:1000
+    }
+  }
+
   config.security = {
     csrf: {
       useSession: true,
