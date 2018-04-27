@@ -46,7 +46,7 @@ module.exports = appInfo => {
      }
     },
     'selfSystem': {  
-      'noAuth': [/\/login\/doLogin/, /^\/lego\/syncCallback/],
+      'noAuth': [/\/login\/doLogin/, /^\/lego\/syncCallback/,  /^\/lego\/previewLock/],
       'hook': {
         async logoutCallbackbefore(ctx) {
           const {path} = ctx.request;
