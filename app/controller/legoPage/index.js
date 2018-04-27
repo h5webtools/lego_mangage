@@ -62,6 +62,13 @@ class LegoPageController extends Controller {
             }
             // 渲染编辑页
             let lockData = await this.app.redis.get(`lego_manage_${pageId}`);
+            // 预览
+            let lockPreview = await this.app.redis.get(`lego_manage_releaseLock_${pageId}`);
+            // 是否预览完
+            let previewLock = await this.app.redis.get(`lego_manage_previewLock_${pageId}`);
+           
+            console.log(previewLock,'----------------previewLock')
+            console.log(lockPreview,'----------------lockPreview')
             // 有他人锁定
             if(lockData) {
               lockData = JSON.parse(lockData);
@@ -73,6 +80,7 @@ class LegoPageController extends Controller {
                 return;
               }
             }
+
             // 写redis 锁定该页面
             await this.app.redis.set(`lego_manage_${pageId}`, JSON.stringify({
               userid: this.ctx.session.userid,
@@ -81,10 +89,20 @@ class LegoPageController extends Controller {
               time: +new Date()
             }), 'PX', 24 * 60 * 60 * 1000);
 
+            //如果已经预览过但是还没点预发布
+            if (!previewLock) {
+              // 写redis 区分是预览还是发布
+              await this.app.redis.set(`lego_manage_releaseLock_${pageId}`, JSON.stringify({
+                lock: true,
+                time: +new Date()
+              }), 'PX', 24 * 60 * 60 * 1000);
+            }
+
             await this.ctx.render('lego/edit', {
               title: actDetail.data.act_title,
               env: this.app.config.env,
               lock: true,
+              lockPreview: lockPreview,
               actId,
               actDetail: JSON.stringify(actDetail.data),
               userInfo: JSON.stringify(userInfo)

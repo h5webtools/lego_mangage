@@ -189,6 +189,7 @@
     <div class="martop20 textcenter" v-if="actInfo.status != 4">
       <el-button type="primary" @click="saveEdit" size="large">提交配置</el-button>
     </div>
+    <div>是否确认发布</div>
   </div>
 </template>
 

@@ -61,6 +61,7 @@
   </script>
   <!--$$$#include virtual="/sinclude/env.tpl"-->
 
+
   <script type="text/javascript" src="/static/js/lib/jsapi.js"></script>
   <script src="/static/js/lib/vue.min.js"></script>
   <script src="/static/js/lib/zepto-1.2.0-all-min.js"></script>
@@ -79,5 +80,7 @@
     })();
   </script> 
   {{{customcode}}}
+  
+  {{{previewJS}}}
 </body>
 </html>
