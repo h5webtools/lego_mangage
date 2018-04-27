@@ -152,8 +152,12 @@ class LegoController extends Controller {
     
     if (_publishflag == 'previewHtml') {
       _content = _content.replace("{{[previewJS]}}", replacePreviewData);
+      
+      _content = _content.replace(new RegExp('{{{previewRoot}}}','g'), 'https://cdn.jyblife.com');
+
     } else {
       _content = _content.replace("{{[previewJS]}}", '');
+      _content = _content.replace(new RegExp('{{{previewRoot}}}','g'), '');
     }
   
     let actPageRet = fs.writeFileSync(`${actFolder}/${_fileName}`, _content, 'utf-8');//要删除

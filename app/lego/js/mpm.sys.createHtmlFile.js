@@ -76,6 +76,7 @@ define(function (require, exports, module) {
     html = html.replace('{{{timestamp}}}', 't=' + (new Date()).getTime());
     //预览按钮
     html = html.replace('{previewJS}', '[previewJS]');//.replace('{{[extendJS]}}', extendJS);
+    // html = html.replace(new RegExp('{previewRoot}','g'), '[previewRoot]');//.replace('{{[extendJS]}}', extendJS);
 
     var bodyBgColor = pageInfo.bgColor;
     bodyBgColor = bodyBgColor ? 'style=background-color:' + bodyBgColor : '';
