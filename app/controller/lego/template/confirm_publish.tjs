@@ -1,0 +1,19 @@
+
+<script>
+    var previewBtn = document.getElementById('previewBtn');
+    if (!previewBtn) {
+        var btn = document.createElement("button");
+        btn.innerHTML = '确认发布';
+        btn.id = 'previewBtn';
+        btn.style='display:block;margin:10px auto';
+        btn.onclick = function () {
+            $.ajax({
+                url:'previewHost/lego/previewLock',
+                type:'post',
+                data:{"pageId": {{pageId}} },
+                async:false
+            });
+        }
+    }
+    document.body.appendChild(btn);
+</script>

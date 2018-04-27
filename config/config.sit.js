@@ -115,6 +115,7 @@ module.exports = appInfo => {
   config.legoConfig = {
     path: '/data/www/lego/h5_lego_actpage/release/act/',
     templateJs: 'index.tjs',
+    previewTem: 'confirm_publish.tjs',
     actJs: 'index.js',
     minifyJs: true,
     branchName: 'lego_sit'
@@ -123,7 +124,8 @@ module.exports = appInfo => {
   config.envConfig = {
     BASE_API: 'http://manage.sit.jyblife.com',
     RELEASE_PATH: 'http://release.jyblife.com/task/interface',
-    CDN_PREFIX: 'https://cdnsit.jyblife.com/act/'
+    CDN_PREFIX: 'https://cdnsit.jyblife.com/act/',
+    previewHost:'https://lego.sit.jyblife.com'
   }
 
   config.userRole = {
