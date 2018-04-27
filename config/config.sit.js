@@ -125,7 +125,7 @@ module.exports = appInfo => {
     BASE_API: 'http://manage.sit.jyblife.com',
     RELEASE_PATH: 'http://release.jyblife.com/task/interface',
     CDN_PREFIX: 'https://cdnsit.jyblife.com/act/',
-    previewHost:'https://lego.sit.jyblife.com'
+    previewHost:'http://lego.sit.jyblife.com'
   }
 
   config.userRole = {
