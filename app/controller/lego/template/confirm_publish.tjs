@@ -10,8 +10,16 @@
             $.ajax({
                 url:'previewHost/lego/previewLock',
                 type:'post',
-                data:{"pageId": {{pageId}} },
-                async:false
+                data:{'pageId':{{pageId}}},
+                dataType: 'json',
+                async:false,
+                success: function(json){
+                    if(json.code == 0) {
+                        alert('预览成功，请到乐高发布')
+                    } else {
+                        alert(json.msg)
+                    }
+                }
             });
         }
     }

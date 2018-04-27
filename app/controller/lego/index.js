@@ -914,8 +914,9 @@ class LegoController extends Controller {
    * @example {"pageId": 200}
    */
   async changePreviewLock() {
+    this.ctx.set('Access-Control-Allow-Origin', '*'); 
     let raw = this.ctx.request.rawBody,
-        pageId = raw.pageId;
+        pageId = this.ctx.request.body.pageId;
     this.ctx.logger.info('预览'+JSON.stringify(raw));
     if(!pageId) {
       this.ctx.logger.error('没有找到pageid');
