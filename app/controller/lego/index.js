@@ -923,7 +923,7 @@ class LegoController extends Controller {
       this.ctx.body = errCode.INVALID_PARAM_FORMAT;
       return;
     }
-    let redisData = await this.app.redis.get(`lego_manage_releaseLock${pageId}`);
+    let redisData = await this.app.redis.get(`lego_manage_releaseLock_${pageId}`);
     
     if(!redisData) {
       this.ctx.logger.info(`没有获取页面${pageId}的预览信息`);
