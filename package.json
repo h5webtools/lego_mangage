@@ -1,6 +1,6 @@
 {
   "name": "lego",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "乐高配置系统",
   "private": true,
   "dependencies": {
