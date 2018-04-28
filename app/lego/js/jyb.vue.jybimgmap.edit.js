@@ -3,6 +3,13 @@ define(function (require, exports, module) {
   var vueComponent = require("./jyb.vue.jybimgmap");
   var Factory = require('./jyb.vue.edit.factory');
   var defaultTplEdit = '/public/template/new/jybimgmap/edit.html';
+  var getUrlQuery = function (name, url) {
+    //参数：变量名，url为空则表从当前页面的url中取
+    var u = url || window.location.search,
+      reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"),
+      r = u.substr(u.indexOf("\?") + 1).match(reg);
+    return r != null ? r[2] : "";
+  };
 
   var _Class = Factory.getClass({
     vueComponent: vueComponent,
@@ -21,7 +28,9 @@ define(function (require, exports, module) {
       "imgUrl": "https://cdnsit.jyblife.com/act/201710/cunguan/image/banner-a3bff324.png",
       "index": 0,
       "imageMap": [],
-
+      "pageActId":getUrlQuery('act_id'),
+      "pageId":getUrlQuery('page_id'),
+      "comDesc":''
     },
     watch: ['data.styleKey', 'data.imgUrl', 'data.tabIndex']
   });
@@ -78,6 +87,7 @@ define(function (require, exports, module) {
         },
         selectNpmVersion: function () { /* npm管理 */
           console.info("切换", this.obj.name, "的版本是", this.obj.data.npmversion);
+          this.obj.data.comDesc = this.obj.componentName + this.obj.uid;
           require.async('./mpm.sys.dataCenter', function (module) {
             moduleDataCenter = module;
           });
@@ -132,6 +142,7 @@ define(function (require, exports, module) {
       '            <div class="map_position map_position_save" v-for="(item , index) in params.imageMap" ' +
       ' v-on:click="checkhotmap(index)" ' +
       '                :data-stat-id="item.eventid " ' +
+      'v-bind:data-stat-para="JSON.stringify({pageActId:params.pageActId,pageId:params.pageId,comDesc:params.comDesc})"'+
       '                v-bind:style="{left: item.left + \'%\',top: item.top + \'%\',width: item.width + \'%\',height: item.height + \'%\'}">' +
       '            </div>' +
       '        </div>' +
