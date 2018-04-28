@@ -276,9 +276,9 @@
     <a href="javascript:;" id="savePageBtn"><img src="/public/image/icon_save.png"><span>保存页面</span></a>
     <a href="javascript:;" class="previews" id="previewBtn"><img class="previews" src="/public/image/icon_view.png"><span class="previews">集成</span></a>
     {% if lockPreview %}
-    <a href="javascript:;" class="prepublishHtmls" id="previewHtml"><img class="prepublishHtmls" src="/public/image/icon_view.png"><span class="prepublishHtmls">预览</span></a>
+    <a href="javascript:;" class="prepublishHtmls isPreview" id="previewHtml"><img class="prepublishHtmls" src="/public/image/icon_view.png"><span class="prepublishHtmls">预览</span></a>
     {% else %}
-    <a href="javascript:;" class="prepublishs" id="prePublishBtn"><img class="prepublishs" src="/public/image/icon_checkpub.png"><span class="prepublishs">预发布&线上</span></a>
+    <a href="javascript:;" class="prepublishs  isPreview" id="prePublishBtn"><img class="prepublishs" src="/public/image/icon_checkpub.png"><span class="prepublishs">预发布&线上</span></a>
     {% endif %}
     {% if lock %}
     <a href="javascript:;" class="prepublishs" id="releaseLock"><img src="/public/image/icon_other.png"><span class="prepublishs">释放锁</span></a>

@@ -31,6 +31,7 @@ define(function (require, exports, module) {
     var isSelectTabComponent = false;//tabList选择锚点元素
     var triggerUid;
     var dragFrom, dragTo, dropOn;
+    var isPreview ;
     //拖动元素，最后经过的一个，真正放下的那个
     // dragTo与dropOn须相同才触发调整位置的动作
 
@@ -425,6 +426,26 @@ define(function (require, exports, module) {
                     moduleCreateFile.createFile(function(){
 
                     } , 'save');
+
+                    isPreview = $('.isPreview').attr('id');
+                    console.log(isPreview,'---------------isPreview');
+                    if (isPreview != 'previewHtml') {
+                        $('.isPreview').removeClass('prepublishs').addClass('prepublishHtmls');
+                        $('.isPreview').attr('id','previewHtml');
+                        $('.isPreview').find('img').removeClass('prepublishs').addClass('prepublishHtmls');
+                        $('.isPreview').find('span').removeClass('prepublishs').addClass('prepublishHtmls');
+                        $('.isPreview').find('span').html('预览');
+                         //发送请求写Redis           
+                        moduleDataCenter.setPreviewLock(pageInfo.id , function(json){
+                            if(json.code == 0){
+                            alert('修改预览状态成功');
+                            }else{
+                            alert('修改预览状态失败');
+                            }
+                        })
+                        
+                    }
+
                 } else {
                     moduleUtil.alert('保存失败');
                 }

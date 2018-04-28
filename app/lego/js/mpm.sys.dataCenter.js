@@ -20,6 +20,15 @@ define(function(require, exports, module) {
       pageId: page_id
     }, callback);
   }
+  /**
+   * 根据page_id释放锁
+   * @param {*} pageId
+   */
+  exports.setPreviewLock = function(page_id, callback) {
+    request('/lego/setPreviewLock', {
+      pageId: page_id
+    }, callback);
+  }
 
   /**
    * 根据组件ID获取对应的规则树配置模板

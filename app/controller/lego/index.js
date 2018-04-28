@@ -185,6 +185,9 @@ class LegoController extends Controller {
             await _this._submitGit(_datefolder, _folder, _pagename).then(async (commitId, preCommitId) => {
               // 提交git仓库成功，创建发布单
               let publishRet = await _this._createPublishTask(commitId, preCommitId, rawBody);
+
+
+              ctx.logger.info('publishRet-------------------->',publishRet);
               // 发布失败
               if(!publishRet) {
                 ctx.body = {
@@ -951,6 +954,29 @@ class LegoController extends Controller {
         };
       }
     }
+  }
+  /**
+   * 保存页面后更改为预览状态
+   * @param pageId 
+   * @example {"pageId": 200}
+   */
+  async setPreviewLock() {
+    this.ctx.set('Access-Control-Allow-Origin', '*'); 
+    let raw = this.ctx.request.rawBody,
+        pageId = this.ctx.request.body.pageId || raw.pageId;
+    this.ctx.logger.info('预览'+JSON.stringify(raw));
+    if(!pageId) {
+      this.ctx.logger.error('没有找到pageid');
+      this.ctx.body = errCode.INVALID_PARAM_FORMAT;
+      return;
+    }
+    await this.app.redis.set(`lego_manage_releaseLock_${pageId}`, JSON.stringify({
+      lock: true,
+      time: +new Date()
+    }), 'PX', 24 * 60 * 60 * 1000);
+    this.ctx.body = {
+      code: 0
+    };
   }
   /**
    * @description 关联活动页面和活动号，回写活动URL
