@@ -2222,6 +2222,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_wangeditor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_wangeditor__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_md5__ = __webpack_require__(178);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_md5___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_md5__);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 //
 //
 //
@@ -2524,6 +2526,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         status: '', // 当前活动状态
         rule_description: '' // 乐高对应活动规则
       },
+      requireActInfo: {
+        is_inner: '1', // 活动类型（是否是内部活动）
+        is_lego: '', //是否是乐高搭建
+        version: '1', //版本号
+        act_title: '', // 活动名
+        effect_time: '', // 上线时间
+        expire_time: '', // 过期时间
+        end_time: '', //活动结束时间
+        code_type: '', // 活动校验类型
+        act_url: '', // 活动链接
+        act_content: '', // 活动描述文案
+        cost_type: '', // 成本计算类型
+        user_cost_type: '', // 用户成本计算类型
+        per_user_cost: '', // 单用户成本计算规则
+        business_channel: '', // 活动所属渠道
+        optor: '', // 活动负责人
+        act_id: '', // 活动号
+        revisability: '', // 可编辑活动人员
+        tests: [], // 测试负责人
+        coupons: '', // 活动关联红包
+        pageids: '', // 对应的乐高ID
+        status: '', // 当前活动状态
+        rule_description: '' // 乐高对应活动规则
+      },
       actInfo: {
         is_inner: '1', // 活动类型（是否是内部活动）
         is_lego: '', //是否是乐高搭建
@@ -2615,7 +2641,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     'redo' // 重复
     ];
     this.editor.customConfig.onchange = function (html) {
-      _this.actCopyInfo.rule_description = html;
+      _this.actInfo.rule_description = html;
     };
     this.editor.create();
   },
@@ -2641,8 +2667,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this2.editLoading = false;
         if (json.code == 0) {
           _this2.actInfo = json.data;
+          _this2.requireActInfo = _extends({}, json.data);
+          console.log(_this2.requireActInfo, 'this.requireActInfo---------------------');
           _this2.actInfo.pageids = json.data.page_ids && json.data.page_ids.join("-");
-          _this2.editor.txt.html(_this2.actCopyInfo.rule_description);
+          _this2.editor.txt.html(_this2.actInfo.rule_description);
           _this2.originEffectTime = _this2.actInfo.effect_time;
           _this2.originExpireTime = _this2.actInfo.expire_time;
         } else {
@@ -2662,6 +2690,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }).then(function (json) {
         if (json.code == 0) {
           _this3.actCopyInfo = json.data;
+          _this3.actInfo.effect_time = _this3.actCopyInfo.effect_time;
+          _this3.actInfo.end_time = _this3.actCopyInfo.end_time;
+          _this3.actInfo.expire_time = _this3.actCopyInfo.expire_time;
+          _this3.actInfo.rule_description = _this3.actCopyInfo.rule_description;
+          _this3.actInfo.version = _this3.actCopyInfo.version;
+          _this3.actInfo.code_type = _this3.actCopyInfo.code_type;
         } else {
           _this3.$message.error(json.msg);
         }
@@ -7639,15 +7673,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "placeholder": "选择上线的日期时间"
     },
     model: {
-      value: (_vm.actCopyInfo.effect_time),
+      value: (_vm.actInfo.effect_time),
       callback: function($$v) {
-        _vm.$set(_vm.actCopyInfo, "effect_time", $$v)
+        _vm.$set(_vm.actInfo, "effect_time", $$v)
       },
-      expression: "actCopyInfo.effect_time"
+      expression: "actInfo.effect_time"
     }
-  }), _vm._v(" "), (_vm.act_id && _vm.actInfo.effect_time != _vm.actCopyInfo.effect_time) ? _c('span', {
+  }), _vm._v(" "), (_vm.act_id && (_vm.requireActInfo.effect_time != _vm.actCopyInfo.effect_time || _vm.requireActInfo.effect_time != _vm.actInfo.effect_time)) ? _c('span', {
     staticClass: "copy-content"
-  }, [_vm._v("正式内容：" + _vm._s(_vm.actInfo.effect_time))]) : _vm._e()], 1), _vm._v(" "), _c('el-form-item', {
+  }, [_vm._v("正式内容：" + _vm._s(_vm.requireActInfo.effect_time))]) : _vm._e()], 1), _vm._v(" "), _c('el-form-item', {
     attrs: {
       "label": "过期时间：",
       "required": "",
@@ -7660,15 +7694,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "placeholder": "选择过期的日期时间"
     },
     model: {
-      value: (_vm.actCopyInfo.expire_time),
+      value: (_vm.actInfo.expire_time),
       callback: function($$v) {
-        _vm.$set(_vm.actCopyInfo, "expire_time", $$v)
+        _vm.$set(_vm.actInfo, "expire_time", $$v)
       },
-      expression: "actCopyInfo.expire_time"
+      expression: "actInfo.expire_time"
     }
-  }), _vm._v(" "), (_vm.act_id && _vm.actInfo.expire_time != _vm.actCopyInfo.expire_time) ? _c('span', {
+  }), _vm._v(" "), (_vm.act_id && (_vm.requireActInfo.expire_time != _vm.actCopyInfo.expire_time || _vm.requireActInfo.expire_time != _vm.actInfo.expire_time)) ? _c('span', {
     staticClass: "copy-content"
-  }, [_vm._v("正式内容：" + _vm._s(_vm.actInfo.expire_time))]) : _vm._e()], 1), _vm._v(" "), _c('el-form-item', {
+  }, [_vm._v("正式内容：" + _vm._s(_vm.requireActInfo.expire_time))]) : _vm._e()], 1), _vm._v(" "), _c('el-form-item', {
     attrs: {
       "label": "结束时间："
     }
@@ -7679,15 +7713,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "placeholder": "选择活动结束的日期时间"
     },
     model: {
-      value: (_vm.actCopyInfo.end_time),
+      value: (_vm.actInfo.end_time),
       callback: function($$v) {
-        _vm.$set(_vm.actCopyInfo, "end_time", $$v)
+        _vm.$set(_vm.actInfo, "end_time", $$v)
       },
-      expression: "actCopyInfo.end_time"
+      expression: "actInfo.end_time"
     }
-  }), _vm._v(" "), (_vm.act_id && _vm.actInfo.end_time != _vm.actCopyInfo.end_time) ? _c('span', {
+  }), _vm._v(" "), (_vm.act_id && (_vm.requireActInfo.end_time != _vm.actCopyInfo.end_time || _vm.requireActInfo.end_time != _vm.actInfo.end_time)) ? _c('span', {
     staticClass: "copy-content"
-  }, [_vm._v("正式内容：" + _vm._s(_vm.actInfo.end_time))]) : _vm._e()], 1), _vm._v(" "), _c('el-form-item', {
+  }, [_vm._v("正式内容：" + _vm._s(_vm.requireActInfo.end_time))]) : _vm._e()], 1), _vm._v(" "), _c('el-form-item', {
     attrs: {
       "label": "校验类型：",
       "required": "",
@@ -7713,9 +7747,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": item.value
       }
     })
-  })), _vm._v(" "), (_vm.act_id && _vm.actInfo.code_type != _vm.actCopyInfo.code_type) ? _c('span', {
+  })), _vm._v(" "), (_vm.act_id && (_vm.requireActInfo.code_type != _vm.actCopyInfo.code_type || _vm.requireActInfo.code_type != _vm.actInfo.code_type)) ? _c('span', {
     staticClass: "copy-content"
-  }, [_vm._v("正式内容：" + _vm._s(_vm._f("verText")(_vm.actInfo.code_type, _vm.validateOptions)))]) : _vm._e()], 1), _vm._v(" "), _c('el-form-item', {
+  }, [_vm._v("正式内容：" + _vm._s(_vm._f("verText")(_vm.requireActInfo.code_type, _vm.validateOptions)))]) : _vm._e()], 1), _vm._v(" "), _c('el-form-item', {
     attrs: {
       "label": "活动类型：",
       "required": ""
@@ -7768,11 +7802,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "placeholder": "请选择"
     },
     model: {
-      value: (_vm.actCopyInfo.version),
+      value: (_vm.actInfo.version),
       callback: function($$v) {
-        _vm.$set(_vm.actCopyInfo, "version", $$v)
+        _vm.$set(_vm.actInfo, "version", $$v)
       },
-      expression: "actCopyInfo.version"
+      expression: "actInfo.version"
     }
   }, _vm._l((_vm.versionList), function(item) {
     return _c('el-option', {
@@ -7782,9 +7816,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": item.value
       }
     })
-  })), _vm._v(" "), (_vm.act_id && _vm.actInfo.version != _vm.actCopyInfo.version) ? _c('span', {
+  })), _vm._v(" "), (_vm.act_id && (_vm.requireActInfo.version != _vm.actCopyInfo.version || _vm.requireActInfo.version != _vm.actInfo.version)) ? _c('span', {
     staticClass: "copy-content"
-  }, [_vm._v("正式内容：" + _vm._s(_vm._f("verText")(_vm.actInfo.version, _vm.versionList)))]) : _vm._e()], 1), _vm._v(" "), _c('el-form-item', {
+  }, [_vm._v("正式内容：" + _vm._s(_vm._f("verText")(_vm.requireActInfo.version, _vm.versionList)))]) : _vm._e()], 1), _vm._v(" "), _c('el-form-item', {
     attrs: {
       "label": "测试负责人："
     }
@@ -7942,7 +7976,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "editorElem"
     }
-  }), _vm._v(" "), (_vm.act_id && _vm.md5(_vm.actCopyInfo.rule_description.trim()) != _vm.md5(_vm.actInfo.rule_description.trim())) ? _c('div', {
+  }), _vm._v(" "), (_vm.act_id && (_vm.md5(_vm.actCopyInfo.rule_description.trim()) != _vm.md5(_vm.requireActInfo.rule_description.trim()) || _vm.md5(_vm.actInfo.rule_description.trim()) != _vm.md5(_vm.requireActInfo.rule_description.trim()))) ? _c('div', {
     staticClass: "copy-content",
     staticStyle: {
       "margin-left": "0"
@@ -7950,7 +7984,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("正式内容:"), _c('div', {
     staticClass: "rule-copy-content",
     domProps: {
-      "innerHTML": _vm._s(_vm.actInfo.rule_description)
+      "innerHTML": _vm._s(_vm.requireActInfo.rule_description)
     }
   })]) : _vm._e()])], 1)], 1), _vm._v(" "), _c('el-col', {
     staticClass: "form-group-wrap",
