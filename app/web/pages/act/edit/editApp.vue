@@ -35,7 +35,7 @@
             <span class="copy-content" v-if="act_id &&  (requireActInfo.end_time != actCopyInfo.end_time || requireActInfo.end_time != actInfo.end_time)">正式内容：{{requireActInfo.end_time}}</span>
           </el-form-item>
           <el-form-item label="校验类型：" required prop="code_type">
-            <el-select v-model="actCopyInfo.code_type" placeholder="请选择活动校验类型" class="full-form-item form-width">
+            <el-select v-model="actInfo.code_type" placeholder="请选择活动校验类型" class="full-form-item form-width">
               <el-option
                 v-for="item in validateOptions"
                 :key="item.value"
