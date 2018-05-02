@@ -209,7 +209,7 @@ export default {
                 'message': isUpdate ? '更新组件成功' : '保存组件成功',
                 'type': 'success'
               });
-              this.queryFilterList(true);
+              this.queryFilterList(false);
               this.dialogVisible = false;
             }else{
               this.$message.error(json.msg);

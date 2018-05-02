@@ -32,6 +32,7 @@ const UPDATE_DATA_FAILED = 710012;    // 更新数据失败
 const ACT_DIR_EXIST = 710013;         // 活动目录有冲突
 const COPY_ACT_PAGE_FAILED = 710014;  // 拷贝新页面失败
 const RELATE_PAGE_ACT_FAILED = 810010;  // 关联页面和活动号失败
+const PAGE_ID_NOT_EXIST = 810011;       // 活动页面不存在
 
 const PAGE_TYPE_COMMON = 1;
 const PAGE_TYPE_SHARE = 2;
@@ -772,7 +773,16 @@ class LegoController extends Controller {
       return;
     }
     this.ctx.logger.info('复制页面'+ JSON.stringify(raw));
+
     // 检测目录是否有冲突
+    let pageExist = await this.service.lego.legoService.queryPageDetail(fromPage);
+    if(!pageExist) {
+      this.ctx.body = {
+        code: PAGE_ID_NOT_EXIST,
+        msg: '被复制的活动页面不存在'
+      };
+      return;
+    }
     try {
       let pathExist = await this.service.lego.legoService.queryInfoByPath(folder, dateFolder);
       if(pathExist) {
