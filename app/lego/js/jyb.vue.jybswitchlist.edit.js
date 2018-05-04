@@ -39,6 +39,7 @@ define(function (require, exports, module) {
       "selectedcontentColor": "",
       "selectedbgcolor": "",
       "tabs": [],
+      "tabType": 'switchlist',
       "npmversion": "",
       "npmversionArr": [],
       "npmname": "@lego/jybswitchlist",
@@ -76,7 +77,8 @@ define(function (require, exports, module) {
         tabTitle: "tab1",
         hot: false,
         sub: [],
-        shallid: {}
+        shallid: {},
+        anchorUid: ''
       }]);
       Vue.set(this.obj.data, 'defaultRate', []);
     } else {
@@ -110,7 +112,7 @@ define(function (require, exports, module) {
 
     //按需异步加载模板数据
     _Class.getTplEdit(this.__config.defaultTplEdit, _cb, this);
-    _Class.getStyle(config.componentIndex, _cb, this);
+    _Class.getStyle(config.obj.componentIndex, _cb, this);
   };
 
   //组件增加到实时展示区域中
@@ -255,7 +257,8 @@ define(function (require, exports, module) {
             tabTitle: 'tab' + (this.obj.data.tabs.length + 1),
             hot: false,
             sub: [],
-            shallid: {}
+            shallid: {},
+            anchorUid: ''
           });
         },
         deleteone: function (index) {
