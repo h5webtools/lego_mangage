@@ -14,7 +14,7 @@
               value-format="yyyy-MM-dd HH:mm:ss"
               placeholder="选择上线的日期时间">
             </el-date-picker>
-            <span class="copy-content" v-if="act_id && (requireActInfo.effect_time != actCopyInfo.effect_time || requireActInfo.effect_time != actInfo.effect_time)">正式内容：{{requireActInfo.effect_time}}</span>
+            <span class="copy-content" v-if="actInfo.old_status == 4 && act_id && (requireActInfo.effect_time != actCopyInfo.effect_time || requireActInfo.effect_time != actInfo.effect_time)">正式内容：{{requireActInfo.effect_time}}</span>
           </el-form-item>
           <el-form-item label="过期时间：" required prop="expire_time">
             <el-date-picker
@@ -23,7 +23,7 @@
               value-format="yyyy-MM-dd HH:mm:ss"
               placeholder="选择过期的日期时间">
             </el-date-picker>
-            <span class="copy-content" v-if="act_id &&  (requireActInfo.expire_time != actCopyInfo.expire_time || requireActInfo.expire_time != actInfo.expire_time)">正式内容：{{requireActInfo.expire_time}}</span>
+            <span class="copy-content" v-if="actInfo.old_status == 4 && act_id &&  (requireActInfo.expire_time != actCopyInfo.expire_time || requireActInfo.expire_time != actInfo.expire_time)">正式内容：{{requireActInfo.expire_time}}</span>
           </el-form-item>
           <el-form-item label="结束时间：">
             <el-date-picker
@@ -32,7 +32,7 @@
               value-format="yyyy-MM-dd HH:mm:ss"
               placeholder="选择活动结束的日期时间">
             </el-date-picker>
-            <span class="copy-content" v-if="act_id &&  (requireActInfo.end_time != actCopyInfo.end_time || requireActInfo.end_time != actInfo.end_time)">正式内容：{{requireActInfo.end_time}}</span>
+            <span class="copy-content" v-if="actInfo.old_status == 4 && act_id &&  (requireActInfo.end_time != actCopyInfo.end_time || requireActInfo.end_time != actInfo.end_time)">正式内容：{{requireActInfo.end_time}}</span>
           </el-form-item>
           <el-form-item label="校验类型：" required prop="code_type">
             <el-select v-model="actInfo.code_type" placeholder="请选择活动校验类型" class="full-form-item form-width">
@@ -43,7 +43,7 @@
                 :value="item.value">
               </el-option>
             </el-select>
-            <span class="copy-content" v-if="act_id &&  (requireActInfo.code_type != actCopyInfo.code_type || requireActInfo.code_type != actInfo.code_type)">正式内容：{{requireActInfo.code_type | verText(validateOptions)}}</span>
+            <span class="copy-content" v-if="actInfo.old_status == 4 && act_id &&  (requireActInfo.code_type != actCopyInfo.code_type || requireActInfo.code_type != actInfo.code_type)">正式内容：{{requireActInfo.code_type | verText(validateOptions)}}</span>
           </el-form-item>
           <el-form-item label="活动类型：" required >
             <el-radio-group v-model="actInfo.is_inner">
@@ -67,7 +67,7 @@
                   :value="item.value">
                 </el-option>
               </el-select>
-            <span class="copy-content" v-if="act_id &&  (requireActInfo.version != actCopyInfo.version || requireActInfo.version != actInfo.version)">正式内容：{{requireActInfo.version | verText(versionList)}}</span>
+            <span class="copy-content" v-if="actInfo.old_status == 4 && act_id &&  (requireActInfo.version != actCopyInfo.version || requireActInfo.version != actInfo.version)">正式内容：{{requireActInfo.version | verText(versionList)}}</span>
             </el-form-item>
           <el-form-item label="测试负责人：">
             <el-select v-model="actInfo.tests" multiple filterable placeholder="请选择该活动的测试人员,默认别少,可选多人" class="full-form-item form-width">
@@ -118,7 +118,7 @@
           </el-form-item>
           <el-form-item label="乐高活动规则：" >
             <div id="editorElem"></div>
-            <div class="copy-content" style="margin-left:0;" v-if="act_id && (md5(actCopyInfo.rule_description.trim()) != md5(requireActInfo.rule_description.trim()) || md5(actInfo.rule_description.trim()) != md5(requireActInfo.rule_description.trim()))">正式内容:<div class="rule-copy-content" v-html="requireActInfo.rule_description"></div></div>
+            <div class="copy-content" style="margin-left:0;" v-if="actInfo.old_status == 4 && act_id && (md5(actCopyInfo.rule_description.trim()) != md5(requireActInfo.rule_description.trim()) || md5(actInfo.rule_description.trim()) != md5(requireActInfo.rule_description.trim()))">正式内容:<div class="rule-copy-content" v-html="requireActInfo.rule_description"></div></div>
           </el-form-item>
         </el-form>
       </el-col>
@@ -189,7 +189,6 @@
     <div class="martop20 textcenter" v-if="actInfo.status != 4">
       <el-button type="primary" @click="saveEdit" size="large">提交配置</el-button>
     </div>
-    <div>是否确认发布</div>
   </div>
 </template>
 
