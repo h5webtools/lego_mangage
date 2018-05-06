@@ -125,6 +125,12 @@ module.exports = appInfo => {
     tester: [85],
     dev: []
   }
+
+  config.passportJyb = {
+    'menu_code': 'lego_manage',
+    'client_id': 'lego_manage',        
+    'secret_key': 'fc0b088d18053c320a1733c2b8021e21',      
+  };
   
   return config;
 };
