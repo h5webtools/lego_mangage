@@ -44,7 +44,7 @@
   font-size: .28rem;
   margin-top: .15rem;
   color:#333;
-  line-height: .34rem;
+  line-height: .36rem;
   height: .70rem;
   overflow: hidden;
   -o-text-overflow: ellipsis;
@@ -107,7 +107,7 @@
             <img :lazy="item.image_url">
           </div>
           <div class="goods-content">{{item.prd_name}}</div>
-          <div class="goods-price">￥{{item.show_price}} <span class="price-right">￥{{item.origin_price}}</span></div>
+          <div class="goods-price">￥{{item.show_price}} <span class="price-right" v-if="item.show_price !== item.origin_price">￥{{item.origin_price}}</span></div>
           <div class="goods-bottom">月供¥{{item.min_month_amount}}起 <span class="goods-bottom-right">抢></span></div>
         </div>
       </div>
