@@ -285,6 +285,7 @@ define(function (require, exports, module) {
             if (!dom) {
                 return;
             }
+
             console.info("mpm add " + willAddName + '_' + willAddComponentid);
 
             dom.init(function (component) {
