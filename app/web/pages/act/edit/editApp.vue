@@ -421,8 +421,9 @@ export default {
   },
   created() {
     this.act_id = this.$route.params.act_id || ''
-    this.act_id && this.getActDetail(this.act_id);
-    this.act_id && this.getActCopyDetail(this.act_id);
+    this.act_id && this.getActDetailOrder(this.act_id);
+    // this.act_id && this.getActDetail(this.act_id);
+    // this.act_id && this.getActCopyDetail(this.act_id);
     this.getCouponList()
       .getUserList()
       .getChannelList()
@@ -465,7 +466,7 @@ export default {
     // 获取活动详情
     getActDetail(act_id) {
       this.editLoading = true;
-      actQuery
+     return actQuery
         .getActDetail({
           act_id
         })
@@ -489,7 +490,7 @@ export default {
     },
     // 获取正式环境信息
     getActCopyDetail(act_id) {
-      actQuery
+      return actQuery
         .GetActivityDraftConfig({
           act_id
         })
@@ -509,6 +510,11 @@ export default {
         .catch(() => {
           this.editLoading = false;
         });
+    },
+    getActDetailOrder(act_id) { // 执行顺序
+      this.getActDetail(act_id).then(() => {
+        return this.getActCopyDetail(act_id)
+      })
     },
     // 获取关联红包列表
     getCouponList() {
