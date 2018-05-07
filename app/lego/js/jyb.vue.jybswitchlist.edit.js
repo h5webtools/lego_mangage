@@ -486,6 +486,9 @@ define(function (require, exports, module) {
           require.async('./mpm.sys.basicInfo', function (module) {
             moduleBasicInfo = module;
           });
+          require.async('./mpm.sys.dataCenter', function (module) {
+            moduleDataCenter = module;
+          });
           var pageInfo = moduleBasicInfo.showMePageInfo();
           var folderSet = moduleBasicInfo.showMeFolderName();
 
