@@ -1,0 +1,136 @@
+<style>
+.lego-productlist-show4 .mod-goods-wrap {
+  overflow: hidden;
+  padding-left: .15rem;
+  padding-right: .15rem;
+}
+.lego-productlist-show4 .goods-list{
+  width: 3.55rem;
+  height: 5.47rem;
+  box-sizing: border-box;
+  padding-left: .2rem;
+  padding-right: .2rem;
+  position: relative;
+  float: left;
+  background: #fff;
+  margin-right: .1rem;
+  margin-bottom: .1rem;
+}
+.lego-productlist-show4 .goods-list:nth-child(even){
+  margin-right: 0;
+}
+.lego-productlist-show4 .goods-tips{
+  position: absolute;
+  top:0;
+  left: 0;
+  width: 1.36rem;
+  height: .36rem;
+  line-height: .36rem;
+  font-size: .24rem;
+  text-align: center;
+  background: #ffa633;
+  color: #fff;
+}
+.lego-productlist-show4 .goods-img {
+  margin-top: .4rem;
+  text-align: center;
+  width: 100%;
+  height: 2.9rem;
+}
+.lego-productlist-show4 .goods-img img{
+  max-height: 100%;
+}
+.lego-productlist-show4 .goods-content{
+  font-size: .28rem;
+  margin-top: .15rem;
+  color:#333;
+  line-height: .34rem;
+  height: .70rem;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+     text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.lego-productlist-show4 .goods-price{
+  font-size: .32rem;
+  color: #ff2020;
+  overflow: hidden;
+  height: .38rem;
+  line-height: .38rem;
+  margin-top: .1rem;
+}
+
+.lego-productlist-show4 .price-right{
+  float: right;
+  color: #999;
+  font-size: .2rem;
+  text-decoration:line-through;
+}
+
+.lego-productlist-show4 .goods-bottom{
+  width:100%;
+  height: .5rem;
+  border: 1px solid #ff2020;
+  border-radius: .05rem;
+  margin-top: .1rem;
+  overflow: hidden;
+  font-size: .28rem;
+  font-weight: bold;
+  color: #ff1a1a;
+  box-sizing: border-box;
+  padding-left: .1rem;
+}
+
+.lego-productlist-show4 .goods-bottom-right{
+  background: #ff2020;
+  display: block;
+  float: right;
+  color: #fff;
+  width: .75rem;
+  height: 100%;
+  text-align: center;
+}
+</style>
+
+<template class="showTemplate">
+  <productlist uid="productlist" v-bind:params="data" inline-template="">
+    <div class="lego-productlist-show4">
+      <div class="mod-goods-wrap">
+        <div class="goods-list"
+          :prdid="item.free_prd_id"
+          v-on:click="toBuy(item.free_prd_id)"
+          v-bind:data-stat-id="params.eventid || ''"
+          v-for="(item , index) in data.paramList">
+          <div class="goods-tips">{{item.time_limit}}期分期</div>
+          <div class="goods-img">
+            <img :lazy="item.image_url">
+          </div>
+          <div class="goods-content">{{item.prd_name}}</div>
+          <div class="goods-price">￥{{item.show_price}} <span class="price-right">￥{{item.origin_price}}</span></div>
+          <div class="goods-bottom">月供¥{{item.min_month_amount}}起 <span class="goods-bottom-right">抢></span></div>
+        </div>
+      </div>
+    </div>
+  </productlist>
+</template>
+<!-- 下面的属性控制MPM中编辑界面 -->
+
+<script class="forMPMExt">
+    var com_ext = {}
+
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+    var com_extend = [{
+
+    }]
+
+</script>
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {
+    };
+
+</script>

@@ -24,6 +24,7 @@ define(function (require, exports, module) {
   var jybpay = require("./jyb.vue.jybpay.edit");
   var jybfigure = require("./jyb.vue.jybfigure.edit");
   var jybimgmap = require("./jyb.vue.jybimgmap.edit");
+  var jybfloating = require("./jyb.vue.jybfloating.edit");
   // var jybsignin = require("./jyb.vue.jybsignin.edit");
   // var jybtasks = require("./jyb.vue.jybtasks.edit");
 
@@ -61,7 +62,8 @@ define(function (require, exports, module) {
     'jybcommpadding': jybcommpadding,
     'jybpay': jybpay,
     'jybfigure': jybfigure,
-    'jybimgmap': jybimgmap
+    'jybimgmap': jybimgmap,
+    'jybfloating': jybfloating
   };
 
   exports.ckeckIsLogin = function () {
@@ -216,14 +218,17 @@ define(function (require, exports, module) {
                 actIdArr.push(_act_id);
               }
             }
-            if (actIdArr.length > 0) {
-              getData.request({
-                act_id: actIdArr,
-                page_id: exports.getUrlQuery("page_id"),
-                user_name: exports.getCookie("jybactconfig")
-              }, "http://manage.jyblife.com/actManage/autoActMark", false, function (json) {
-                console.log(json);
-              });
+            if (data.name == 'productlist') {
+              var _act_id = data.data.actId;
+              var _pvEventid = $('#pvEventid').val();
+              if (_act_id && _pvEventid) {
+                //上报下
+                $.get('//bi.jyblife.com/legao/act', {
+                  actid: _act_id,
+                  metaid: _pvEventid
+                }, function(json){
+                }, 'json');
+              }
             }
 
           }
@@ -231,6 +236,19 @@ define(function (require, exports, module) {
         } catch (e) {
           console.log("上报活动ID");
         }
+
+        $.get('//bi.jyblife.com/legao/config', {
+          param:JSON.stringify({
+            pvEventId: $('#pvEventid').val(),
+            pageId:exports.getUrlQuery("page_id"),
+            pageActId:exports.getUrlQuery("act_id"),
+            pageTitle:$('#inputPageName').val()
+          }),
+          type:1
+        }, function(json){
+          
+        }, 'json');
+        
 
 
         for (var o in allComponents) {

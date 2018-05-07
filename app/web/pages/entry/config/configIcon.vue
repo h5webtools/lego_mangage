@@ -395,14 +395,14 @@ export default {
       }).then(() => {
         let submitData = this.ruleForm.pictures[index];
         if(!submitData.plan_id){
-          this.deleteAppointCon();
+          this.deleteAppointCon(index);
         }else{
           actQuery.deleteEntrancePlan({
             group_id:submitData.group_id,
             plan_id:submitData.plan_id
           }).then(jsonData => {
             if (jsonData.code == 0) {
-              this.deleteAppointCon();
+              this.deleteAppointCon(index);
             }
           });
         }
