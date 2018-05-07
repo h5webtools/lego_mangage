@@ -2613,8 +2613,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   },
   created: function created() {
     this.act_id = this.$route.params.act_id || '';
-    this.act_id && this.getActDetail(this.act_id);
-    this.act_id && this.getActCopyDetail(this.act_id);
+    this.act_id && this.getActDetailOrder(this.act_id);
+    // this.act_id && this.getActDetail(this.act_id);
+    // this.act_id && this.getActCopyDetail(this.act_id);
     this.getCouponList().getUserList().getChannelList().getTestEngineer();
   },
   mounted: function mounted() {
@@ -2660,7 +2661,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       var _this2 = this;
 
       this.editLoading = true;
-      __WEBPACK_IMPORTED_MODULE_0_api_api_act_edit__["b" /* getActDetail */]({
+      return __WEBPACK_IMPORTED_MODULE_0_api_api_act_edit__["b" /* getActDetail */]({
         act_id: act_id
       }).then(function (json) {
         _this2.editLoading = false;
@@ -2684,7 +2685,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     getActCopyDetail: function getActCopyDetail(act_id) {
       var _this3 = this;
 
-      __WEBPACK_IMPORTED_MODULE_0_api_api_act_edit__["a" /* GetActivityDraftConfig */]({
+      return __WEBPACK_IMPORTED_MODULE_0_api_api_act_edit__["a" /* GetActivityDraftConfig */]({
         act_id: act_id
       }).then(function (json) {
         if (json.code == 0) {
@@ -2702,31 +2703,22 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         _this3.editLoading = false;
       });
     },
+    getActDetailOrder: function getActDetailOrder(act_id) {
+      var _this4 = this;
+
+      // 执行顺序
+      this.getActDetail(act_id).then(function () {
+        return _this4.getActCopyDetail(act_id);
+      });
+    },
 
     // 获取关联红包列表
     getCouponList: function getCouponList() {
-      var _this4 = this;
+      var _this5 = this;
 
       __WEBPACK_IMPORTED_MODULE_0_api_api_act_edit__["e" /* getRelatedCouponList */]().then(function (jsonData) {
         if (jsonData.code == 0) {
-          _this4.relatedCoupons = jsonData.data;
-        } else {
-          _this4.$message.error(jsonData.msg);
-        }
-      });
-      return this;
-    },
-
-    // 获取用户列表
-    getUserList: function getUserList() {
-      var _this5 = this;
-
-      __WEBPACK_IMPORTED_MODULE_0_api_api_act_edit__["d" /* getEnableEditUsersList */]().then(function (jsonData) {
-        if (jsonData.code == 0) {
-          jsonData.data.forEach(function (element) {
-            element.user_id += '';
-          });
-          _this5.enableEditUsers = jsonData.data;
+          _this5.relatedCoupons = jsonData.data;
         } else {
           _this5.$message.error(jsonData.msg);
         }
@@ -2734,27 +2726,44 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       return this;
     },
 
-    //获取测试人员列表
-    getTestEngineer: function getTestEngineer() {
+    // 获取用户列表
+    getUserList: function getUserList() {
       var _this6 = this;
 
-      __WEBPACK_IMPORTED_MODULE_0_api_api_act_edit__["f" /* getTestEngineer */]().then(function (jsonData) {
+      __WEBPACK_IMPORTED_MODULE_0_api_api_act_edit__["d" /* getEnableEditUsersList */]().then(function (jsonData) {
         if (jsonData.code == 0) {
-          _this6.testersList = jsonData.data;
+          jsonData.data.forEach(function (element) {
+            element.user_id += '';
+          });
+          _this6.enableEditUsers = jsonData.data;
         } else {
           _this6.$message.error(jsonData.msg);
         }
       });
       return this;
     },
-    getChannelList: function getChannelList() {
+
+    //获取测试人员列表
+    getTestEngineer: function getTestEngineer() {
       var _this7 = this;
+
+      __WEBPACK_IMPORTED_MODULE_0_api_api_act_edit__["f" /* getTestEngineer */]().then(function (jsonData) {
+        if (jsonData.code == 0) {
+          _this7.testersList = jsonData.data;
+        } else {
+          _this7.$message.error(jsonData.msg);
+        }
+      });
+      return this;
+    },
+    getChannelList: function getChannelList() {
+      var _this8 = this;
 
       __WEBPACK_IMPORTED_MODULE_0_api_api_act_edit__["c" /* getChannelList */]().then(function (json) {
         if (json.code == 0) {
-          _this7.channelList = json.data;
+          _this8.channelList = json.data;
         } else {
-          _this7.$message.error(json.msg);
+          _this8.$message.error(json.msg);
         }
       });
       return this;
@@ -2767,40 +2776,40 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       return output;
     },
     saveEdit: function saveEdit() {
-      var _this8 = this;
+      var _this9 = this;
 
       this.$refs['form'].validate(function (valid) {
         if (valid) {
-          if (!_this8.actInfo.business_channel) {
-            _this8.$message.error('请选择活动展示渠道');
+          if (!_this9.actInfo.business_channel) {
+            _this9.$message.error('请选择活动展示渠道');
             return;
           }
-          _this8.editLoading = true;
-          var submitInfo = Object.assign({}, _this8.actInfo);
+          _this9.editLoading = true;
+          var submitInfo = Object.assign({}, _this9.actInfo);
           // 格式化时间
-          submitInfo.page_ids = _this8.actInfo.pageids ? _this8.actInfo.pageids.split("-") : [];
+          submitInfo.page_ids = _this9.actInfo.pageids ? _this9.actInfo.pageids.split("-") : [];
 
           delete submitInfo.pageids;
           __WEBPACK_IMPORTED_MODULE_0_api_api_act_edit__["g" /* saveActConfig */](submitInfo).then(function (json) {
-            _this8.editLoading = false;
+            _this9.editLoading = false;
             if (json.code == 0) {
-              _this8.$confirm('活动配置保存成功', '提示').then(function () {
-                if (new Date(submitInfo.expire_time).getTime() != new Date(_this8.originExpireTime).getTime() || new Date(submitInfo.effect_time).getTime() != new Date(_this8.originEffectTime).getTime()) {
-                  _this8.$confirm('活动开始时间和结束时间已改变，请通知开发或到乐高系统重新发布活动规则', '提示', {
+              _this9.$confirm('活动配置保存成功', '提示').then(function () {
+                if (new Date(submitInfo.expire_time).getTime() != new Date(_this9.originExpireTime).getTime() || new Date(submitInfo.effect_time).getTime() != new Date(_this9.originEffectTime).getTime()) {
+                  _this9.$confirm('活动开始时间和结束时间已改变，请通知开发或到乐高系统重新发布活动规则', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                   }).then(function () {}).catch(function () {});
                 } else {
                   // 跳转到活动列表
-                  _this8.$router.push('/act');
+                  _this9.$router.push('/act');
                 }
               });
             } else {
-              _this8.$message.error(json.msg);
+              _this9.$message.error(json.msg);
             }
           }).catch(function (e) {
-            _this8.editLoading = false;
+            _this9.editLoading = false;
           });
         } else {
           return false;
@@ -2819,7 +2828,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       this.isAddChannel = true;
     },
     saveNewChannel: function saveNewChannel() {
-      var _this9 = this;
+      var _this10 = this;
 
       var channelName = this.channelAdd.channel.replace(/\s*/g, '');
       if (!this.channelAdd.channel) {
@@ -2832,21 +2841,21 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       this.ajaxLock = true;
       // 保存渠道数据
       __WEBPACK_IMPORTED_MODULE_0_api_api_act_edit__["h" /* setChannelList */](this.channelAdd).then(function (jsonData) {
-        _this9.ajaxLock = false;
+        _this10.ajaxLock = false;
         if (jsonData.code == 0) {
-          _this9.$message({
+          _this10.$message({
             message: '保存成，已添加至列表',
             type: 'success'
           });
           // 在列表里新增一条
-          _this9.channelList.unshift(_this9.channelAdd.channel);
+          _this10.channelList.unshift(_this10.channelAdd.channel);
           // 清空输入
-          _this9.channelAdd.channel = '';
+          _this10.channelAdd.channel = '';
         } else {
-          _this9.$message.error(jsonData.msg);
+          _this10.$message.error(jsonData.msg);
         }
       }).catch(function () {
-        _this9.ajaxLock = false;
+        _this10.ajaxLock = false;
       });
     }
   }
