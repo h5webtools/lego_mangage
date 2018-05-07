@@ -1,0 +1,170 @@
+<style>
+.lego-jybswitchlist-show8 {
+  height: .90rem;
+}
+.lego-jybswitchlist-show8 .tab-wrap {
+  position: relative;
+  width: 7.5rem;
+  height: .90rem;
+}
+.lego-jybswitchlist-show8 .tab-box {
+  height: .90rem;
+  background-color: #d6141d;
+  font-size: 0;
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-right: .90rem;
+  -webkit-overflow-scrolling: touch;
+}
+.lego-jybswitchlist-show8 .tab-item {
+  display: inline-block;
+  padding-left: .24rem;
+  padding-right: .24rem;
+  line-height: .90rem;
+  font-size: .28rem;
+  color: #fff;
+  background-color: #d6141d;
+  border-right: 1px solid #e2410d;
+}
+.lego-jybswitchlist-show8 .tab-item:last-child {
+  border-right: 0;
+}
+.lego-jybswitchlist-show8 .tab-item_active {
+  background-color: #ffb736;
+  color: #c90900;
+}
+
+.lego-jybswitchlist-show8 .tab-arrow {
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: .90rem;
+  text-align: center;
+  height: .90rem;
+  line-height: .90rem;
+  background-color: #d6141d;
+  border-left: 1px solid #e2410d;
+}
+
+.lego-jybswitchlist-show8 .tab-arrow:after {
+  display: inline-block;
+  content: "";
+  width: .36rem;
+  height: .20rem;
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACsAAAAaCAMAAAAZpVX6AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABWVBMVEX///+UAAeUAAf69PT//v7y3+CUAAf26uv//v7//v7nxsiUAAf26er+/PyUAAeUAAft09T+/f3+/f3fs7X//v7bqqyUAAeUAAfcrK7+/Pz9+/vap6n//v79+/vRkZSUAAeUAAf9+vr//v7MhYiUAAeUAAeUAAfMhYj8+fn9+vrZpaf//v6UAAeUAAfLgoX16On+/PyUAAfLhIf9+vr9+vrYoqX15+j//v7+/PzNh4rNh4r9+vr9+vrWnqH15uf//v7+/PzNiYz9+vr9+vrVm5705OX//v7+/PzNiYz9+vrYoaT//v7+/PzPjI/9+vrWnaDz4+TOi479+vr9+vru19j//v7+/f3QjpHSk5bkv8HPjZD9+/v9+vrgtrj+/f3+/PzQkJP//v7PjZDRkpX9+/vKgIOUAAf69PTGeHyUAAeUAAeUAAeUAAeUAAeUAAeUAAeUAAf///8AAACc9AbZAAAAcXRSTlMAAAEuwBgCGMLVGwUXwwYDHdnVHtQkCgcl29Qg09osFA3c0jAbFRIy3tQf0R8MMxbcHDTe0x4V0N0zNd/SHRTP3jTg0RwTzt824RvN4DXQGhI34s8TzOA2GhQ4484qzOI3+zo45EAiykYnHiELEBMICZHWN98AAAABYktHRHI2Dg1YAAAACXBIWXMAAAsSAAALEgHS3X78AAAAB3RJTUUH4gUFEgIRL0JaBQAAAWxJREFUOMuN1FdTAjEUBeDkwq5ldSMWEAugIlhAxd4bYlfsXVHsBfH+/xezu4BbCON5zHxzZu6dJIQQ0EJEoTy6oJRTl1uSZahgocrt4oISkKuxplYRYk7rarBeZVyA3ODBxiaVCTAFqRk9LV5Vs8zX6se2dhEGqQM7A8GQj2m9aijQJcQgdaO/J9wb0ntlxRuJ9mH/QDkM0iD6o7FwxKtPxIvjwSEdOwaE4UEcicYSwbiq7YEfMI5Hx3B8wo5hcgqnZ3TK9P2KsY1SUsKzczi/YMawuITLK3+UEiF2UErMeBWTa0UMqXXcsFBKzHhzC5PbBobUDu7uWSgldryf5hjgwEkpseLDIzxO83tycopn5zZKSRl84bssR83WwFfXeHN7h5l7B7XYEn7ATLZAicga+PEJn55fClRsDZx9fXv/KNAK1sCJz2JrRavhr9x37qt4m82W2gNMyf/kFcsGRJaCzBh/tfQ/tvh1OPILxHhLL0flGzoAAAAASUVORK5CYII=');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100% 100%;
+  vertical-align: middle;
+}
+
+.lego-jybswitchlist-show8 .tab-arrow_active:after {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACsAAAAaCAMAAAAZpVX6AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABaFBMVEX///+UAAeUAAf58PD//v726uuUAAeUAAf26er//v7s0dKUAAf26er//v7////+/f3lwsSUAAf9+vrOi4789/f+/PzjvL716On//v67XWGUAAezSk/79fX+/Pziu73//v79+vq9YWWUAAeUAAe2UFX89/f15+j9+vq+ZWmUAAeUAAeUAAeUAAe8YGT8+Pj+/Pziubv//v6UAAeUAAeUAAeUAAe/Z2v8+Pj+/Pz15uf9+vrAaGyUAAeUAAfBa2/8+Pjht7n//v6UAAf+/Pz//v79+vrBbHDCbnL8+Pj+/Pz15ufgtbf//v79+vrDb3PDcXX8+Pj+/Pzfs7X05ebFdHj05OX//v79+vrEcnb8+Pj+/PzesbP9+vr8+fn9+/vz4+T//v79+/v8+fndr7H36+z//v79+/v8+fn9+/vdra/Gd3v9+vqUAAf15uf9+/vNiYzHen779vbhuLqUAAeUAAeUAAf///8AAAAI9Y1rAAAAdnRSTlMAAAEiwiQDAiPhJwUi4PvhKgbPN9LiKiHfLCc30+Ep3tAqIiUz0yDRKx8eGhgt0uAo3RsUDwwq098f0iwTByvUJ9wL3tvTLSzV3R4m2tQuLdbcJR0uHNnVL9fbJNbX2hvY1tgjGtfX2dkiL8UKMsMpLsc9DRUSaMTU1AAAAAFiS0dEd0Zk+dcAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAAHdElNRQfiBQUSAi/uI0euAAABfUlEQVQ4y43UZ1fCMBQGYBoxFesqDtyoKIq4oFRx1IF7L9yKGxw4C/f3m7QpFGnR91Nz+yS956SJw1EcRGMMuHysaJmzHPPoPxZVuMBVKWD0t0VV1VADtXUiwyUspe76BmhsYtjeIk8zuFta29qho1PHthZ5vNDV3ePz9fYZ2M4ivxf6BwKDwaHg8AiMjlFsY5E/RGlYisgRaXwCohRbWzQZgqnpQHhGVgRFnpmdg+h8ATbTBZ3GRMxjMUbxYgE20SVYXtEoT7aYJ3h1DdbNOEc3GJVFbXsJljW8mcc5ugXbO3nK8O4e7B/kMKOHvynDcTPWy0fHcHJaSA18BucXDBv0soga+AoSDNPS9Q3cWlAD30HiXsOk8PAISZ3iQkreYYpT8PRMluHIXCck49aU4ZcUvKYF8k3Ev71/hIPWlOHPr2+V9oewokqZrA3VcTYjqQqm64ppVU3bUQdHsAa0HrCoiKQbzi6IF4igJ5s88pgvQbmcIP+9dnVwpcLED/COVNgqjrbFAAAAAElFTkSuQmCC');
+}
+
+.lego-jybswitchlist-show8 .tab-list {
+  width: 100%;
+  position: absolute;
+  top: .90rem;
+  left: 0;
+  background-color: #ed1f29;
+  z-index: 99;
+  font-size: 0;
+  padding-top: .20rem;
+}
+
+.lego-jybswitchlist-show8 .tab-list__item {
+  display: inline-block;
+  margin-left: .10rem;
+  margin-bottom: .20rem;
+  margin-right: .10rem;
+  font-size: .28rem;
+  color: #fff;
+  padding-bottom: 0.04rem;
+}
+
+.lego-jybswitchlist-show8 .tab-list__item_active {
+  color: #ffd630;
+  border-bottom: 1px solid #ffd630;
+}
+
+.lego-jybswitchlist-show8 .ui-p-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background-color: #fff;
+}
+</style>
+  
+<template class="showTemplate">
+  <jybswitchlist uid="switchlist" v-bind:params="data" inline-template>
+    <div class="lego-jybswitchlist-show8" >
+      <div data-role="fixed" class="tab-wrap">
+        <div class="tab-box">
+          <a href="javascript:;"
+            class="tab-item"
+            :data-stat-id="item.eventid || ''"
+            @click="toggleTabs(index)"
+            v-for="(item,index) in params.tabs"
+            :tab="index"
+            :class="index == data.tabIndex ? 'tab-item_active' : '' "
+            :title="item.tabTitle">
+            {{item.tabTitle}}
+          </a>
+        </div>
+        <a class="tab-arrow" :class="{'tab-arrow_active': !data.fold}" href="javascript:;" @click="toggleFold"></a>
+        <div v-show="!data.fold" class="tab-list">
+          <a href="javascript:;"
+            class="tab-list__item"
+            :data-stat-id="item.eventid || ''"
+            @click="toggleTabs(index)"
+            v-for="(item,index) in params.tabs"
+            :tab="index"
+            :class="index == data.tabIndex ? 'tab-list__item_active' : '' "
+            :title="item.tabTitle">
+            {{item.tabTitle}}
+          </a>
+        </div>
+      </div>
+    </div>
+  </jybswitchlist>
+  <div class="childBox">
+  </div>
+</template>
+  
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExt">
+    var com_ext = {}
+
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+    var com_extend = []
+
+</script>
+<!-- <script class="forMPMExtend">
+    var com_extend =  [{
+            "name": "导航位置",
+            "nick": "position",
+            "type": "radio",
+            "data": [
+                {
+                    "name": "不吸顶",
+                    "value": "0"
+                },
+                {
+                    "name": "滚动吸顶",
+                    "value": "1"
+                }
+            ]
+        }]
+</script> -->
+
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {};
+
+</script>

@@ -1,6 +1,6 @@
 # lego
 
-乐高配置系统
+乐高配置系统  
 
 ## QuickStart
 

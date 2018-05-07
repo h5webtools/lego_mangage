@@ -30,16 +30,18 @@ var childComponent = {
         for (var key in $$.componentConfig) {
             var _val = $$.componentConfig[key];
             if (_val.child.length > 0) {
-                var _tabs = _val.data.tabs;
-                _tabs.forEach(function (val, index) {
-                    var _val = val.sub;
-                    if (index > -1) {
-                        _val.forEach(function (inVal, inIndex) {
-                            childComponent.lazyChildComponent(inVal);
-                            $("[uid='" + inVal + "']").hide()
-                        });
-                    }
-                });
+                if (_val.data.tabType === 'switchlist') {
+                    var _tabs = _val.data.tabs;
+                    _tabs.forEach(function (val, index) {
+                        var _val = val.sub;
+                        if (index !== 0) {
+                            _val.forEach(function (inVal, inIndex) {
+                                childComponent.lazyChildComponent(inVal);
+                                $("[uid='" + inVal + "']").hide()
+                            });
+                        }
+                    });
+                }
             }
         }
     }
@@ -71,7 +73,7 @@ tracker.init({
 });
 
 var bimta = new Bimta({
-  platform: ['mta'],
+  platform: ['mta','bi'],
   env:'prod',
   createCommonParams: function(defaults) {
     return {

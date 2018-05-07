@@ -115,7 +115,10 @@
                             <del class="f-26 color-999" v-if="item.show_price != item.origin_price">￥{{item.origin_price}}</del> 
                         </div> 
                         <div  class="mod-btn f-30" v-bind:style="{backgroundColor:params.buyBtnBg,color:params.buyColor}"
-                        v-bind:data-stat-id="params.eventid || ''">立即购买</div> 
+                        v-bind:data-stat-id="params.eventid || ''"
+                        v-bind:data-stat-para="JSON.stringify({'pageActId':params.pageActId,'pageId':params.pageId,
+                        'comDesc':params.comDesc , 'itemTitle':item.prd_name,'freeId':item.free_prd_id})"
+                        >立即购买</div> 
                     </div> 
                 </li>
                 </template> 

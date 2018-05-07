@@ -1,0 +1,43 @@
+<style>
+.lego-jybfloating-show1 {
+  position: absolute;
+  z-index: 1000;
+  width: 1.6rem;
+  right: .18rem;
+  bottom: 1.6rem;
+}
+
+.lego-jybfloating-show1 img {
+  width: 100%;
+}
+
+.lego-jybfloating-show1.ui-p-fixed {
+  position: fixed;
+}
+</style>
+
+<template class="showTemplate">
+  <commontag uid="commontag" v-bind:params="data" inline-template="">
+    <a class="lego-jybfloating-show1 ui-p-fixed"
+      :href="params.tourl"
+      v-bind:style="{left: params.leftValue ? params.leftValue + 'rem' : 'auto', right: params.rightValue ? params.rightValue + 'rem' : 'auto', top: params.topValue ? params.topValue + 'rem' : 'auto', bottom: params.bottomValue ? params.bottomValue + 'rem' : 'auto', backgroundColor: params.bgcolor, width: params.width + 'rem'}">
+      <img :src="params.imgsrc">
+    </a>
+  </commontag>
+</template>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<!-- data.state==1 是预约成功-->
+<script class="forMPMExt">
+var com_ext = {}
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+var com_extend = [{
+    
+}]
+</script>
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {
+    }
+</script>

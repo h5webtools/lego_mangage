@@ -103,6 +103,7 @@ class LegoController extends Controller {
       _publishflag = rawBody.publishflag,
       _pagename = rawBody.pagename,
       _pageid = rawBody.pageid,
+      _pveventid = rawBody.pveventid || '',
       _fileName = "index.html",
       actFolder = `${this.config.legoConfig.path}/${_datefolder}/${_folder}`;
     // 判断是否执行提交GIT动作
@@ -163,7 +164,7 @@ class LegoController extends Controller {
     let actPageRet = fs.writeFileSync(`${actFolder}/${_fileName}`, _content, 'utf-8');//要删除
 
     // 执行依赖安装和JS模板替换
-    let templateRet = await Promise.all([this._installNpmPackages(actFolder), this._replaceJsTemplate(_comConfig, actFolder)]);
+    let templateRet = await Promise.all([this._installNpmPackages(actFolder), this._replaceJsTemplate(_comConfig, actFolder,_pveventid)]);
     // 两步动作都成功
     if (templateRet[0].code == 0 && templateRet[1].code == 0) {
       // 执行nodejs的webpack打包命令
@@ -1038,7 +1039,7 @@ class LegoController extends Controller {
    * 读取js模板文件，做关键字替换
    * @param {*} template 
    */
-  async _replaceJsTemplate(template, dir) {
+  async _replaceJsTemplate(template, dir,pveventid) {
     this.ctx.logger.info(`读取模板并替换pagebegin关键字${template}`);
     let templateJs;
     try {
