@@ -103,7 +103,6 @@
           v-on:click="toBuy(item.free_prd_id)"
           v-bind:data-stat-id="params.eventid || ''"
           v-for="(item , index) in data.paramList">
-          <div class="goods-tips">{{item.time_limit}}期分期</div>
           <div class="goods-img">
             <img :lazy="item.image_url">
           </div>
