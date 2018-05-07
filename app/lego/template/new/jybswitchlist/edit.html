@@ -100,6 +100,17 @@
               <strong></strong>左右边距：</label>
             <input type="text" v-model="obj.data.LRPadding" placeholder="">
           </div>
+          <div class="form-group">
+            <label><strong></strong>tab类型：</label>
+            <label style="width:60px;">
+              <input name="tablist" style="width:16px;height:16px;" type="radio" value="switchlist" v-model="obj.data.tabType">
+              切换
+            </label>
+            <label style="width:50px;">
+              <input name="tablist" style="width:16px;height:16px" type="radio" value="anchorlist" v-model="obj.data.tabType">
+              锚点
+            </label>
+          </div>
         </form>
         <table>
           <thead>
@@ -107,7 +118,7 @@
               <th>序号</th>
               <th>Tab名称</th>
               <th>统计ID</th>
-              <th>&</th>
+              <th>锚点</th>
               <th>&nbsp;</th>
               <th>&</th>
               <th>其他操作</th>
@@ -123,7 +134,9 @@
               <td>
                 <input type="text" v-model.trim="item.eventid" style="width:120px;" placeholder="比如：30000.1.2" />
               </td>
-              <td>&nbsp;</td>
+              <td>
+                <input type="text" v-model.trim="item.anchorUid" style="width:120px;" placeholder="com_1004" />
+              </td>
               <td>&nbsp;</td>
               <td>&nbsp;</td>
               <td>

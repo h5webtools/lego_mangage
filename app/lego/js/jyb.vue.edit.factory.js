@@ -33,7 +33,8 @@ define(function (require, exports, module) {
         that._arrStyle[componentIndex] = list;
 
         list.forEach(function (item, index, arr) {
-          item.tpl_url = item.tpl_url && item.tpl_url.replace('http://act.jtjr.com/martpagemaker', location.origin + '/public');
+          item.tpl_url = item.tpl_url && item.tpl_url.replace('http://act.jtjr.com/martpagemaker', '');
+          item.tpl_url = location.origin + '/public' + item.tpl_url;
           if (item.com_extend) {
             try {
               item.com_extend = JSON.parse(item.com_extend);
