@@ -1,6 +1,6 @@
 <style>
 .lego-jybfloating-show1 {
-  position: fixed;
+  position: absolute;
   z-index: 1000;
   width: 1.6rem;
   right: .18rem;
@@ -10,11 +10,15 @@
 .lego-jybfloating-show1 img {
   width: 100%;
 }
+
+.lego-jybfloating-show1.ui-p-fixed {
+  position: fixed;
+}
 </style>
 
 <template class="showTemplate">
   <commontag uid="commontag" v-bind:params="data" inline-template="">
-    <a class="lego-jybfloating-show1"
+    <a class="lego-jybfloating-show1 ui-p-fixed"
       :href="params.tourl"
       v-bind:style="{left: params.leftValue ? params.leftValue + 'rem' : 'auto', right: params.rightValue ? params.rightValue + 'rem' : 'auto', top: params.topValue ? params.topValue + 'rem' : 'auto', bottom: params.bottomValue ? params.bottomValue + 'rem' : 'auto', backgroundColor: params.bgcolor, width: params.width + 'rem'}">
       <img :src="params.imgsrc">

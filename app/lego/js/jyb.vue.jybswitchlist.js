@@ -22,6 +22,9 @@ define(function (require, exports, module) {
         !this.params.lazyLoad && this.loadData();
         // this.initScroll();
       },
+      mounted: function() {
+        $('.ui-p-fixed').removeClass('ui-p-fixed');
+      },
       methods: {
         toggleFold: function() {
           this.data.fold = !this.data.fold;
