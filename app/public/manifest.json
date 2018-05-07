@@ -1,7 +1,7 @@
 {
   "css/login.vue.css": "/public/css/login.vue-02c1146b.css",
-  "css/main.css": "/public/css/main-fd266fca.css",
-  "css/main.vue.css": "/public/css/main.vue-fd266fca.css",
+  "css/main.css": "/public/css/main-69d38aa9.css",
+  "css/main.vue.css": "/public/css/main.vue-69d38aa9.css",
   "font/element-icons.ttf": "/public/font/element-icons-6f0a7632.ttf",
   "font/element-icons.woff": "/public/font/element-icons-2fad952a.woff",
   "font/glyphicons-halflings-regular.eot": "/public/font/glyphicons-halflings-regular-f4769f9b.eot",
@@ -20,10 +20,10 @@
   "js/legoComponents.js": "/public/js/legoComponents-92583e1b.js",
   "js/legoPages.js": "/public/js/legoPages-05d9d6f3.js",
   "js/login.js": "/public/js/login-02c1146b.js",
-  "js/main.js": "/public/js/main-fd266fca.js",
+  "js/main.js": "/public/js/main-69d38aa9.js",
   "js/paramsList.js": "/public/js/paramsList-6faaf6c8.js",
   "js/systemSync.js": "/public/js/systemSync-d88f91ff.js",
-  "js/templateConfigTree.js": "/public/js/templateConfigTree-f2632f98.js",
+  "js/templateConfigTree.js": "/public/js/templateConfigTree-29d775d5.js",
   "js/templateList.js": "/public/js/templateList-7aa62740.js",
   "js/welcome.js": "/public/js/welcome-f00a57dc.js"
 }

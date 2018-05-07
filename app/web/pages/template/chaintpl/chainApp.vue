@@ -27,9 +27,9 @@
           <el-button size='small' type="primary" @click="importChainTpl"><i class="glyphicon glyphicon-import"></i>导入配置</el-button>
         </el-form-item>
       </el-form>
-        
+
       <div class="tree" v-for="(item,index) in chainConfigObj" :key="item.groupName" :label="item.groupName">
-          
+
           <el-form class="chain-name" :inline="true">
             <el-form-item  label="配置描述：" required >
               <el-input  v-model="item.remark" placeholder="配置功能描述"></el-input>
@@ -50,7 +50,7 @@
               <el-button size='small' type="warning"  @click="deleConfig(index)">删除模板</el-button>
             </el-form-item>
           </el-form>
-          
+
         <ul>
           <li>
             <div class="node start" @click="addTopNode(item)">
@@ -59,9 +59,9 @@
             <tree-node :parentData="item.chains" :editData="item.chains"></tree-node>
           </li>
         </ul>
-        
+
       </div>
-      
+
     </div>
     <el-dialog title="新增/编辑参数" :show-close="false" :close-on-click-modal="false" :visible.sync="paramEditVisible">
       <el-tabs :active-name="dialogData.nodeType" type="card" @tab-click="toggleTab">
@@ -92,7 +92,7 @@
         </el-radio-group>
         <el-button @click="addParamGroup" type="success" size="small">新增一组参数</el-button>
       </div>
-      <div class="martop10" v-for="(param, index) in dialogData.params" :key="index">     
+      <div class="martop10" v-for="(param, index) in dialogData.params" :key="index">
         <el-form v-for="key in Object.keys(param)" :inline="true" :key="key">
           <el-row :gutter="20">
             <el-col :span="6" class="ui-ta-r">
@@ -131,7 +131,7 @@
     <!-- 展示树的json格式数据 -->
     <el-dialog title="配置树" :visible.sync="chainsTplVisible">
       <el-row>
-        <el-col :span="24"> 
+        <el-col :span="24">
           <pre class="grid-content bg-purple-dark" :id="'chainsTplConfig'" v-html="configTplHTML">
 
           </pre>
@@ -323,7 +323,7 @@ export default {
               isErrorFlag = true;
               me.$message.error('第'+(index+1)+'个树每一个分支都需要以动作结束');
             }else{
-              
+
             }
             return hasError;
           }
@@ -351,7 +351,7 @@ export default {
       })
 
       /* 循环检测每个是否配置OK */
-      
+
         chainQuery.saveComponentTemplateChains({ //saveComponentTemplateChains
           tpl_id: this.tpl_id ,
           data: saveData
@@ -499,9 +499,9 @@ export default {
       this.cmdData.isEdit = true;
     },
     /**
-     * 增加子动作节点 
+     * 增加子动作节点
      * @argument
-     * 
+     *
      */
     addNewSubActionNode() {
       event.$emit('showParamDialog', {
@@ -514,7 +514,7 @@ export default {
     },
     /**
      * 编辑子动作节点的参数
-     * @argument 
+     * @argument
      * */
     editSubActionNode(param) {
       event.$emit('showParamDialog', {
@@ -524,7 +524,7 @@ export default {
     },
     /**
      * @description 顶级开始节点添加子节点
-     * 
+     *
      * */
     addTopNode(item) {
       this.showEditDialog({
@@ -557,7 +557,7 @@ export default {
           this.$set(this.dialogData.paramDesc.params[i],'is_show', this.dialogData.editParams[0][i].is_show);
         }
         this.$set(this.dialogData,'paramsFixed',data.data.paramsFixed);
-        
+
         this.dialogData.params = data.data.param ? (data.data.param instanceof Array ? data.data.param : [data.data.param]) : [this.generateParam()];
       }
       if (data.data.nodeType) {
@@ -603,7 +603,7 @@ export default {
       event.$off('confirm-param-edit');
     },
     validateForm(rule, name, callback) {
-      // 循环 
+      // 循环
       this.dialogData.params.forEach((param, index) => {
         // 发事件通知各自的组件进行表单校验
         event.$once(name+ '-validate-notify-'+ index, (result) => {
@@ -622,7 +622,7 @@ export default {
         });
 
         event.$emit(name + '-dovalidate-'+ index);
-      }); 
+      });
     },
     confirmEdit() {
       // TODO 做表单校验
@@ -676,7 +676,7 @@ export default {
           }
         ]
       }
-      
+
       // 记录当前节点信息
       this.treeData[id] = {
         tagData: {
@@ -768,7 +768,7 @@ export default {
             type:2,
             remark:"树功能",
             cmd:""
-          }); 
+          });
           return;
       }
       const cmdConfig = {};
@@ -781,7 +781,7 @@ export default {
           len = cmdItem.length;
         !defaultCmd && (defaultCmd = cmd);
 
-        
+
         cmdConfig[cmd] = [];
         // 循环命令字下面的规则动作列表
         cmdItem.forEach(chain => {
@@ -906,12 +906,12 @@ export default {
      * key相同，参数不同，认为是同一个根节点的不同参数
      * key不同，是一个单独的分支
      * @argument
-     * 
+     *
      */
     findRootTree(cmdConfig, cmd) {
       let _this = this, root = [cmdConfig[0]];
       cmdConfig.forEach((config, index) => {
-        if (index !== cmdConfig.length - 1) {
+        if (index == 0) {
           return;
         }
         // 依次与root的进行比较
@@ -922,7 +922,7 @@ export default {
             if (JSON.stringify(item.params[0].param) == JSON.stringify(config.params[0].param)) {
               // TODO 需要继续查找子节点，直到查找到不同的为止
               // config.params[0].id = item.id;
-              // item.params = item.params.concat(config.params); 
+              // item.params = item.params.concat(config.params);
               item = this.deepCompare(item, config);
               // item.params.push("查找到相同节点");
             } else {
@@ -1025,17 +1025,17 @@ export default {
             message: '删除成功!'
           });
         }).catch(() => {
-           
+
         });
     },
     showChainTpl() {
 
       this.importChainFlag = false;
-      this.chainsTplData.configData = this.tempChainConfig; 
+      this.chainsTplData.configData = this.tempChainConfig;
 
-      this.configTplHTML = this.syntaxHighlight(JSON.parse(this.tempChainConfig)); 
+      this.configTplHTML = this.syntaxHighlight(JSON.parse(this.tempChainConfig));
 
-      
+
       this.chainsTplVisible = true;
 
     },
@@ -1049,7 +1049,7 @@ export default {
         this.convertChainData();
         this.chainsImportTplVisible = false;
     },
-    confirmChainsTpl() {//确定 
+    confirmChainsTpl() {//确定
 
       this.copyToClipboard(this.tempChainConfig);
       this.importChainFlag = false;
@@ -1058,11 +1058,11 @@ export default {
         me.chainsTplVisible = false;
       } , 2000);
     },
-    cancleChainsTpl() {// 
+    cancleChainsTpl() {//
       this.chainsTplVisible = false;
     },
     cancleImportChainsTpl() {
-      this.chainsImportTplVisible = false; 
+      this.chainsImportTplVisible = false;
     },
     copyToClipboard(content) {
       let aux = document.createElement("input");
@@ -1125,9 +1125,9 @@ export default {
    margin-left: 20px;
 }
 #chainsTplConfig{
-  outline: 1px solid #ccc; 
-  padding: 5px; 
-  margin: 5px; 
+  outline: 1px solid #ccc;
+  padding: 5px;
+  margin: 5px;
   height: 400px;
   overflow-y:scroll;
 }
