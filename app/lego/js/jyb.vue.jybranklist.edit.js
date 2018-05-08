@@ -210,7 +210,7 @@ define(function (require, exports, module) {
                     _pageid + '/' + 
                     _comid + '/' + 
                     _act_id,
-            key = _pageid + "_" + _comid + "_" + _tpl_id + "_" + _act_id;
+            key = _pageid + "_" + _comid + "_" + _tpl_id + "_" + decodeURIComponent(_act_id);
 
           divComponentIframe.find("iframe")[0].src = _url;
           divComponentIframe.show();
@@ -220,7 +220,7 @@ define(function (require, exports, module) {
             if (json[key]) {
               var cmds = JSON.parse(json[key]);
                 me.obj.data.rankcmd = cmds[0];
-                me.obj.data.rankactid = _act_id;
+                me.obj.data.rankactid = decodeURIComponent(_act_id);
             }
           }, true);
         }

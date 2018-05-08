@@ -43,9 +43,9 @@ define(function (require, exports, module) {
 
     }
     var des = '发布系统建单成功，请到发布系统进行部署！';
-    var previewURL = "https://cdnsit.jyblife.com/act/" + folderSet.datefolder + "/" + _path + "/" + _fileName;
-    var publishURL = "https://cdn.jyblife.com/act/" + folderSet.datefolder + "/" + _path + "/" + _fileName;
-    var previewHtmlURL = "http://preview.sit.jyblife.com/act/" + folderSet.datefolder + "/" + _path + "/" + _fileName;
+    var previewURL = "https://cdnsit.jyblife.com/act/" + folderSet.datefolder + "/" + _path + "/" + _fileName + "?act_id=" + moduleUtil.getUrlQuery('act_id');
+    var publishURL = "https://cdn.jyblife.com/act/" + folderSet.datefolder + "/" + _path + "/" + _fileName + "?act_id=" + moduleUtil.getUrlQuery('act_id');
+    var previewHtmlURL = "http://preview.sit.jyblife.com/act/" + folderSet.datefolder + "/" + _path + "/" + _fileName + "?act_id=" + moduleUtil.getUrlQuery('act_id');
     if (publishSta == "preview") {
       des = des + "<br> 集成测试地址：" + previewURL;
     } else if (publishSta == "publish") {

@@ -2696,6 +2696,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
           _this3.actInfo.rule_description = _this3.actCopyInfo.rule_description;
           _this3.actInfo.version = _this3.actCopyInfo.version;
           _this3.actInfo.code_type = _this3.actCopyInfo.code_type;
+          _this3.editor.txt.html(_this3.actCopyInfo.rule_description);
         } else {
           _this3.$message.error(json.msg);
         }

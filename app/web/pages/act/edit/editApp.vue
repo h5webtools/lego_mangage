@@ -503,6 +503,7 @@ export default {
             this.actInfo.rule_description = this.actCopyInfo.rule_description;
             this.actInfo.version = this.actCopyInfo.version;
             this.actInfo.code_type = this.actCopyInfo.code_type;
+            this.editor.txt.html(this.actCopyInfo.rule_description);
           } else {
             this.$message.error(json.msg);
           }

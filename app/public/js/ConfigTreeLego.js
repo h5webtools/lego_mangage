@@ -3972,6 +3972,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         if (json.code == 0) {
           var tempData = {},
               _key = _this2.pageid + "_" + _this2.comid + "_" + _this2.tpl_id + "_" + _this2.act_id;
+          console.log(_key, '------------------------_key22222222222222');
           tempData[_key] = JSON.stringify(json.data);
           window.top.postMessage(JSON.stringify(tempData), "*");
           _this2.$alert('模板' + '规则树配置成功', '提示');
@@ -4117,9 +4118,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     /**
-     * 增加子动作节点 
+     * 增加子动作节点
      * @argument
-     * 
+     *
      */
     addNewSubActionNode: function addNewSubActionNode() {
       __WEBPACK_IMPORTED_MODULE_3_assets_js_event__["a" /* default */].$emit('showParamDialog', {
@@ -4133,7 +4134,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     /**
      * 编辑子动作节点的参数
-     * @argument 
+     * @argument
      * */
     editSubActionNode: function editSubActionNode(param) {
       __WEBPACK_IMPORTED_MODULE_3_assets_js_event__["a" /* default */].$emit('showParamDialog', {
@@ -4144,7 +4145,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     /**
      * @description 顶级开始节点添加子节点
-     * 
+     *
      * */
     addTopNode: function addTopNode(item) {
       var _this4 = this;
@@ -4223,7 +4224,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       __WEBPACK_IMPORTED_MODULE_3_assets_js_event__["a" /* default */].$off('confirm-param-edit');
     },
     validateForm: function validateForm(rule, name, callback) {
-      // 循环 
+      // 循环
       this.dialogData.params.forEach(function (param, index) {
         // 发事件通知各自的组件进行表单校验
         __WEBPACK_IMPORTED_MODULE_3_assets_js_event__["a" /* default */].$once(name + '-validate-notify-' + index, function (result) {
@@ -4534,7 +4535,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
      * key相同，参数不同，认为是同一个根节点的不同参数
      * key不同，是一个单独的分支
      * @argument
-     * 
+     *
      */
     findRootTree: function findRootTree(cmdConfig, cmd) {
       var _this8 = this;
@@ -4553,7 +4554,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (JSON.stringify(item.params[0].param) == JSON.stringify(config.params[0].param)) {
               // TODO 需要继续查找子节点，直到查找到不同的为止
               // config.params[0].id = item.id;
-              // item.params = item.params.concat(config.params); 
+              // item.params = item.params.concat(config.params);
               item = _this8.deepCompare(item, config);
               // item.params.push("查找到相同节点");
             } else {
@@ -4667,7 +4668,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.chainsImportTplVisible = false;
     },
     confirmChainsTpl: function confirmChainsTpl() {
-      //确定 
+      //确定
 
       this.copyToClipboard(this.tempChainConfig);
       this.importChainFlag = false;
@@ -4677,7 +4678,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }, 2000);
     },
     cancleChainsTpl: function cancleChainsTpl() {
-      // 
+      //
       this.chainsTplVisible = false;
     },
     cancleImportChainsTpl: function cancleImportChainsTpl() {
