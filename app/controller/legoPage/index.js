@@ -69,6 +69,7 @@ class LegoPageController extends Controller {
            
             console.log(previewLock,'----------------previewLock')
             console.log(lockPreview,'----------------lockPreview')
+            console.log(this.app.config.env,'----------------app.config.env')
             // 有他人锁定
             if(lockData) {
               lockData = JSON.parse(lockData);

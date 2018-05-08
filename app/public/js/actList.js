@@ -1868,7 +1868,8 @@ module.exports = Component.exports
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_api_api_act_list__ = __webpack_require__(256);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_assets_js_util__ = __webpack_require__(152);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_api_api_act_edit__ = __webpack_require__(260);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_assets_js_util__ = __webpack_require__(152);
 //
 //
 //
@@ -2016,6 +2017,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+
 
 
 
@@ -2100,13 +2103,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         if (jsonData.code == 0) {
           var tempData = jsonData.data.data;
           tempData.forEach(function (item) {
-            /* 
-            case:当前用户是管理员 或者当前用户是创建者  
+            /*
+            case:当前用户是管理员 或者当前用户是创建者
             case:当前用户是测试 并且用户是测试负责人
             case:其他
             */
-            item.isTestOwner = __WEBPACK_IMPORTED_MODULE_1_assets_js_util__["a" /* arrayContain */](item.tests, me.userIds);
-            item.isRevisability = __WEBPACK_IMPORTED_MODULE_1_assets_js_util__["a" /* arrayContain */](item.revisability, me.userIds);
+            item.isTestOwner = __WEBPACK_IMPORTED_MODULE_2_assets_js_util__["a" /* arrayContain */](item.tests, me.userIds);
+            item.isRevisability = __WEBPACK_IMPORTED_MODULE_2_assets_js_util__["a" /* arrayContain */](item.revisability, me.userIds);
             item.pageids = item.page_ids ? item.page_ids.join("-") : "";
           });
 
@@ -2122,9 +2125,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     },
 
+    //编辑页面跳转
+    editPageLink: function editPageLink(length, act_id, pageId) {
+      var _this2 = this;
+
+      if (length > 0) {
+        window.open('/lego/editPage?page_id=' + (pageId[0] || '') + '&act_id=' + act_id, '_blank');
+      } else {
+        var newUrl = window.open('/lego/homePage?act_id=' + act_id, '_blank');
+        __WEBPACK_IMPORTED_MODULE_1_api_api_act_edit__["b" /* getActDetail */]({ act_id: act_id }).then(function (json) {
+          if (json.code == 0) {
+            if (json.data.page_ids.length > 0) {
+              newUrl.location.href = '/lego/editPage?page_id=' + (json.data.page_ids[0] || '') + '&act_id=' + act_id;
+            } else {
+              newUrl.location.href = '/lego/homePage?act_id=' + act_id;
+            }
+          } else {
+            _this2.$message.error(json.msg);
+          }
+        });
+      }
+    },
+
     //获取日志流水
     getOpsLogs: function getOpsLogs(row, expandedRows) {
-      var _this2 = this;
+      var _this3 = this;
 
       this.opsLogsData.source_id = row.act_id;
       var isRequest = expandedRows.some(function (item, index) {
@@ -2141,10 +2166,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       //获取日志流水
       __WEBPACK_IMPORTED_MODULE_0_api_api_act_list__["b" /* getOptLogs */](this.opsLogsData).then(function (jsonData) {
         if (jsonData.code == 0) {
-          _this2.$set(_this2.logData, row.act_id, jsonData.data);
+          _this3.$set(_this3.logData, row.act_id, jsonData.data);
         }
-        _this2.logData[row.act_id].forEach(function (item, index) {
-          _this2.logData[row.act_id][index].changeTime = getDateDiff(getDateTimeStamp(item.opt_time));
+        _this3.logData[row.act_id].forEach(function (item, index) {
+          _this3.logData[row.act_id][index].changeTime = getDateDiff(getDateTimeStamp(item.opt_time));
         });
       });
       //获取活动列表展示参数
@@ -2152,23 +2177,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         act_id: row.act_id
       }).then(function (jsonData) {
         if (jsonData.code == 0) {
-          _this2.$set(row, 'showList', jsonData.data);
+          _this3.$set(row, 'showList', jsonData.data);
         }
       });
     },
 
     //手动触发同步配置
     manual: function manual(row) {
-      var _this3 = this;
+      var _this4 = this;
 
       __WEBPACK_IMPORTED_MODULE_0_api_api_act_list__["d" /* manual */]({
         act_id: row.act_id,
         page_id: row.page_ids
       }).then(function (jsonData) {
         if (jsonData.code == 0) {
-          _this3.$alert('同步到集成环境成功');
+          _this4.$alert('同步到集成环境成功');
         } else {
-          _this3.$message.error(json.msg);
+          _this4.$message.error(json.msg);
         }
       });
     },
@@ -2191,14 +2216,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
     },
     submitTest: function submitTest(props) {
-      var _this4 = this;
+      var _this5 = this;
 
       __WEBPACK_IMPORTED_MODULE_0_api_api_act_list__["e" /* updateActStatus */]({
         act_id: props.row.act_id,
         action: "initiateTest"
       }).then(function (jsonData) {
         if (jsonData.code == 0) {
-          _this4.$message({
+          _this5.$message({
             message: "转测成功，请通知相关人员测试！",
             type: 'success'
           });
@@ -2211,7 +2236,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.tempActInfo = props;
     },
     toPublish: function toPublish(props) {
-      var _this5 = this;
+      var _this6 = this;
 
       // 发布
       __WEBPACK_IMPORTED_MODULE_0_api_api_act_list__["e" /* updateActStatus */]({
@@ -2219,7 +2244,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         action: "publish"
       }).then(function (jsonData) {
         if (jsonData.code == 0) {
-          _this5.$message({
+          _this6.$message({
             message: "发布成功！",
             type: 'success'
           });
@@ -2227,14 +2252,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     },
     submitApprove: function submitApprove(props) {
-      var _this6 = this;
+      var _this7 = this;
 
       __WEBPACK_IMPORTED_MODULE_0_api_api_act_list__["e" /* updateActStatus */]({
         act_id: props.row.act_id,
         action: "initiateApprove"
       }).then(function (jsonData) {
         if (jsonData.code == 0) {
-          _this6.$message({
+          _this7.$message({
             message: "提交审批成功，请通知相关人员审批！",
             type: 'success'
           });
@@ -2242,7 +2267,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     },
     submitTestResult: function submitTestResult(formName) {
-      var _this7 = this;
+      var _this8 = this;
 
       //提交测试结果
       this.$refs[formName].validate(function (valid) {
@@ -2250,26 +2275,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           //testResult.results
           //提交
           var _action = ""; //remark
-          if (_this7.testResult.results == 0) {
+          if (_this8.testResult.results == 0) {
             _action = 'passTest';
           } else {
             _action = 'refuseTest';
           }
 
           __WEBPACK_IMPORTED_MODULE_0_api_api_act_list__["e" /* updateActStatus */]({
-            act_id: _this7.tempActInfo.row.act_id,
+            act_id: _this8.tempActInfo.row.act_id,
             action: _action,
-            remark: _this7.testResult.remark
+            remark: _this8.testResult.remark
           }).then(function (jsonData) {
             if (jsonData.code == 0) {
-              _this7.$message({
+              _this8.$message({
                 message: "测试结果提交成功！",
                 type: 'success'
               });
             }
           });
 
-          _this7.dialogTestResultVisible = false;
+          _this8.dialogTestResultVisible = false;
         } else {
           //有错误
           return false;
@@ -2779,15 +2804,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           attrs: {
             "divided": ""
           }
-        }, [(props.row.pageids.length > 0) ? _c('a', {
+        }, [_c('a', {
           attrs: {
             "target": "_blank",
-            "href": '/lego/editPage?page_id=' + (props.row.page_ids[0] || '') + '&act_id=' + props.row.crypt
-          }
-        }, [_vm._v("编辑页面")]) : _c('a', {
-          attrs: {
-            "target": "_blank",
-            "href": '/lego/homePage?act_id=' + props.row.crypt
+            "href": "javascript:;"
+          },
+          on: {
+            "click": function($event) {
+              _vm.editPageLink(props.row.pageids.length, props.row.crypt, props.row.page_ids)
+            }
           }
         }, [_vm._v("编辑页面")])]) : _vm._e(), _vm._v(" "), (props.row.status == 0 && (props.row.creator == _vm.userIds || _vm.isAdmin || props.row.isRevisability)) ? _c('el-dropdown-item', {
           attrs: {
@@ -2944,6 +2969,82 @@ if (false) {
   if (module.hot.data) {
      require("vue-hot-reload-api").rerender("data-v-7bd91023", module.exports)
   }
+}
+
+/***/ }),
+
+/***/ 260:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["f"] = getTestEngineer;
+/* harmony export (immutable) */ __webpack_exports__["b"] = getActDetail;
+/* harmony export (immutable) */ __webpack_exports__["g"] = saveActConfig;
+/* harmony export (immutable) */ __webpack_exports__["e"] = getRelatedCouponList;
+/* harmony export (immutable) */ __webpack_exports__["d"] = getEnableEditUsersList;
+/* harmony export (immutable) */ __webpack_exports__["c"] = getChannelList;
+/* harmony export (immutable) */ __webpack_exports__["h"] = setChannelList;
+/* harmony export (immutable) */ __webpack_exports__["a"] = GetActivityDraftConfig;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_services__ = __webpack_require__(159);
+
+
+function getTestEngineer() {
+  return Object(__WEBPACK_IMPORTED_MODULE_0_services__["a" /* default */])({
+    url: '/common/getTestEngineer',
+    method: 'post'
+  });
+}
+
+function getActDetail(data) {
+  return Object(__WEBPACK_IMPORTED_MODULE_0_services__["a" /* default */])({
+    url: '/act/getActDetail',
+    method: 'post',
+    data: data
+  });
+}
+
+function saveActConfig(data) {
+  return Object(__WEBPACK_IMPORTED_MODULE_0_services__["a" /* default */])({
+    url: '/act/postAct',
+    method: 'post',
+    data: data
+  });
+}
+
+function getRelatedCouponList() {
+  return Object(__WEBPACK_IMPORTED_MODULE_0_services__["a" /* default */])({
+    url: '/common/coupons',
+    method: 'post'
+  });
+}
+
+function getEnableEditUsersList() {
+  return Object(__WEBPACK_IMPORTED_MODULE_0_services__["a" /* default */])({
+    url: '/common/users',
+    method: 'post'
+  });
+}
+
+function getChannelList() {
+  return Object(__WEBPACK_IMPORTED_MODULE_0_services__["a" /* default */])({
+    url: '/act/GetChannels',
+    method: 'post'
+  });
+}
+
+function setChannelList(data) {
+  return Object(__WEBPACK_IMPORTED_MODULE_0_services__["a" /* default */])({
+    url: '/act/PostChannel',
+    method: 'post',
+    data: data
+  });
+}
+function GetActivityDraftConfig(data) {
+  return Object(__WEBPACK_IMPORTED_MODULE_0_services__["a" /* default */])({
+    url: '/act/GetActivityDraftConfig',
+    method: 'post',
+    data: data
+  });
 }
 
 /***/ }),

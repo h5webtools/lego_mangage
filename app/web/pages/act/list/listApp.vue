@@ -25,7 +25,7 @@
           <template slot-scope="props">
             <el-button type="primary" v-if="props.row.is_lego == 0 || (props.row.is_lego == 1 && isAdmin)">
               <router-link :to="{name:'chainEdit', params: {act_id:props.row.act_id, status:props.row.status, is_draft:'1'}}">副本模板<i class="el-icon-arrow-right"></i></router-link>
-            </el-button> 
+            </el-button>
             <el-button type="primary" v-if="props.row.is_lego == 0 || (props.row.is_lego == 1 && isAdmin)">
               <router-link :to="{name:'chainEdit', params: {act_id:props.row.act_id, status:props.row.status, is_draft:'0'}}">正式模板 <i class="el-icon-arrow-right"></i></router-link>
             </el-button>
@@ -93,15 +93,16 @@
                 <el-dropdown-item divided v-if="props.row.is_lego == 0 || (props.row.is_lego == 1 && isAdmin)">
                   <router-link :to="{name:'chainEdit', params: {act_id:props.row.act_id, status:props.row.status,is_draft:1}}">规则配置</router-link>
                 </el-dropdown-item>
-                <el-dropdown-item v-if="deploy" divided>  
+                <el-dropdown-item v-if="deploy" divided>
                   <div @click="manual(props.row)">同步配置</div>
                 </el-dropdown-item>
                 <el-dropdown-item divided v-if="props.row.is_lego == '1'">
-                  <a v-if="props.row.pageids.length > 0" target="_blank" :href="'/lego/editPage?page_id='+(props.row.page_ids[0] || '')+'&act_id='+props.row.crypt">编辑页面</a>
-                  <a v-else target="_blank" :href="'/lego/homePage?act_id='+props.row.crypt">编辑页面</a>
+                  <!-- <a v-if="props.row.pageids.length > 0" target="_blank" :href="'/lego/editPage?page_id='+(props.row.page_ids[0] || '')+'&act_id='+props.row.crypt">编辑页面</a>
+                  <a v-else target="_blank" :href="'/lego/homePage?act_id='+props.row.crypt">编辑页面</a> -->
+                  <a target="_blank" @click="editPageLink(props.row.pageids.length,props.row.crypt,props.row.page_ids)" href="javascript:;">编辑页面</a>
                 </el-dropdown-item>
                 <!-- 管理员 页面创建者 授权者 可以提交转测试 -->
-                <el-dropdown-item  divided v-if="props.row.status==0 && (props.row.creator == userIds || isAdmin ||  props.row.isRevisability)" >  
+                <el-dropdown-item  divided v-if="props.row.status==0 && (props.row.creator == userIds || isAdmin ||  props.row.isRevisability)" >
                    <el-button @click="submitTest(props)" type="primary">转测试</el-button>
                 </el-dropdown-item>
                 <!-- 测试负责人 可以提交测试结果 -->
@@ -109,7 +110,7 @@
                   <el-button @click="showTestResultDialog(props)" type="primary">提交测试结果</el-button>
                 </el-dropdown-item>
                 <!-- 管理员 页面创建者 授权者 可以提交审批 -->
-                <el-dropdown-item  divided v-if="props.row.status==2 && (props.row.creator == userIds || isAdmin || props.row.isRevisability)" >  
+                <el-dropdown-item  divided v-if="props.row.status==2 && (props.row.creator == userIds || isAdmin || props.row.isRevisability)" >
                   <el-button @click="submitApprove(props)" type="primary">提交审批</el-button>
                 </el-dropdown-item>
                 <!-- 管理员 页面创建者 授权者 可以提交发布 -->
@@ -147,11 +148,12 @@
 </template>
 <script>
 import * as listQuery from "api/api_act_list";
+import * as actQuery from 'api/api_act_edit'
 import * as util from "assets/js/util";
 export default {
   data() {
     return {
-      queryData: { 
+      queryData: {
         act_id: '',
         act_name: '',
         act_channel: '',
@@ -192,7 +194,7 @@ export default {
       isTester: '', //测试
       isOperator: '', // 运营
       isDev: '', // 开发
-      userIds: '',  
+      userIds: '',
       tableData: [],
       logData: {},//日志流水
       listLoading: true,
@@ -227,18 +229,18 @@ export default {
         if (jsonData.code == 0) {
           let tempData = jsonData.data.data;
           tempData.forEach(function(item){
-            /* 
-            case:当前用户是管理员 或者当前用户是创建者  
+            /*
+            case:当前用户是管理员 或者当前用户是创建者
             case:当前用户是测试 并且用户是测试负责人
             case:其他
             */
             item.isTestOwner = util.arrayContain(item.tests,me.userIds);
             item.isRevisability = util.arrayContain(item.revisability,me.userIds);
             item.pageids = item.page_ids ? item.page_ids.join("-") : "";
-            
+
           });
-          
-    
+
+
           //tempData.userStatus = 0;
           this.tableData = jsonData.data.data;
           this.timestamp = new Date(jsonData.data.timestamp * 1000);
@@ -249,6 +251,25 @@ export default {
           }
         }
       });
+    },
+    //编辑页面跳转
+    editPageLink(length, act_id, pageId){
+      if (length > 0) {
+        window.open('/lego/editPage?page_id='+(pageId[0] || '')+'&act_id='+act_id,'_blank')
+      } else {
+        const newUrl = window.open('/lego/homePage?act_id='+act_id,'_blank')
+        actQuery.getActDetail({act_id}).then(json => {
+          if (json.code == 0) {
+            if (json.data.page_ids.length > 0) {
+              newUrl.location.href = '/lego/editPage?page_id='+(json.data.page_ids[0] || '')+'&act_id='+act_id;
+            } else {
+              newUrl.location.href = '/lego/homePage?act_id='+act_id;
+            }
+          } else {
+            this.$message.error(json.msg);
+          }
+        })
+      }
     },
     //获取日志流水
     getOpsLogs(row, expandedRows){
@@ -380,8 +401,8 @@ export default {
                 });
               }
             });
-            
-            this.dialogTestResultVisible = false; 
+
+            this.dialogTestResultVisible = false;
           } else {
             //有错误
             return false;
