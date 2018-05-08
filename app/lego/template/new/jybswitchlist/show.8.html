@@ -2,6 +2,24 @@
 .lego-jybswitchlist-show8 {
   height: .90rem;
 }
+.lego-jybswitchlist-show8.ui-p-sticky {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  top: constant(safe-area-inset-top);
+  top: env(safe-area-inset-top);
+  z-index: 998;
+  background-color: #fff;
+}
+.lego-jybswitchlist-show8.ui-p-fixed {
+  position: fixed;
+  top: 0;
+  top: constant(safe-area-inset-top);
+  top: env(safe-area-inset-top);
+  left: 0;
+  z-index: 998;
+  background-color: #fff;
+}
 .lego-jybswitchlist-show8 .tab-wrap {
   position: relative;
   width: 7.5rem;
@@ -89,22 +107,12 @@
   color: #ffd630;
   border-bottom: 1px solid #ffd630;
 }
-
-.lego-jybswitchlist-show8 .ui-p-fixed {
-  position: fixed;
-  top: 0;
-  top: constant(safe-area-inset-top);
-  top: env(safe-area-inset-top);
-  left: 0;
-  z-index: 1000;
-  background-color: #fff;
-}
 </style>
   
 <template class="showTemplate">
   <jybswitchlist uid="switchlist" v-bind:params="data" inline-template>
-    <div class="lego-jybswitchlist-show8" >
-      <div data-role="fixed" class="tab-wrap">
+    <div data-role="fixed" class="lego-jybswitchlist-show8">
+      <div class="tab-wrap">
         <div class="tab-box">
           <a href="javascript:;"
             class="tab-item"
