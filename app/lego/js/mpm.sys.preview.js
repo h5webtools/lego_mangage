@@ -9,6 +9,7 @@ define(function (require, exports, module) {
   var previewBtn = $('#previewBtn'),
     publishBtn = $("#publishBtn"),
     previewHtml = $("#previewHtml"),
+    previewSitHtml = $("#previewSitHtml"),
     prePublishBtn = $("#prePublishBtn");
  
   var mpmStructureModule = require('./mpm.sys.structure');
@@ -45,7 +46,8 @@ define(function (require, exports, module) {
     var des = '发布系统建单成功，请到发布系统进行部署！';
     var previewURL = "https://cdnsit.jyblife.com/act/" + folderSet.datefolder + "/" + _path + "/" + _fileName + "?act_id=" + moduleUtil.getUrlQuery('act_id');
     var publishURL = "https://cdn.jyblife.com/act/" + folderSet.datefolder + "/" + _path + "/" + _fileName + "?act_id=" + moduleUtil.getUrlQuery('act_id');
-    var previewHtmlURL = "http://preview.sit.jyblife.com/act/" + folderSet.datefolder + "/" + _path + "/" + _fileName + "?act_id=" + moduleUtil.getUrlQuery('act_id');
+    var previewHtmlURL = "https://preview.jyblife.com/act/" + folderSet.datefolder + "/" + _path + "/" + _fileName + "?act_id=" + moduleUtil.getUrlQuery('act_id');
+    var previewSitHtmlURL = "http://preview.sit.jyblife.com/act/" + folderSet.datefolder + "/" + _path + "/" + _fileName + "?act_id=" + moduleUtil.getUrlQuery('act_id');
     if (publishSta == "preview") {
       des = des + "<br> 集成测试地址：" + previewURL;
     } else if (publishSta == "publish") {
@@ -54,8 +56,10 @@ define(function (require, exports, module) {
       des = des + "<br> 预发布环境地址：" + publishURL;
     } else if (publishSta == "previewHtml") {
       des = "发布到预览成功！<br> 预览地址：" + previewHtmlURL;
+    } else if (publishSta == "previewSitHtml") {
+      des = "发布到预览成功！<br> 预览地址：" + previewSitHtmlURL;
     }
-    if (publishSta == "preview" || publishSta == "publish" || publishSta == "prepublish" || publishSta == "previewHtml") {
+    if (publishSta == "preview" || publishSta == "publish" || publishSta == "prepublish" || publishSta == "previewHtml" || publishSta == "previewSitHtml") {
       moduleUtil.alert(des);
     }
     if (d.size < 1) {
@@ -70,6 +74,7 @@ define(function (require, exports, module) {
     _target.hasClass("prepublishs") ? publishSta = "prepublish" : "";
     _target.hasClass("publishs") ? publishSta = "publish" : "";
     _target.hasClass("prepublishHtmls") ? publishSta = "previewHtml" : "";//预览页面
+    _target.hasClass("prepublishSitHtmls") ? publishSta = "previewSitHtml" : "";//集成环境预览页面
     mpmStructureModule.savePageData(function (json) {
       if (json.code == 0) {
         moduleCreateFile.createFile(createCB, publishSta);
@@ -84,6 +89,7 @@ define(function (require, exports, module) {
     publishBtn.on("click", writeFile);
     prePublishBtn.on("click", writeFile);
     previewHtml.on("click", writeFile);
+    previewSitHtml.on("click", writeFile);
   };
 });
 

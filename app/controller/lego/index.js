@@ -148,10 +148,11 @@ class LegoController extends Controller {
     
     let previewTem = fs.readFileSync(`${__dirname}/template/${this.config.legoConfig.previewTem}`);
     //替换预览host
+    console.log(this.config.envConfig,'------------this.config.envConfig');
     let replacePreviewData = previewTem.toString().replace("previewHost", this.config.envConfig.previewHost).replace("{{pageId}}", rawBody.pageid);
     // let replacePreviewPageId = previewTem.toString().replace("{{pageId}}",  rawBody.pageid);
     
-    if (_publishflag == 'previewHtml') {
+    if (_publishflag == 'previewHtml' || _publishflag == 'previewSitHtml') {
       _content = _content.replace("{{[previewJS]}}", replacePreviewData);
       
       _content = _content.replace(new RegExp('{{{previewRoot}}}','g'), 'https://cdn.jyblife.com');
