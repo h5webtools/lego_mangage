@@ -282,7 +282,6 @@ export default {
             actionChain: []
           });
         })
-
         this.saveConfig(ruleActionChain);
 
       }
@@ -327,13 +326,15 @@ export default {
               key: param.chainName || json.chainName,
               type: json.paramType,
               is: 1,
-              params: param.param
+              params: param.param,
+              passRule: param.passRule || 0 //白名单
             }
             let notmatchparamObj = {
               key: param.chainName || json.chainName,
               type: json.paramType,
               is: 0,
-              params: param.param
+              params: param.param,
+              passRule: param.passRule || 0 //白名单
             }
             // 拷贝两个对象
             let matchPush = JSON.parse(JSON.stringify(pushData));
@@ -414,9 +415,9 @@ export default {
       this.cmdData.isEdit = true;
     },
     /**
-     * 增加子动作节点 
+     * 增加子动作节点
      * @argument
-     * 
+     *
      */
     addNewSubActionNode() {
       event.$emit('showParamDialog', {
@@ -429,7 +430,7 @@ export default {
     },
     /**
      * 编辑子动作节点的参数
-     * @argument 
+     * @argument
      * */
     editSubActionNode(param) {
       event.$emit('showParamDialog', {
@@ -439,7 +440,7 @@ export default {
     },
     /**
      * @description 顶级开始节点添加子节点
-     * 
+     *
      * */
     addTopNode() {
       this.showEditDialog({
@@ -506,7 +507,7 @@ export default {
       event.$off('confirm-param-edit');
     },
     validateForm(rule, name, callback) {
-      // 循环 
+      // 循环
       this.dialogData.params.forEach((param, index) => {
         // 发事件通知各自的组件进行表单校验
         event.$once(name + '-validate-notify-' + index, (result) => {
@@ -657,6 +658,8 @@ export default {
       const cmdConfig = {};
       let defaultCmd = '';
       // 循环命令字对象
+      console.log(this.chainConfig,'this.chainConfig-------------');
+      console.log(this.chainsTplData.configData,'----------cmdData.configData');
       for (let cmd in this.chainConfig) {
         let cmdItem = this.chainConfig[cmd],
           editChainIdData = [],
@@ -688,6 +691,7 @@ export default {
                 id: uniqId,
                 chainName: ruleItem.key,
                 param: ruleItem.params,
+                passRule: ruleItem.passRule,//白名单
                 match: [],
                 notmatch: [],
                 subAction: []
@@ -703,6 +707,7 @@ export default {
                   id: uniqId,
                   chainName: ruleItem.key,
                   param: ruleItem.params,
+                  passRule: ruleItem.passRule,//白名单
                   match: [],
                   notmatch: [],
                   subAction: []
@@ -775,7 +780,7 @@ export default {
      * key相同，参数不同，认为是同一个根节点的不同参数
      * key不同，是一个单独的分支
      * @argument
-     * 
+     *
      */
     findRootTree(cmdConfig, cmd) {
       let _this = this, root = [cmdConfig[0]];
@@ -791,7 +796,7 @@ export default {
             if (JSON.stringify(item.params[0].param) == JSON.stringify(config.params[0].param)) {
               // TODO 需要继续查找子节点，直到查找到不同的为止
               // config.params[0].id = item.id;
-              // item.params = item.params.concat(config.params); 
+              // item.params = item.params.concat(config.params);
               item = this.deepCompare(item, config);
               // item.params.push("查找到相同节点");
             } else {
@@ -894,7 +899,7 @@ export default {
       this.convertChainData();
       this.chainsImportTplVisible = false;
     },
-    confirmChainsTpl() {//确定 
+    confirmChainsTpl() {//确定
 
       this.copyToClipboard(this.tempChainConfig);
       this.importChainFlag = false;
@@ -903,7 +908,7 @@ export default {
         me.chainsTplVisible = false;
       }, 2000);
     },
-    cancleChainsTpl() {// 
+    cancleChainsTpl() {//
       this.chainsTplVisible = false;
     },
     cancleImportChainsTpl() {

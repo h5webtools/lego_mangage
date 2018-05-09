@@ -4,7 +4,11 @@
     // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+<<<<<<< HEAD
         
+=======
+    
+>>>>>>> feature_lego_v1.2
         {
             "type": "node",
             "request": "launch",
@@ -14,6 +18,7 @@
                 "run",
                 "debug",
                 "--",
+<<<<<<< HEAD
                 "--inspect"
             ],
             "console": "integratedTerminal",
@@ -31,6 +36,8 @@
                 "run",
                 "sit",
                 "--",
+=======
+>>>>>>> feature_lego_v1.2
                 "--inspect-brk"
             ],
             "console": "integratedTerminal",

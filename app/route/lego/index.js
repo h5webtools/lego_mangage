@@ -40,4 +40,8 @@ module.exports = app => {
   app.router.get('/lego/homePage', app.controller.legoPage.index.homePage);
   // 同步文件回调
   app.router.post('/lego/syncCallback', app.controller.lego.index.syncResultCallback);
+  // 预览
+  app.router.post('/lego/previewLock', app.controller.lego.index.changePreviewLock);
+  // 保存页面后更改为预览状态
+  app.router.post('/lego/setPreviewLock', app.controller.lego.index.setPreviewLock);
 };
