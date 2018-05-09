@@ -2165,11 +2165,11 @@ function isSlowBuffer (obj) {
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(258)
+  __webpack_require__(259)
 }
 var Component = __webpack_require__(46)(
   /* script */
-  __webpack_require__(259),
+  __webpack_require__(260),
   /* template */
   __webpack_require__(262),
   /* styles */
@@ -2204,19 +2204,95 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 258:
+/***/ 252:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["f"] = getTestEngineer;
+/* harmony export (immutable) */ __webpack_exports__["b"] = getActDetail;
+/* harmony export (immutable) */ __webpack_exports__["g"] = saveActConfig;
+/* harmony export (immutable) */ __webpack_exports__["e"] = getRelatedCouponList;
+/* harmony export (immutable) */ __webpack_exports__["d"] = getEnableEditUsersList;
+/* harmony export (immutable) */ __webpack_exports__["c"] = getChannelList;
+/* harmony export (immutable) */ __webpack_exports__["h"] = setChannelList;
+/* harmony export (immutable) */ __webpack_exports__["a"] = GetActivityDraftConfig;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_services__ = __webpack_require__(159);
+
+
+function getTestEngineer() {
+  return Object(__WEBPACK_IMPORTED_MODULE_0_services__["a" /* default */])({
+    url: '/common/getTestEngineer',
+    method: 'post'
+  });
+}
+
+function getActDetail(data) {
+  return Object(__WEBPACK_IMPORTED_MODULE_0_services__["a" /* default */])({
+    url: '/act/getActDetail',
+    method: 'post',
+    data: data
+  });
+}
+
+function saveActConfig(data) {
+  return Object(__WEBPACK_IMPORTED_MODULE_0_services__["a" /* default */])({
+    url: '/act/postAct',
+    method: 'post',
+    data: data
+  });
+}
+
+function getRelatedCouponList() {
+  return Object(__WEBPACK_IMPORTED_MODULE_0_services__["a" /* default */])({
+    url: '/common/coupons',
+    method: 'post'
+  });
+}
+
+function getEnableEditUsersList() {
+  return Object(__WEBPACK_IMPORTED_MODULE_0_services__["a" /* default */])({
+    url: '/common/users',
+    method: 'post'
+  });
+}
+
+function getChannelList() {
+  return Object(__WEBPACK_IMPORTED_MODULE_0_services__["a" /* default */])({
+    url: '/act/GetChannels',
+    method: 'post'
+  });
+}
+
+function setChannelList(data) {
+  return Object(__WEBPACK_IMPORTED_MODULE_0_services__["a" /* default */])({
+    url: '/act/PostChannel',
+    method: 'post',
+    data: data
+  });
+}
+function GetActivityDraftConfig(data) {
+  return Object(__WEBPACK_IMPORTED_MODULE_0_services__["a" /* default */])({
+    url: '/act/GetActivityDraftConfig',
+    method: 'post',
+    data: data
+  });
+}
+
+/***/ }),
+
+/***/ 259:
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ 259:
+/***/ 260:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_api_api_act_edit__ = __webpack_require__(260);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_api_api_act_edit__ = __webpack_require__(252);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_assets_js_util__ = __webpack_require__(152);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_wangeditor__ = __webpack_require__(261);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_wangeditor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_wangeditor__);
@@ -2861,82 +2937,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     }
   }
 });
-
-/***/ }),
-
-/***/ 260:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["f"] = getTestEngineer;
-/* harmony export (immutable) */ __webpack_exports__["b"] = getActDetail;
-/* harmony export (immutable) */ __webpack_exports__["g"] = saveActConfig;
-/* harmony export (immutable) */ __webpack_exports__["e"] = getRelatedCouponList;
-/* harmony export (immutable) */ __webpack_exports__["d"] = getEnableEditUsersList;
-/* harmony export (immutable) */ __webpack_exports__["c"] = getChannelList;
-/* harmony export (immutable) */ __webpack_exports__["h"] = setChannelList;
-/* harmony export (immutable) */ __webpack_exports__["a"] = GetActivityDraftConfig;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_services__ = __webpack_require__(159);
-
-
-function getTestEngineer() {
-  return Object(__WEBPACK_IMPORTED_MODULE_0_services__["a" /* default */])({
-    url: '/common/getTestEngineer',
-    method: 'post'
-  });
-}
-
-function getActDetail(data) {
-  return Object(__WEBPACK_IMPORTED_MODULE_0_services__["a" /* default */])({
-    url: '/act/getActDetail',
-    method: 'post',
-    data: data
-  });
-}
-
-function saveActConfig(data) {
-  return Object(__WEBPACK_IMPORTED_MODULE_0_services__["a" /* default */])({
-    url: '/act/postAct',
-    method: 'post',
-    data: data
-  });
-}
-
-function getRelatedCouponList() {
-  return Object(__WEBPACK_IMPORTED_MODULE_0_services__["a" /* default */])({
-    url: '/common/coupons',
-    method: 'post'
-  });
-}
-
-function getEnableEditUsersList() {
-  return Object(__WEBPACK_IMPORTED_MODULE_0_services__["a" /* default */])({
-    url: '/common/users',
-    method: 'post'
-  });
-}
-
-function getChannelList() {
-  return Object(__WEBPACK_IMPORTED_MODULE_0_services__["a" /* default */])({
-    url: '/act/GetChannels',
-    method: 'post'
-  });
-}
-
-function setChannelList(data) {
-  return Object(__WEBPACK_IMPORTED_MODULE_0_services__["a" /* default */])({
-    url: '/act/PostChannel',
-    method: 'post',
-    data: data
-  });
-}
-function GetActivityDraftConfig(data) {
-  return Object(__WEBPACK_IMPORTED_MODULE_0_services__["a" /* default */])({
-    url: '/act/GetActivityDraftConfig',
-    method: 'post',
-    data: data
-  });
-}
 
 /***/ }),
 

@@ -3431,7 +3431,8 @@ module.exports = Component.exports
 /***/ }),
 /* 251 */,
 /* 252 */,
-/* 253 */
+/* 253 */,
+/* 254 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3529,7 +3530,6 @@ function saveCmdChains(data) {
 }
 
 /***/ }),
-/* 254 */,
 /* 255 */,
 /* 256 */,
 /* 257 */,
@@ -3616,7 +3616,7 @@ function saveCmdChains(data) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_api_api_template_chainApp__ = __webpack_require__(253);
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_api_api_template_chainApp__ = __webpack_require__(254);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_assets_js_util__ = __webpack_require__(152);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__treeNode_vue__ = __webpack_require__(332);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__treeNode_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__treeNode_vue__);

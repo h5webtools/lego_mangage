@@ -86,7 +86,7 @@
 /******/ 		if (__webpack_require__.nc) {
 /******/ 			script.setAttribute("nonce", __webpack_require__.nc);
 /******/ 		}
-/******/ 		script.src = __webpack_require__.p + "js/" + ({"0":"actChainConfig","1":"ConfigTreeLego","2":"templateConfigTree","3":"paramsList","4":"entryList","5":"actEdit","6":"systemSync","7":"legoPages","8":"legoComponentStyles","9":"legoComponents","10":"entryActList","11":"templateList","12":"actList","13":"cmdList"}[chunkId]||chunkId) + ".js";
+/******/ 		script.src = __webpack_require__.p + "js/" + ({"0":"actChainConfig","1":"ConfigTreeLego","2":"templateConfigTree","3":"paramsList","4":"entryList","5":"actEdit","6":"actList","7":"systemSync","8":"legoPages","9":"legoComponentStyles","10":"legoComponents","11":"entryActList","12":"templateList","13":"cmdList"}[chunkId]||chunkId) + ".js";
 /******/ 		var timeout = setTimeout(onScriptComplete, 120000);
 /******/ 		script.onerror = script.onload = onScriptComplete;
 /******/ 		function onScriptComplete() {
@@ -60477,7 +60477,7 @@ if (inBrowser && window.Vue) {
 
 
 var actList = function actList() {
-  return __webpack_require__.e/* import() */(12).then(__webpack_require__.bind(null, 207));
+  return __webpack_require__.e/* import() */(6).then(__webpack_require__.bind(null, 207));
 };
 var actEdit = function actEdit() {
   return __webpack_require__.e/* import() */(5).then(__webpack_require__.bind(null, 208));
@@ -60495,28 +60495,28 @@ var templateConfigTree = function templateConfigTree() {
   return __webpack_require__.e/* import() */(2).then(__webpack_require__.bind(null, 212));
 };
 var templateList = function templateList() {
-  return __webpack_require__.e/* import() */(11).then(__webpack_require__.bind(null, 213));
+  return __webpack_require__.e/* import() */(12).then(__webpack_require__.bind(null, 213));
 };
 var systemSync = function systemSync() {
-  return __webpack_require__.e/* import() */(6).then(__webpack_require__.bind(null, 214));
+  return __webpack_require__.e/* import() */(7).then(__webpack_require__.bind(null, 214));
 };
 var ConfigTreeLego = function ConfigTreeLego() {
   return __webpack_require__.e/* import() */(1).then(__webpack_require__.bind(null, 215));
 };
 var legoComponents = function legoComponents() {
-  return __webpack_require__.e/* import() */(9).then(__webpack_require__.bind(null, 216));
+  return __webpack_require__.e/* import() */(10).then(__webpack_require__.bind(null, 216));
 };
 var legoPages = function legoPages() {
-  return __webpack_require__.e/* import() */(7).then(__webpack_require__.bind(null, 217));
+  return __webpack_require__.e/* import() */(8).then(__webpack_require__.bind(null, 217));
 };
 var legoComponentStyles = function legoComponentStyles() {
-  return __webpack_require__.e/* import() */(8).then(__webpack_require__.bind(null, 218));
+  return __webpack_require__.e/* import() */(9).then(__webpack_require__.bind(null, 218));
 };
 var entryList = function entryList() {
   return __webpack_require__.e/* import() */(4).then(__webpack_require__.bind(null, 219));
 };
 var entryActList = function entryActList() {
-  return __webpack_require__.e/* import() */(10).then(__webpack_require__.bind(null, 220));
+  return __webpack_require__.e/* import() */(11).then(__webpack_require__.bind(null, 220));
 };
 
 var routes = [{
