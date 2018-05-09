@@ -196,6 +196,7 @@ class LegoController extends Controller {
                   code: 0,
                   msg: 'success'
                 }
+                ctx.logger.info('创建发布单成功-------------------->');
               } else {
                 ctx.body = {
                   code: CREATE_RELEASETASK_FAILED,
@@ -1222,7 +1223,7 @@ class LegoController extends Controller {
       this.ctx.logger.info('发布结果：'+ JSON.stringify(releaseRet));
       if(releaseRet.code == 0) {
         if (rawBody.publishflag == 'prepublish') {
-          let deleteRet = await this.app.redis.del(`lego_manage_previewLock_${pageId}`);
+          let deleteRet = await this.app.redis.del(`lego_manage_previewLock_${rawBody.pageid}`);
         }
         return '';
       } else {
