@@ -47,6 +47,12 @@ module.exports = appInfo => {
     app: true
   }
 
+  config.actLegoConfig = {
+    GetActivityDraftConfig: [{
+      ip: 'http://10.23.50.153:12066',
+      jmf: 'com.jyblife.complex.h5.act_console.GetActivityDraftConfig'
+    }]
+  }
   config.actEntryConfig = {
     userGroupList: [{
       ip: 'http://10.23.50.153:12066',
