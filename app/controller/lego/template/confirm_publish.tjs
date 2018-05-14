@@ -1,0 +1,27 @@
+
+<script>
+    var previewBtn = document.getElementById('previewBtn');
+    if (!previewBtn) {
+        var btn = document.createElement("button");
+        btn.innerHTML = '确认发布';
+        btn.id = 'previewBtn';
+        btn.style='display:block;margin:10px auto';
+        btn.onclick = function () {
+            $.ajax({
+                url:'previewHost/lego/previewLock',
+                type:'post',
+                data:{'pageId':{{pageId}}},
+                dataType: 'json',
+                async:false,
+                success: function(json){
+                    if(json.code == 0) {
+                        alert('预览成功，请到乐高发布')
+                    } else {
+                        alert(json.msg)
+                    }
+                }
+            });
+        }
+    }
+    document.body.appendChild(btn);
+</script>

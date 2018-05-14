@@ -24,9 +24,8 @@ define(function (require, exports, module) {
                     }
                 };
             },
-
-            mounted: function () {
-
+            mounted: function() {
+                $('.ui-p-fixed').removeClass('ui-p-fixed');
             },
             created: function () {
 

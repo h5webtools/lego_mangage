@@ -23,3 +23,8 @@ exports.sessionRedis = {
   enable: true,
   package: 'egg-session-redis',
 };
+
+exports.passportJyb = {
+  enable: true,
+  package: '@node/egg-passport-jyb'
+};

@@ -24,6 +24,7 @@ define(function (require, exports, module) {
     basicInfoCancelBtn = $('#basicInfoCancelBtn'),
     basicInfoSaveBtn = $('#basicInfoSaveBtn'),
     templateid = moduleUtil.getUrlQuery('tid') || '';
+    pageIdFlag = false;
 
   var curPage = {
     id: 0,
@@ -88,6 +89,11 @@ define(function (require, exports, module) {
       curPage.actId = act_id;
       if (creatingNew) {
         curPage.templateid = templateid;
+        // 防止多次点击保存
+        pageIdFlag = true;
+        if (!pageIdFlag) {
+          return false;
+        }
         moduleDataCenter.createNewPage(curPage, function (json) {
           var newId = 0,
               act_url = '';
@@ -101,7 +107,9 @@ define(function (require, exports, module) {
             var _data = json.data;
             newId = _data.page_id;
             replaceUrl('?page_id=' + newId + "&act_id=" + act_id);
+            pageIdFlag = false;
           } else if(json.code == '810010'){//页面创建成功 但是未关联page_id与act_id
+            pageIdFlag = false;
             var _data = json.data;
             newId = _data.page_id;
             act_url = _data.cdn_prefix + _data.date_folder + '/' + curPage.path + '/' + 'index.html' + '?actId=' + act_id;

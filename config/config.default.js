@@ -49,7 +49,44 @@ module.exports = appInfo => {
   };
 
   // add your config here
-  config.middleware = ['requestParam', 'userAuth'];
+  // config.middleware = ['requestParam', 'userAuth'];
+  config.middleware = ['requestParam'];
+
+  config.passportJyb = {
+    clients: {
+      mysqlOperate: {
+        'userDBClient': 'dbMain'
+     }
+    },
+    'selfSystem': {  
+      'noAuth': [/\/login\/doLogin/, /^\/lego\/syncCallback/,  /^\/lego\/previewLock/],
+      'hook': {
+        async logoutCallbackbefore(ctx) {
+          const {path} = ctx.request;
+          const rules = [/^\/$/, /\/login/, /\/login\/loginOut/]
+          
+          const state = rules.find(rule => {
+            if(rule.test(path)) {
+              return true;
+            }
+          })
+
+          if(!state) {
+            ctx.body = {
+              code: '1601000014',
+              msg: '用户未登录'
+            }
+            return true;
+
+          } else {
+            return false;
+          }
+
+        }
+      }
+    }
+  }
+
 
   return config;
 };

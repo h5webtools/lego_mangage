@@ -220,7 +220,7 @@ define(function (require, exports, module) {
                     _pageid + '/' + 
                     _comid + '/' + 
                     _act_id,
-            key = _pageid + "_" + _comid + "_" + _tpl_id + "_" + _act_id;
+            key = _pageid + "_" + _comid + "_" + _tpl_id + "_" + decodeURIComponent(_act_id);
 
           divComponentIframe.find("iframe")[0].src = _url;
           divComponentIframe.show();
@@ -231,7 +231,7 @@ define(function (require, exports, module) {
               var cmds = JSON.parse(json[key]);
                 me.obj.data.cmdid = cmds[0];
                 cmds.length > 1 ? (me.obj.data.areacmdid = cmds[1]) : '';
-                me.obj.data.activeid = _act_id;
+                me.obj.data.activeid = decodeURIComponent(_act_id);
             }
           }, true);
         }

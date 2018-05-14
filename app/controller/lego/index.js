@@ -108,7 +108,15 @@ class LegoController extends Controller {
       _fileName = "index.html",
       actFolder = `${this.config.legoConfig.path}/${_datefolder}/${_folder}`;
     // 判断是否执行提交GIT动作
+    console.log(_publishflag,'---_publishflag')
     const doSubmit = _publishflag == 'preview' || _publishflag == 'publish' || _publishflag == 'prepublish';
+    // if(_publishflag == 'previewHtml') {
+    //   ctx.body = {
+    //     code: 0,
+    //     msg: 'success'
+    //   }
+    //   return;
+    // }
     if (_oldPagePath) { //迁移链接存在的话
       ctx.logger.info(`迁移老连接${_oldPagePath}`);
       try {
@@ -137,6 +145,26 @@ class LegoController extends Controller {
     }
     //替换为include
     _content = _content.replace('$$$','');
+
+    
+    let previewTem = fs.readFileSync(`${__dirname}/template/${this.config.legoConfig.previewTem}`);
+    //替换预览host
+    console.log(this.config.envConfig,'------------this.config.envConfig');
+    let replacePreviewData = previewTem.toString().replace("previewHost", this.config.envConfig.previewHost).replace("{{pageId}}", rawBody.pageid);
+    // let replacePreviewPageId = previewTem.toString().replace("{{pageId}}",  rawBody.pageid);
+    
+    if (_publishflag == 'previewHtml' || _publishflag == 'previewSitHtml') {
+      _content = _content.replace("{{[previewJS]}}", replacePreviewData);
+      
+      _content = _content.replace(new RegExp('{{{previewRoot}}}','g'), 'https://cdn.jyblife.com');
+
+    } else {
+      _content = _content.replace("{{[previewJS]}}", '');
+      _content = _content.replace(new RegExp('{{{previewRoot}}}','g'), '');
+    }
+  
+    let actPageRet = fs.writeFileSync(`${actFolder}/${_fileName}`, _content, 'utf-8');//要删除
+
     // 执行依赖安装和JS模板替换
     let templateRet = await Promise.all([this._installNpmPackages(actFolder), this._replaceJsTemplate(_comConfig, actFolder,_pveventid)]);
     // 两步动作都成功
@@ -160,12 +188,16 @@ class LegoController extends Controller {
             await _this._submitGit(_datefolder, _folder, _pagename).then(async (commitId, preCommitId) => {
               // 提交git仓库成功，创建发布单
               let publishRet = await _this._createPublishTask(commitId, preCommitId, rawBody);
+
+
+              ctx.logger.info('publishRet-------------------->',publishRet);
               // 发布失败
               if(!publishRet) {
                 ctx.body = {
                   code: 0,
                   msg: 'success'
                 }
+                ctx.logger.info('创建发布单成功-------------------->');
               } else {
                 ctx.body = {
                   code: CREATE_RELEASETASK_FAILED,
@@ -893,6 +925,73 @@ class LegoController extends Controller {
     }
   }
   /**
+   * 修改预览状态
+   * @param pageId 
+   * @example {"pageId": 200}
+   */
+  async changePreviewLock() {
+    this.ctx.set('Access-Control-Allow-Origin', '*'); 
+    let raw = this.ctx.request.rawBody,
+        pageId = this.ctx.request.body.pageId;
+    this.ctx.logger.info('预览'+JSON.stringify(raw));
+    if(!pageId) {
+      this.ctx.logger.error('没有找到pageid');
+      this.ctx.body = errCode.INVALID_PARAM_FORMAT;
+      return;
+    }
+    let redisData = await this.app.redis.get(`lego_manage_releaseLock_${pageId}`);
+    
+    if(!redisData) {
+      this.ctx.logger.info(`没有获取页面${pageId}的预览信息`);
+      this.ctx.body = {
+        code: EMPTY_LOCK_DATA,
+        msg: '没有获取到预览信息',
+        success: false
+      };
+    } else {
+      let deleteRet = await this.app.redis.del(`lego_manage_releaseLock_${pageId}`);    
+      // 写redis 存已预览状态
+      await this.app.redis.set(`lego_manage_previewLock_${pageId}`, JSON.stringify({
+        previewLock: true,
+        time: +new Date()
+      }), 'PX', 24 * 60 * 60 * 1000);
+      this.ctx.logger.info('删除预览信息'+ deleteRet);
+      if(!deleteRet) {
+        this.ctx.body = {
+          code: DELETE_LOCK_KEY_FAILED,
+          msg: '删除预览信息失败，该pageId的预览信息不存在或是已经删除过'
+        };
+      } else {
+        this.ctx.body = {
+          code: 0
+        };
+      }
+    }
+  }
+  /**
+   * 保存页面后更改为预览状态
+   * @param pageId 
+   * @example {"pageId": 200}
+   */
+  async setPreviewLock() {
+    this.ctx.set('Access-Control-Allow-Origin', '*'); 
+    let raw = this.ctx.request.rawBody,
+        pageId = this.ctx.request.body.pageId || raw.pageId;
+    this.ctx.logger.info('预览'+JSON.stringify(raw));
+    if(!pageId) {
+      this.ctx.logger.error('没有找到pageid');
+      this.ctx.body = errCode.INVALID_PARAM_FORMAT;
+      return;
+    }
+    await this.app.redis.set(`lego_manage_releaseLock_${pageId}`, JSON.stringify({
+      lock: true,
+      time: +new Date()
+    }), 'PX', 24 * 60 * 60 * 1000);
+    this.ctx.body = {
+      code: 0
+    };
+  }
+  /**
    * @description 关联活动页面和活动号，回写活动URL
    * @param {*} actId 
    * @param {*} pageId 
@@ -966,6 +1065,7 @@ class LegoController extends Controller {
     }
     let replaceData = templateJs.toString().replace("pagebegin", template).replace('pveventid',pveventid);
     let writeRet = fs.writeFileSync(`${dir}/${this.config.legoConfig.actJs}`, replaceData, 'utf-8');
+
     if (!writeRet) {
       this.ctx.logger.info(`在${dir}下创建脚本文件成功`);
       return {
@@ -1131,6 +1231,9 @@ class LegoController extends Controller {
       let releaseRet = await this.ctx.helper.get(this.config.envConfig.RELEASE_PATH + '?' + qs.stringify(releaseData));
       this.ctx.logger.info('发布结果：'+ JSON.stringify(releaseRet));
       if(releaseRet.code == 0) {
+        if (rawBody.publishflag == 'prepublish') {
+          let deleteRet = await this.app.redis.del(`lego_manage_previewLock_${rawBody.pageid}`);
+        }
         return '';
       } else {
         return CREATE_RELEASETASK_FAILED;

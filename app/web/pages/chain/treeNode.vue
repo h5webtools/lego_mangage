@@ -7,6 +7,17 @@
         <i v-if="chain.nodeType=='rule'" @click="addParam(chainIndex)" style="margin-left: 10px;" class="glyphicon glyphicon-plus" title="新增参数"></i>&nbsp;&nbsp;
         <i @click="deleteNode(chainIndex)" class="glyphicon glyphicon-remove" title="删除"></i>&nbsp;&nbsp;
         <i v-if="chain.params.length==1" @click="editParam(chainIndex, 0)" class="glyphicon glyphicon-edit" title="编辑"></i>
+        <el-dropdown trigger="click" @command="passRule($event,chainIndex,0)">
+          <span class="el-dropdown-link">
+            <i v-if="chain.params.length==1 && chain.nodeType=='rule'" style="margin-left: 10px;color:#fff;" class="glyphicon glyphicon-tag" title="白名单配置"></i>
+          </span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item :style="editData[chainIndex].params[0].passRule == 0 || editData[chainIndex].params[0].passRule == null ? 'background:#409eff;color:#fff' : 'background:none'" command="0">正常</el-dropdown-item>
+            <el-dropdown-item :style="editData[chainIndex].params[0].passRule == 1 ? 'background:#409eff;color:#fff' : 'background:none'" command="1">通过</el-dropdown-item>
+            <el-dropdown-item :style="editData[chainIndex].params[0].passRule == 2 ? 'background:#409eff;color:#fff' : 'background:none'" command="2">不通过</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+
       </div>
       <div v-if="chain.nodeType=='action' && chain.params[0].subAction.length > 0">
         <!-- 多个动作子节点 -->
@@ -19,6 +30,16 @@
               参数{{index+1}}&nbsp;
               <i @click="editParam(chainIndex, index)" style="margin-left: 10px;" class="glyphicon glyphicon-edit" title="编辑参数"></i>&nbsp;&nbsp;
               <i @click="deleteParam(chainIndex, index)" class="glyphicon glyphicon-remove" title="删除参数"></i>
+              <el-dropdown trigger="click" @command="passRule($event,chainIndex,index)">
+                <span class="el-dropdown-link">
+                  <i style="margin-left: 10px;color:#fff;" class="glyphicon glyphicon-tag" title="白名单配置"></i>
+                </span>
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item command="0">正常</el-dropdown-item>
+                  <el-dropdown-item command="1">通过</el-dropdown-item>
+                  <el-dropdown-item command="2">不通过</el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
             </div>
             <ul class="inner">
               <li>
@@ -70,11 +91,24 @@ export default {
       return sameParam.length > 0;
     },
     /**
+     * 白名单配置
+     * @param chainIndex
+     * @param paramIndex
+     * */
+    passRule(event,chainIndex, paramIndex){
+      console.log(this.editData,'----------this.editData');
+      console.log(event,'----------data');
+      console.log(chainIndex,'----------index');
+      this.$set(this.editData[chainIndex].params[paramIndex],"passRule",event || 0);
+      console.log(this.editData,'----------this.editData2');
+    },
+    /**
      * 编辑参数
      * @param chainIndex
-     * @param paramIndex 
+     * @param paramIndex
      * */
     editParam(chainIndex, paramIndex) {
+      console.log(this.editData[chainIndex].params[paramIndex],'this.editData[chainIndex].params[paramIndex])');
       event.$emit('showParamDialog', {
         data: JSON.parse(JSON.stringify(this.editData[chainIndex].params[paramIndex])),
         lock: true
@@ -130,7 +164,7 @@ export default {
     },
     /**
      * 符合和不符合按钮下添加子节点
-     * @argument 
+     * @argument
      * */
     addNewNode(param, tag) {
       let parentPath = this.path.concat(param.chainName);

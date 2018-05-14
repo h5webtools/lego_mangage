@@ -52,3 +52,10 @@ export function setChannelList(data) {
     data
   });
 }
+export function GetActivityDraftConfig(data) {
+  return service({
+    url: '/act/GetActivityDraftConfig',
+    method: 'post',
+    data:data
+  });
+}

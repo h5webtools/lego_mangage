@@ -47,46 +47,59 @@ module.exports = appInfo => {
     "method": "invoke"
   }
 
+  config.jmfCommonParam = {
+    "env": "prod",
+    "set": "gz_jyb_idc", //使用URL中的set值
+    "group": "*", //使用URL中的group值
+    "version": "1.0.0", //使用URL中的version值
+    "method": "invoke"
+  }
+  config.actLegoConfig = {
+    GetActivityDraftConfig: [{
+      ip: 'http://10.4.45.71:12066',
+      jmf: 'com.jyblife.complex.h5.act_console.GetActivityDraftConfig'
+    }]
+  }
   config.actEntryConfig = {
     userGroupList: [{
-      ip: 'http://10.4.45.71:12056',
+      ip: 'http://10.4.45.71:12066',
       jmf: 'com.jyblife.complex.h5.act_console.QueryUserGroupList'
     }],
     entranceConf: [{
-      ip: 'http://10.4.45.71:12056',
+      ip: 'http://10.4.45.71:12066',
       jmf: 'com.jyblife.complex.h5.act_console.GetEntranceConf'
     }],
     activityConfig: [{
-      ip: 'http://10.4.45.71:12056',
+      ip: 'http://10.4.45.71:12066',
       jmf: 'com.jyblife.complex.h5.act_console.GetActivityConfig'
     }],
     deleteEntrancePlan: [{
-      ip: 'http://10.4.45.71:12056',
+      ip: 'http://10.4.45.71:12066',
       jmf: 'com.jyblife.complex.h5.act_console.DeleteEntrancePlan'
     }], 
     getEntranceDetail: [{
-      ip: 'http://10.4.45.71:12056',
+      ip: 'http://10.4.45.71:12066',
       jmf: 'com.jyblife.complex.h5.act_console.GetEntranceDetail'
     }],
     postEntrancePlan: [{
-      ip: 'http://10.4.45.71:12056',
+      ip: 'http://10.4.45.71:12066',
       jmf: 'com.jyblife.complex.h5.act_console.PostEntrancePlan'
     }],
     putEntrancePlan: [{
-      ip: 'http://10.4.45.71:12056',
+      ip: 'http://10.4.45.71:12066',
       jmf: 'com.jyblife.complex.h5.act_console.PutEntrancePlan'
       
     }],
     getEntrancePlanList: [{
-      ip: 'http://10.4.45.71:12056',
+      ip: 'http://10.4.45.71:12066',
       jmf: 'com.jyblife.complex.h5.act_console.GetEntrancePlanList'
     }],
     postEntranceShelves: [{
-      ip: 'http://10.4.45.71:12056',
+      ip: 'http://10.4.45.71:12066',
       jmf: 'com.jyblife.complex.h5.act_console.PostEntranceShelves'
     }],
     getIconEntranceDetail: [{
-      ip: 'http://10.4.45.71:12056',
+      ip: 'http://10.4.45.71:12066',
       jmf: 'com.jyblife.complex.h5.act_console.GetIconEntranceDetail'
     }]
   }
@@ -115,6 +128,7 @@ module.exports = appInfo => {
   config.legoConfig = {
     path: '/data/www/lego/h5_lego_actpage/release/act/',
     templateJs: 'index.tjs',
+    previewTem: 'confirm_publish.tjs',
     actJs: 'index.js',
     minifyJs: true,
     branchName: 'lego_sit'
@@ -123,7 +137,8 @@ module.exports = appInfo => {
   config.envConfig = {
     BASE_API: 'http://manage.sit.jyblife.com',
     RELEASE_PATH: 'http://release.jyblife.com/task/interface',
-    CDN_PREFIX: 'https://cdnsit.jyblife.com/act/'
+    CDN_PREFIX: 'https://cdnsit.jyblife.com/act/',
+    previewHost:'http://lego.sit.jyblife.com'
   }
 
   config.userRole = {
@@ -133,6 +148,13 @@ module.exports = appInfo => {
     dev: [86],
     operatorAdmin: [122]
   }
+
+
+  config.passportJyb = {
+    'menu_code': 'lego_manage',
+    'client_id': 'lego_manage',        
+    'secret_key': 'fc0b088d18053c320a1733c2b8021e21'
+  };
 
   return config;
 };

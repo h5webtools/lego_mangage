@@ -47,6 +47,12 @@ module.exports = appInfo => {
     app: true
   }
 
+  config.actLegoConfig = {
+    GetActivityDraftConfig: [{
+      ip: 'http://10.23.169.214:12066',
+      jmf: 'com.jyblife.complex.h5.act_console.GetActivityDraftConfig'
+    }]
+  }
   config.actEntryConfig = {
     userGroupList: [{
       ip: 'http://10.23.169.214:12066',
@@ -108,6 +114,7 @@ module.exports = appInfo => {
   config.legoConfig = {
     path: '/data/www/lego/h5_lego_actpage/release/act/',
     templateJs: 'index.tjs',
+    previewTem: 'confirm_publish.tjs',
     actJs: 'index.js',
     minifyJs: true,
     branchName: 'lego_prod'
@@ -116,7 +123,8 @@ module.exports = appInfo => {
   config.envConfig = {
     BASE_API: 'https://manage.jyblife.com',
     RELEASE_PATH: 'http://release.jyblife.com/task/interface',
-    CDN_PREFIX: 'https://cdn.jyblife.com/act/'
+    CDN_PREFIX: 'https://cdn.jyblife.com/act/',
+    previewHost:'https://lego.jyblife.com'
   }
 
   config.userRole = {
@@ -126,6 +134,12 @@ module.exports = appInfo => {
     dev: [86],
     operatorAdmin: [122]
   }
+
+  config.passportJyb = {
+    'menu_code': 'lego_manage',
+    'client_id': 'lego_manage',        
+    'secret_key': 'fc0b088d18053c320a1733c2b8021e21',      
+  };
 
   return config;
 };

@@ -28,6 +28,11 @@ class ActDetailController extends Controller {
     let relateRet = await this.service.act.detailService.aisleService(this.ctx.request.url, this.ctx.request.rawBody);
     this.ctx.body = relateRet;
   }
+  //获取副本信息
+  async GetActivityDraftConfig() {
+    let activityConfigRet = await this.service.act.detailService.GetActivityDraftConfig(this.ctx.request.rawBody);
+    this.ctx.body = activityConfigRet;
+  }
 }
 
 module.exports = ActDetailController;
