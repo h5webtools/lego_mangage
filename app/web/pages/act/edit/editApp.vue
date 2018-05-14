@@ -451,7 +451,7 @@ export default {
       'redo' // 重复
     ];
     this.editor.customConfig.onchange = html => {
-      this.actInfo.rule_description = html;
+      this.actInfo.rule_description = html || '';
     };
     this.editor.create();
   },
@@ -477,7 +477,12 @@ export default {
             this.requireActInfo = {...json.data};
             console.log(this.requireActInfo,'this.requireActInfo---------------------')
             this.actInfo.pageids = json.data.page_ids && json.data.page_ids.join("-");
-            this.editor.txt.html(this.actInfo.rule_description);
+            if (json.data.rule_description == null) {
+              this.actInfo.rule_description = "";
+              this.requireActInfo.rule_description = "";
+              console.log(11);
+            }
+            this.editor.txt.html(this.actInfo.rule_description || '');
             this.originEffectTime = this.actInfo.effect_time;
             this.originExpireTime = this.actInfo.expire_time;
           } else {
@@ -500,10 +505,13 @@ export default {
             this.actInfo.effect_time = this.actCopyInfo.effect_time;
             this.actInfo.end_time = this.actCopyInfo.end_time;
             this.actInfo.expire_time = this.actCopyInfo.expire_time;
-            this.actInfo.rule_description = this.actCopyInfo.rule_description;
+            if (json.data.rule_description == null) {
+              this.actCopyInfo.rule_description = "";
+            }
+            this.actInfo.rule_description = this.actCopyInfo.rule_description || '';
             this.actInfo.version = this.actCopyInfo.version;
             this.actInfo.code_type = this.actCopyInfo.code_type;
-            this.editor.txt.html(this.actCopyInfo.rule_description);
+            this.editor.txt.html(this.actCopyInfo.rule_description || '');
           } else {
             this.$message.error(json.msg);
           }
