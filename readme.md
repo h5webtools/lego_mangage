@@ -2,32 +2,16 @@
 
 乐高配置系统  
 
-## QuickStart
+## 开发环境
 
-<!-- add docs here for user -->
+部署在：172.16.1.8，/data/www/h5_dev/canye/lego
 
-see [egg docs][egg] for more detail.
-
-### Development
-
-```bash
-$ npm i
-$ npm run dev
-$ open http://localhost:7001/
+```shell
+// 构建，进入/app/web，执行
+npm run build:test
+// 返回项目根目录，执行
+sh build.sh
+// ssh到服务器，进入目录/data/www/h5_dev/canye/lego
+npm run stop
+npm run start:dev
 ```
-
-### Deploy
-
-```bash
-$ npm start
-$ npm stop
-```
-
-### npm scripts
-
-- Use `npm run lint` to check code style.
-- Use `npm test` to run unit test.
-- Use `npm run autod` to auto detect dependencies upgrade, see [autod](https://www.npmjs.com/package/autod) for more detail.
-
-
-[egg]: https://eggjs.org
