@@ -24,10 +24,6 @@ define(function (require, exports, module) {
                     }
                 };
             },
-<<<<<<< HEAD
-=======
-
->>>>>>> b821a500c45cd0b9935bdf1460c11954d41be8ef
             mounted: function() {
                 $('.ui-p-fixed').removeClass('ui-p-fixed');
             },

@@ -1063,12 +1063,7 @@ class LegoController extends Controller {
         msg: '读取js模板文件失败'
       }
     }
-<<<<<<< HEAD
     let replaceData = templateJs.toString().replace("pagebegin", template).replace('pveventid',pveventid);
-=======
-    let replaceData = templateJs.toString().replace("pagebegin", template);
-
->>>>>>> b821a500c45cd0b9935bdf1460c11954d41be8ef
     let writeRet = fs.writeFileSync(`${dir}/${this.config.legoConfig.actJs}`, replaceData, 'utf-8');
 
     if (!writeRet) {
