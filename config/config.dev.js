@@ -48,6 +48,13 @@ module.exports = appInfo => {
     "method": "invoke"
   }
 
+  //乐高微服务
+  config.actLegoConfig = {
+    GetActivityDraftConfig: [{
+      ip: 'http://172.16.1.35:12053',
+      jmf: 'com.jyblife.complex.h5.act_console.GetActivityDraftConfig'
+    }]
+  }
   config.actEntryConfig = {
     userGroupList: [{
       ip: 'http://172.16.1.35:12053',
@@ -90,7 +97,6 @@ module.exports = appInfo => {
       jmf: 'com.jyblife.complex.h5.act_console.GetIconEntranceDetail'
     }]
   }
-
   config.redis = {
     client: {
       port: 6379,          // Redis port
@@ -116,7 +122,8 @@ module.exports = appInfo => {
   config.envConfig = {
     BASE_API: 'http://172.16.1.8:9014/hanyi/manage',
     RELEASE_PATH: 'http://r.jtjr.com/task/interface',
-    CDN_PREFIX: 'https://cdnsit.jyblife.com/act/'
+    CDN_PREFIX: 'https://cdnsit.jyblife.com/act/',
+    previewHost:'http://172.16.1.8:7001'
   }
 
   config.userRole = {
