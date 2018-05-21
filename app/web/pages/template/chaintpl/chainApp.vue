@@ -128,15 +128,16 @@
       </div>
     </el-dialog>
 
-    <!-- 展示树的json格式数据 -->
+        <!-- 展示树的json格式数据 -->
     <el-dialog title="配置树" :visible.sync="chainsTplVisible">
-      <el-row>
-        <el-col :span="24">
-          <pre class="grid-content bg-purple-dark" :id="'chainsTplConfig'" v-html="configTplHTML">
-
-          </pre>
-        </el-col>
-      </el-row>
+      <div>
+        <el-row>
+          <el-col :span="24">
+            <pre class="grid-content bg-purple-dark chainsTplConfig"  v-html="configTplHTML">
+            </pre>
+          </el-col>
+        </el-row>
+      </div>
       <div slot="footer" class="dialog-footer">
         <el-button size='small' @click="cancleChainsTpl">取 消</el-button>
         <el-button size='small' type="primary" @click="confirmChainsTpl">确 定</el-button>
@@ -146,11 +147,13 @@
 
     <!-- 展示树的json格式数据 -->
     <el-dialog title="配置树" :visible.sync="chainsImportTplVisible">
-      <el-form :model="chainsTplData">
-        <el-form-item >
-          <el-input  :spellcheck="false"   v-model="chainsTplData.configData" auto-complete="off"  type="textarea" :autosize="{ minRows: 20}"></el-input>
-        </el-form-item>
-      </el-form>
+      <div>
+        <el-form :model="chainsTplData">
+          <el-form-item>
+            <el-input :spellcheck="false" v-model="chainsTplData.configData" auto-complete="off" type="textarea" :autosize="{ minRows: 20}"></el-input>
+          </el-form-item>
+        </el-form>
+      </div>
       <div slot="footer" class="dialog-footer">
         <el-button size='small' @click="cancleImportChainsTpl">取 消</el-button>
         <el-button size='small' type="primary" @click="confirmImportChainsTpl">确 定</el-button>
@@ -1050,7 +1053,7 @@ export default {
         this.chainsImportTplVisible = false;
     },
     confirmChainsTpl() {//确定
-
+      var me = this;
       this.copyToClipboard(this.tempChainConfig);
       this.importChainFlag = false;
       this.$message("复制数据模板成功!");
@@ -1078,17 +1081,17 @@ export default {
       }
       json = json.replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>');
       return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
-          var cls = 'number';
+          var cls = 'number-type';
           if (/^"/.test(match)) {
               if (/:$/.test(match)) {
-                  cls = 'key';
+                  cls = 'key-type';
               } else {
-                  cls = 'string';
+                  cls = 'string-type';
               }
           } else if (/true|false/.test(match)) {
-              cls = 'boolean';
+              cls = 'boolean-type';
           } else if (/null/.test(match)) {
-              cls = 'null';
+              cls = 'null-type';
           }
           return '<span class="' + cls + '">' + match + '</span>';
       });
@@ -1124,18 +1127,33 @@ export default {
 .chain-form-item{
    margin-left: 20px;
 }
-#chainsTplConfig{
+.chainsTplConfig {
   outline: 1px solid #ccc;
   padding: 5px;
   margin: 5px;
   height: 400px;
-  overflow-y:scroll;
+  overflow-y: scroll;
 }
-.string { color: green; }
-.number { color: darkorange; }
-.boolean { color: blue; }
-.null { color: magenta; }
-.key { color: red; }
+
+.string-type {
+  color: green;
+}
+
+.number-type {
+  color: darkorange;
+}
+
+.boolean-type {
+  color: blue;
+}
+
+.null-type {
+  color: magenta;
+}
+
+.key-type {
+  color: red;
+}
 
 
 </style>
