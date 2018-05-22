@@ -7,7 +7,7 @@ module.exports = appInfo => {
 
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_lego_';
-  
+
   // session配置，服务端保存在redis中
   config.session = {
     key: 'LEGO_SESS',
@@ -50,7 +50,7 @@ module.exports = appInfo => {
 
   // add your config here
   // config.middleware = ['requestParam', 'userAuth'];
-  config.middleware = ['requestParam'];
+  config.middleware = ['requestParam','errorHandler'];
 
   config.passportJyb = {
     clients: {

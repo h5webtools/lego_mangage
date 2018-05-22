@@ -10,13 +10,8 @@ module.exports = appInfo => {
     dir: path.join(appInfo.baseDir, 'logs'),
   };
 
-  config.development = {
-    ignoreDirs: ['web'],
-    watchDirs: ['public']
-  }
-
   config.static = {
-    dir: [path.join(appInfo.baseDir, 'app/public'), path.join(appInfo.baseDir, 'app/lego')]
+    dir: path.join(appInfo.baseDir, 'public')
   }
 
   config.mysql = {
