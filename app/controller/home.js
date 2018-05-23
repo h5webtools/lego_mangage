@@ -96,21 +96,50 @@ class HomeController extends Controller {
         ]
       }
     ]; */
+    // menu.push({
+    //   menu_name: "系统设置",
+    //   icon: "iconfont icon-shezhi",
+    //   children: [
+    //     {
+    //       menu_name: "MQ配置",
+    //       menu_url: "/system/setMQ",
+    //       menu_id: "502"
+    //     }
+    //   ]
+    // });
     
     // 自定义修改需要加入的路由
-    if (this.app.config.env == "sit") {
-      menu.push({
-        menu_name: "系统设置",
-        icon: "iconfont icon-shezhi",
-        children: [
-          {
-            menu_name: "同步配置",
-            menu_url: "/system/sync",
-            menu_id: "501"
-          }
-        ]
-      });
+    if (this.app.config.env == "sit" || this.app.config.env == "local") {
+      let  find = false;
+      menu.forEach((item) => {
+        if (item.menu_code == 'legoSystem'){
+          find = true;
+          item.children.push({
+              menu_name: "同步配置",
+              menu_url: "/system/sync",
+              menu_id: "501"
+            });
+        }
+      })
+
+
+      if(!find) {
+        menu.push({
+          menu_name: "系统设置",
+          icon: "iconfont icon-shezhi",
+          children: [
+            {
+              menu_name: "同步配置",
+              menu_url: "/system/sync",
+              menu_id: "501"
+            }
+          ]
+        });
+      }
+
     }
+
+  
 
     if(!this.ctx.session.userid) {
       this.ctx.session.userid = operateUser.userId;

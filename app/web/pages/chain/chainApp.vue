@@ -14,6 +14,16 @@
             </el-option-group>
           </el-select>
         </el-form-item>
+        <el-form-item label="MQ配置列表">
+          <el-select style="width: 300px;" multiple filterable v-model="mqData.event_id" placeholder="请选择MQ配置">
+            <el-option
+              v-for="item in mqList"
+              :key="item.event_id"
+              :label="item.event_name"
+              :value="item.event_id">
+            </el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="showChainTpl">
             <i class="glyphicon glyphicon-export"></i>导出配置</el-button>
@@ -116,6 +126,7 @@
 </template>
 <script>
 import * as chainQuery from "api/api_act_chain";
+import * as mqQuery from "api/api_system_mqSet";
 import * as util from "assets/js/util";
 import clipBoard from "clipboard";
 import treeNode from './treeNode.vue';
@@ -156,6 +167,11 @@ export default {
       path: process.env.BASE_API,
       chainLoading: false,
       cmdList: [],
+      mqList: [],
+      mqData: {
+        event_id: []
+      },
+      mqDataCopy: [],
       chainConfig: {},
       tempChainConfig: {},
       ruleActionList: {},
@@ -222,7 +238,7 @@ export default {
     }
   },
   created() {
-    this.getActCmdList().getChainConfig().getRuleAction();
+    this.getActCmdList().getChainConfig().getRuleAction().getMqList();
   },
   filters: {
     getRequired: function(obj) {
@@ -245,6 +261,7 @@ export default {
       chainQuery.saveCmdChains({ //saveCmdChains
         cmd: this.cmdData.cmd,
         act_id: this.act_id,
+        event_id: this.mqData.event_id,
         chains: data
       }).then(json => {
         this.chainLoading = false;
@@ -394,12 +411,24 @@ export default {
         this.$confirm('确定要切换命令字？当前编辑内容尚未保存，切换后无法恢复！', '提示').then(() => {
           this.cmdData.lastCmd = cmd;
           this.cmdData.configData = this.chainConfig[cmd] || [];
+          this.mqData.event_id = [];
+          this.mqDataCopy.forEach((item) => {
+            if(item.cmd == this.cmdData.cmd){
+              this.mqData.event_id.push(item.event_id);
+            }
+          });
         }).catch(() => {
           this.cmdData.cmd = this.cmdData.lastCmd;
         })
       } else {
         this.cmdData.lastCmd = cmd;
         this.cmdData.configData = this.chainConfig[cmd] || [];
+        this.mqData.event_id = [];
+        this.mqDataCopy.forEach((item) => {
+          if(item.cmd == this.cmdData.cmd){
+            this.mqData.event_id.push(item.event_id);
+          }
+        });
       }
     },
     /**
@@ -622,6 +651,28 @@ export default {
           this.$message.error(json.msg);
         }
       })
+      return this;
+    },
+    getMqList() {//mq配置列表
+      mqQuery.GetEvent({status: '1' }).then(json => {
+        if (json.code == 0) {
+          this.mqList = json.data.data;
+          mqQuery.GetActEvent({ act_id: this.act_id}).then(json => {
+            if (json.code == 0) {
+              this.mqDataCopy = json.data;
+              this.mqDataCopy.forEach((item) => {
+                if(item.cmd == this.cmdData.cmd){
+                  this.mqData.event_id.push(item.event_id);
+                }
+              });
+            } else {
+              this.$message.error(json.msg);
+            }
+          });
+        } else {
+          this.$message.error(json.msg);
+        }
+      });
       return this;
     },
     getChainConfig() {
