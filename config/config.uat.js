@@ -51,6 +51,18 @@ module.exports = appInfo => {
     GetActivityDraftConfig: [{
       ip: 'http://10.23.50.153:12066',
       jmf: 'com.jyblife.complex.h5.act_console.GetActivityDraftConfig'
+    }],
+    GetEvent: [{
+      ip: 'http://10.23.50.153:12066',
+      jmf: 'com.jyblife.complex.h5.act_console.GetEvent'
+    }],
+    AddOrUpdateEvent: [{
+      ip: 'http://10.23.50.153:12066',
+      jmf: 'com.jyblife.complex.h5.act_console.AddOrUpdateEvent'
+    }],
+    GetActEvent: [{
+      ip: 'http://10.23.50.153:12066',
+      jmf: 'com.jyblife.complex.h5.act_console.GetActEvent'
     }]
   }
   config.actEntryConfig = {

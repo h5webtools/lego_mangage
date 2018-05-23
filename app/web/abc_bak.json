@@ -19,7 +19,10 @@
       "build": "/act/199701/test/pages/index.html"
     },
     "livereload": {
-      "watch": "./public/**/*"
+      "watch": "./public/**/*",
+      "init": {
+        "port": 8097
+      }
     },
     "proxy": [{
       "method": "post",
