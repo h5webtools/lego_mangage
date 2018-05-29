@@ -20,11 +20,11 @@ module.exports = {
       resolveAliases: {
         vue$: 'vue/dist/vue.common.js',
         src: path.join(__dirname, 'src'),
-        assets: path.join(__dirname, './assets'),
-        api: path.join(__dirname, './api'),
-        services: path.join(__dirname, './services'),
-        routes: path.join(__dirname, './router'),
-        components: path.join(__dirname, './components')
+        assets: path.join(__dirname, 'assets'),
+        api: path.join(__dirname, 'api'),
+        services: path.join(__dirname, 'services'),
+        routes: path.join(__dirname, 'router'),
+        components: path.join(__dirname, 'components')
       },
       sass: {
         includePaths: ['node_modules']

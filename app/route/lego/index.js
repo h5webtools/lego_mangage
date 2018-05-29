@@ -44,4 +44,6 @@ module.exports = app => {
   app.router.post('/lego/previewLock', app.controller.lego.index.changePreviewLock);
   // 保存页面后更改为预览状态
   app.router.post('/lego/setPreviewLock', app.controller.lego.index.setPreviewLock);
+  // 获取乐高主题色配置
+  app.router.post('/lego/getLegoThemeColor', app.controller.lego.index.getLegoThemeColor);
 };

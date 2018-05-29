@@ -32,10 +32,14 @@
     "sha1": "^1.1.1",
     "uglifyjs-webpack-plugin": "^1.2.2",
     "vue": "^2.5.0",
+    "vue-drag-drop": "^1.1.0",
+    "vue-draggable": "^1.0.5",
     "vue-router": "^2.5.3",
     "wangeditor": "^3.0.15"
   },
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
     "fs-extra": "^5.0.0"
   }
 }
