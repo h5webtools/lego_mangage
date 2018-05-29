@@ -6,7 +6,7 @@
   "scripts": {
     "mock": "concurrently --raw --kill-others \"npm run dev:mock\" \"npm run serve\"",
     "dev": "concurrently --raw --kill-others \"npm run dev:watch\" \"npm run serve\"",
-    "serve": "cross-env SERVER_ENV=local jfet server -l -s",
+    "serve": "cross-env SERVER_ENV=local jfet server -l -s --port 7003",
     "serve:build": "cross-env SERVER_ENV=build jfet server -s -c ../../release",
     "dev:watch": "cross-env BUILD_ENV=local jfet build -w",
     "dev:mock": "cross-env BUILD_ENV=mock jfet build -w",
