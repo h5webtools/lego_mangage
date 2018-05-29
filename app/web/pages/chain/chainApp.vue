@@ -659,7 +659,7 @@ export default {
           this.mqList = json.data.data;
           mqQuery.GetActEvent({ act_id: this.act_id}).then(json => {
             if (json.code == 0) {
-              this.mqDataCopy = json.data;
+              this.mqDataCopy = json.data.data;
               this.mqDataCopy.forEach((item) => {
                 if(item.cmd == this.cmdData.cmd){
                   this.mqData.event_id.push(item.event_id);
