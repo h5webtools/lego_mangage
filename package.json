@@ -12,7 +12,10 @@
     "egg-scripts": "^2.5.0",
     "egg-session-redis": "^1.0.0",
     "egg-view-nunjucks": "^2.1.6",
-    "simple-git": "^1.94.0"
+    "simple-git": "^1.91.0",
+    "uglify-js": "^3.3.9",
+    "uglifyjs-webpack-plugin": "^1.2.2",
+    "webpack": "^3.10.0"
   },
   "devDependencies": {
     "@jyb/eslint-config-jyb": "^1.0.1",
@@ -31,10 +34,13 @@
   "scripts": {
     "build": "sh build.sh",
     "build:web": "NODE_ENV=production jfet build",
-    "start": "egg-scripts start --daemon --title=egg-server-template-egg-vue-jfet",
-    "stop": "egg-scripts stop --title=egg-server-template-egg-vue-jfet",
+    "start": "NODE_ENV=production egg-scripts start --port=7002 --daemon --title=egg-server-lego --env=prod",
+    "stop": "egg-scripts stop --title=egg-server-lego",
     "dev": "egg-bin dev",
-    "debug": "egg-bin debug",
+    "debug": "egg-bin debug --port=7002",
+    "start:dev": "egg-scripts start --port=7002 --daemon --title=egg-server-lego --env=dev",
+    "sit": "egg-scripts start --port=7002 --daemon --title=egg-server-lego --env=sit",
+    "uat": "NODE_ENV=production egg-scripts start --port=7002 --daemon --title=egg-server-lego --env=uat",
     "test": "npm run lint -- --fix && npm run test-local",
     "test-local": "egg-bin test",
     "cov": "egg-bin cov",

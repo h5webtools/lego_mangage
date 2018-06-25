@@ -18,6 +18,7 @@ module.exports = {
       //   minChunks: 1
       // },
       resolveAliases: {
+        '@': path.join(__dirname),
         vue$: 'vue/dist/vue.common.js',
         src: path.join(__dirname, 'src'),
         assets: path.join(__dirname, 'assets'),

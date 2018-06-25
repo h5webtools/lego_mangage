@@ -23,7 +23,9 @@
   "author": "kardel.chen@jyblife.com",
   "license": "ISC",
   "dependencies": {
-    "@jyb/common-menu": "0.0.14",
+    "@jyb/lib-extend": "^0.1.9",
+    "@jyb/lib-type-of": "^1.0.14",
+    "@jyb/lib-util": "^0.1.17",
     "axios": "^0.15.3",
     "clipboard": "^1.7.1",
     "element-ui": "^2.0.11",
@@ -33,13 +35,15 @@
     "uglifyjs-webpack-plugin": "^1.2.2",
     "vue": "^2.5.0",
     "vue-drag-drop": "^1.1.0",
-    "vue-draggable": "^1.0.5",
     "vue-router": "^2.5.3",
+    "vuedraggable": "^2.16.0",
+    "vuex": "^3.0.1",
     "wangeditor": "^3.0.15"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
-    "fs-extra": "^5.0.0"
+    "fs-extra": "^5.0.0",
+    "babel-polyfill": "^6.26.0"
   }
 }
