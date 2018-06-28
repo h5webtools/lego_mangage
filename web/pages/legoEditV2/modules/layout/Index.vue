@@ -7,22 +7,24 @@
       <editor-widget-list :list="widgetList"></editor-widget-list>
     </el-aside>
     <!-- 中间区域 -->
+
     <el-main>
       <div class="layout__editor-main">
-        <el-alert
+<!--         <el-alert
           title="拖拽组件到这里配置页面"
           type="info"
           :closable="false"
           center
           show-icon>
-        </el-alert>
-        <editor-render
+        </el-alert> -->
+        <editor-render class="iphone-container"
           :page-data="pageData"
         ></editor-render>
         <!-- <editor-widget-layer :layer-data="layerData"></editor-widget-layer>
         <editor-context-menu :context-menu-data="contextMenuData"></editor-context-menu> -->
       </div>
     </el-main>
+    
     <!-- 右边侧边栏 -->
     <el-aside class="layout__aside-right" width="200px">
    右边侧边栏
@@ -108,13 +110,10 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.el-main {
-  padding: 10px;
-}
+<style lang="scss" >
 
 .layout {
-  height: 100%;
+  height: calc(100% - 60px);
 }
 
 .layout__aside-left {
