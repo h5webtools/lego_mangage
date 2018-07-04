@@ -162,7 +162,7 @@
     });
   </script>
   <script type="text/javascript">
-    seajs.use('/public/js/main.home.js?v=20180704', function(m) {
+    seajs.use('/public/js/main.home.js?v=2018070402', function(m) {
       m.main()
     });
   </script>
