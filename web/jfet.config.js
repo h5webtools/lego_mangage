@@ -8,7 +8,7 @@ const fse = require('fs-extra');
 module.exports = {
   build(abc, context) {
     context.setConfig({
-      scanEntry: { pattern: path.join(__dirname, 'pages/**/index.js') },
+      scanEntry: { pattern: path.join(__dirname, '{pages,pagesV2}/**/index.js') },
       setOutput: {
         path: path.join(__dirname, '../public'),
         publicPath: '/public/'

@@ -31,7 +31,7 @@
           </el-popover>
         </el-col>
 
-        <el-col :span="11" class="ui-ta-c">
+        <el-col :span="10" class="ui-ta-c">
           <el-button size="mini" type="primary">活动配置</el-button>
           <el-button size="mini" type="success">保存</el-button>
           <el-button size="mini" type="info">预览</el-button>
@@ -40,7 +40,7 @@
           <el-button size="mini" type="success">线上发布</el-button>
         </el-col>
 
-        <el-col :span="1" class="ui-ta-r">{{userName}}</el-col>
+        <el-col :span="2" class="ui-ta-r">{{userName}}</el-col>
 
       </el-row>
     </el-header>

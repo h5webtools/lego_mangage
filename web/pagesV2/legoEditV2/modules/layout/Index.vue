@@ -2,8 +2,7 @@
   <!-- 内容区域 -->
   <el-container class="layout">
     <!-- 左边侧边栏 -->
-    <el-aside class="layout__aside-left" width="200px">
-      组件列表2
+    <el-aside class="layout__aside-left" width="340px">
       <editor-widget-list :list="widgetList"></editor-widget-list>
     </el-aside>
     <!-- 中间区域 -->
@@ -27,16 +26,23 @@
     
     <!-- 右边侧边栏 -->
     <el-aside class="layout__aside-right" width="200px">
-   右边侧边栏
- <!-- 属性配置 -->
-      <editor-props :component="currentComponent"></editor-props>
-      <!-- 组件树 -->
-      <editor-tree
-        :styles="{ height: '50%' }"
-        @click="handleTreeNodeClick"
-        :page-data="pageData"
-        :current="currentComponent.uid"
-      ></editor-tree>
+      <el-tabs type="border-card">
+        <el-tab-pane label="属性配置">
+          <!-- 属性配置 -->
+           <editor-props :component="currentComponent"></editor-props>
+        </el-tab-pane>
+        <el-tab-pane label="图层管理">
+              <!-- 组件树 -->
+            <editor-tree
+              :styles="{ height: '50%' }"
+              @click="handleTreeNodeClick"
+              :page-data="pageData"
+              :current="currentComponent.uid"
+            ></editor-tree>
+        </el-tab-pane>
+
+      </el-tabs>
+
     </el-aside>
     <!-- code dialog -->
    
