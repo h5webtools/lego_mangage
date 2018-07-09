@@ -93,9 +93,6 @@ export default {
       &:nth-child(3n) {
         padding-right: 0;
       }
-      & .widget-thumb{
-
-      }
       & .widget-name{
         margin: 5px 0 20px 0;
         text-align: center;
