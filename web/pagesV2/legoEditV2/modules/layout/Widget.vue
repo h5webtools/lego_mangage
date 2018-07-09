@@ -6,7 +6,7 @@
     @drag="handleDrag"
     @dragend="handleDragEnd"
   > -->
-  <div>
+  <div class="widget-single">
     <slot name="widget"></slot>
   </div>
 </template>
@@ -39,10 +39,18 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.drag-element {
+<style lang="scss" >
+.widget-single{
   display: inline-block;
-  margin-right: 10px;
-  margin-bottom: 10px;
+  padding-right: 16px;
+  .widget-thumb{
+    width: 88px;
+    height: 66px;
+    & > img{
+      width: 100%;
+      height: 100%;
+    }
+  }
 }
+
 </style>

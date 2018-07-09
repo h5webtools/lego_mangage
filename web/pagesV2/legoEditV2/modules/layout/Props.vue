@@ -87,44 +87,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.props-box {
-  height: 50%;
-  overflow: hidden;
-}
 
-.props-box__title {
-  padding-left: 10px;
-  line-height: 26px;
-  background-color: #fafafa;
-  border-top: 1px solid #ebeef5;
-  border-bottom: 1px solid #ebeef5;
-  font-size: 12px;
-}
-
-.props-box__title_bold {
-  font-weight: bold;
-}
-
-.props-box__main {
-  height: calc(100% - 26px);
-  padding: 8px;
-  box-sizing: border-box;
-  overflow: scroll;
-
-  .el-form-item__label,
-  .el-checkbox__label,
-  .el-radio__label {
-    font-size: 12px;
-  }
-
-  .el-radio+.el-radio,
-  .el-checkbox+.el-checkbox {
-    margin-left: 0;
-    margin-right: 10px;
-  }
-
-  .el-form-item--mini.el-form-item {
-    margin-bottom: 4px;
-  }
-}
 </style>

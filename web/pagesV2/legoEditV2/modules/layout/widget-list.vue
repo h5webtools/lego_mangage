@@ -1,5 +1,5 @@
 <template>
-  <el-collapse :accordion="true" v-model="activeNames" @change="handleChange">
+  <el-collapse :accordion="true" v-model="activeNames" @change="handleChange" class="widget-list">
     <el-collapse-item
       v-for="(item, groupKey) in list"
       :key="groupKey"
@@ -22,7 +22,12 @@
                     v-for="(widget, index) in item.widgets"
                     :key="index"
                     :widget="widget">
-                    <el-button slot="widget" size="mini">{{widget.name}}</el-button>
+                      <div slot="widget">
+                        <div class="widget-thumb">
+                          <img :src="widget.thumb" :alt="widget.name">
+                        </div>
+                        <div class="widget-name">{{widget.name}}</div>
+                      </div>
                   </editor-widget>
             </transition-group>
         </c-draggable>
@@ -74,10 +79,36 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.widget-box {
-  padding-left: 10px;
+<style lang="scss" >
+.widget-list{
+  .el-collapse-item__header{
+    font-size: 16px;
+    color: #5F6270;
+  }
+
+  .widget-box {
+  padding: 24px 20px 0 22px;
+  & .list-group{
+    & > .widget-single{
+      &:nth-child(3n) {
+        padding-right: 0;
+      }
+      & .widget-thumb{
+
+      }
+      & .widget-name{
+        margin: 5px 0 20px 0;
+        text-align: center;
+        font-size: 12px;
+        line-height: 12px;
+        color: #8489AB;
+        letter-spacing: 0;
+      }
+    }
+  }  
 }
+}
+
 </style>
 
 

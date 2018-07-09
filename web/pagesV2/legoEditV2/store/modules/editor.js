@@ -66,7 +66,23 @@ const initialState = {
         uuid: 'el-button133',
       }]
     }]
-  },
+  },{
+    tag: 'el-col',
+    uuid: 'el-col-111',
+    draggable: true,
+    children: [{
+      tag: 'el-button',
+      uuid: 'el-button1',
+    }, {
+      tag: 'el-col',
+      uuid: 'el-col-122',
+      draggable: true,
+      children: [{
+        tag: 'el-button',
+        uuid: 'el-button133',
+      }]
+    }]
+  }
   /* {
     tag: 'el-col',
     uuid: 'el-col-2',
