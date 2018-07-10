@@ -44,54 +44,7 @@ const defaultStoreCode = {
 // state
 const initialState = {
   app: {}, // 应用数据
-  pageData: [
-    {          
-     c_id: '1232221',
-     name: 'test测试动态注册组件',
-      tag: 'el-button',
-      uuid: '223443234'
-  },{
-    tag: 'el-col',
-    uuid: 'el-col-111',
-    draggable: true,
-    children: [{
-      tag: 'el-button',
-      uuid: 'el-button1',
-    }, {
-      tag: 'el-col',
-      uuid: 'el-col-122',
-      draggable: true,
-      children: [{
-        tag: 'el-button',
-        uuid: 'el-button133',
-      }]
-    }]
-  },{
-    tag: 'el-col',
-    uuid: 'el-col-111',
-    draggable: true,
-    children: [{
-      tag: 'el-button',
-      uuid: 'el-button1',
-    }, {
-      tag: 'el-col',
-      uuid: 'el-col-122',
-      draggable: true,
-      children: [{
-        tag: 'el-button',
-        uuid: 'el-button133',
-      }]
-    }]
-  }
-  /* {
-    tag: 'el-col',
-    uuid: 'el-col-2',
-    draggable: true,
-    children: [{
-      tag: 'el-button',
-      uuid: 'el-button2',
-    }]
-  } */], // 页面数据
+  pageData: [], // 页面数据
   currentComponent: { // 当前组件
     model: {}
   },

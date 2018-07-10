@@ -509,7 +509,12 @@ const getters = {
             thumb: 'http://localhost:7002/public/images/product_main@2x.png',
             tag: 'el-row',
             draggable: true,
-            children: []
+            children: [],
+            model: {
+            },
+            props:{
+
+            }
           },
           {
             c_id: '1222434332',
@@ -518,6 +523,11 @@ const getters = {
             tag: 'el-col',
             draggable: true,
             children: [],
+            model: {
+            },
+            props:{
+
+            }
           }
         ]
       },

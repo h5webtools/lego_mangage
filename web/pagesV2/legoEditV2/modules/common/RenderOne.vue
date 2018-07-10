@@ -67,30 +67,19 @@ export default {
       default: "0"
     }
   },
-  // computed: {
-  //   listData: {
-  //       get() {
-  //         return this.$store.state.editor.page
-  //       },
-  //       set(value) {
-  //
-  //         this.$store.commit('updatePage', value)
-  //       }
-  //   }
-  // },
   data() {
     return {
       currentListData: this.listData,
 
       style: {
-        "min-height": "150px",
-        background: "red",
-        margin: "10px"
+        // "min-height": "80px",
+        // background: "red",
+        // margin: "10px"
       },
       style2: {
-        "min-height": "50px",
-        background: "yellow",
-        border: "1px dotted black"
+        // "min-height": "50px",
+        // background: "yellow",
+        // border: "1px dotted black"
       },
       dragOptions: {
         animation: 50,
@@ -129,9 +118,9 @@ export default {
       }, 50);
     },
     onAdd(item, event) {
+      debugger
       // const currentItem = item[event.newIndex];
       setUuid(item[event.newIndex], event.newIndex, this.level, this.levelIndex, item)
-      debugger
       // this.$store.dispatch('editor/updateModelValue', { key: k, value: val });
       // 遍历修改这个值中的uuid属性
       this.$store.dispatch("editor/updatePage", {
@@ -141,18 +130,24 @@ export default {
 
     },
     onEnd(item, event) {
-      debugger
+
     }
 
   }
-  /*   render(h) {
-    if(!this.listData || util.isEmptyObject(this.listData)) return;
-    return this.createVNode(h, this.listData);
-  } */
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+.dragItem{
+  & .el-row{
+    min-height: 50px;
+    border: 1px dashed #999;
+  }
+  & .el-col{
+    min-height: 50px;
+    border: 1px dashed #999;
+  }
+}
 </style>
 
 

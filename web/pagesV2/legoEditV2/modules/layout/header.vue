@@ -22,7 +22,8 @@
                 <div v-if="themeColor['color'].length">
                   <p>纯色主题：</p>
                   <span @click="pickerThemeItem('color', item)" v-for="(item, index) in themeColor['color']" :key="index" class="theme-item" :style="{background: item.t_color}">
-                      <i class="el-icon-check" v-show="currentTheme.color === item.t_color"></i>
+                      <!-- <i class="el-icon-check" v-show="currentTheme.color === item.t_color"></i> -->
+                      <img v-show="currentTheme.color === item.t_color" :src="rightWhite" alt="" style="width：100%； height: 100%">
                   </span>
                 </div>
                 <div v-if="themeColor['grident'].length">
@@ -34,7 +35,8 @@
             </div>
 
             <div class="col-scale">
-              - 100% +
+              <span class="col-scale__zoom-out"></span><span class="col-scale-number">100%</span>
+              <span class="col-scale__zoom-in"></span>
             </div>
 
             <div class="ui-ta-c col-operate">
@@ -68,6 +70,7 @@ import { mapGetters } from 'vuex';
 import * as util from '@jyb/lib-util';
 import * as queryString from '@/util/querystring';
 import logoImg from 'assets/img/edit/LOGO.png'
+import rightWhite from 'assets/img/edit/right-white.png'
 
 export default {
   components: {
@@ -76,6 +79,7 @@ export default {
   data() {
     return {
       logoImg: logoImg,
+      rightWhite: rightWhite,
       loading: true,
       userName: window.userInfo.userName,
       currentTheme: {
@@ -150,6 +154,7 @@ export default {
     .flex-between{
       flex: 5;
       display: flex;
+      align-items: center;
       justify-content: space-between;
       .col-base{
         flex: 1 1 200px;
@@ -158,7 +163,54 @@ export default {
         flex: 1 0 120px;
       }
       .col-scale{
-        flex: 0 0 100px;
+        // border: solid 1px #C3C8E4;
+        height: 24px;
+        display: flex;
+        flex: 0 0 108px;
+        font-size: 0;
+        & > .col-scale-number{
+          text-align: center;
+          height: 24px;
+          line-height: 24px;
+          width: 60px;
+          font-size: 14px;
+          color: #58586E;
+          position:relative;
+          &::after{
+            content: '';
+            width:103%;
+            height: 1px;
+            display: block;
+            bottom:0;
+            left: -1px;
+            position: absolute;
+            background-color: #C3C8E4;
+          }
+          &::before{
+            content: '';
+            width:103%;
+            height: 1px;
+            display: block;
+            left: -1px;
+            top:0;
+            position: absolute;
+            background-color: #C3C8E4;
+          }
+          // border-top: 1px solid #C3C8E4;
+          // border-bottom: 1px solid #C3C8E4;
+        }
+        & > .col-scale__zoom-out{
+          line-height: 64px;
+          width: 24px;
+          height: 24px;
+          background: url('../../../../assets/img/edit/nav_ic_zoomout@2x.png') 0 0/100% 100%
+        }
+        & > .col-scale__zoom-in{
+          line-height: 64px;
+          width: 24px;
+          height: 24px;
+          background: url('../../../../assets/img/edit/nav_ic_zoomin@2x.png') 0 0/100% 100%
+        }
       }
       .col-operate{
         flex: 3 1 550px;
@@ -166,6 +218,7 @@ export default {
    }
 
     .col-user{
+      margin-right: 20px;
       width: 80px;
       flex: 0 0 80px;
     }

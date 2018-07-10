@@ -51,6 +51,7 @@ export function setPageData(levelIndex, obj, changeData) {
  * @param {*} index  当前数据在兄弟元素中的index
  * @param {*} level  层级， 从 0 开始（数据的深度）
  * @param {*} levelIndex  索引顺序（例如0-2）
+ * component_type: 1 是业务组件，需要遍历下级的uuid的组件
  */
 export function setUuid(item, index, level, levelIndex, sbilingItem) {
   // 
