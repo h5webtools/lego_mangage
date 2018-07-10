@@ -129,7 +129,6 @@ export default {
       }, 50);
     },
     onAdd(item, event) {
-      debugger
       // const currentItem = item[event.newIndex];
       setUuid(item[event.newIndex], event.newIndex, this.level, this.levelIndex, item)
       debugger

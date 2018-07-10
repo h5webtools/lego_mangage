@@ -56,7 +56,7 @@ export function setUuid(item, index, level, levelIndex, sbilingItem) {
   // 
   if(item.component_type === 0 || !item.component_type) {
     if(!item.props.uuid) {
-      item.props.uuid = '' + levelIndex + index
+      item.props.uuid = '' + levelIndex + '-' + index
     }
     if(!item.props.topUuid) {
       item.props.topUuid = '' + levelIndex

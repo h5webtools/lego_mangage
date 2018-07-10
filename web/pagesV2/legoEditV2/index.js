@@ -6,7 +6,7 @@ import ElementUI, { Message as $message } from 'element-ui';
 
 import App from './app.vue';
 
-import store from '@/util/store';
+
 import editor from './store/modules/editor';
 import widget from './store/modules/widget';
 // debug信息
@@ -15,6 +15,8 @@ import vStore from './store';
 
 import cDraggable from 'vuedraggable'
 import cDraggableMulti from './modules/common/RenderOne.vue'
+import legoComponentBasic from '@lego/lego_component_basic/page/show/index.js'
+import legoEditProp from '@lego/lego_component_basic/page/edit/components/editorProps';
 
 import './index.scss';
 
@@ -42,6 +44,10 @@ import './index.scss';
 
 
 Vue.use(ElementUI);
+Vue.use(legoComponentBasic)
+Vue.use(legoEditProp)
+console.log(legoComponentBasic , '基础组件')
+console.log(legoEditProp , 'edit');
 Vue.component('c-draggable', cDraggable)
 Vue.component('c-draggable-multi', cDraggableMulti)
 

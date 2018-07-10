@@ -140,6 +140,7 @@ export default {
 }
 
 .iphone-container {
+  margin: 20px auto 0;
   width: 375px;
   transition: all 0.3 ease;
   min-height: 800px;
