@@ -3,7 +3,7 @@
     <!-- <h6 class="tree-box__title">组件树：</h6> -->
     <div class="tree-box__main">
       <el-tree
-        :indent="12"
+        :indent="24"
         :data="pageData"
         :props="defaultProps"
         :expand-on-click-node="false"
@@ -12,7 +12,19 @@
         @node-click="handleNodeClick"
         highlight-current
         default-expand-all
-      ></el-tree>
+      >
+       <span class="custom-tree-node" slot-scope="{ node, data }">
+        <span>{{ node.label }}</span>
+        <span>
+          <el-button
+            :class="data.isLocked ? 'locked' : 'unLocked'"
+            type="text"
+            size="mini"
+            @click="() => lock(data, 'isLocked')">
+            
+          </el-button>
+        </span>
+      </span></el-tree>
     </div>
   </div>
 </template>
@@ -48,16 +60,30 @@ export default {
     }
   },
   created() {
-    this.setCurrentKey(this.current);
+    // this.setCurrentKey(this.current);
   },
   methods: {
     handleNodeClick(data, node, component) {
-      this.$emit("click", data);
+      this.$emit("handleTreeNodeClick", data);
     },
     setCurrentKey(val) {
       this.$nextTick(() => {
         this.$refs.editorTree.setCurrentKey(val);
       });
+    },
+    lock(data, key) {
+      // this.$refs.editorTree.setCurrentKey(data);
+       try {
+        this.$store.dispatch("editor/updateValueDirect", {
+          data: data,
+          update:[{
+            key: key,
+            value: !data[key]
+          }]
+        });
+      } catch (e) {
+        this.$message.error(e.toString());
+      }
     }
   }
 };
@@ -99,6 +125,25 @@ export default {
               background: #d8dbec;
             }
           }
+      }
+    }
+
+    & .custom-tree-node{
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 14px;
+      padding-right: 8px;
+      & .locked{
+        width: 25px;
+        height: 24px;
+        background: url('../../../../assets/img/edit/layers_ic_lock@2x.png') 0 0 / 100% 100%;
+      }
+      & .unLocked{
+        width: 25px;
+        height: 24px;
+        background: url('../../../../assets/img/edit/layers_ic_unlock@2x.png') 0 0 / 100% 100%;
       }
     }
   }

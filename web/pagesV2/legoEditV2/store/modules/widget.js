@@ -325,6 +325,7 @@ const getters = {
             thumb: 'http://localhost:7002/public/images/button@2x.png',
             name: '按钮',
             tag: 'el-button',
+            isLocked: false,  // 当前元素是否锁定（move）
             model: {
               size: {
                 cellType: "select",
@@ -508,7 +509,8 @@ const getters = {
             name: 'row测试',
             thumb: 'http://localhost:7002/public/images/product_main@2x.png',
             tag: 'el-row',
-            draggable: true,
+            draggable: true, // 内部children 是否可拖拽
+            isLocked: false,  // 当前元素是否可以拖拽（move）
             children: [],
             model: {
             },
@@ -522,6 +524,7 @@ const getters = {
             thumb: 'http://localhost:7002/public/images/product_main@2x.png',
             tag: 'el-col',
             draggable: true,
+            isLocked: false,  // 当前元素是否可以拖拽（move）
             children: [],
             model: {
             },

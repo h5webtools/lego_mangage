@@ -95,6 +95,9 @@ const actions = {
   },
   registerComponent({ commit, state }, data) {
     commit('registerComponent', data);
+  },
+  updateValueDirect({ commit, state }, data) {
+    commit('updateValueDirect', data);
   }
   
 };
@@ -127,7 +130,14 @@ const mutations = {
   },
   registerComponent(state, data) {
     state.isRegisterComponent = data
-  }
+  },
+  updateValueDirect(state, datas) {
+    const { data, update } = datas;
+    // state.currentComponent = data;
+    update.map(item => {
+      data[item.key] = item.value
+    })
+  },
 
 };
 

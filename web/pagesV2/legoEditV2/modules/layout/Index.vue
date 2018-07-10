@@ -34,7 +34,7 @@
               <!-- 组件树 -->
             <editor-tree
               
-              @click="handleTreeNodeClick"
+              @handleTreeNodeClick="handleTreeNodeClick"
               :page-data="pageData"
               :current="currentComponent.uid"
             ></editor-tree>

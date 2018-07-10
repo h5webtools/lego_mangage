@@ -1,5 +1,5 @@
 <template>
-  <c-draggable  element="div" class="draggableDesign" v-model="currentListData" :options="dragOptions" @choose='onChoose(currentListData, $event)'  @add="onAdd(currentListData, $event)" >
+  <c-draggable  element="div" class="draggableDesignItem" v-model="currentListData" :options="dragOptions" @choose='onChoose(currentListData, $event)'  @add="onAdd(currentListData, $event)" :move="onMove">
       <transition-group name="no" class="list-group-design" style="min-height: 50px" tag="ul">
       <!-- <transition-group name="no" class="list-group-design" type="transition"> -->
         
@@ -86,7 +86,8 @@ export default {
         group: {
           name: "formDesign"
         },
-        ghostClass: "ghost"
+        ghostClass: "ghost",
+        handle: '.draggableDesignItem'
       }
     };
   },
@@ -118,7 +119,6 @@ export default {
       }, 50);
     },
     onAdd(item, event) {
-      debugger
       // const currentItem = item[event.newIndex];
       setUuid(item[event.newIndex], event.newIndex, this.level, this.levelIndex, item)
       // this.$store.dispatch('editor/updateModelValue', { key: k, value: val });
@@ -131,6 +131,11 @@ export default {
     },
     onEnd(item, event) {
 
+    },
+    onMove(dragContext) {
+      if(dragContext.draggedContext.element.isLocked === true) {
+        return false;
+      }
     }
 
   }
