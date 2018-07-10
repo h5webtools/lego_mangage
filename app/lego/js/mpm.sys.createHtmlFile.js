@@ -121,6 +121,8 @@ define(function (require, exports, module) {
             comConfig += "jybtasks:require('@lego/jybtasks'), \n "
         } else if (_type == 'jybsignin' && comConfig.indexOf(".jybsignin") == -1) {
             comConfig += "jybsignin:require('@lego/jybsignin'), \n "
+        }  else if (_type == 'jybcoupon' && comConfig.indexOf(".jybcoupon") == -1) {
+            comConfig += "jybcoupon:require('@lego/jybcoupon'), \n "
         }  
         //获取自定义代码 
         if (_name == 'customcode') {

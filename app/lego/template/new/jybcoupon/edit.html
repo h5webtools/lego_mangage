@@ -1,0 +1,155 @@
+<div class="editBox">
+  <div class="editBox_2">
+    <h3>{{obj.componentName}} {{obj.uid}}</h3>
+    <p>红包组件</p>
+    <ul class="tab_hd">
+      <li v-bind:class="{ 'on': showStyle }" v-on:click="show(0)">
+        <a href="javascript:;" title="设置样式">设置样式</a>
+      </li>
+      <li v-bind:class="{ 'on': showProperty }" v-on:click="show(1)">
+        <a href="javascript:;" title="设置数据">设置数据</a>
+      </li>
+    </ul>
+
+    <div v-show="showStyle" class="styleBox">
+      <div class="editArea">
+        <form class="form-horizontal" v-for="item in obj.com_extend">
+          <div class="form-group" v-if="item.type == 'radio'">
+            <label>{{item.name}}：</label>
+            <div>
+              <label v-for="item2 in item.data">
+                <input type="radio" :name="obj.uid+'_'+item.nick" :value="item2.value" v-model="obj.data.extend[item.nick]"> {{item2.name}}</label>
+            </div>
+          </div>
+          <div class="form-group" v-if="item.type == 'input'">
+            <label style="float: left;padding-right:14px;">
+              <strong>*</strong>{{item.name}}：</label>
+            <input type="text" :class="item.class" :name="obj.uid+'_'+item.nick" v-model="obj.data.extend[item.nick]" :placeholder="item.placeholder"
+              flag="extendtime" :nick="item.nick">
+          </div>
+        </form>
+      </div>
+      <dl>
+        <dt>样式</dt>
+        <dd>
+          <ul>
+            <li v-for="item in arrStyle" v-if="item.priority != 10000">
+              <div style="display:none;">
+                {{item.com_desc}}
+                <input type="radio" :name="obj.uid" :id="obj.uid+'_'+item.id" :value="item.id" v-model="obj.data.styleKey">
+                <br/>
+              </div>
+              <label :class="item.id == obj.data.styleKey ? 'on' : ''" :for="obj.uid+'_'+item.id">
+                <img :src="item.image" alt="">
+              </label>
+              <div class="styleDesc">
+                {{item.com_desc}}
+              </div>
+            </li>
+          </ul>
+        </dd>
+      </dl>
+    </div>
+
+    <div v-show="showProperty" class="editArea">
+      <form class="form-horizontal" v-if="true">
+        <div class="coupon-group">
+          <div class="form-group">
+            <label>
+              <strong></strong>版本号：</label>
+            <select name="action" @change="selectNpmVersion" v-model="obj.data.npmversion">
+              <option :value="item.version" v-for="item in obj.data.npmversionArr">{{item.desc}}</option>
+            </select>
+          </div>
+        </div>
+      </form>
+      <form class="form-horizontal">
+        <div class="coupon-group">
+          <div class="form-group">
+            <label>
+              <strong></strong>活动号：</label>
+            <input type="text" placeholder="活动号" v-model="obj.data.actId">
+          </div>
+          <div class="form-group">
+            <label>
+              <strong></strong>命令字：</label>
+            <input type="text" placeholder="命令字" v-model="obj.data.cmd">
+          </div>
+          <div class="form-group">
+            <label>
+              <strong></strong>结束时间：</label>
+            <input type="text" placeholder="2018/07/09 00:00:00" v-model="obj.data.endTime">
+          </div>
+          <div class="form-group" >
+              <label><strong>*</strong>倒计时类型：</label>
+              <label style="width:80px;"><input  style="width:16px;height:16px; " type="radio" value="0" v-model="obj.data.cuttimetype">无倒计时</label>
+              <label style="width:90px;"><input  style="width:16px;height:16px" type="radio" value="1" v-model="obj.data.cuttimetype">每天某一点</label>
+              <label style="width:90px;"><input  style="width:16px;height:16px; " type="radio" value="2" v-model="obj.data.cuttimetype">某一时间</label>
+          </div>
+        </div>
+      </form>
+
+      <br><br><br><strong style="font-size:16px;">设置优惠列表</strong><br><br><br>
+      <form class="form-horizontal">
+        <div class="coupon-group" v-for="(item,index) in obj.data.couponList">
+            <h4>优惠券{{index + 1}}</h4>
+            <button type="button" class="jc-btn btn-primary delBtn" @click="deleteExchangeItem(index)">删除</button>
+            <div class="form-group" style="margin-right: 100px;margin-left: 10px;">
+                <label><strong>*</strong>描述1：</label>
+                <input type="text" v-model="item.desc1" placeholder="比如：90天活动产品专享年化">
+            </div>
+            <div class="form-group" style="margin-right: 100px;margin-left: 10px;">
+                <label><strong>*</strong>描述2：</label>
+                <input type="text" v-model="item.desc2" placeholder="比如：9.2%">
+            </div>
+            <div class="form-group" style="margin-right: 100px;margin-left: 34px;">
+                <label><strong>*</strong>描述3：</label>
+                <input type="text" v-model="item.desc3" placeholder="比如：每日10点开抢，限量100张">
+            </div>
+            <div class="form-group" style="margin-right: 100px;margin-left: 34px;" v-if="obj.data.cuttimetype == 1">
+                <label><strong>*</strong>开抢时间：</label>
+                <input type="text" v-model="item.drawTime" placeholder="比如：13:00:00">
+            </div>
+            <div class="form-group" style="margin-right: 100px;margin-left: 34px;" v-if="obj.data.cuttimetype == 2">
+                <label><strong>*</strong>开抢时间：</label>
+                <input type="text" v-model="item.drawTime" placeholder="比如2018/09/11 13:00:00">
+            </div>
+            <div class="form-group" style="margin-right: 100px;margin-left: 34px;">
+              <label>
+                <strong></strong>背景颜色：</label>
+              <input type="color" v-model="item.bgcolor">
+              <input type="text" class="colorFrameInput" v-model="item.bgcolor" value="">
+            </div>
+            <div class="form-group" style="margin-right: 100px;margin-left: 34px;">
+                <label><strong>*</strong>按钮文案：</label>
+                <input type="text" v-model="item.btndesc" placeholder="比如：立即抢购">
+            </div>
+            <div class="form-group" style="margin-right: 100px;margin-left: 34px;">
+                <label><strong>*</strong>弹框文案1：</label>
+                <input type="text" v-model="item.awarddes1" placeholder="比如：恭喜您已成功领取90天活动产品">
+            </div>
+            <div class="form-group" style="margin-right: 100px;margin-left: 34px;">
+                <label><strong>*</strong>弹框文案1：</label>
+                <input type="text" v-model="item.awarddes2" placeholder="比如:专享年化9.2%福利">
+            </div>
+            <div class="form-group" style="margin-right: 100px;margin-left: 34px;">
+                <label><strong>*</strong>弹框跳转：</label>
+                <input type="text" v-model="item.awardhref" placeholder="">
+            </div>
+            <div class="form-group" style="margin-right: 100px;margin-left: 34px;">
+                <label><strong>*</strong>立即领取埋点</label>
+                <input type="text" v-model="item.awardhref" placeholder="30001.1.2">
+            </div>
+            <div class="form-group" style="margin-right: 100px;margin-left: 34px;">
+                <label><strong>*</strong>立即使用埋点：</label>
+                <input type="text" v-model="item.awardhref" placeholder="30001.1.2">
+            </div>
+            
+        </div>
+      </form>
+      <div class="text-right">
+          <button type="button" class="jc-btn btn-primary" @click="addExchangeItem()">增加</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -28,7 +28,7 @@ define(function (require, exports, module) {
                 $('.ui-p-fixed').removeClass('ui-p-fixed');
             },
             created: function () {
-
+                //console.log(this.params.couponList);
                 try {
                     if (this.params.rulesContent && this.params.rulesContent.length > 0) {
                         this.params.rulesContent.forEach(function (item) {
@@ -57,6 +57,9 @@ define(function (require, exports, module) {
 
                 submitBuy:function(){
                     //仅仅用于测试，微信还款类组件   真正环境是有js逻辑的  jyb.vue.jybwxhkpay
+                },
+                toDraw:function(){
+
                 }
 
             }
