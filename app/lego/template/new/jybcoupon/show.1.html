@@ -253,29 +253,29 @@ p{
     <jybcoupon uid="jybcoupon" v-bind:params="data" inline-template>
         <div class="mod-c-coupon">
             <template v-if="true">
-            <div class="mod-c-coupon__item" v-for="(item,index) in params.couponList" :style="{backgroundColor:item.bgcolor}">
-                <div class="c-coupon__item__desc">
-                  <p>{{item.desc1}}<span>{{item.desc2}}</span></p>
-                  <div>{{item.desc3}}</div>
+                <div class="mod-c-coupon__item" v-for="(item,index) in data.couponList" :style="{backgroundColor:item.bgcolor}">
+                    <div class="c-coupon__item__desc">
+                        <p>{{item.desc1}}<span>{{item.desc2}}</span></p>
+                        <div>{{item.desc3}}</div>
+                    </div>
+                    <div class="c-coupon__item__dot"></div>
+                    <div class="c-coupon__item__right">
+                        <template v-if="item.drawFlag == false">
+                            <div class="c-coupon__item__left">距离开抢还剩</div>
+                            <div class="c-coupon__item__btn" v-timecutdown="{data:item , endtime:item.drawTime , nowtime:item.nowtime}">{{item.times.hour}}:{{item.times.minute}}:{{item.times.sec}}</div>
+                        </template>
+                        <template v-else="">
+                            <div class="c-coupon__item__left" v-if="item.status == 0">还剩:{{item.userLeft}}张</div>
+                            <div class="c-coupon__item__btn" :awardindex='index+1' 
+                            v-bind:data-stat-id="item.mtabtn" v-if="item.status == 0" v-on:click="toDraw">立即领取</div>
+                            <div class="c-coupon__item__btn c-coupon__item__btn-disabled" v-if="item.status == 1">已领取</div>
+                            <div class="c-coupon__item__btn c-coupon__item__btn-disabled" v-if="item.status == 2">已抢光</div>
+                            <div class="c-coupon__item__btn c-coupon__item__btn-disabled" v-if="item.status == 3">已结束</div>
+                        </template>
+                    </div>
                 </div>
-                <div class="c-coupon__item__dot"></div>
-                <div class="c-coupon__item__right">
-                  <template v-if="item.drawFlag == false">
-                      <div class="c-coupon__item__left">距离开抢还剩</div>
-                      <div class="c-coupon__item__btn" v-timecutdown="{data:item , endtime:item.drawTime , nowtime:data.nowtime}">{{item.times.hour}}:{{item.times.minute}}:{{item.times.sec}}</div>
-                  </template>
-                  <template v-else="">
-                      <div class="c-coupon__item__left" v-if="item.status == 0">还剩:{{item.userLeft}}张</div>
-                      <div class="c-coupon__item__btn" :awardindex='index+1'
-                      v-bind:data-stat-id="params.mtabtn" v-if="item.status == 0" v-on:click="toDraw">立即领取</div>
-                      <div class="c-coupon__item__btn c-coupon__item__btn-disabled" v-if="item.status == 1">已领取</div>
-                      <div class="c-coupon__item__btn c-coupon__item__btn-disabled" v-if="item.status == 2">已抢光</div>
-                      <div class="c-coupon__item__btn c-coupon__item__btn-disabled" v-if="item.status == 3">已结束</div>
-                    </template>
-                </div>
-              </div>
-            </div>
             </template>
+        </div>
     </jybcoupon>
     
 </template>
