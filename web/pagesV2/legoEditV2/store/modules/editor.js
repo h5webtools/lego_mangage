@@ -105,6 +105,7 @@ const actions = {
 // mutations
 const mutations = {
   updatePage(state, result) {
+    debugger
     const { levelIndex, data } = result;
     
     // 顶级的是直接替换全部数据， 其余的每次是替换children的值， 第一个leveindex是多余的标志量

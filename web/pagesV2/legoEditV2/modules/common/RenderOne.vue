@@ -1,5 +1,5 @@
 <template>
-  <c-draggable  element="div" class="draggableDesignItem" v-model="currentListData" :options="dragOptions" @choose='onChoose(currentListData, $event)'  @add="onAdd(currentListData, $event)" :move="onMove">
+  <c-draggable  element="div" class="draggableDesignItem" v-model="currentListData" :options="dragOptions" @choose='onChoose(currentListData, $event)'  @add="onAdd(currentListData, $event)" :move="onMove" @end="onEnd(currentListData, $event)" @sort="onSort(currentListData, $event)" @remove="onRemove(currentListData, $event)">
       <transition-group name="no" class="list-group-design" style="min-height: 50px" tag="ul">
       <!-- <transition-group name="no" class="list-group-design" type="transition"> -->
         
@@ -123,19 +123,33 @@ export default {
       setUuid(item[event.newIndex], event.newIndex, this.level, this.levelIndex, item)
       // this.$store.dispatch('editor/updateModelValue', { key: k, value: val });
       // 遍历修改这个值中的uuid属性
-      this.$store.dispatch("editor/updatePage", {
+      debugger
+      this.updatePage(item)
+/*       this.$store.dispatch("editor/updatePage", {
         levelIndex: this.levelIndex,
         data: item
-      });
+      }); */
 
     },
     onEnd(item, event) {
-
+      // debugger
+    },
+    onRemove(item, event) {
+      this.updatePage(item)
+    },
+    onSort(item, event) {
+      this.updatePage(item)
     },
     onMove(dragContext) {
       if(dragContext.draggedContext.element.isLocked === true) {
         return false;
       }
+    },
+    updatePage(item) {
+      this.$store.dispatch("editor/updatePage", {
+        levelIndex: this.levelIndex,
+        data: item
+      });
     }
 
   }
@@ -145,11 +159,11 @@ export default {
 <style lang="scss">
 .dragItem{
   & .el-row{
-    min-height: 50px;
+    min-height: 100px;
     border: 1px dashed #999;
   }
   & .el-col{
-    min-height: 50px;
+    min-height: 100px;
     border: 1px dashed #999;
   }
 }

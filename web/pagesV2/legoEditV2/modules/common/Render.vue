@@ -16,16 +16,6 @@ export default {
   },
   data() {
     return {
-      style: {
-        'min-height': '150px', 
-        background: 'red',
-         margin: '10px'
-         },
-         style2:{
-           'min-height': '50px',
-           background: 'yellow',
-           border: '1px dotted black'
-         },
       dragOptions: {
         animation: 50,
         group: {
@@ -59,7 +49,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
 /* #component-render{
   .list-group-design{
     min-height: 500px;
@@ -73,12 +63,10 @@ export default {
 
 
   .list-group-design{
-    min-height: 500px;
+
   }
     .dragItem{
-    min-height: 150px;
-    background: red;
-    border: 1px dotted yellow;
+
   }
 </style>
 

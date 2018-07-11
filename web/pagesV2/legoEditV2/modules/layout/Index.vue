@@ -115,7 +115,7 @@ export default {
 
 <style lang="scss" >
 .layout {
-  height: calc(100% - 60px);
+  // height: calc(100% - 60px);
 }
 
 .layout__aside-left {

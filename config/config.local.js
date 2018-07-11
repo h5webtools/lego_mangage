@@ -137,10 +137,10 @@ module.exports = appInfo => {
   
   config.viewJyb = { // 默认配置，可以自己设置覆盖
     devServer: {
-      enable: true, // 是否开启构建服务
+      enable: false, // 是否开启构建服务
       command: 'jfet build -w', // 执行命令
       env: {}, // 环境变量
-      timeout: 60 * 1000, // 启动超时时间
+      timeout: 60 * 1000, // 启动超时时间ß
       port: 35729, // livereload端口
       watchPath: path.join(appInfo.baseDir, './public/**/*'), // 监听目录，必须为绝对路径
     },
