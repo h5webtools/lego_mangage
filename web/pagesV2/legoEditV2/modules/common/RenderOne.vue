@@ -87,7 +87,9 @@ export default {
           name: "formDesign"
         },
         ghostClass: "ghost",
-        handle: '.draggableDesignItem'
+        handle: '.draggableDesignItem',
+        chosenClass: "sortable-chosen",  // Class name for the chosen item
+	      dragClass: "sortable-drag",
       }
     };
   },
@@ -123,7 +125,6 @@ export default {
       setUuid(item[event.newIndex], event.newIndex, this.level, this.levelIndex, item)
       // this.$store.dispatch('editor/updateModelValue', { key: k, value: val });
       // 遍历修改这个值中的uuid属性
-      debugger
       this.updatePage(item)
 /*       this.$store.dispatch("editor/updatePage", {
         levelIndex: this.levelIndex,
@@ -166,6 +167,10 @@ export default {
     min-height: 100px;
     border: 1px dashed #999;
   }
+}
+.sortable-drag{
+  background: #dcdfe6;
+  cursor: move!important;
 }
 </style>
 

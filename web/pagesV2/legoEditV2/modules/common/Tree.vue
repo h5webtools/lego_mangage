@@ -4,7 +4,7 @@
     <div class="tree-box__main">
       <el-tree
         :indent="24"
-        :data="pageData"
+        :data="pageDataCurrent"
         :props="defaultProps"
         :expand-on-click-node="false"
         node-key="uid"
@@ -12,6 +12,15 @@
         @node-click="handleNodeClick"
         highlight-current
         default-expand-all
+          @node-drag-start="handleDragStart"
+          @node-drag-enter="handleDragEnter"
+          @node-drag-leave="handleDragLeave"
+          @node-drag-over="handleDragOver"
+          @node-drag-end="handleDragEnd"
+          @node-drop="handleDrop"
+          :allow-drop="allowDrop"
+          :allow-drag="allowDrag"
+          draggable
       >
        <span class="custom-tree-node" slot-scope="{ node, data }">
         <span>{{ node.label }}</span>
@@ -20,7 +29,7 @@
             :class="data.isLocked ? 'locked' : 'unLocked'"
             type="text"
             size="mini"
-            @click="() => lock(data, 'isLocked')">
+            @click="() => lock(data, node, 'isLocked')">
             
           </el-button>
         </span>
@@ -49,10 +58,15 @@ export default {
     return {
       defaultProps: {
         children: "children",
-        label: "tag"
+        label: "name",
       }
       // treeData: this.pageData
     };
+  },
+  computed: {
+    pageDataCurrent() {
+      return JSON.parse(JSON.stringify(this.pageData))
+    }
   },
   watch: {
     current(newVal) {
@@ -64,6 +78,8 @@ export default {
   },
   methods: {
     handleNodeClick(data, node, component) {
+      debugger
+      // 这里的data 已经和vuex 失去关联， 需要通过uuid来找， 太慢了！！！！
       this.$emit("handleTreeNodeClick", data);
     },
     setCurrentKey(val) {
@@ -71,19 +87,58 @@ export default {
         this.$refs.editorTree.setCurrentKey(val);
       });
     },
-    lock(data, key) {
+    lock(data, node, key) {
+      data[key] = !data[key]
+      this.$store.dispatch("editor/updatePage", {
+        levelIndex: 'top',
+        data: this.pageDataCurrent
+      });
       // this.$refs.editorTree.setCurrentKey(data);
-       try {
+/*       try {
         this.$store.dispatch("editor/updateValueDirect", {
           data: data,
-          update:[{
-            key: key,
-            value: !data[key]
-          }]
+          update: [
+            {
+              key: key,
+              value: !data[key]
+            }
+          ]
         });
       } catch (e) {
         this.$message.error(e.toString());
+      } */
+    },
+    handleDragStart(node, ev) {
+      console.log("drag start", node);
+    },
+    handleDragEnter(draggingNode, dropNode, ev) {
+      console.log("tree drag enter: ", dropNode.label, dropNode);
+    },
+    handleDragLeave(draggingNode, dropNode, ev) {
+      console.log("tree drag leave: ", dropNode.label, dropNode);
+    },
+    handleDragOver(draggingNode, dropNode, ev) {
+      console.log("tree drag over: ", dropNode.label, dropNode);
+    },
+    handleDragEnd(draggingNode, dropNode, dropType, ev) {
+      console.log("tree drag end: ", dropNode && dropNode.label, dropType, dropNode);
+    },
+    handleDrop(draggingNode, dropNode, dropType, ev) {
+      console.log("tree drop: ", dropNode.label, dropType, dropNode);
+      this.$store.dispatch("editor/updatePage", {
+        levelIndex: 'top',
+        data: this.pageDataCurrent
+      });
+    },
+    allowDrop(draggingNode, dropNode, type) {
+      if (dropNode.data.isLocked === true) {
+        return false;
+      } else {
+        return true;
       }
+    },
+    allowDrag(draggingNode) {
+      return draggingNode.data.isLocked !== true;
     }
   }
 };
@@ -114,36 +169,38 @@ export default {
             padding-left: 40px;
             height: 48px;
             &:hover {
-              background-color: darken(#d8dbec, 10%) ;
+              background-color: darken(#d8dbec, 10%);
             }
           }
         }
       }
-      & .el-tree-node{
-          &.is-current {
-            & > .el-tree-node__content {
-              background: #d8dbec;
-            }
+      & .el-tree-node {
+        &.is-current {
+          & > .el-tree-node__content {
+            background: #d8dbec;
           }
+        }
       }
     }
 
-    & .custom-tree-node{
+    & .custom-tree-node {
       flex: 1;
       display: flex;
       align-items: center;
       justify-content: space-between;
       font-size: 14px;
       padding-right: 8px;
-      & .locked{
+      & .locked {
         width: 25px;
         height: 24px;
-        background: url('../../../../assets/img/edit/layers_ic_lock@2x.png') 0 0 / 100% 100%;
+        background: url("../../../../assets/img/edit/layers_ic_lock@2x.png") 0 0 /
+          100% 100%;
       }
-      & .unLocked{
+      & .unLocked {
         width: 25px;
         height: 24px;
-        background: url('../../../../assets/img/edit/layers_ic_unlock@2x.png') 0 0 / 100% 100%;
+        background: url("../../../../assets/img/edit/layers_ic_unlock@2x.png") 0
+          0 / 100% 100%;
       }
     }
   }

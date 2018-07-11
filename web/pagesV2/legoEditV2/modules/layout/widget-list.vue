@@ -90,7 +90,9 @@ export default {
   padding: 24px 20px 0 22px;
   & .list-group{
     & > .widget-single{
-      cursor: pointer;
+      & > div{
+        cursor: move;
+      }
       &:nth-child(3n) {
         padding-right: 0;
       }
