@@ -265,11 +265,11 @@ p{
                             <div class="c-coupon__item__btn" v-timecutdown="{data:item , endtime:item.drawTime , nowtime:item.nowtime}">{{item.times.hour}}:{{item.times.minute}}:{{item.times.sec}}</div>
                         </template>
                         <template v-else="">
-                            <div class="c-coupon__item__left" v-if="item.status == 0">还剩:{{item.userLeft}}张</div>
+                            <div class="c-coupon__item__left" v-if="item.status == 2">还剩:{{item.userLeft}}张</div>
                             <div class="c-coupon__item__btn" :awardindex='index+1' 
-                            v-bind:data-stat-id="item.mtabtn" v-if="item.status == 0" v-on:click="toDraw">立即领取</div>
+                            v-bind:data-stat-id="item.mtabtn" v-if="item.status == 2" v-on:click="toDraw">立即领取</div>
                             <div class="c-coupon__item__btn c-coupon__item__btn-disabled" v-if="item.status == 1">已领取</div>
-                            <div class="c-coupon__item__btn c-coupon__item__btn-disabled" v-if="item.status == 2">已抢光</div>
+                            <div class="c-coupon__item__btn c-coupon__item__btn-disabled" v-if="item.status == 0">已抢光</div>
                             <div class="c-coupon__item__btn c-coupon__item__btn-disabled" v-if="item.status == 3">已结束</div>
                         </template>
                     </div>

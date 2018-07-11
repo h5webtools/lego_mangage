@@ -238,7 +238,7 @@
                 <template v-if="true">
             <div class="prd-content ui-ta-c" v-bind:style="{background:params.bgcolor}">
                 <p class="f-22 color-7d87aa ui-mt-25" v-bind:style="{color:params.buiedcolor,fontSize:params.buiedsize+'px'}">{{params.buieddesc || '已购买'}}:{{data.buycount}}{{params.desc3}}</p>
-                <p class="f-22 color-7d87aa ui-mt-25" v-bind:style="{color:params.buiedcolor,fontSize:params.buiedsize+'px'}">{{params.bottomdesc}}</p>
+                <p class="f-22 color-7d87aa" v-bind:style="{color:params.buiedcolor,fontSize:params.buiedsize+'px'}">{{params.bottomdesc}}</p>
                 <div class="ui-ta-c color-7d87aa f-22">
                     <div class="prd-box ui-mt-25" v-for="(item , index) in params.exchangeItem">
                         <p class="ui-pt-50 ui-ta-c"><img :src="item.awardImg" alt="" width="60%"></p>
