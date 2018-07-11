@@ -41,33 +41,30 @@ export default {
   },
   methods: {
     
-  },
-/*   render(h) {
-    if(!this.pageData || util.isEmptyObject(this.pageData)) return;
-    return this.createVNode(h, this.pageData);
-  } */
+  }
 }
 </script>
 
 <style lang="scss" >
-/* #component-render{
+.draggableDesignItem{
   .list-group-design{
-    min-height: 500px;
+    min-height: 50px;
+  }
   .dragItem{
-    min-height: 150px;
-    background: red;
-    border: 1px dotted yellow;
+  & .el-row{
+    min-height: 100px;
+    border: 1px dashed #999;
   }
+  & .el-col{
+    min-height: 100px;
+    border: 1px dashed #999;
   }
-} */
-
-
-  .list-group-design{
-
-  }
-    .dragItem{
-
-  }
+}
+.sortable-drag{
+  background: #dcdfe6;
+  cursor: move!important;
+}
+}
 </style>
 
 

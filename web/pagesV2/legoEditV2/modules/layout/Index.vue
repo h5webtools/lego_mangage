@@ -32,12 +32,13 @@
         </el-tab-pane>
         <el-tab-pane label="图层管理">
               <!-- 组件树 -->
-            <editor-tree
+<!--             <editor-tree
               
               @handleTreeNodeClick="handleTreeNodeClick"
               :page-data="pageData"
               :current="currentComponent.uid"
-            ></editor-tree>
+            ></editor-tree> -->
+            <editor-tree></editor-tree>
         </el-tab-pane>
 
       </el-tabs>
@@ -57,8 +58,8 @@ import EditorWidgetList from "./widget-list.vue";
 // import EditorWidgetLayer from './widget-layer.vue';
 // import EditorContextMenu from './context-menu.vue';
 // import EditorCodeDialog from './code-dialog.vue';
-import EditorTree from "../common/tree.vue";
-import EditorRender from "../common/render.vue";
+import EditorTree from "../common/draggable/dragTree/Render.vue";
+import EditorRender from "../common/draggable/Render.vue";
 
 import stringifyObject from "@/util/stringify";
 

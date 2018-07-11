@@ -14,7 +14,8 @@ import widget from './store/modules/widget';
 import vStore from './store';
 
 import cDraggable from 'vuedraggable'
-import cDraggableMulti from './modules/common/RenderOne.vue'
+import cDraggableMulti from './modules/common/draggable/RenderOne.vue'
+import cDraggableMultiTree from './modules/common/draggable/dragTree/RenderOne.vue'
 import legoComponentBasic from '@lego/lego_component_basic/page/show/index.js'
 import legoEditProp from '@lego/lego_component_basic/page/edit/components/editorProps';
 
@@ -50,6 +51,7 @@ console.log(legoComponentBasic , '基础组件')
 console.log(legoEditProp , 'edit');
 Vue.component('c-draggable', cDraggable)
 Vue.component('c-draggable-multi', cDraggableMulti)
+Vue.component('c-draggable-multi-tree', cDraggableMultiTree)
 
 vStore.registerModule('editor', editor);
 vStore.registerModule('widget', widget);
