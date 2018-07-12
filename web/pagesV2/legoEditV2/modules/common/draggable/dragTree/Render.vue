@@ -85,7 +85,7 @@ export default {
         &.packup {
           & > .draggableTreeItem{
             // display: none;
-            opacity: 0;
+            // opacity: 0;
             height: 0;
           }
           &  .packup-icon {
