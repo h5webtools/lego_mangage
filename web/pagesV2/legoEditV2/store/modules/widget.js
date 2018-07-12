@@ -325,7 +325,11 @@ const getters = {
             thumb: 'http://localhost:7002/public/images/button@2x.png',
             name: '按钮',
             tag: 'el-button',
-            isLocked: false,  // 当前元素是否锁定（move）
+            extendProps:{
+              isCurrent: false, // 当前选中的
+              isLocked: false,  // 当前元素是否锁定（move）,
+              isFolded: false  //  tree 中默认展开
+            },
             model: {
               size: {
                 cellType: "select",
@@ -510,7 +514,11 @@ const getters = {
             thumb: 'http://localhost:7002/public/images/product_main@2x.png',
             tag: 'el-row',
             draggable: true, // 内部children 是否可拖拽
-            isLocked: false,  // 当前元素是否可以拖拽（move）
+            extendProps:{
+              isCurrent: false, // 当前选中的
+              isLocked: false,  // 当前元素是否锁定（move）,
+              isFolded: false  //  tree 中默认展开
+            },
             children: [],
             model: {
             },
@@ -524,7 +532,11 @@ const getters = {
             thumb: 'http://localhost:7002/public/images/product_main@2x.png',
             tag: 'el-col',
             draggable: true,
-            isLocked: false,  // 当前元素是否可以拖拽（move）
+            extendProps:{
+              isCurrent: false, // 当前选中的
+              isLocked: false,  // 当前元素是否锁定（move）,
+              isFolded: false  //  tree 中默认展开
+            },
             children: [],
             model: {
             },

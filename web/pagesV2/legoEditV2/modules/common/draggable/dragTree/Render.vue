@@ -45,6 +45,8 @@ export default {
 <style lang="scss" >
 .tree-manage {
   &.draggableTreeItem {
+    width: 100%;
+    // 第一级的背景色奇偶行
     & > .list-group-design {
       & > .dragItem {
         background: #f5f6fa;
@@ -56,40 +58,72 @@ export default {
   }
 }
 .draggableTreeItem {
-    & > .list-group-design {
-      & > .dragItem {
-        padding-left: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        font-size: 16px;
-        color: #58586e;
-        letter-spacing: 0;
-        & > .tree-collapse {
-          width: 100%;
-          & > .tree-collapse_operate {
-            padding-right: 10px;
+  width: 100%;
+  transition: all 0.35s;
+  & > .list-group-design {
+    & > .dragItem {
+      padding-left: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 16px;
+      color: #58586e;
+      letter-spacing: 0;
+      & > .tree-collapse {
+        width: 100%;
+        &.unfold {
+          & > .draggableTreeItem{
+            height: auto;
+          }
+          &  .packup-icon {
+            width: 20px;
+            height: 20px;
+            background: url("../../../../../../assets/img/edit/layers_ic_unfold@2x.png")
+              0 0 / 100% 100%;
+          }
+        }
+        &.packup {
+          & > .draggableTreeItem{
+            // display: none;
+            opacity: 0;
+            height: 0;
+          }
+          &  .packup-icon {
+            width: 20px;
+            height: 20px;
+            background: url("../../../../../../assets/img/edit/layers_ic_packup@2x.png")
+              0 0 / 100% 100%;
+          }
+        }
+        & > .tree-collapse_operate {
+          padding-right: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          height: 48px;
+
+          & .label {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            height: 48px;
-            & .locked {
-                width: 25px;
-                height: 24px;
-                background: url("../../../../assets/img/edit/layers_ic_lock@2x.png") 0 0 /
-                  100% 100%;
-            }
-            & .unLocked {
-              width: 25px;
-              height: 24px;
-              background: url("../../../../assets/img/edit/layers_ic_unlock@2x.png") 0
-                0 / 100% 100%;
-            }
+          }
+
+          & .locked {
+            width: 25px;
+            height: 24px;
+            background: url("../../../../assets/img/edit/layers_ic_lock@2x.png")
+              0 0 / 100% 100%;
+          }
+          & .unLocked {
+            width: 25px;
+            height: 24px;
+            background: url("../../../../assets/img/edit/layers_ic_unlock@2x.png")
+              0 0 / 100% 100%;
           }
         }
       }
     }
   }
+}
 </style>
 
 

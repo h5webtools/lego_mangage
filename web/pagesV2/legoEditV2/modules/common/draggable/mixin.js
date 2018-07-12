@@ -72,7 +72,6 @@ export default {
             }, 50);
         },
         onAdd(item, event) {
-            debugger
             // const currentItem = item[event.newIndex];
             setUuid(item[event.newIndex], event.newIndex, this.level, this.levelIndex, item)
             // this.$store.dispatch('editor/updateModelValue', { key: k, value: val });
@@ -87,7 +86,7 @@ export default {
         onEnd(item, event) {
             // debugger
         },
-        onRemove(item, event) {
+        onRemove(item = [], event) {
             debugger
             this.updatePage(item)
         },
@@ -95,10 +94,11 @@ export default {
             this.updatePage(item)
         },
         onMove(dragContext) {
-            if (dragContext.draggedContext.element.isLocked === true) {
+            if (dragContext.draggedContext.element.extendProps.isLocked === true) {
                 return false;
             }
         },
+
         updatePage(item) {
             this.$store.dispatch("editor/updatePage", {
                 levelIndex: this.levelIndex,

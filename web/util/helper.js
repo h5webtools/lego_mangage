@@ -44,6 +44,25 @@ export function setPageData(levelIndex, obj, changeData) {
   // a[0]['children'][1]['children']
 }
 
+/**
+ * 
+ * @param {*} levelIndex key的连续key
+ * @param {*} obj 
+ * @param {*} changeData 
+ */
+export function setPageDataItemByKey(levelIndex, obj, changeData) {
+  var index = levelIndex.shift()
+/*   if (!obj[index]) {
+      obj[index] = {}
+  } */
+
+  if (levelIndex.length) {
+    setPageDataItemByKey(levelIndex, obj[index], changeData)
+  } else {
+    obj[index] = changeData
+  }
+}
+
 // 遍历修改这个值中的uuid属性 并整合 业务组件中prop到children
 /**
  * 

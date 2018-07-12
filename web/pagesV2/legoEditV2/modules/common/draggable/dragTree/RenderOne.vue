@@ -5,15 +5,19 @@
         
          <div v-for="(item, index) in currentListData" :key="levelIndex + '-' + index" class="dragItem" :style="style">
 
-            <div  :key="levelIndex + '-' + index "  v-bind="item.props" :uuid="levelIndex + '-' + index" class="tree-collapse">
-              <div class="tree-collapse_operate">
-                 <span>{{item.name}} </span>
+            <div  :key="levelIndex + '-' + index "  v-bind="item.props" :uuid="levelIndex + '-' + index" class="tree-collapse" :class="item.extendProps.isFolded ? 'packup' : 'unfold'">
+              <div class="tree-collapse_operate" >
+                 <span class="label">             
+                   <span class="packup-icon" @click="updateItemFold(item)"  v-show="item.children &&item.children.length > 0"></span>
+                   {{item.name}} 
+                 </span>
+
                   <span>
                     <el-button
-                      :class="item.isLocked ? 'locked' : 'unLocked'"
+                      :class="item.extendProps.isLocked ? 'locked' : 'unLocked'"
                       type="text"
                       size="mini"
-                      @click="() => lock(data, node, 'isLocked')">
+                      @click="() => lock(item)">
                       
                     </el-button>
                   </span>
@@ -47,16 +51,16 @@ export default {
   name: "DraggableTree",
   data() {
     return {
-        dragOptions: {
-              animation: 50,
-              group: {
-                  name: "formDesign"
-              },
-              ghostClass: "ghost",
-              handle: '.draggableTreeItem',
-              chosenClass: "sortable-chosen",  // Class name for the chosen item
-              dragClass: "sortable-drag",
-          }
+      dragOptions: {
+        animation: 50,
+        group: {
+          name: "formDesign"
+        },
+        ghostClass: "ghost",
+        handle: ".draggableTreeItem",
+        chosenClass: "sortable-chosen", // Class name for the chosen item
+        dragClass: "sortable-drag"
+      }
     };
   },
   computed: {
@@ -66,12 +70,34 @@ export default {
   },
   watch: {},
   created() {},
-  methods: {}
+  methods: {
+    lock(item, key = "extendProps.isLocked") {
+      this.$store.dispatch("editor/updateValueDirect", {
+        data: item,
+        update: [
+          {
+            key: key,
+            value: !item.extendProps.isLocked
+          }
+        ]
+      });
+    },
+    updateItemFold(item, key = "extendProps.isFolded") {
+      this.$store.dispatch("editor/updateValueDirect", {
+        data: item,
+        update: [
+          {
+            key: key,
+            value: !item.extendProps.isFolded
+          }
+        ]
+      });
+    }
+  }
 };
 </script>
 
 <style lang="scss">
-
 </style>
 
 

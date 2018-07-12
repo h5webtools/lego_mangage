@@ -93,20 +93,6 @@ export default {
         levelIndex: 'top',
         data: this.pageDataCurrent
       });
-      // this.$refs.editorTree.setCurrentKey(data);
-/*       try {
-        this.$store.dispatch("editor/updateValueDirect", {
-          data: data,
-          update: [
-            {
-              key: key,
-              value: !data[key]
-            }
-          ]
-        });
-      } catch (e) {
-        this.$message.error(e.toString());
-      } */
     },
     handleDragStart(node, ev) {
       console.log("drag start", node);

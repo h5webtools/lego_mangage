@@ -7,7 +7,7 @@ import extend from '@jyb/lib-extend';
 import typeOf from '@jyb/lib-type-of';
 import stringifyObject from '@/util/stringify';
 import * as queryString from '@/util/querystring';
-import {setPageData} from '@/util/helper'
+import {setPageData, setPageDataItemByKey} from '@/util/helper'
 import vStore from '../index';
 import Vue from 'vue'
 
@@ -135,7 +135,12 @@ const mutations = {
     const { data, update } = datas;
     // state.currentComponent = data;
     update.map(item => {
-      data[item.key] = item.value
+      const keys = item.key.split('.')
+      if(keys.length > 1) {
+        setPageDataItemByKey(keys, data, item.value)
+      } else {
+        data[item.key] = item.value
+      }
     })
   },
 
