@@ -87,14 +87,19 @@ export default {
       },
       themeColor: {
         color: [{
+          t_id: 1,
           t_color:'#C23142'
         },{
+          t_id: 2,
           t_color:'#5F3899'
         },{
+          t_id: 3,
           t_color:'#FF6E34'
         },{
+          t_id: 4,
           t_color:'#212A74'
         },{
+          t_id: 5,
           t_color:'#3A4AA7'
         }],
         grident: []
@@ -109,7 +114,63 @@ export default {
   },
   methods: {
     pickerThemeItem(type, item) {
-      this.currentTheme.color = item.t_color
+      this.currentTheme.color = item.t_color;
+      // 根据对应主题设置 pageData 的 对应位置的 originStyles
+      const theme = {
+        1: {
+          'a': {
+            'color': '#F0FFF0',
+            'background-color': '#EEE9BF'
+          },
+          'b': {
+            'color': 'yellow',
+            'background': 'white'
+          }
+        },
+        2: {
+          'a': {
+            'color': 'blue',
+            'background-color': 'red'
+          },
+          'b': {
+            'color': 'yellow',
+            'background': 'black'
+          }
+        },
+        3: {
+          'a': {
+            'color': 'pink',
+            'background-color': '#FFF0F5'
+          },
+          'b': {
+            'color': '#FF34B3',
+            'background': '#FFBBFF'
+          }
+        },
+        4: {
+          'a': {
+            'color': '#EEB422',
+            'background-color': '#EE7942'
+          },
+          'b': {
+            'color': '#C0FF3E',
+            'background': '#BCD2EE'
+          }
+        },
+        5: {
+          'a': {
+            'color': '#8B7500',
+            'background-color': '#BC8F8F'
+          },
+          'b': {
+            'color': '#8E388E',
+            'background': '#9AFF9A'
+          }
+        }
+      }
+      this.$store.dispatch("editor/updatePageItemThemeStyle", {
+        currentTheme: theme[item.t_id]
+      });
     }
   },
   created() {

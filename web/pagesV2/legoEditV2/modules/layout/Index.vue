@@ -97,16 +97,6 @@ export default {
     // const a = instance.extend(prop)
   },
   methods: {
-    handleCodeDialogClose() {
-      this.$store.dispatch("editor/updateValue", {
-        key: "codeDialogVisible",
-        value: false
-      });
-    },
-    handleCodeDialogSave(result) {
-      this.$store.dispatch("editor/updateCode", result);
-      this.handleCodeDialogClose();
-    },
     handleTreeNodeClick(data) {
       this.$store.dispatch("editor/setCurrentComponent", data);
     }

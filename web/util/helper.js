@@ -18,7 +18,7 @@ export function  getUrlKey(name){
   return decodeURIComponent((new RegExp('[?|&]'+name+'='+'([^&;]+?)(&|#|;|$)').exec(location.href)||[,""])[1].replace(/\+/g,'%20'))||null;
 }
 /**
- * 
+ * 根据索引位置修改数据
  * @param {*} levelIndex 索引顺序（例如0-2）
  * @param {*} obj 源数据
  * @param {*} changeData  找到的位置修改为新数据 
@@ -63,9 +63,8 @@ export function setPageDataItemByKey(levelIndex, obj, changeData) {
   }
 }
 
-// 遍历修改这个值中的uuid属性 并整合 业务组件中prop到children
 /**
- * 
+ * 遍历修改这个值中的uuid属性 并整合 业务组件中prop到children
  * @param {*} item 
  * @param {*} index  当前数据在兄弟元素中的index
  * @param {*} level  层级， 从 0 开始（数据的深度）
@@ -97,6 +96,22 @@ export function setUuid(item, index, level, levelIndex, sbilingItem) {
     }
     
   }
-  // a = [{children: [{a: 2}, {b: 2, children: [{test: 1}, {test2: 3}]}]}]
-  // a[0]['children'][1]['children']
+}
+
+
+export function updatePageItemThemeStyle(data, currentTheme) {
+  data.forEach(item => {
+    if(item.themePosition) {
+      const themePosition = item.themePosition.toLowerCase()
+      if(currentTheme[themePosition]) {
+        if(!item.props.originStyles) item.props.originStyles= {}
+        Object.keys(currentTheme[themePosition]).forEach(styleKey => {
+          item.props.originStyles[styleKey] = currentTheme[themePosition][styleKey]
+        })
+      }
+    }
+    if(item.children.length > 1) {
+      updatePageItemThemeStyle(item.children, currentTheme)
+    }
+  });
 }

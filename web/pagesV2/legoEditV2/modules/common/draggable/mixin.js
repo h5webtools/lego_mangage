@@ -84,7 +84,6 @@ export default {
 
         },
         onEnd(item, event) {
-            // debugger
         },
         onRemove(item = [], event) {
             debugger

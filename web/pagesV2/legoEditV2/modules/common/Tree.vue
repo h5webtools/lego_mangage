@@ -78,7 +78,7 @@ export default {
   },
   methods: {
     handleNodeClick(data, node, component) {
-      debugger
+      
       // 这里的data 已经和vuex 失去关联， 需要通过uuid来找， 太慢了！！！！
       this.$emit("handleTreeNodeClick", data);
     },

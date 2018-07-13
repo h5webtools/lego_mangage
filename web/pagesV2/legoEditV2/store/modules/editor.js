@@ -7,7 +7,7 @@ import extend from '@jyb/lib-extend';
 import typeOf from '@jyb/lib-type-of';
 import stringifyObject from '@/util/stringify';
 import * as queryString from '@/util/querystring';
-import {setPageData, setPageDataItemByKey} from '@/util/helper'
+import {setPageData, setPageDataItemByKey, updatePageItemThemeStyle} from '@/util/helper'
 import vStore from '../index';
 import Vue from 'vue'
 
@@ -75,6 +75,7 @@ const updateLayer = util.debounce(({ commit, state }) => {
 
 // actions
 const actions = {
+  // 更新对应位置上的item
   updatePage({ commit }, result) {
     commit('updatePage', result);
   },
@@ -82,22 +83,25 @@ const actions = {
     commit('setCurrentComponent', result);
   },
   
-  hideContextMenu({ dispatch, commit }) {
-    commit('updateContextMenu', { visible: false });
-    setTimeout(() => {
-      dispatch('showCurrentLayer');
-    }, 0);
-  },
+  // 更新当前组件的某个key
   updateModelValue({ commit, state }, data) {
     commit('updateModelValue', data);
     // 更新model，同步更新layer
     // updateLayer({ commit, state });
   },
+
   registerComponent({ commit, state }, data) {
     commit('registerComponent', data);
   },
+
+  // 直接更新某个数据的多个值（包括多级的， 例如extendProps.key）
   updateValueDirect({ commit, state }, data) {
     commit('updateValueDirect', data);
+  },
+
+  // 直接更新某个数据的多个值（包括多级的， 例如extendProps.key）
+  updatePageItemThemeStyle({ commit, state }, data) {
+    commit('updatePageItemThemeStyle', data);
   }
   
 };
@@ -143,6 +147,12 @@ const mutations = {
       }
     })
   },
+
+  // 直接更新某个数据的多个值（包括多级的， 例如extendProps.key）
+  updatePageItemThemeStyle(state, data) {
+    const { currentTheme } = data;
+    updatePageItemThemeStyle(state.pageData, currentTheme)
+  }
 
 };
 

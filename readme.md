@@ -51,3 +51,35 @@ $ npm stop
 
 
 [egg]: https://eggjs.org
+
+
+# 新版乐高
+
+## 组件的结构
+
+```javascript
+ {
+    c_id: '1222434332',
+    name: 'col测试',
+    thumb: 'http://localhost:7002/public/images/product_main@2x.png',
+    tag: 'lego-col',
+    draggable: true,
+    extendProps:{
+        isCurrent: false, // 当前选中的
+        isLocked: false,  // 当前元素是否锁定（move）,
+        isFolded: false  //  tree 中默认展开
+    },
+    children: [],
+    model: {
+    },
+    props:{
+        // 通用属性
+        // 开始的style（删除styles后也能显示）
+        originStyles: {
+            'background-color': 'red'
+        },
+        // 可以手动改变styles的地方
+        styles: {}
+    }
+ }
+ ```
