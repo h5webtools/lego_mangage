@@ -106,7 +106,8 @@ define(function (require, exports, module) {
         addSliderItem: function () {
           this.obj.data.sliderArr.push({
             imgSrc: '', //
-            url: ''
+            url: '',
+            mtaid:''
           });
 
           this.$nextTick(function () {
