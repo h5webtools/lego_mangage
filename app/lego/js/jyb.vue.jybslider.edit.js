@@ -130,7 +130,7 @@ define(function (require, exports, module) {
           var path =  pageInfo.datefolder + "/" + folderSet.sub + "/";
 
           moduleDataCenter.updataversion(this.obj.data.npmversion, '@lego/commontag', path, function () {
-            console.log("update ok ");
+            console.log("update ok "); 
           });
         }
 
