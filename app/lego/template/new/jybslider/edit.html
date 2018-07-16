@@ -1,0 +1,80 @@
+<div class="editBox">
+    <div class="editBox_2">
+        <h3>{{obj.componentName}} {{obj.uid}}</h3>
+        <p>滚动组件</p>
+        <ul class="tab_hd">
+            <li v-bind:class="{ 'on': showStyle }" v-on:click="show(0)"><a href="javascript:;" title="设置样式">设置样式</a></li>
+            <li v-bind:class="{ 'on': showProperty }" v-on:click="show(1)"><a href="javascript:;" title="设置数据">设置数据</a></li>
+        </ul>
+
+        <div v-show="showStyle" class="styleBox">
+          <div class="editArea">
+                <form class="form-horizontal" v-for="item in obj.com_extend">
+                    <div class="form-group" v-if="item.type == 'radio'">
+                        <label>{{item.name}}：</label>
+                        <div>
+                            <label v-for="item2 in item.data"><input type="radio" :name="obj.uid+'_'+item.nick" :value="item2.value" v-model="obj.data.extend[item.nick]"> {{item2.name}}</label>
+                        </div>
+                    </div>
+                    <div class="form-group" v-if="item.type == 'input'">
+                        <label style="float: left;padding-right:14px;"><strong>*</strong>{{item.name}}：</label>
+                        <input type="text" :class="item.class" :name="obj.uid+'_'+item.nick" v-model="obj.data.extend[item.nick]" :placeholder="item.placeholder" 
+                        flag="extendtime"  :nick="item.nick">
+                    </div>
+                </form>
+            </div>
+            <br>
+            <br>
+            <dl>
+                <dt>样式</dt>
+                <dd>
+                    <ul>
+                        <li v-for="item in arrStyle" v-if="item.priority != 10000">
+                            <div style="display:none;">
+                                {{item.com_desc}}<input type="radio" :name="obj.uid" :id="obj.uid+'_'+item.id"
+                                                        :value="item.id" v-model="obj.data.styleKey"><br/>
+                            </div>
+                            <label :class="item.id == obj.data.styleKey ? 'on' : ''" :for="obj.uid+'_'+item.id"><img :src="item.image" alt=""></label>
+                            <div class="styleDesc">
+                                {{item.com_desc}}
+                            </div>
+                        </li>
+                    </ul>
+                </dd>
+            </dl>
+        </div>
+
+        <div v-show="showProperty" class="editArea">
+            <form class="form-horizontal"  v-if="true">
+                <div class="coupon-group">
+                    <div class="form-group">
+                        <label><strong></strong>版本号：</label>
+                        <select name="action" @change="selectNpmVersion" v-model="obj.data.npmversion">
+                            <option :value="item.version" v-for="item in obj.data.npmversionArr">{{item.desc}}</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+
+            <!-- 文案描述 -->
+            <br><br><br><strong style="font-size:16px;">设置规则</strong><br><br><br>
+            <form class="form-horizontal">
+                <div class="coupon-group" v-for="(item,index) in obj.data.sliderArr">
+                    <h4>图片{{index + 1}}</h4>
+                    <button type="button" class="jc-btn btn-primary delBtn" @click="deleteSliderItem(index)">删除</button>
+                    <div class="form-group">
+                        <label><strong>*</strong>图片地址：</label>
+                        <input type="text" v-model="item.imgSrc" size="40">
+                    </div>
+                    <div class="form-group">
+                        <label><strong>*</strong>跳转地址：</label>
+                        <input type="text" v-model="item.url" placeholder=""></input>
+                    </div>
+                </div>
+            </form>
+            <div class="text-right">
+                <button type="button" class="jc-btn btn-primary" @click="addSliderItem()">增加图片</button>
+            </div>
+        </div>
+    </div>
+</div> 
