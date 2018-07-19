@@ -19,18 +19,18 @@
                 placement="bottom"
                 width="200"
                 trigger="hover">
-                <div v-if="themeColor['color'].length">
-                  <p>纯色主题：</p>
-                  <span @click="pickerThemeItem('color', item)" v-for="(item, index) in themeColor['color']" :key="index" class="theme-item" :style="{background: item.t_color}">
+                <div v-if="themeStyle.length">
+                  <!-- <p>纯色主题：</p> -->
+                  <span @click="pickerThemeItem('style', item)" v-for="(item, index) in themeStyle" :key="index" class="theme-item" :style="{background: item.config.A && item.config.A.color}">
                       <!-- <i class="el-icon-check" v-show="currentTheme.color === item.t_color"></i> -->
-                      <img v-show="currentTheme.color === item.t_color" :src="rightWhite" alt="" style="width：100%； height: 100%">
+                      <img v-show="(currentThemeStyle.config.A && currentThemeStyle.config.A.color) === (item.config.A && item.config.A.color)" :src="rightWhite" alt="" style="width：100%； height: 100%">
                   </span>
                 </div>
-                <div v-if="themeColor['grident'].length">
+                <!-- <div v-if="themeColor['grident'].length">
                   <p>渐变主题：</p>
                   <span @click="pickerThemeItem('grident', item)" v-for="(item, index) in themeColor['grident']" :key="index" class="theme-item" :style="'background:'+item.t_grident"></span>
-                </div>
-                <span slot="reference" :style="'background:'+currentTheme.color" class="theme-item"></span>
+                </div> -->
+                <span slot="reference" :style="'background:' + (currentThemeStyle.config.A && currentThemeStyle.config.A.color)" class="theme-item"></span>
               </el-popover>
             </div>
 
@@ -71,7 +71,10 @@ import * as util from '@jyb/lib-util';
 import * as queryString from '@/util/querystring';
 import logoImg from 'assets/img/edit/LOGO.png'
 import rightWhite from 'assets/img/edit/right-white.png'
+// import themeQuery from "apiV2/theme"
+import * as themeQuery from "../../../../api/v2/theme"
 
+console.log(themeQuery)
 export default {
   components: {
 
@@ -82,28 +85,10 @@ export default {
       rightWhite: rightWhite,
       loading: true,
       userName: window.userInfo.userName,
-      currentTheme: {
-        color: '#FF6E34'
+      currentThemeStyle: {
+        config: {}
       },
-      themeColor: {
-        color: [{
-          t_id: 1,
-          t_color:'#C23142'
-        },{
-          t_id: 2,
-          t_color:'#5F3899'
-        },{
-          t_id: 3,
-          t_color:'#FF6E34'
-        },{
-          t_id: 4,
-          t_color:'#212A74'
-        },{
-          t_id: 5,
-          t_color:'#3A4AA7'
-        }],
-        grident: []
-      },
+      themeStyle: [],
       currentThemeId: -1,
     };
   },
@@ -112,69 +97,30 @@ export default {
       activeIndex: 'editor/menuActiveIndex'
     })
   },
+  created() {
+    this.getLegoThemeStyle();
+  },
   methods: {
+    getLegoThemeStyle() {
+      themeQuery.getLegoThemeStyle().then(json => {
+        if(json.code == 0) {
+          json.data.theme_list.forEach(item => {
+            item.config = JSON.parse(item.config)
+          });
+          this.themeStyle = json.data.theme_list
+          this.currentThemeStyle = json.data.theme_list[0]
+        } 
+      })
+    },
     pickerThemeItem(type, item) {
-      this.currentTheme.color = item.t_color;
+      debugger
+      this.currentThemeStyle = item;
       // 根据对应主题设置 pageData 的 对应位置的 originStyles
-      const theme = {
-        1: {
-          'a': {
-            'color': '#F0FFF0',
-            'background-color': '#EEE9BF'
-          },
-          'b': {
-            'color': 'yellow',
-            'background': 'white'
-          }
-        },
-        2: {
-          'a': {
-            'color': 'blue',
-            'background-color': 'red'
-          },
-          'b': {
-            'color': 'yellow',
-            'background': 'black'
-          }
-        },
-        3: {
-          'a': {
-            'color': 'pink',
-            'background-color': '#FFF0F5'
-          },
-          'b': {
-            'color': '#FF34B3',
-            'background': '#FFBBFF'
-          }
-        },
-        4: {
-          'a': {
-            'color': '#EEB422',
-            'background-color': '#EE7942'
-          },
-          'b': {
-            'color': '#C0FF3E',
-            'background': '#BCD2EE'
-          }
-        },
-        5: {
-          'a': {
-            'color': '#8B7500',
-            'background-color': '#BC8F8F'
-          },
-          'b': {
-            'color': '#8E388E',
-            'background': '#9AFF9A'
-          }
-        }
-      }
+
       this.$store.dispatch("editor/updatePageItemThemeStyle", {
-        currentTheme: theme[item.t_id]
+        currentTheme: this.currentThemeStyle
       });
     }
-  },
-  created() {
-
   }
 }
 </script>

@@ -99,18 +99,20 @@ export function setUuid(item, index, level, levelIndex, sbilingItem) {
 }
 
 
-export function updatePageItemThemeStyle(data, currentTheme) {
+export function updatePageItemThemeStyle(data, currentThemeStyle) {
   data.forEach(item => {
-    if(item.themePosition) {
-      const themePosition = item.themePosition.toLowerCase()
-      if(currentTheme[themePosition]) {
+    if(item.themeExtend) {
+      // 当前主题下的哪个配色 (主题style目前只有color， 但用于组件的字体色和背景色)
+      const themeExtendStyleOne = item.themeExtend[currentThemeStyle.t_theme_id]
+      if(themeExtendStyleOne) {
         if(!item.props.originStyles) item.props.originStyles= {}
-        Object.keys(currentTheme[themePosition]).forEach(styleKey => {
-          item.props.originStyles[styleKey] = currentTheme[themePosition][styleKey]
+        themeExtendStyleOne.forEach(styleItem => {
+          // 渐变和opacity todo
+          item.props.originStyles[styleItem.css] = currentThemeStyle.config[styleItem.key][styleItem.type]
         })
       }
     }
-    if(item.children.length > 1) {
+    if(item.children && item.children.length > 1) {
       updatePageItemThemeStyle(item.children, currentTheme)
     }
   });

@@ -25,7 +25,13 @@ module.exports = {
         api: path.join(__dirname, 'api'),
         services: path.join(__dirname, 'services'),
         routes: path.join(__dirname, 'router'),
-        components: path.join(__dirname, 'components')
+        components: path.join(__dirname, 'components'),
+        apiV2: path.join(__dirname, './api/v2'),
+        routesV2: path.join(__dirname, './router/v2'),
+        pagesV2: path.join(__dirname, './pagesV2'),
+        constV2: path.join(__dirname, './const/v2'),
+        pagesMainV2: path.join(__dirname, './pagesV2/mainV2'),
+        componentsV2: path.join(__dirname, './componentsV2')
       },
       sass: {
         includePaths: ['node_modules']

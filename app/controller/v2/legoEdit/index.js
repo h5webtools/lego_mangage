@@ -36,9 +36,6 @@ class LegoEditController extends Controller {
     // }
     const operateUser = this.ctx.session.passportJyb.operateUser;
     
-    const menu = await this.ctx.passportGetMenu(); 
-    
-
 
     if(!this.ctx.session.userid) {
       this.ctx.session.userid = operateUser.userId;
@@ -77,7 +74,6 @@ class LegoEditController extends Controller {
       title: '乐高管理系统',
       userInfo: JSON.stringify(userInfo),
       env: this.app.config.env,
-      menu: JSON.stringify(menu)
     });
   }
 

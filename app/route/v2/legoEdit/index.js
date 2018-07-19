@@ -1,4 +1,3 @@
-// app/router/news.js
 module.exports = app => {
 
   const {
@@ -10,6 +9,6 @@ module.exports = app => {
   // const version = config.legoConfigV2.version  
   const version = 'v2'
   const routerPrefix = '/' + version
-  // app.router.get(routerPrefix , controller[version].lego.home.index);
   app.router.get(routerPrefix +  '/legoEdit', controller[version].legoEdit.index.index);
+
 };

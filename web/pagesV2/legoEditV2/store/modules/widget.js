@@ -325,7 +325,25 @@ const getters = {
             thumb: 'http://localhost:7002/public/images/button@2x.png',
             name: '按钮',
             tag: 'lego-button',
-            themePosition: 'a',
+            themeExtend: {
+              1: [{
+                key: 'A',
+                type: 'color',
+                css: 'color'
+                // opacity: '1',
+              },{
+                key: 'A',
+                type: 'color',
+                css: 'background-color',
+                // opacity: '1',
+              }],
+              2: [{
+                key: 'A',
+                type: 'color',
+                // opacity: '1',
+              }],
+        
+            },
             extendProps:{
               isCurrent: false, // 当前选中的
               isLocked: false,  // 当前元素是否锁定（move）,

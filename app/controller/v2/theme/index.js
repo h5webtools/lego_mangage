@@ -28,10 +28,10 @@ const PAGE_ID_NOT_EXIST = 810011;       // 活动页面不存在
 
 class ThemeController extends Controller {
 
-  async getLegoThemeColor() {
+  async getLegoThemeStyle() {
     this.ctx.logger.info('获取乐高颜色主题配置');
     try {
-      let themeList = await this.service.lego.legoService.queryThemeList();
+      let themeList = await this.service.lego.legoV2Service.queryThemeList();
       this.ctx.body = {
         code: 0,
         data: {
@@ -39,7 +39,7 @@ class ThemeController extends Controller {
         }
       }
     } catch(e) {
-      this.ctx.logger.info('获取乐高颜色主题配置失败'+ e.message());
+      this.ctx.logger.info('获取乐高颜色主题配置失败'+ e.message);
       this.ctx.body = {
         code: QUERY_DATABASE_FAILED,
         msg: e.message()
