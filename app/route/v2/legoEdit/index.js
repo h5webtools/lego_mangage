@@ -11,6 +11,5 @@ module.exports = app => {
   const version = 'v2'
   const routerPrefix = '/' + version
   // app.router.get(routerPrefix , controller[version].lego.home.index);
-  app.router.redirect(routerPrefix, routerPrefix +  '/lego', 302);
-
+  app.router.get(routerPrefix +  '/legoEdit', controller[version].legoEdit.index.index);
 };
