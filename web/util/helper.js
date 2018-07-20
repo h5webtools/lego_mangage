@@ -14,8 +14,8 @@ export function parseMemberValue(str = '') {
   return str.split(',');
 }
 
-export function  getUrlKey(name){
-  return decodeURIComponent((new RegExp('[?|&]'+name+'='+'([^&;]+?)(&|#|;|$)').exec(location.href)||[,""])[1].replace(/\+/g,'%20'))||null;
+export function getUrlKey(name) {
+  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.href) || [, ""])[1].replace(/\+/g, '%20')) || null;
 }
 /**
  * 根据索引位置修改数据
@@ -26,18 +26,18 @@ export function  getUrlKey(name){
 export function setPageData(levelIndex, obj, changeData) {
   var index = levelIndex.shift()
   if (!obj[index]) {
-      obj[index] = {
-        children: {}
-      }
+    obj[index] = {
+      children: {}
+    }
   }
   if (!obj[index].children) {
-      obj[index].children = {}
+    obj[index].children = {}
   }
 
   if (levelIndex.length) {
     setPageData(levelIndex, obj[index].children, changeData)
   } else {
-      obj[index].children = changeData
+    obj[index].children = changeData
   }
 
   // a = [{children: [{a: 2}, {b: 2, children: [{test: 1}, {test2: 3}]}]}]
@@ -52,9 +52,9 @@ export function setPageData(levelIndex, obj, changeData) {
  */
 export function setPageDataItemByKey(levelIndex, obj, changeData) {
   var index = levelIndex.shift()
-/*   if (!obj[index]) {
-      obj[index] = {}
-  } */
+  /*   if (!obj[index]) {
+        obj[index] = {}
+    } */
 
   if (levelIndex.length) {
     setPageDataItemByKey(levelIndex, obj[index], changeData)
@@ -73,47 +73,79 @@ export function setPageDataItemByKey(levelIndex, obj, changeData) {
  */
 export function setUuid(item, index, level, levelIndex, sbilingItem) {
   // 
-  if(item.component_type === 0 || !item.component_type) {
-    if(!item.props.uuid) {
+  if (item.component_type === 0 || !item.component_type) {
+    if (!item.props.uuid) {
       item.props.uuid = '' + levelIndex + '-' + index
     }
-    if(!item.props.topUuid) {
+    if (!item.props.topUuid) {
       item.props.topUuid = '' + levelIndex
     }
   }
-  if(item.component_type === 1) {
-    if(!item.props.data.uuid) {
-      item.props.data.uuid = '' + levelIndex + '-' +  index
+  if (item.component_type === 1) {
+    if (!item.props.data.uuid) {
+      item.props.data.uuid = '' + levelIndex + '-' + index
     }
-    if(!item.props.data.topUuid) {
+    if (!item.props.data.topUuid) {
       item.props.data.topUuid = '' + levelIndex
     }
-    if(item.props.data.children) {
+    if (item.props.data.children) {
       item.props.data.children((child, childIndex) => {
-         setUuid(child, childIndex, level + 1, '' + levelIndex + '-' +  childIndex, item.props.data.children)
+        setUuid(child, childIndex, level + 1, '' + levelIndex + '-' + childIndex, item.props.data.children)
       })
       item.children = item.props.data.children
     }
-    
+
   }
 }
 
 
 export function updatePageItemThemeStyle(data, currentThemeStyle) {
   data.forEach(item => {
-    if(item.themeExtend) {
+    if (item.themeExtend) {
       // 当前主题下的哪个配色 (主题style目前只有color， 但用于组件的字体色和背景色)
       const themeExtendStyleOne = item.themeExtend[currentThemeStyle.t_theme_id]
-      if(themeExtendStyleOne) {
-        if(!item.props.originStyles) item.props.originStyles= {}
+      if (themeExtendStyleOne) {
+        if (!item.props.originStyles) item.props.originStyles = {}
         themeExtendStyleOne.forEach(styleItem => {
-          // 渐变和opacity todo
-          item.props.originStyles[styleItem.css] = currentThemeStyle.config[styleItem.key][styleItem.type]
+          const cssValue = currentThemeStyle.config[styleItem.key][styleItem.type];
+
+          if (cssValue) {
+            debugger
+
+            // 渐变和opacity todo 还有兼容性写法
+            if (styleItem.opacity && (['background-color', 'color'].indexOf(styleItem.cssKey) !== -1 )) {
+              // filter:alpha(opacity=50);  //filter 过滤器   兼容IE678
+              // item.props.originStyles['filter'] = `alpha(opacity=${cssValue * 100})`;
+              item.props.originStyles[styleItem.cssKey] = `rgba(${hex2RGB(cssValue)},${styleItem.opacity})`
+            } else if (styleItem.gradient) {
+
+            } else {
+              item.props.originStyles[styleItem.cssKey] = cssValue;
+            }
+
+          }
+
         })
       }
     }
-    if(item.children && item.children.length > 1) {
+    if (item.children && item.children.length > 1) {
       updatePageItemThemeStyle(item.children, currentTheme)
     }
   });
+}
+
+export function hex2RGB(color){
+  if(color.substr(0,1)=="#")color=color.substring(1);
+  if(color.length!=6)return alert("请输入正确的十六进制颜色码！");
+  color=color.toLowerCase()
+  var b=new Array();
+  var x;
+  for(x=0;x<3;x++){
+      b[0] = color.substr(x*2, 2);
+      b[1] = b[0].substr(0, 1);
+      b[2] = b[0].substr(1, 1);
+      b[3] = "0123456789abcdef";
+      b[20+x] = b[3].indexOf(b[1])*16+b[3].indexOf(b[2])
+  }
+  return b[20]+","+b[21]+","+b[22];
 }

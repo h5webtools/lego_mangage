@@ -326,16 +326,16 @@ const getters = {
             name: '按钮',
             tag: 'lego-button',
             themeExtend: {
-              1: [{
+              1: [/* {
                 key: 'A',
                 type: 'color',
-                css: 'color'
+                cssKey: 'color'
                 // opacity: '1',
-              },{
-                key: 'A',
+              }, */{
+                key: 'B',
                 type: 'color',
-                css: 'background-color',
-                // opacity: '1',
+                cssKey: 'background-color',
+                opacity: '0.3'
               }],
               2: [{
                 key: 'A',
