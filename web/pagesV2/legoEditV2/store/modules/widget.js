@@ -473,7 +473,7 @@ const getters = {
               eventId:"",
               className: 'test test222',
               originStyles: {
-                'background-color': 'red'
+                'background-color': null
               },
               eventType: ''
             }

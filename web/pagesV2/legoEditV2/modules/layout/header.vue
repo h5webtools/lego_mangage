@@ -85,16 +85,17 @@ export default {
       rightWhite: rightWhite,
       loading: true,
       userName: window.userInfo.userName,
-      currentThemeStyle: {
-        config: {}
-      },
+      // currentThemeStyle: {
+      //   config: {}
+      // },
       themeStyle: [],
       currentThemeId: -1,
     };
   },
   computed: {
     ...mapGetters({
-      activeIndex: 'editor/menuActiveIndex'
+      activeIndex: 'editor/menuActiveIndex',
+      currentThemeStyle: 'editor/currentThemeStyle'
     })
   },
   created() {
@@ -107,18 +108,21 @@ export default {
           json.data.theme_list.forEach(item => {
             item.config = JSON.parse(item.config)
           });
-          this.themeStyle = json.data.theme_list
-          this.currentThemeStyle = json.data.theme_list[0]
+          this.themeStyle = json.data.theme_list;
+          
+          if(!this.currentThemeStyle.t_theme_style_id) {
+            this.$store.dispatch("editor/setCurrentThemeStyle", json.data.theme_list[0]);
+          }
         } 
       })
     },
     pickerThemeItem(type, item) {
-      debugger
-      this.currentThemeStyle = item;
-      // 根据对应主题设置 pageData 的 对应位置的 originStyles
 
+      this.$store.dispatch("editor/setCurrentThemeStyle", item);
+
+      // 根据对应主题设置 pageData 的 对应位置的 originStyles
       this.$store.dispatch("editor/updatePageItemThemeStyle", {
-        currentTheme: this.currentThemeStyle
+        currentTheme: item
       });
     }
   }

@@ -8,8 +8,6 @@ import typeOf from '@jyb/lib-type-of';
 import stringifyObject from '@/util/stringify';
 import * as queryString from '@/util/querystring';
 import {setPageData, setPageDataItemByKey, updatePageItemThemeStyle} from '@/util/helper'
-import vStore from '../index';
-import Vue from 'vue'
 
 
 // { tag: '', props: {}, children: [] }
@@ -48,39 +46,35 @@ const initialState = {
   currentComponent: { // 当前组件
     model: {}
   },
-  layer: { // 层
-    visible: false,
-    style: {},
-    definition: {}
-  },
+  currentThemeStyle: {
+    config: {}
+  },  
   menuActiveIndex: 'layout',
   isRegisterComponent: false  
-
 };
 
 // getters
 const getters = {
   pageData: state => state.pageData,
   currentComponent: state => state.currentComponent,
-  layerData: state => state.layer,
   menuActiveIndex: state => state.menuActiveIndex,
+  currentThemeStyle: state => state.currentThemeStyle,
   isRegisterComponent: state => state.isRegisterComponent
 };
 
-const updateLayer = util.debounce(({ commit, state }) => {
-  commit('updateLayer', {
-    style: util.getClientRect(state.currentComponent.elm)
-  });
-}, 100);
 
 // actions
 const actions = {
-  // 更新对应位置上的item
+  // 更新对应index位置上的item(整个替换包括children)
   updatePage({ commit }, result) {
     commit('updatePage', result);
   },
   setCurrentComponent({ commit }, result) {
     commit('setCurrentComponent', result);
+  },
+
+  setCurrentThemeStyle({ commit }, result) {
+    commit('setCurrentThemeStyle', result);
   },
   
   // 更新当前组件的某个key
@@ -124,6 +118,10 @@ const mutations = {
   },
   setCurrentComponent(state, result) {
     state.currentComponent = result;
+  },
+
+  setCurrentThemeStyle(state, result) {
+    state.currentThemeStyle = result;
   },
   updateModelValue(state, data) {
     const { key, value } = data;

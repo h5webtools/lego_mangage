@@ -1,4 +1,5 @@
 import {setUuid} from '@/util/helper'
+import { mapGetters } from 'vuex';
 
 export default {
     model: {
@@ -22,10 +23,14 @@ export default {
             default: "0"
         }
     },
+    computed: {
+        ...mapGetters({
+          currentThemeStyle: 'editor/currentThemeStyle'
+        })
+      },
     data() {
         return {
             currentListData: this.listData,
-
             style: {
                 // "min-height": "80px",
                 // background: "red",
@@ -63,6 +68,9 @@ export default {
     },
     methods: {
         onChoose(item, event) {
+            // TODO 深层的例如button 点击还未阻止
+            event.stopPropagation();
+            event.preventDefault();
             const self = this;
             setTimeout(function () {
                 console.log(item, 'chooseitem')
@@ -72,21 +80,13 @@ export default {
             }, 50);
         },
         onAdd(item, event) {
-            // const currentItem = item[event.newIndex];
-            setUuid(item[event.newIndex], event.newIndex, this.level, this.levelIndex, item)
-            // this.$store.dispatch('editor/updateModelValue', { key: k, value: val });
-            // 遍历修改这个值中的uuid属性
+            setUuid(item[event.newIndex], event.newIndex, this.level, this.levelIndex, item, this.currentThemeStyle)
+      
             this.updatePage(item)
-            /*       this.$store.dispatch("editor/updatePage", {
-                    levelIndex: this.levelIndex,
-                    data: item
-                  }); */
-
         },
         onEnd(item, event) {
         },
         onRemove(item = [], event) {
-            debugger
             this.updatePage(item)
         },
         onSort(item, event) {
@@ -97,7 +97,7 @@ export default {
                 return false;
             }
         },
-
+        
         updatePage(item) {
             this.$store.dispatch("editor/updatePage", {
                 levelIndex: this.levelIndex,
