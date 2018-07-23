@@ -55,14 +55,10 @@ export default {
     },
     watch: {
         listData(newVal, oldVal) {
-            this.currentListData = this.listData;
+            this.currentListData = JSON.parse(JSON.stringify(newVal));
         },
-        currentListData(newVal, oldVal) {
-            // this.$store.dispatch("editor/updatePage", {
-            //   levelIndex: this.levelIndex,
-            //   data: newVal
-            // });
-        }
+/*      currentListData(newVal, oldVal) {
+        } */
     },
     created: function () {
     },

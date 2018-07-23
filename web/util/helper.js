@@ -72,7 +72,6 @@ export function setPageDataItemByKey(levelIndex, obj, changeData) {
  * component_type: 1 是业务组件，需要遍历下级的uuid的组件
  */
 export function setUuid(item, index, level, levelIndex, sbilingItem, currentThemeStyle) {
-  debugger
   changeOneItemThemeExtend(item, currentThemeStyle)
   // 
   if (item.component_type === 0 || !item.component_type) {
@@ -90,8 +89,6 @@ export function setUuid(item, index, level, levelIndex, sbilingItem, currentThem
     if (!item.props.data.topUuid) {
       item.props.data.topUuid = '' + levelIndex
     }
-    debugger
-
 
     if (item.props.data.children) {
       item.props.data.children((child, childIndex) => {
@@ -110,33 +107,8 @@ export function setUuid(item, index, level, levelIndex, sbilingItem, currentThem
  */
 export function updatePageItemThemeStyle(data, currentThemeStyle) {
   data.forEach(item => {
-    changeOneItemThemeExtend(item, currentThemeStyle)
- /*    if (item.themeExtend) {
-      // 当前主题下的哪个配色 (主题style目前只有color， 但用于组件的字体色和背景色)
-      const themeExtendStyleOne = item.themeExtend[currentThemeStyle.t_theme_id]
-      if (themeExtendStyleOne) {
-        if (!item.props.originStyles) item.props.originStyles = {}
-        themeExtendStyleOne.forEach(styleItem => {
-          const cssValue = currentThemeStyle.config[styleItem.key][styleItem.type];
+    changeOneItemThemeExtend(item, currentThemeStyle);
 
-          if (cssValue) {
-
-            // 渐变和opacity todo 还有兼容性写法
-            if (styleItem.opacity && (['background-color', 'color'].indexOf(styleItem.cssKey) !== -1)) {
-              // filter:alpha(opacity=50);  //filter 过滤器   兼容IE678
-              // item.props.originStyles['filter'] = `alpha(opacity=${cssValue * 100})`;
-              item.props.originStyles[styleItem.cssKey] = `rgba(${hex2RGB(cssValue)},${styleItem.opacity})`
-            } else if (styleItem.gradient) {
-
-            } else {
-              item.props.originStyles[styleItem.cssKey] = cssValue;
-            }
-
-          }
-
-        })
-      }
-    } */
     if (item.children && item.children.length > 1) {
       updatePageItemThemeStyle(item.children, currentTheme)
     }
@@ -144,6 +116,7 @@ export function updatePageItemThemeStyle(data, currentThemeStyle) {
 }
 
 export function changeOneItemThemeExtend(item, currentThemeStyle) {
+  debugger
   if (item.themeExtend) {
     // 当前主题下的哪个配色 (主题style目前只有color， 但用于组件的字体色和背景色)
     const themeExtendStyleOne = item.themeExtend[currentThemeStyle.t_theme_id]
