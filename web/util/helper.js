@@ -96,8 +96,14 @@ export function setUuid(item, index, level, levelIndex, sbilingItem, currentThem
       })
       item.children = item.props.data.children
     }
-
+  } else {
+    // 否则还需要遍历 item.children 下的themeExtend数据
+    if (item.children && item.children.length > 1) {
+      updatePageItemThemeStyle(item.children, currentThemeStyle)
+    }
   }
+
+
 }
 
 /**
@@ -110,13 +116,12 @@ export function updatePageItemThemeStyle(data, currentThemeStyle) {
     changeOneItemThemeExtend(item, currentThemeStyle);
 
     if (item.children && item.children.length > 1) {
-      updatePageItemThemeStyle(item.children, currentTheme)
+      updatePageItemThemeStyle(item.children, currentThemeStyle)
     }
   });
 }
 
 export function changeOneItemThemeExtend(item, currentThemeStyle) {
-  debugger
   if (item.themeExtend) {
     // 当前主题下的哪个配色 (主题style目前只有color， 但用于组件的字体色和背景色)
     const themeExtendStyleOne = item.themeExtend[currentThemeStyle.t_theme_id]
