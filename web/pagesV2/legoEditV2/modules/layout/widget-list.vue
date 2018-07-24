@@ -19,7 +19,7 @@
                     {{element.label_type}}
                 </li> -->
                   <editor-widget
-                    v-for="(widget, index) in item.widgets"
+                    v-for="(widget, index) in item.widgetList"
                     :key="index"
                     :widget="widget">
                       <div slot="widget">

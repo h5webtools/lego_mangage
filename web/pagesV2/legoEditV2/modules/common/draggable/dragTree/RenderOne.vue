@@ -5,7 +5,7 @@
         
          <div v-for="(item, index) in currentListData" :key="levelIndex + '-' + index" class="dragItem" :style="style">
 
-            <div  :key="levelIndex + '-' + index "  v-bind="item.props" :uuid="levelIndex + '-' + index" class="tree-collapse" :class="item.extendProps.isFolded ? 'packup' : 'unfold'">
+            <div  :key="levelIndex + '-' + index "  v-bind="item.com_config" :uuid="levelIndex + '-' + index" class="tree-collapse" :class="item.extendProps.isFolded ? 'packup' : 'unfold'">
               <div class="tree-collapse_operate" >
                  <span class="label">             
                    <span class="packup-icon" @click="updateItemFold(item)"  v-show="item.children &&item.children.length > 0"></span>

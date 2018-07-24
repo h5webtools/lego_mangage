@@ -76,15 +76,6 @@ export default {
       widgetList: "widget/widgetList",
       currentComponent: "editor/currentComponent"
     }),
-    codeString() {
-      return `return ${stringifyObject(
-        this.codeSnippet[this.currentComponent.uid] || {},
-        {
-          indent: "  ",
-          singleQuotes: false
-        }
-      )}`;
-    }
   },
   created() {
 
@@ -99,9 +90,9 @@ export default {
 </script>
 
 <style lang="scss" >
-.layout {
-  // height: calc(100% - 60px);
-}
+/* .layout {
+  height: calc(100% - 60px);
+} */
 
 .layout__aside-left {
   border-right: 1px solid #ebeef5;

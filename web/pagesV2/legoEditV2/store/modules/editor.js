@@ -62,7 +62,6 @@ const getters = {
   isRegisterComponent: state => state.isRegisterComponent
 };
 
-
 // actions
 const actions = {
   // 更新对应index位置上的item(整个替换包括children)

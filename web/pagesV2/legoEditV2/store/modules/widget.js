@@ -6,21 +6,22 @@
 // initial state
 const initialState = {
   widgetType: [],
-  widgets: [],
-  detail: {}
+  widgetList: [],
+  detail: {},
+  widgetList: []
 };
 
 // getters
 const getters = {
-  // widgetList: state => state.widgetList
-   widgetList: (state) => {
+  widgetList: state => state.widgetList
+ /*   widgetList: (state) => {
     // mock 数据
     return [
       {
         type: 'form',
         uuid: '2222223s',
         title: '通用组件',
-        widgets: [{
+        widgetList: [{
             com_id: '1',
             thumb: 'http://localhost:7002/public/images/top_banner@2x.png',
             name: '头图Banner',
@@ -62,7 +63,7 @@ const getters = {
                 desc: '表单域标签的宽度'
               }
             },
-            props: {
+            com_config: {
               disabled: false,
               styles: {
 
@@ -113,7 +114,7 @@ const getters = {
                 desc: '表单域标签的宽度'
               }
             },
-            props: {
+            com_config: {
               disabled: false,
               styles: {
 
@@ -163,7 +164,7 @@ const getters = {
                 desc: '表单域标签的宽度'
               }
             },
-            props: {
+            com_config: {
               disabled: false,
               styles: {
 
@@ -213,7 +214,7 @@ const getters = {
                 desc: '表单域标签的宽度'
               }
             },
-            props: {
+            com_config: {
               disabled: false,
               styles: {
 
@@ -263,7 +264,7 @@ const getters = {
                 desc: '表单域标签的宽度'
               }
             },
-            props: {
+            com_config: {
               disabled: false,
               styles: {
 
@@ -313,7 +314,7 @@ const getters = {
                 desc: '表单域标签的宽度'
               }
             },
-            props: {
+            com_config: {
               disabled: false,
               styles: {
 
@@ -327,12 +328,7 @@ const getters = {
             name: '按钮',
             tag: 'lego-button',
             themeExtend: {
-              1: [/* {
-                key: 'A',
-                type: 'color',
-                cssKey: 'color'
-                // opacity: '1',
-              }, */{
+              1: [{
                 key: 'B',
                 type: 'color',
                 cssKey: 'background-color',
@@ -461,7 +457,7 @@ const getters = {
                 desc: "编辑样式"
               }
             },
-            props: {
+            com_config: {
               uuid: "1",
               disabled: false,
               styles: {},
@@ -520,7 +516,7 @@ const getters = {
                 desc: '表单域标签的宽度'
               }
             },
-            props: {
+            com_config: {
               disabled: false,
               styles: {
 
@@ -542,7 +538,7 @@ const getters = {
             children: [],
             model: {
             },
-            props:{
+            com_config:{
 
             }
           },
@@ -560,7 +556,7 @@ const getters = {
             children: [],
             model: {
             },
-            props:{
+            com_config:{
 
             }
           }
@@ -570,7 +566,7 @@ const getters = {
         type: 'base',
         uuid: '2222222223s',
         title: '活动组件',
-        widgets: [{
+        widgetList: [{
           com_id: '21',
           thumb: 'http://localhost:7002/public/images/product_main@2x.png',
           name: '主推商品',
@@ -612,7 +608,7 @@ const getters = {
               desc: '表单域标签的宽度'
             }
           },
-          props: {
+          com_config: {
             disabled: false,
             styles: {
 
@@ -662,7 +658,7 @@ const getters = {
               desc: '表单域标签的宽度'
             }
           },
-          props: {
+          com_config: {
             disabled: false,
             styles: {
 
@@ -712,7 +708,7 @@ const getters = {
               desc: '表单域标签的宽度'
             }
           },
-          props: {
+          com_config: {
             disabled: false,
             styles: {
 
@@ -762,7 +758,7 @@ const getters = {
               desc: '表单域标签的宽度'
             }
           },
-          props: {
+          com_config: {
             disabled: false,
             styles: {
 
@@ -812,7 +808,7 @@ const getters = {
               desc: '表单域标签的宽度'
             }
           },
-          props: {
+          com_config: {
             disabled: false,
             styles: {
 
@@ -862,7 +858,7 @@ const getters = {
               desc: '表单域标签的宽度'
             }
           },
-          props: {
+          com_config: {
             disabled: false,
             styles: {
 
@@ -912,7 +908,7 @@ const getters = {
               desc: '表单域标签的宽度'
             }
           },
-          props: {
+          com_config: {
             disabled: false,
             styles: {
 
@@ -962,7 +958,7 @@ const getters = {
               desc: '表单域标签的宽度'
             }
           },
-          props: {
+          com_config: {
             disabled: false,
             styles: {
 
@@ -1012,7 +1008,7 @@ const getters = {
               desc: '表单域标签的宽度'
             }
           },
-          props: {
+          com_config: {
             disabled: false,
             styles: {
 
@@ -1062,7 +1058,7 @@ const getters = {
               desc: '表单域标签的宽度'
             }
           },
-          props: {
+          com_config: {
             disabled: false,
             styles: {
 
@@ -1112,7 +1108,7 @@ const getters = {
               desc: '表单域标签的宽度'
             }
           },
-          props: {
+          com_config: {
             disabled: false,
             styles: {
 
@@ -1162,7 +1158,7 @@ const getters = {
               desc: '表单域标签的宽度'
             }
           },
-          props: {
+          com_config: {
             disabled: false,
             styles: {
 
@@ -1178,7 +1174,7 @@ const getters = {
         type: 'base',
         uuid: '2222222223s',
         title: '推广',
-        widgets: [
+        widgetList: [
           {
             com_id: '31',
             thumb: 'http://localhost:7002/public/images/register@2x.png',
@@ -1221,7 +1217,7 @@ const getters = {
                 desc: '表单域标签的宽度'
               }
             },
-            props: {
+            com_config: {
               disabled: false,
               styles: {
 
@@ -1271,7 +1267,7 @@ const getters = {
                 desc: '表单域标签的宽度'
               }
             },
-            props: {
+            com_config: {
               disabled: false,
               styles: {
 
@@ -1284,20 +1280,19 @@ const getters = {
       }
 
     ]
-  } 
+  }  */
 };
 
 // actions
 const actions = {
   setWidgetList({ commit }, result) {
-    commit('setWidgetList', result);
+    commit('setWidgetList', JSON.parse(JSON.stringify(result)));
   }
 };
 
 // mutations
 const mutations = {
   setWidgetList(state, result) {
-    debugger
     state.widgetList = result;
   }
 };
