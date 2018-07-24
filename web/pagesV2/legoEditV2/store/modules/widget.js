@@ -12,7 +12,8 @@ const initialState = {
 
 // getters
 const getters = {
-  widgetList: (state) => {
+  // widgetList: state => state.widgetList
+   widgetList: (state) => {
     // mock 数据
     return [
       {
@@ -20,7 +21,7 @@ const getters = {
         uuid: '2222223s',
         title: '通用组件',
         widgets: [{
-            c_id: '1',
+            com_id: '1',
             thumb: 'http://localhost:7002/public/images/top_banner@2x.png',
             name: '头图Banner',
             tag: 'lego-button',
@@ -71,7 +72,7 @@ const getters = {
             },
           },
           {
-            c_id: '2',
+            com_id: '2',
             thumb: 'http://localhost:7002/public/images/jump@2x.png',
             name: '跳转组件',
             tag: 'lego-button',
@@ -121,7 +122,7 @@ const getters = {
               labelWidth: ''
             },
           }, {
-            c_id: '3',
+            com_id: '3',
             thumb: 'http://localhost:7002/public/images/tab@2x.png',
             name: 'Tab切换',
             tag: 'lego-button',
@@ -171,7 +172,7 @@ const getters = {
               labelWidth: ''
             },
           }, {
-            c_id: '4',
+            com_id: '4',
             thumb: 'http://localhost:7002/public/images/desc_text@2x.png',
             name: '说明文字',
             tag: 'lego-button',
@@ -221,7 +222,7 @@ const getters = {
               labelWidth: ''
             },
           }, {
-            c_id: '5',
+            com_id: '5',
             thumb: 'http://localhost:7002/public/images/rule_desc@2x.png',
             name: '规则说明',
             tag: 'lego-button',
@@ -271,7 +272,7 @@ const getters = {
               labelWidth: ''
             },
           }, {
-            c_id: '6',
+            com_id: '6',
             thumb: 'http://localhost:7002/public/images/rule_activity.png',
             name: '活动规则',
             tag: 'lego-button',
@@ -321,7 +322,7 @@ const getters = {
               labelWidth: ''
             },
           }, {
-            c_id: '7',
+            com_id: '7',
             thumb: 'http://localhost:7002/public/images/button@2x.png',
             name: '按钮',
             tag: 'lego-button',
@@ -478,7 +479,7 @@ const getters = {
               eventType: ''
             }
           },{
-            c_id: '8',
+            com_id: '8',
             thumb: 'http://localhost:7002/public/images/number@2x.png',
             name: '数字组件',
             tag: 'lego-button',
@@ -528,7 +529,7 @@ const getters = {
               labelWidth: ''
             },
           },{
-            c_id: '1222434331',
+            com_id: '1222434331',
             name: 'row测试',
             thumb: 'http://localhost:7002/public/images/product_main@2x.png',
             tag: 'lego-row',
@@ -546,7 +547,7 @@ const getters = {
             }
           },
           {
-            c_id: '1222434332',
+            com_id: '1222434332',
             name: 'col测试',
             thumb: 'http://localhost:7002/public/images/product_main@2x.png',
             tag: 'lego-col',
@@ -570,7 +571,7 @@ const getters = {
         uuid: '2222222223s',
         title: '活动组件',
         widgets: [{
-          c_id: '21',
+          com_id: '21',
           thumb: 'http://localhost:7002/public/images/product_main@2x.png',
           name: '主推商品',
           tag: 'lego-button',
@@ -620,7 +621,7 @@ const getters = {
             labelWidth: ''
           },
         },{
-          c_id: '22',
+          com_id: '22',
           thumb: 'http://localhost:7002/public/images/product1@2x.png',
           name: '商品列表1',
           tag: 'lego-button',
@@ -670,7 +671,7 @@ const getters = {
             labelWidth: ''
           },
         },{
-          c_id: '23',
+          com_id: '23',
           thumb: 'http://localhost:7002/public/images/product2@2x.png',
           name: '商品列表2',
           tag: 'lego-button',
@@ -720,7 +721,7 @@ const getters = {
             labelWidth: ''
           },
         },{
-          c_id: '24',
+          com_id: '24',
           thumb: 'http://localhost:7002/public/images/financial@2x.png',
           name: '理财组件',
           tag: 'lego-button',
@@ -770,7 +771,7 @@ const getters = {
             labelWidth: ''
           },
         },{
-          c_id: '25',
+          com_id: '25',
           thumb: 'http://localhost:7002/public/images/exchange@2x.png',
           name: '兑换组件',
           tag: 'lego-button',
@@ -820,7 +821,7 @@ const getters = {
             labelWidth: ''
           },
         },{
-          c_id: '26',
+          com_id: '26',
           thumb: 'http://localhost:7002/public/images/task_list@2x.png',
           name: '任务列表',
           tag: 'lego-button',
@@ -870,7 +871,7 @@ const getters = {
             labelWidth: ''
           },
         },{
-          c_id: '27',
+          com_id: '27',
           thumb: 'http://localhost:7002/public/images/number@2x.png',
           name: '表格',
           tag: 'lego-button',
@@ -920,7 +921,7 @@ const getters = {
             labelWidth: ''
           },
         },{
-          c_id: '28',
+          com_id: '28',
           thumb: 'http://localhost:7002/public/images/attendance@2x.png',
           name: '签到组件',
           tag: 'lego-button',
@@ -970,7 +971,7 @@ const getters = {
             labelWidth: ''
           },
         },{
-          c_id: '29',
+          com_id: '29',
           thumb: 'http://localhost:7002/public/images/leaderboard@2x.png',
           name: '排行榜',
           tag: 'lego-button',
@@ -1020,7 +1021,7 @@ const getters = {
             labelWidth: ''
           },
         },{
-          c_id: '210',
+          com_id: '210',
           thumb: 'http://localhost:7002/public/images/dynamic@2x.png',
           name: '动态组件',
           tag: 'lego-button',
@@ -1070,7 +1071,7 @@ const getters = {
             labelWidth: ''
           },
         },{
-          c_id: '211',
+          com_id: '211',
           thumb: 'http://localhost:7002/public/images/title@2x.png',
           name: '标题组件',
           tag: 'lego-button',
@@ -1120,7 +1121,7 @@ const getters = {
             labelWidth: ''
           },
         },{
-          c_id: '212',
+          com_id: '212',
           thumb: 'http://localhost:7002/public/images/ninebox@2x.png',
           name: '九宫格',
           tag: 'lego-button',
@@ -1179,7 +1180,7 @@ const getters = {
         title: '推广',
         widgets: [
           {
-            c_id: '31',
+            com_id: '31',
             thumb: 'http://localhost:7002/public/images/register@2x.png',
             name: '注册组件',
             tag: 'lego-button',
@@ -1229,7 +1230,7 @@ const getters = {
               labelWidth: ''
             },
           },{
-            c_id: '32',
+            com_id: '32',
             thumb: 'http://localhost:7002/public/images/pay@2x.png',
             name: '支付组件',
             tag: 'lego-button',
@@ -1283,20 +1284,21 @@ const getters = {
       }
 
     ]
-  }
+  } 
 };
 
 // actions
 const actions = {
-  getWidgetList({ commit }) {
-
+  setWidgetList({ commit }, result) {
+    commit('setWidgetList', result);
   }
 };
 
 // mutations
 const mutations = {
   setWidgetList(state, result) {
-
+    debugger
+    state.widgetList = result;
   }
 };
 

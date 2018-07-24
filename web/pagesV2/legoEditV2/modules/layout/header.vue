@@ -72,7 +72,7 @@ import * as queryString from '@/util/querystring';
 import logoImg from 'assets/img/edit/LOGO.png'
 import rightWhite from 'assets/img/edit/right-white.png'
 // import themeQuery from "apiV2/theme"
-import * as themeQuery from "../../../../api/v2/theme"
+import * as themeQuery from "apiV2/theme"
 
 console.log(themeQuery)
 export default {

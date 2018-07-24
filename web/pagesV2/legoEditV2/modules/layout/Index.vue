@@ -53,11 +53,7 @@
 import { mapGetters } from "vuex";
 import Vue from "vue";
 
-// component
 import EditorWidgetList from "./widget-list.vue";
-// import EditorWidgetLayer from './widget-layer.vue';
-// import EditorContextMenu from './context-menu.vue';
-// import EditorCodeDialog from './code-dialog.vue';
 import EditorTree from "../common/draggable/dragTree/Render.vue";
 import EditorRender from "../common/draggable/Render.vue";
 
@@ -91,15 +87,13 @@ export default {
     }
   },
   created() {
-    // const testB = require('./test.vue')
-    // const instance = Vue.component('test-b', testB);
-    // const prop = {}
-    // const a = instance.extend(prop)
+
   },
   methods: {
     handleTreeNodeClick(data) {
       this.$store.dispatch("editor/setCurrentComponent", data);
-    }
+    },
+
   }
 };
 </script>

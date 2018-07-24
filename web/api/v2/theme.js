@@ -5,7 +5,7 @@ const routerPrefix = '/' + version
 
 export function getLegoThemeStyle(data) {
   return service({
-    url: routerPrefix + '/lego/getLegoThemeStyle',
+    url: routerPrefix + '/getLegoThemeStyle',
     method: 'post',
     data
   });

@@ -12,5 +12,5 @@ module.exports = app => {
   const routerPrefix = '/' + version
 
   // 获取乐高主题色配置
-  app.router.post(routerPrefix +  '/lego/getLegoThemeStyle', controller[version].theme.index.getLegoThemeStyle);
+  app.router.post(routerPrefix +  '/getLegoThemeStyle', controller[version].theme.index.getLegoThemeStyle);
 };
