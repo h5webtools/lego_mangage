@@ -50,7 +50,8 @@ const initialState = {
     config: {}
   },  
   menuActiveIndex: 'layout',
-  isRegisterComponent: false  
+  isRegisterComponent: false,
+  registerComponentList: []
 };
 
 // getters
@@ -59,7 +60,8 @@ const getters = {
   currentComponent: state => state.currentComponent,
   menuActiveIndex: state => state.menuActiveIndex,
   currentThemeStyle: state => state.currentThemeStyle,
-  isRegisterComponent: state => state.isRegisterComponent
+  isRegisterComponent: state => state.isRegisterComponent,
+  registerComponentList: state => state.registerComponentList
 };
 
 // actions
@@ -95,7 +97,12 @@ const actions = {
   // 直接更新某个数据的多个值（包括多级的， 例如extendProps.key）
   updatePageItemThemeStyle({ commit, state }, data) {
     commit('updatePageItemThemeStyle', data);
-  }
+  },
+
+  // 增加已经注册组件的备注列表
+  addRegisterComponentItem({ commit, state }, data) {
+    commit('addRegisterComponentItem', data);
+  },
   
 };
 
@@ -103,16 +110,16 @@ const actions = {
 const mutations = {
   updatePage(state, result) {
     const { levelIndex, data } = result;
+    let currentData = JSON.parse(JSON.stringify(data))
     
     // 顶级的是直接替换全部数据， 其余的每次是替换children的值， 第一个leveindex是多余的标志量
     // console.log(JSON.stringify(result));
     if(levelIndex === 'top' || levelIndex === '0') {
-      state.pageData = data;
-      console.log(JSON.stringify(state.pageData));
+      state.pageData = currentData;
     } else {
       const indexArr = levelIndex.split('-')
       indexArr.shift();
-      setPageData(indexArr, state.pageData, data)
+      setPageData(indexArr, state.pageData, currentData)
     }
   },
   setCurrentComponent(state, result) {
@@ -149,6 +156,10 @@ const mutations = {
   updatePageItemThemeStyle(state, data) {
     const { currentTheme } = data;
     updatePageItemThemeStyle(state.pageData, currentTheme)
+  },
+
+  addRegisterComponentItem(state, data) {
+    state.registerComponentList.push(data);
   }
 
 };

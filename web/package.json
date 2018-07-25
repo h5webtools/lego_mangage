@@ -23,6 +23,7 @@
   "author": "kardel.chen@jyblife.com",
   "license": "ISC",
   "dependencies": {
+    "@jyb/lib-event-emit": "^0.2.8",
     "@jyb/lib-extend": "^0.1.9",
     "@jyb/lib-type-of": "^1.0.14",
     "@jyb/lib-util": "^0.1.17",

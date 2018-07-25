@@ -64,7 +64,7 @@ export default {
   methods: {
     handleChange() {},
     onCloneLib(element) {
-      console.log('onCloneLib', element)
+      console.log('-----------onCloneLib', element)
       // dragggable 唯一key
       return JSON.parse(JSON.stringify(element))
     },

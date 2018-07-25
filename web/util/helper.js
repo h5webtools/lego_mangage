@@ -1,6 +1,7 @@
 /**
  * helper
  */
+import Vue from "vue";
 
 export function serializeMemberValue(arr = []) {
   if (!Array.isArray(arr)) arr = [];
@@ -64,7 +65,7 @@ export function setPageDataItemByKey(levelIndex, obj, changeData) {
 }
 
 /**
- * 遍历修改这个值中的uuid属性 并整合 业务组件中prop到children
+ * 遍历修改这个值中的uuid属性 并整合 业务组件中prop到children; 以及改变themeExtend 对应值
  * @param {*} item 
  * @param {*} index  当前数据在兄弟元素中的index
  * @param {*} level  层级， 从 0 开始（数据的深度）
@@ -200,8 +201,7 @@ export function formatWidget(widgetList, componentGroupV2) {
 
       _formatWidgetStyle(formatWidget, component_group_index)
 
-      
-
+    
   })
 
   return formatWidget;
@@ -220,7 +220,24 @@ export function _formatWidgetJSON(component) {
   }
   com_config.com_id = component.com_id;
 
-  component.tag_name = 'lego-' + component.tag_name;
+  // 除component_type 0 或不存在的 都需要注册字段
+  if(!component.component_type || component.component_type === '0') {
+    // 基本组件
+    component.is_register = true;
+  } else {
+    // 通过umd安装后才能使用
+    component.is_register = false;
+  }
+
+  // 'http://localhost:7002/public/components/LegoHeadMap.js'
+  // component.fileUrl =  `http://localhost:7002/public/components/Lego${component.tag_name}.js`
+
+  // component.fileUrl =  `/public/components/Lego${component.tag_name}.js`
+  component.fileUrl =  `/public/components/headmap.js`
+  component.component_umd_name = 'Lego' + component.tag_name;
+
+  component.tag_name = 'lego-' + component.tag_name.toLowerCase();
+
   component.shows = [{
     com_desc: component.com_desc,
     com_img: component.com_img,
@@ -234,7 +251,7 @@ export function _formatWidgetJSON(component) {
     isLocked: false,  // 当前元素是否锁定（move）,
     isFolded: false  //  tree 中默认展开
   };
-  debugger
+  
   delete component.com_config
   Object.keys(com_config).forEach(key => {
     if(!component[key]) {
@@ -282,4 +299,29 @@ export function _formatWidgetStyle(formatWidget, component_group_index) {
   })
 
   delete formatWidget[component_group_index].widgetKeyList;
+}
+
+/**
+ * 远程加载组件
+ * @param {*} id 
+ * @param {*} fileUrl 
+ * @param {*} callback 
+ */
+export function loadComponents(fileUrl, callback) {
+  // var scriptTag = document.getElementById(id);
+  var oHead = document.getElementsByTagName("HEAD").item(0);
+  var oScript = document.createElement("script");
+  // if (scriptTag) oHead.removeChild(scriptTag);
+
+  // oScript.id = id;
+
+  oScript.type = "text/javascript";
+
+  oScript.src = fileUrl;
+
+  oHead.appendChild(oScript);
+
+  oScript.onload = () => {
+    callback && callback();
+  };
 }

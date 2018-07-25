@@ -77,7 +77,6 @@ export default {
         },
         onAdd(item, event) {
             setUuid(item[event.newIndex], event.newIndex, this.level, this.levelIndex, item, this.currentThemeStyle)
-      
             this.updatePage(item)
         },
         onEnd(item, event) {
@@ -86,6 +85,7 @@ export default {
             this.updatePage(item)
         },
         onSort(item, event) {
+            // 拖拽进来一个元素后也会触发一次
             this.updatePage(item)
         },
         onMove(dragContext) {
@@ -93,8 +93,12 @@ export default {
                 return false;
             }
         },
-        
-        updatePage(item) {
+        /**
+         * 
+         * @param {*} item 
+         * @param {*} validateRegister 是否要验证改组件是否注册
+         */
+        updatePage(item, validateRegister) {
             this.$store.dispatch("editor/updatePage", {
                 levelIndex: this.levelIndex,
                 data: item

@@ -1,5 +1,6 @@
 <template>
   <c-draggable  element="div" class="draggableTreeItem" v-model="currentListData" :options="dragOptions" @choose='onChoose(currentListData, $event)'  @add="onAdd(currentListData, $event)" :move="onMove" @end="onEnd(currentListData, $event)" @sort="onSort(currentListData, $event)" @remove="onRemove(currentListData, $event)">
+
       <transition-group name="no" class="list-group-design" tag="ul">
       <!-- <transition-group name="no" class="list-group-design" type="transition"> -->
         
@@ -64,9 +65,9 @@ export default {
     };
   },
   computed: {
-    // isRegisterComponent() {
-    //       return this.$store.state.editor.isRegisterComponent
-    // }
+/*     isRegisterComponent() {
+        return this.$store.state.editor.isRegisterComponent
+    } */
   },
   watch: {},
   created() {},

@@ -1,6 +1,6 @@
 import 'babel-polyfill';
 import Vue from 'vue';
-
+const EventEmit = require('@jyb/lib-event-emit');
 
 import ElementUI, { Message as $message } from 'element-ui';
 
@@ -43,6 +43,8 @@ import './index.scss';
 //   });
 // };
 
+var eventEmit = new EventEmit();
+window.GLOBALEVENTEMIT || (window.GLOBALEVENTEMIT = eventEmit);
 
 Vue.use(ElementUI);
 Vue.use(legoComponentBasic)
