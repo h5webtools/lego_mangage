@@ -95,7 +95,7 @@ export default {
         })
         .then(json => {
           if (json.code == 0) {
-            this.$store.dispatch("widget/setWidgetList", json.data.widgetList);
+            this.$store.dispatch("widget/setWidgetList", json.data);
           }
           // this.editLoading = false;
         })

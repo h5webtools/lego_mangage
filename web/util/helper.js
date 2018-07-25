@@ -150,6 +150,8 @@ export function changeOneItemThemeExtend(item, currentThemeStyle) {
   }
 }
 
+
+
 export function hex2RGB(color) {
   if (color.substr(0, 1) == "#") color = color.substring(1);
   if (color.length != 6) return alert("请输入正确的十六进制颜色码！");
@@ -164,4 +166,120 @@ export function hex2RGB(color) {
     b[20 + x] = b[3].indexOf(b[1]) * 16 + b[3].indexOf(b[2])
   }
   return b[20] + "," + b[21] + "," + b[22];
+}
+
+
+// widget 相关
+export function formatWidget(widgetList, componentGroupV2) {
+  let formatWidget = [];
+  const self = this;
+
+  Object.keys(componentGroupV2).forEach((component_group, component_group_index)  => {
+      formatWidget.push({
+        title: componentGroupV2[component_group],
+        component_group: component_group,
+        widgetList: [],
+        widgetKeyList: {}
+      })
+
+      for(let i = widgetList.length - 1; i >= 0 ; i--){
+        const widgetItem = widgetList[i];
+        // (格式化json)放入对应的组中,  并且 将 同一个com_id 的多个样式重新组装shows的键名中
+        if(component_group === widgetItem.component_group) {
+          _formatWidgetJSON(widgetItem);
+          let currentKeyList = formatWidget[component_group_index].widgetKeyList
+          if(!currentKeyList[widgetItem.com_id]) {
+            currentKeyList[widgetItem.com_id] = []
+          } 
+          currentKeyList[widgetItem.com_id].push(widgetItem)
+
+          // 将已经处理的从原widgetList 中移除， 加快遍历
+          widgetList.splice(i, 1);
+        }
+      }
+
+      _formatWidgetStyle(formatWidget, component_group_index)
+
+      
+
+  })
+
+  return formatWidget;
+
+}
+
+export function _formatWidgetJSON(component) {
+  let com_config;
+  try {
+    com_config = JSON.parse(component.com_config);
+  } catch(e) {
+    this.ctx.body = {
+      code: -1,
+      msg: e.message()
+    }
+  }
+  com_config.com_id = component.com_id;
+
+  component.tag_name = 'lego-' + component.tag_name;
+  component.shows = [{
+    com_desc: component.com_desc,
+    com_img: component.com_img,
+    tag_name: component.tag_name,
+    style_id: component.component_style_id
+  }]
+
+  // ***** 前端部分才需要的extendProps ******
+  component.extendProps = {
+    isCurrent: false, // 当前选中的
+    isLocked: false,  // 当前元素是否锁定（move）,
+    isFolded: false  //  tree 中默认展开
+  };
+  debugger
+  delete component.com_config
+  Object.keys(com_config).forEach(key => {
+    if(!component[key]) {
+      component[key] = com_config[key]
+    }
+  })
+  // component = Object.assign({}, com_config, component)
+
+}
+/**
+ *     
+   shows:[ //从数据库拉取 
+    [{
+      com_desc:'主题一 样式一1',
+      com_img:'http://lego.jyb.com/images/product3.png',
+      tag_name:'lego-headmap',
+    },{
+      com_desc:'主题一 样式二2',
+      com_img:'https://images.jyblife.com/lego/legoconfig/productlist/show.4.png',
+      tag_name:'lego-headmap',
+    }]
+  ],
+  将widgetKeyList 合并到 widgetList 
+ * @param {*} component 
+ */
+export function _formatWidgetStyle(formatWidget, component_group_index) {
+  let currentWidget = formatWidget[component_group_index];
+  Object.keys(currentWidget.widgetKeyList).forEach(com_id => {
+    if(currentWidget.widgetKeyList[com_id].length > 1) {
+      let mergerWidget = {};
+      currentWidget.widgetKeyList[com_id].forEach((styleItem, styleIndex) => {
+        
+        if (styleIndex > 0) {
+          let currentShow = JSON.parse(JSON.stringify(styleItem.shows[0]));
+          currentShow.com_config = styleItem
+          mergerWidget.shows.push(currentShow)
+        } else {
+          mergerWidget = styleItem;
+        }
+      })
+      currentWidget.widgetList.push(mergerWidget)
+    } else {
+      currentWidget.widgetList.push(currentWidget.widgetKeyList[com_id][0])
+    }
+  })
+
+  delete formatWidget[component_group_index].widgetKeyList;
 }

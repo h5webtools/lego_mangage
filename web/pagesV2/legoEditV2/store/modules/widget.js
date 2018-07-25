@@ -1,7 +1,7 @@
 /**
  * widget module
  */
-
+import {formatWidget} from '@/util/helper'
 
 // initial state
 const initialState = {
@@ -63,7 +63,7 @@ const getters = {
                 desc: '表单域标签的宽度'
               }
             },
-            com_config: {
+            props: {
               disabled: false,
               styles: {
 
@@ -114,7 +114,7 @@ const getters = {
                 desc: '表单域标签的宽度'
               }
             },
-            com_config: {
+            props: {
               disabled: false,
               styles: {
 
@@ -164,7 +164,7 @@ const getters = {
                 desc: '表单域标签的宽度'
               }
             },
-            com_config: {
+            props: {
               disabled: false,
               styles: {
 
@@ -214,7 +214,7 @@ const getters = {
                 desc: '表单域标签的宽度'
               }
             },
-            com_config: {
+            props: {
               disabled: false,
               styles: {
 
@@ -264,7 +264,7 @@ const getters = {
                 desc: '表单域标签的宽度'
               }
             },
-            com_config: {
+            props: {
               disabled: false,
               styles: {
 
@@ -314,7 +314,7 @@ const getters = {
                 desc: '表单域标签的宽度'
               }
             },
-            com_config: {
+            props: {
               disabled: false,
               styles: {
 
@@ -457,7 +457,7 @@ const getters = {
                 desc: "编辑样式"
               }
             },
-            com_config: {
+            props: {
               uuid: "1",
               disabled: false,
               styles: {},
@@ -516,7 +516,7 @@ const getters = {
                 desc: '表单域标签的宽度'
               }
             },
-            com_config: {
+            props: {
               disabled: false,
               styles: {
 
@@ -538,7 +538,7 @@ const getters = {
             children: [],
             model: {
             },
-            com_config:{
+            props:{
 
             }
           },
@@ -556,7 +556,7 @@ const getters = {
             children: [],
             model: {
             },
-            com_config:{
+            props:{
 
             }
           }
@@ -608,7 +608,7 @@ const getters = {
               desc: '表单域标签的宽度'
             }
           },
-          com_config: {
+          props: {
             disabled: false,
             styles: {
 
@@ -658,7 +658,7 @@ const getters = {
               desc: '表单域标签的宽度'
             }
           },
-          com_config: {
+          props: {
             disabled: false,
             styles: {
 
@@ -708,7 +708,7 @@ const getters = {
               desc: '表单域标签的宽度'
             }
           },
-          com_config: {
+          props: {
             disabled: false,
             styles: {
 
@@ -758,7 +758,7 @@ const getters = {
               desc: '表单域标签的宽度'
             }
           },
-          com_config: {
+          props: {
             disabled: false,
             styles: {
 
@@ -808,7 +808,7 @@ const getters = {
               desc: '表单域标签的宽度'
             }
           },
-          com_config: {
+          props: {
             disabled: false,
             styles: {
 
@@ -858,7 +858,7 @@ const getters = {
               desc: '表单域标签的宽度'
             }
           },
-          com_config: {
+          props: {
             disabled: false,
             styles: {
 
@@ -908,7 +908,7 @@ const getters = {
               desc: '表单域标签的宽度'
             }
           },
-          com_config: {
+          props: {
             disabled: false,
             styles: {
 
@@ -958,7 +958,7 @@ const getters = {
               desc: '表单域标签的宽度'
             }
           },
-          com_config: {
+          props: {
             disabled: false,
             styles: {
 
@@ -1008,7 +1008,7 @@ const getters = {
               desc: '表单域标签的宽度'
             }
           },
-          com_config: {
+          props: {
             disabled: false,
             styles: {
 
@@ -1058,7 +1058,7 @@ const getters = {
               desc: '表单域标签的宽度'
             }
           },
-          com_config: {
+          props: {
             disabled: false,
             styles: {
 
@@ -1108,7 +1108,7 @@ const getters = {
               desc: '表单域标签的宽度'
             }
           },
-          com_config: {
+          props: {
             disabled: false,
             styles: {
 
@@ -1158,7 +1158,7 @@ const getters = {
               desc: '表单域标签的宽度'
             }
           },
-          com_config: {
+          props: {
             disabled: false,
             styles: {
 
@@ -1217,7 +1217,7 @@ const getters = {
                 desc: '表单域标签的宽度'
               }
             },
-            com_config: {
+            props: {
               disabled: false,
               styles: {
 
@@ -1267,7 +1267,7 @@ const getters = {
                 desc: '表单域标签的宽度'
               }
             },
-            com_config: {
+            props: {
               disabled: false,
               styles: {
 
@@ -1293,7 +1293,10 @@ const actions = {
 // mutations
 const mutations = {
   setWidgetList(state, result) {
-    state.widgetList = result;
+    const {widgetList, componentGroup} = result
+    // 添加编辑时候的拓展属性
+    const formatResult = formatWidget(widgetList, componentGroup)
+    state.widgetList = formatResult;
   }
 };
 

@@ -4,11 +4,10 @@
       <!-- <transition-group name="no" class="list-group-design" type="transition"> -->
         
          <div v-for="(item, index) in currentListData" :key="levelIndex + '-' + index" class="dragItem" :style="style">
-           <!-- :ItemIndex=" levelIndex + '-' + index "  -->
-           <!-- {{item}} -->
+
            <template >
-            <!-- <component :is="item.tag" :key="levelIndex + '-' + index " v-bind="item.props" :uuid="levelIndex + '-' + index"> -->
-            <component :is="item.tag" :key="levelIndex + '-' + index "  v-bind="item.props" :uuid="levelIndex + '-' + index">
+         
+            <component :is="item.tag_name" :key="levelIndex + '-' + index "  v-bind="item.props" :uuid="levelIndex + '-' + index">
               <span v-html="item.props && item.props.text"></span>
 
                <c-draggable-multi 

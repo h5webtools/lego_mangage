@@ -7,30 +7,25 @@
       :name="item.title"
     >
       <div class="widget-box">
-      <!--   <editor-widget
-          v-for="widget in item.widgets"
-          :key="widget.uuid"
-          :widget="widget">
-          <el-button slot="widget" size="mini">{{widget.name}}</el-button>
-        </editor-widget> -->
-      <c-draggable  class="draggableLib"  element="div" v-model="item.widgets" :options="dragOptionsLib" :move="onMoveLib"  :clone='onCloneLib' @choose='onChooseLib'>
-            <transition-group type="transition" :name="'flip-list'" tag="ul" class="list-group">
-                <!-- <li class="list-group-item" v-for="(element, index) in formLib" :key="index">
-                    {{element.label_type}}
-                </li> -->
-                  <editor-widget
-                    v-for="(widget, index) in item.widgetList"
-                    :key="index"
-                    :widget="widget">
-                      <div slot="widget">
-                        <div class="widget-thumb">
-                          <img :src="widget.thumb" :alt="widget.name">
-                        </div>
-                        <div class="widget-name">{{widget.name}}</div>
-                      </div>
-                  </editor-widget>
-            </transition-group>
-        </c-draggable>
+
+          <c-draggable  class="draggableLib"  element="div" v-model="item.widgetList" :options="dragOptionsLib" :move="onMoveLib"  :clone='onCloneLib' @choose='onChooseLib'>
+                <transition-group type="transition" :name="'flip-list'" tag="ul" class="list-group">
+                    <!-- <li class="list-group-item" v-for="(element, index) in formLib" :key="index">
+                        {{element.label_type}}
+                    </li> -->
+                      <editor-widget
+                        v-for="(widget, index) in item.widgetList"
+                        :key="index"
+                        :widget="widget">
+                          <div slot="widget">
+                            <div class="widget-thumb">
+                              <img :src="widget.thumb" :alt="widget.name">
+                            </div>
+                            <div class="widget-name">{{widget.name}}</div>
+                          </div>
+                      </editor-widget>
+                </transition-group>
+            </c-draggable>
       </div>
     </el-collapse-item>
   </el-collapse>
@@ -69,9 +64,9 @@ export default {
   methods: {
     handleChange() {},
     onCloneLib(element) {
-        console.log('onCloneLib', element)
-        // dragggable 唯一key
-        return JSON.parse(JSON.stringify(element))
+      console.log('onCloneLib', element)
+      // dragggable 唯一key
+      return JSON.parse(JSON.stringify(element))
     },
     onMoveLib() {},
     onChooseLib() {}

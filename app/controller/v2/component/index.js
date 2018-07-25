@@ -38,11 +38,12 @@ class ComponentController extends Controller {
     try {
       let widgetList = await this.service.lego.legoV2Service.getWidgetList(rawBody);
       // 获取组件后进行数据格式化（配置的json的改变）
-      widgetList = await this._formmatWidget(widgetList);
+      // widgetList = await this._formatWidget(widgetList);
       this.ctx.body = {
         code: 0,
         data: {
-          widgetList: widgetList
+          widgetList: widgetList,
+          componentGroup: componentGroupV2
         }
       }
     } catch(e) {
@@ -54,7 +55,7 @@ class ComponentController extends Controller {
     }
   }
 
-  async _formmatWidget(widgetList) {
+  async _formatWidget(widgetList) {
     let formatWidget = [];
     const self = this;
 
