@@ -73,7 +73,8 @@ export function setPageDataItemByKey(levelIndex, obj, changeData) {
  * component_type: 1 是业务组件，需要遍历下级的uuid的组件
  */
 export function setUuid(item, index, level, levelIndex, sbilingItem, currentThemeStyle) {
-  changeOneItemThemeExtend(item, currentThemeStyle)
+  _changeOneItemThemeExtend(item, currentThemeStyle)
+  _changeOneItemExtendProp(item)
   // 
   if (item.component_type === 0 || !item.component_type) {
     if (!item.props.uuid) {
@@ -83,19 +84,20 @@ export function setUuid(item, index, level, levelIndex, sbilingItem, currentThem
       item.props.topUuid = '' + levelIndex
     }
   }
-  if (item.component_type === 1) {
-    if (!item.props.data.uuid) {
-      item.props.data.uuid = '' + levelIndex + '-' + index
+  
+  if (item.component_type === '1') {
+    if (!item.props.uuid) {
+      item.props.uuid = '' + levelIndex + '-' + index
     }
-    if (!item.props.data.topUuid) {
-      item.props.data.topUuid = '' + levelIndex
+    if (!item.props.topUuid) {
+      item.props.topUuid = '' + levelIndex
     }
 
-    if (item.props.data.children) {
-      item.props.data.children((child, childIndex) => {
-        setUuid(child, childIndex, level + 1, '' + levelIndex + '-' + childIndex, item.props.data.children)
+    if (item.props.children) {
+      item.props.children.map((child, childIndex) => {
+        setUuid(child, childIndex, level + 1, '' + levelIndex + '-' + childIndex, item.props.children, currentThemeStyle)
       })
-      item.children = item.props.data.children
+      item.children = item.props.children
     }
   } else {
     // 否则还需要遍历 item.children 下的themeExtend数据
@@ -114,7 +116,7 @@ export function setUuid(item, index, level, levelIndex, sbilingItem, currentThem
  */
 export function updatePageItemThemeStyle(data, currentThemeStyle) {
   data.forEach(item => {
-    changeOneItemThemeExtend(item, currentThemeStyle);
+    _changeOneItemThemeExtend(item, currentThemeStyle);
 
     if (item.children && item.children.length > 1) {
       updatePageItemThemeStyle(item.children, currentThemeStyle)
@@ -122,14 +124,19 @@ export function updatePageItemThemeStyle(data, currentThemeStyle) {
   });
 }
 
-export function changeOneItemThemeExtend(item, currentThemeStyle) {
+/**
+ * 遍历数据对一个item进行的数据修改
+ * @param {*} item 
+ * @param {*} currentThemeStyle 
+ */
+export function _changeOneItemThemeExtend(item, currentThemeStyle) {
   if (item.themeExtend) {
     // 当前主题下的哪个配色 (主题style目前只有color， 但用于组件的字体色和背景色)
     const themeExtendStyleOne = item.themeExtend[currentThemeStyle.t_theme_id]
     if (themeExtendStyleOne) {
       if (!item.props.originStyles) item.props.originStyles = {}
       themeExtendStyleOne.forEach(styleItem => {
-        const cssValue = currentThemeStyle.config[styleItem.key][styleItem.type];
+        const cssValue = currentThemeStyle.config[styleItem.key.toUpperCase()][styleItem.type];
 
         if (cssValue) {
 
@@ -149,6 +156,25 @@ export function changeOneItemThemeExtend(item, currentThemeStyle) {
       })
     }
   }
+}
+
+
+export function _changeOneItemExtendProp(item) {
+  if(!item.extendProps) {
+    item.extendProps = {
+      isCurrent: false, // 当前选中的
+      isLocked: false,  // 当前元素是否锁定（move）,
+      isFolded: false  //  tree 中默认展开
+    };
+  }
+}
+
+/** TODO
+ * 工厂模式拼接model
+ * @param {*} item 
+ */
+export function _changeOneItemModel(item) {
+
 }
 
 
@@ -246,11 +272,11 @@ export function _formatWidgetJSON(component) {
   }]
 
   // ***** 前端部分才需要的extendProps ******
-  component.extendProps = {
+/*   component.extendProps = {
     isCurrent: false, // 当前选中的
     isLocked: false,  // 当前元素是否锁定（move）,
     isFolded: false  //  tree 中默认展开
-  };
+  }; */
   
   delete component.com_config
   Object.keys(com_config).forEach(key => {

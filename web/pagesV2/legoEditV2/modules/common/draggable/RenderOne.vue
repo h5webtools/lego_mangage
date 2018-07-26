@@ -5,12 +5,15 @@
         
          <div v-for="(item, index) in currentListData" :key="levelIndex + '-' + index" class="dragItem" :style="style">
 
-           <template v-if="item.is_register">
+           <!-- 已经注册， 或者是直接json内部children时候直接配置基本组件不需要注册 -->
+           <template v-if="item.is_register === true || typeof item.is_register  === 'undefined' ">
          
             <component :is="item.tag_name" :key="levelIndex + '-' + index "  v-bind="item.props" :uuid="levelIndex + '-' + index">
               <span v-html="item.props && item.props.text"></span>
 
+{{item.children}}
                <c-draggable-multi 
+                slot="children"
                 v-model="item.children" 
                 :level=" level + 1 " 
                 :levelIndex="levelIndex + '-' + index" 
