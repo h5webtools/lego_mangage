@@ -17,7 +17,7 @@ class LegoV2Service extends Service {
   }
 
   async getWidgetList(data) {
-    const sql = `SELECT t_component.com_id, 
+/*     const sql = `SELECT t_component.com_id, 
 		t_component.name, 
 		t_component.tag_name,
 		t_component.component_group, 
@@ -31,8 +31,28 @@ class LegoV2Service extends Service {
 		t_theme_component_style.thumb as com_img  FROM t_component
     INNER JOIN t_theme_component_style ON t_component.com_id = t_theme_component_style.com_id
     WHERE t_theme_id = ?
-    ORDER BY  t_component.component_group ASC, t_component.priority ASC, t_component.com_id	ASC
-    `
+    ORDER BY  t_component.component_group ASC, t_component.priority ASC, t_component.com_id	ASC 
+    `*/
+    const sql = `
+    SELECT t_component.com_id, 
+		t_component.name, 
+		t_component.tag_name,
+		t_component.component_group, 
+    t_component.thumb, 
+    t_component.component_type,
+    t_theme_component_style_version.style_id as component_style_id, 
+		t_theme_component_style_version.id as component_style_version_id, 
+		t_theme_component_style_version.com_config, 
+		t_theme_component_style_version.com_desc, 
+		t_theme_component_style_version.com_js, 
+		t_theme_component_style_version.com_css, 
+    t_theme_component_style_version.thumb as com_img  FROM t_component
+    INNER JOIN t_theme_component_style ON t_component.com_id = t_theme_component_style.com_id
+    INNER JOIN t_theme_component_style_version ON t_theme_component_style.new_version_id = t_theme_component_style_version.id
+    WHERE t_theme_id = ?
+    ORDER BY  t_component.component_group ASC, t_component.priority ASC, t_component.com_id	ASC`;
+
+
     // ORDER BY  FIELD(t_component.component_group, 1, 2, 3), t_component.priority ASC
 
     let result = await this.app.mysql.get('dbLego').query(sql
