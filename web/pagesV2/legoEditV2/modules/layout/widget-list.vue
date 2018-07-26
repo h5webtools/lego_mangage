@@ -9,7 +9,7 @@
       <div class="widget-box">
 
           <c-draggable  class="draggableLib"  element="div" v-model="item.widgetList" :options="dragOptionsLib" :move="onMoveLib"  :clone='onCloneLib' @choose='onChooseLib'>
-                <transition-group type="transition" :name="'flip-list'" tag="ul" class="list-group">
+                <transition-group type="transition" :name="'flip-list'" tag="ul" class="list-group-lib">
                     <!-- <li class="list-group-item" v-for="(element, index) in formLib" :key="index">
                         {{element.label_type}}
                     </li> -->
@@ -68,8 +68,17 @@ export default {
       // dragggable 唯一key
       return JSON.parse(JSON.stringify(element))
     },
-    onMoveLib() {},
-    onChooseLib() {}
+    onMoveLib(element) {
+      if(element.to.className !== 'list-group-design') {
+        return false;
+      } else {
+        return true;
+      }
+      console.log('---onMoveLib--')
+    },
+    onChooseLib(element) {
+      console.log('---onChooseLib--')
+    }
   }
 };
 </script>
@@ -83,7 +92,7 @@ export default {
 
   .widget-box {
   padding: 24px 20px 0 22px;
-  & .list-group{
+  & .list-group-lib{
     & > .widget-single{
       & > div{
         cursor: move;
