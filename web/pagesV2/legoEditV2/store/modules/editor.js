@@ -70,6 +70,8 @@ const actions = {
   updatePage({ commit }, result) {
     commit('updatePage', result);
   },
+  
+  //  TODO  设置的时候进行model工厂化
   setCurrentComponent({ commit }, result) {
     commit('setCurrentComponent', result);
   },

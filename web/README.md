@@ -94,6 +94,12 @@
     }
 ```
 
+- model
+   - 每个item都必须有对应的model配置（如果要直接利用LegoEditProp）
+   - 内层children 的item  切记也要有对应model
+   - TODO  可以在setCurrentComponent 中工厂化model
+
+
 - themeExtend
 ```javascript
 {
@@ -111,6 +117,13 @@
         
 }
 ```
+
+- tag_name
+渲染时候的tag_name,  必须和注册组件标签一致
+
+- component_umd_name
+component.component_umd_name = 'Lego' + component.tag_name;
+必须是和挂载在window上全局变量一致
 
 - extendProps  页面编辑拓展属性
 ```javascript
