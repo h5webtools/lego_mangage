@@ -21,8 +21,8 @@
                 trigger="hover">
                 <div v-if="themeStyle.length">
                   <!-- <p>纯色主题：</p> -->
-                  <span @click="pickerThemeItem('style', item)" v-for="(item, index) in themeStyle" :key="index" class="theme-item" :style="{background: item.config.A && item.config.A.color}">
-                      <!-- <i class="el-icon-check" v-show="currentTheme.color === item.t_color"></i> -->
+                  <span @click="pickerThemeItem('style', item)" v-for="(item, index) in themeStyle" :key="index" class="theme-item" :style="{background: item.config.A && item.config.A.color}" :title="item.label">
+                   
                       <img v-show="(currentThemeStyle.config.A && currentThemeStyle.config.A.color) === (item.config.A && item.config.A.color)" :src="rightWhite" alt="" style="width：100%； height: 100%">
                   </span>
                 </div>
