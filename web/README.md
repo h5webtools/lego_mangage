@@ -133,3 +133,56 @@ component.component_umd_name = 'Lego' + component.tag_name;
         isFolded: false  //  tree 中默认展开
       }
 ```
+
+
+# 主题
+- 主题样式
+```JavaScript
+{
+  "A": {
+    "color": "#1d1d1d"
+  },
+  "B": {
+    "color": "#353333"
+  },
+  "C": {
+    "color": "#fbf5e2"
+  },
+  "D": {
+    "color": "#ffffff"
+  },
+  "E": {
+    "color": "#dfb66e"
+  },
+  "F": {
+    "color": "#2e2e2e"
+  },
+  "G": {
+    "color": "#dfb66e"
+  },
+  "H": {
+    "color": "#cccccc"
+  },
+  "I": {
+    "color": "#333333"
+  },
+  "J": {
+    "color": "#9f9f9f"
+  },
+  "K": {
+    "color": "#eeeeee"
+  },
+  "L": {
+    "color": "#ff6e34"
+  },
+  "M": {
+    "color": "#333333"
+  },
+  "N": {
+    "color": "#ab9887"
+  },
+  "O": {
+    "color": "#ffffff"
+  }
+}
+```

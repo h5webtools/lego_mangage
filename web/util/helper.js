@@ -111,7 +111,7 @@ export function setUuid(item, index, level, levelIndex, sbilingItem, currentThem
 
 /**
  * 切换主题时候遍历更改全局
- * @param {} data 
+ * @param {*} data 
  * @param {*} currentThemeStyle 
  */
 export function updatePageItemThemeStyle(data, currentThemeStyle) {

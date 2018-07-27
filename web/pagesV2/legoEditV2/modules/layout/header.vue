@@ -117,6 +117,9 @@ export default {
       })
     },
     pickerThemeItem(type, item) {
+      if(this.currentThemeStyle.t_theme_style_id === item.t_theme_style_id) {
+        return false;
+      }
 
       this.$store.dispatch("editor/setCurrentThemeStyle", item);
 

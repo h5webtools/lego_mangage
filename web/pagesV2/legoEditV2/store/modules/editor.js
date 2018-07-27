@@ -158,6 +158,7 @@ const mutations = {
   updatePageItemThemeStyle(state, data) {
     const { currentTheme } = data;
     updatePageItemThemeStyle(state.pageData, currentTheme)
+    state.pageData = JSON.parse(JSON.stringify(state.pageData))
   },
 
   addRegisterComponentItem(state, data) {
