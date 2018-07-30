@@ -19,7 +19,7 @@ export function getUrlKey(name) {
   return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.href) || [, ""])[1].replace(/\+/g, '%20')) || null;
 }
 /**
- * 根据索引位置修改数据
+ * 根据索引位置修改数据（以children 为集体进行替换）
  * @param {*} levelIndex 索引顺序（例如0-2）
  * @param {*} obj 源数据
  * @param {*} changeData  找到的位置修改为新数据 
@@ -45,8 +45,29 @@ export function setPageData(levelIndex, obj, changeData) {
   // a[0]['children'][1]['children']
 }
 
+export function getLevelPageData(levelIndex, obj) {
+  var index = levelIndex.shift()
+  if (!obj[index]) {
+    obj[index] = {
+      children: {}
+    }
+  }
+  if (!obj[index].children) {
+    obj[index].children = {}
+  }
+
+  if (levelIndex.length) {
+    return setPageData(levelIndex, obj[index].children, changeData)
+  } else {
+    return obj[index].children
+  }
+
+  // a = [{children: [{a: 2}, {b: 2, children: [{test: 1}, {test2: 3}]}]}]
+  // a[0]['children'][1]['children']
+}
+
 /**
- * 直接设置某个item的key
+ * 直接设置某单个item的key（extendProps.isLocked）
  * @param {*} levelIndex key的连续key
  * @param {*} obj 
  * @param {*} changeData 

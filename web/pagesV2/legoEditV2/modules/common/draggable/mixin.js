@@ -54,11 +54,17 @@ export default {
         };
     },
     watch: {
-        listData(newVal, oldVal) {
+/*         listData(newVal, oldVal) {
+            debugger
             this.currentListData = JSON.parse(JSON.stringify(newVal));
-        },
-/*      currentListData(newVal, oldVal) {
-        } */
+        }, */
+        listData: {
+            handler (newVal, oldVal){
+                this.currentListData = JSON.parse(JSON.stringify(newVal))
+            },
+            deep:true//对象内部的属性监听，也叫深度监听
+
+        }
     },
     created: function () {
     },
@@ -68,11 +74,16 @@ export default {
             event.stopPropagation();
             event.preventDefault();
             const self = this;
+            
             setTimeout(function () {
                 console.log(item, 'chooseitem')
                 console.log(item[event.oldIndex])
                 // self.currentChoosedItem = item[event.oldIndex];
-                self.$store.dispatch('editor/setCurrentComponent', item[event.oldIndex]);
+                self.$store.dispatch('editor/setCurrentComponent', {
+                    item: item[event.oldIndex],
+                    levelIndex: self.levelIndex,
+                    itemIndex: event.oldIndex
+                });
             }, 50);
         },
         onAdd(item, event) {

@@ -7,7 +7,7 @@ import extend from '@jyb/lib-extend';
 import typeOf from '@jyb/lib-type-of';
 import stringifyObject from '@/util/stringify';
 import * as queryString from '@/util/querystring';
-import {setPageData, setPageDataItemByKey, updatePageItemThemeStyle} from '@/util/helper'
+import {setPageData, setPageDataItemByKey, updatePageItemThemeStyle, getLevelPageData} from '@/util/helper'
 
 
 // { tag: '', props: {}, children: [] }
@@ -71,7 +71,17 @@ const actions = {
     commit('updatePage', result);
   },
   
-  //  TODO  设置的时候进行model工厂化
+  /**
+   * 
+   * @param {*} state 
+   * @param {*} result 传入对应的item 和对应位置， 方便在pageData 中快速定位
+   *  {
+          item: item[event.oldIndex],
+          levelIndex: self.levelIndex,
+          itemIndex: event.oldIndex
+      }
+   */
+  //  TODO TODO  设置的时候进行model工厂化 _changeOneItemModel
   setCurrentComponent({ commit }, result) {
     commit('setCurrentComponent', result);
   },
@@ -124,8 +134,27 @@ const mutations = {
       setPageData(indexArr, state.pageData, currentData)
     }
   },
+
   setCurrentComponent(state, result) {
-    state.currentComponent = result;
+    // item 是JSONpagedata 后的子元素
+    const {item, levelIndex, itemIndex} = result;
+
+    if(state.currentComponent.extendProps) {
+      state.currentComponent.extendProps.isCurrent = false;
+    }
+
+    let data;
+    if(levelIndex === 'top' || levelIndex === '0') {
+      data = state.pageData[itemIndex]
+    } else {
+      const indexArr = levelIndex.split('-')
+      indexArr.shift();
+      const children = getLevelPageData(indexArr, state.pageData);
+      data = children[itemIndex]
+    }
+
+    data.extendProps.isCurrent = true;
+    state.currentComponent = data;
   },
 
   setCurrentThemeStyle(state, result) {
@@ -142,8 +171,20 @@ const mutations = {
     state.isRegisterComponent = data
   },
   updateValueDirect(state, datas) {
-    const { data, update } = datas;
+    const { item: oldItem, levelIndex, itemIndex, update } = datas;
     // state.currentComponent = data;
+
+    let data;
+    
+    if(levelIndex === 'top' || levelIndex === '0') {
+      data = state.pageData[itemIndex]
+    } else {
+      const indexArr = levelIndex.split('-')
+      indexArr.shift();
+      const children = getLevelPageData(indexArr, state.pageData);
+      data = children[itemIndex]
+    }
+
     update.map(item => {
       const keys = item.key.split('.')
       if(keys.length > 1) {
