@@ -186,3 +186,152 @@ component.component_umd_name = 'Lego' + component.tag_name;
   }
 }
 ```
+
+# 组件JSON
+# row
+
+```javascript
+{
+  "com_id": "",
+  "name": "row测试",
+  "thumb": "http://localhost:7002/public/images/product_main@2x.png",
+  "tag": "lego-row",
+  "draggable": true,
+  "extendProps": {
+    "isCurrent": false,
+    "isLocked": false,
+    "isFolded": false
+  },
+  "model": {
+      gutter: {
+        cellType: "number",
+        value: 0,
+        title: "栅格间隔",
+        desc: "栅格间隔",
+        regExpress: '\\d+',
+        message: '必须为数字',
+        required: true
+      },
+      justify: {
+        cellType: "select",
+        value: "start",
+        options: [
+          {
+            label: "对齐起始位置",
+            value: "start"
+          },
+          {
+            label: "靠末端对其",
+            value: "end"
+          },{
+            label: "居中对齐",
+            value: "center"
+          },
+          {
+            label: "均匀排布",
+            value: "space-around"
+          },
+          {
+            label: "两边对齐",
+            value: "space-between"
+          }
+        ],
+        title: "水平排列方式",
+        desc: "水平排列方式"
+      },          
+      align: {
+        cellType: "select",
+        value: "top",
+        options: [
+          {
+            label: "顶部对齐",
+            value: "top"
+          },
+          {
+            label: "居中对齐",
+            value: "middle"
+          },{
+            label: "底部对齐",
+            value: "bottom"
+          }
+        ],
+        title: "垂直排列方式",
+        desc: "垂直排列方式"
+      },
+      styles: {
+        cellType: 'editorStyle',
+        value: {},
+        title: "编辑样式",
+        desc: "编辑样式"
+      }
+  },
+  "children": [],
+  "props": {          
+    justify: 'start',
+    align: 'middle',
+    type: 'flex',
+    gutter: 0,
+    styles: {},
+    originStyles: {}
+  }
+}
+```
+
+# col
+
+```javascript
+
+{
+  "com_id": "",
+  "name": "col测试",
+  "thumb": "http://localhost:7002/public/images/product_main@2x.png",
+  "tag": "lego-col",
+  "draggable": true,
+  "extendProps": {
+    "isCurrent": false,
+    "isLocked": false,
+    "isFolded": false
+  },
+  "children": [],
+  model: {
+      span: {
+        cellType: "number",
+        value: 24,
+        title: "栅格占据的列数",
+        desc: "栅格占据的列数"
+      },
+      offset: {
+        cellType: "number",
+        value: 0,
+        title: "栅格占据的列数",
+        desc: "栅格占据的列数"
+      },
+      push: {
+        cellType: "number",
+        value: 0,
+        title: "栅格向右移动格数",
+        desc: "栅格向右移动格数	"
+      },
+      pull: {
+        cellType: "number",
+        value: 0,
+        title: "栅格向左移动格数",
+        desc: "栅格向左移动格数"
+      },
+      styles: {
+        cellType: 'editorStyle',
+        value: {},
+        title: "编辑样式",
+        desc: "编辑样式"
+      }
+    },
+    props: {
+      span: 24,
+      offset: 0,
+      push: 0,
+      pull: 0,
+      styles: {},
+      originStyles: {}
+    }
+}
+```
