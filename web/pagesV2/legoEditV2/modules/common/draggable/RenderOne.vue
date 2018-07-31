@@ -1,17 +1,21 @@
 <template>
   <c-draggable  element="div" class="draggableDesignItem" v-model="currentListData" :options="dragOptions" @choose='onChoose(currentListData, $event)'  @add="onAdd(currentListData, $event)" :move="onMove" @end="onEnd(currentListData, $event)" @sort="onSort(currentListData, $event)" @remove="onRemove(currentListData, $event)">
       <transition-group name="no" class="list-group-design" style="" tag="div">
-      <!-- <transition-group name="no" class="list-group-design" type="transition"> -->
         
-         <div v-for="(item, index) in currentListData" :key="levelIndex + '-' + index" class="dragItem"  :style="style">
+         <!-- <div v-for="(item, index) in currentListData" :key="levelIndex + '-' + index" class="dragItem"  :style="style"> -->
 
            <!-- 已经注册， 或者是直接json内部children时候直接配置基本组件不需要注册 -->
-           <template v-if="item.is_register === true || typeof item.is_register  === 'undefined' ">
+    <!--        <template v-if="item.is_register === true || typeof item.is_register  === 'undefined' "> -->
          
-            <component :is="item.tag_name" 
-            :key="levelIndex + '-' + index "  v-bind="item.props" 
-            :uuid="levelIndex + '-' + index" 
-            :class="{'dragItem_current': item.extendProps &&item.extendProps.isCurrent}">
+            <component 
+              :is="item.tag_name" 
+              :key="levelIndex + '-' + index "  
+              v-bind="item.props" 
+              :uuid="levelIndex + '-' + index" 
+              :class="{'dragItem_current': item.extendProps &&item.extendProps.isCurrent}" 
+              v-for="(item, index) in currentListData"  
+              class="dragItem"
+              v-if="item.is_register === true || typeof item.is_register  === 'undefined' ">
 
               <span v-html="item.props && item.props.text" v-if="item.props && item.props.text"></span>
 
@@ -26,7 +30,7 @@
                 :options="dragOptions">
                </c-draggable-multi>
             </component>
-           </template>
+           <!-- </template> -->
 
            <!--  <c-draggable-multi 
                 v-model="item.children" 
@@ -39,7 +43,7 @@
                 :options="dragOptions">
            </c-draggable-multi> -->
            <!-- <slot name="children"></slot> -->
-         </div>
+         <!-- </div> -->
       </transition-group>
   </c-draggable>
 </template>

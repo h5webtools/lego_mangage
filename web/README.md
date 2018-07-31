@@ -316,6 +316,12 @@ component.component_umd_name = 'Lego' + component.tag_name;
   },
   "children": [],
   model: {
+      flex: {
+        cellType: "number",
+        value: 1,
+        title: "栅格整体宽度",
+        desc: "栅格整体宽度"
+      },
       span: {
         cellType: "number",
         value: 24,
@@ -348,6 +354,7 @@ component.component_umd_name = 'Lego' + component.tag_name;
       }
     },
     props: {
+      flex: 1,
       span: 24,
       offset: 0,
       push: 0,
