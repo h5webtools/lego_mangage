@@ -1,6 +1,6 @@
 <template>
   <c-draggable  element="div" class="draggableDesignItem" v-model="currentListData" :options="dragOptions" @choose='onChoose(currentListData, $event)'  @add="onAdd(currentListData, $event)" :move="onMove" @end="onEnd(currentListData, $event)" @sort="onSort(currentListData, $event)" @remove="onRemove(currentListData, $event)">
-      <transition-group name="no" class="list-group-design" style="" tag="ul">
+      <transition-group name="no" class="list-group-design" style="" tag="div">
       <!-- <transition-group name="no" class="list-group-design" type="transition"> -->
         
          <div v-for="(item, index) in currentListData" :key="levelIndex + '-' + index" class="dragItem"  :style="style">
@@ -13,7 +13,7 @@
             :uuid="levelIndex + '-' + index" 
             :class="{'dragItem_current': item.extendProps &&item.extendProps.isCurrent}">
 
-              <span v-html="item.props && item.props.text"></span>
+              <span v-html="item.props && item.props.text" v-if="item.props && item.props.text"></span>
 
                <c-draggable-multi 
                 v-model="item.children" 

@@ -1,7 +1,7 @@
 <template>
   <c-draggable  element="div" class="draggableTreeItem" v-model="currentListData" :options="dragOptions" @choose='onChoose(currentListData, $event)'  @add="onAdd(currentListData, $event)" :move="onMove" @end="onEnd(currentListData, $event)" @sort="onSort(currentListData, $event)" @remove="onRemove(currentListData, $event)">
 
-      <transition-group name="no" class="list-group-design" tag="ul">
+      <transition-group name="no" class="list-group-design" tag="div">
       <!-- <transition-group name="no" class="list-group-design" type="transition"> -->
         
          <div v-for="(item, index) in currentListData" :key="levelIndex + '-' + index" class="dragItem" :class="{'dragItem_current': item.extendProps &&item.extendProps.isCurrent}" :style="style">

@@ -175,7 +175,7 @@ const mutations = {
     // state.currentComponent = data;
 
     let data;
-    
+
     if(levelIndex === 'top' || levelIndex === '0') {
       data = state.pageData[itemIndex]
     } else {

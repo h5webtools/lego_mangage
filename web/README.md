@@ -203,15 +203,28 @@ component.component_umd_name = 'Lego' + component.tag_name;
     "isFolded": false
   },
   "model": {
-      gutter: {
-        cellType: "number",
-        value: 0,
-        title: "栅格间隔",
-        desc: "栅格间隔",
-        regExpress: '\\d+',
-        message: '必须为数字',
-        required: true
-      },
+      direction: {
+          cellType: "select",
+          value: "row",
+          options: [
+            {
+              label: "水平",
+              value: "row"
+            },
+            {
+              label: "水平倒置",
+              value: "row-reverse"
+            },{
+              label: "垂直",
+              value: "column"
+            }, {
+              label: "垂直倒置",
+              value: "column-reverse"
+            }
+          ],
+          title: "排列方式",
+          desc: "排列方式"
+        },
       justify: {
         cellType: "select",
         value: "start",
@@ -258,6 +271,15 @@ component.component_umd_name = 'Lego' + component.tag_name;
         title: "垂直排列方式",
         desc: "垂直排列方式"
       },
+      gutter: {
+        cellType: "number",
+        value: 0,
+        title: "栅格间隔",
+        desc: "栅格间隔",
+        regExpress: '\\d+',
+        message: '必须为数字',
+        required: true
+      },
       styles: {
         cellType: 'editorStyle',
         value: {},
@@ -303,8 +325,8 @@ component.component_umd_name = 'Lego' + component.tag_name;
       offset: {
         cellType: "number",
         value: 0,
-        title: "栅格占据的列数",
-        desc: "栅格占据的列数"
+        title: "栅格左侧的间隔格数",
+        desc: "栅格左侧的间隔格数"
       },
       push: {
         cellType: "number",
@@ -329,9 +351,169 @@ component.component_umd_name = 'Lego' + component.tag_name;
       span: 24,
       offset: 0,
       push: 0,
+      direction: 'row',
       pull: 0,
       styles: {},
       originStyles: {}
     }
+}
+```
+
+# button
+
+```javascript
+{
+  "com_id": "",
+  "thumb": "http://localhost:7002/public/images/button@2x.png",
+  "name": "按钮",
+  "tag": "lego-button",
+  "themeExtend": {
+    "1": [
+      {
+        "key": "B",
+        "type": "color",
+        "cssKey": "background-color",
+        "opacity": "0.3"
+      }
+    ],
+    "2": [
+      {
+        "key": "A",
+        "type": "color"
+      }
+    ]
+  },
+  "extendProps": {
+    "isCurrent": false,
+    "isLocked": false,
+    "isFolded": false
+  },
+  "model": {
+    "size": {
+      "cellType": "select",
+      "value": "",
+      "options": [
+        {
+          "label": "默认表单",
+          "value": ""
+        },
+        {
+          "label": "中等表单",
+          "value": "medium"
+        },
+        {
+          "label": "小型表单",
+          "value": "small"
+        },
+        {
+          "label": "超小表单",
+          "value": "mini"
+        }
+      ],
+      "title": "尺寸",
+      "desc": "尺寸"
+    },
+    "disabled": {
+      "cellType": "switch",
+      "value": false,
+      "desc": "value"
+    },
+    "text": {
+      "cellType": "text",
+      "value": "",
+      "title": "名称",
+      "desc": "名称",
+      "placeHolder": "按钮描述"
+    },
+    "btnType": {
+      "cellType": "select",
+      "value": "",
+      "options": [
+        {
+          "label": "普通按钮",
+          "value": ""
+        },
+        {
+          "label": "吸底按钮",
+          "value": "fixbuttom"
+        }
+      ],
+      "title": "按钮类型",
+      "desc": "按钮类型"
+    },
+    "btnToUrl": {
+      "cellType": "text",
+      "value": "",
+      "title": "跳转地址",
+      "desc": "跳转地址",
+      "placeHolder": "跳转地址"
+    },
+    "eventId": {
+      "cellType": "text",
+      "value": "",
+      "title": "统计ID",
+      "desc": "统计ID",
+      "placeHolder": "比如:30001.1.1"
+    },
+    "labelWidth": {
+      "cellType": "text",
+      "value": "",
+      "title": "label宽度",
+      "desc": "表单域标签的宽度"
+    },
+    "className": {
+      "cellType": "text",
+      "value": "",
+      "title": "class",
+      "desc": "class"
+    },
+    "eventType": {
+      "cellType": "select",
+      "value": "",
+      "options": [
+        {
+          "label": "登录",
+          "value": "login"
+        },
+        {
+          "label": "注册",
+          "value": "register"
+        },
+        {
+          "label": "抽奖",
+          "value": "lottery"
+        },
+        {
+          "label": "兑换",
+          "value": "exchange"
+        },
+        {
+          "label": "红包",
+          "value": "coupon"
+        }
+      ],
+      "title": "按钮类型"
+    },
+    "styles": {
+      "cellType": "editorStyle",
+      "value": {},
+      "title": "编辑样式",
+      "desc": "编辑样式"
+    }
+  },
+  "props": {
+    "uuid": "1",
+    "disabled": false,
+    "styles": {},
+    "size": "default",
+    "labelWidth": "",
+    "text": "button",
+    "btnType": "",
+    "btnToUrl": "",
+    "eventId": "",
+    "className": "test test222",
+    "originStyles": {},
+    "eventType": ""
+  }
 }
 ```
