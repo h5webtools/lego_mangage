@@ -394,8 +394,8 @@
                                 <input type="text" autocomplete="off" formname="验证码" v-model="data.identifycode" reg="^[a-zA-Z0-9]{4,6}$" id="code" placeholder="请输入验证码"
                                     maxlength="6" class="mod-input sms-input">
 
-                                <div class="code-btn-wrap" :style="{background:params.buttoncolor,color:params.btntextcolor}">
-                                    <div class="" type="smscode" id="vCode"  id="vCode" v-on:click="refreshCode" v-bind:data-stat-id="params.eventid_code || ''">获取验证码</div>
+                                <div class="code-btn-wrap" :style="{background:params.identybgcolor,color:params.identycodecolor}">
+                                    <div class="" type="smscode" id="vCode"  id="vCode" v-on:click="refreshCode" v-bind:style="{background:params.identybgcolor,color:params.identycodecolor}" v-bind:data-stat-id="params.eventid_code || ''">获取验证码</div>
                                 </div>
                             </div>
                         </div>
@@ -407,20 +407,20 @@
                                 <input type="text" autocomplete="off" formname="验证码" v-model="data.identifycode" reg="^[a-zA-Z0-9]{4,6}$" id="code" placeholder="请输入验证码"
                                     maxlength="6" class="mod-input sms-input">
 
-                                <div class="code-btn-wrap">
-                                    <div class="smscode" type="smscode" id="vCode" :style="{background:params.buttoncolor,color:params.btntextcolor}" v-on:click="msgCode" v-bind:data-stat-id="params.eventid_code || ''">获取验证码</div>
+                                <div class="code-btn-wrap" :style="{background:params.identybgcolor,color:params.identycodecolor}">
+                                    <div class="smscode" type="smscode" id="vCode" :style="{background:params.identybgcolor,color:params.identycodecolor}" v-on:click="msgCode" v-bind:data-stat-id="params.eventid_code || ''">获取验证码</div>
                                 </div>
                             </div>
                         </div>
                     </template>
                 </div>
-                <div>
+                <div v-if="params.isshowcoupon != 1">
                     <template v-if="!params.submitflag">
                         <a class="mod-btn f-28 ui-mt-40 " id="exchange" v-on:click="submit" :style="{background:params.buttoncolor,color:params.btntextcolor}" v-bind:data-stat-id="params.eventid_submit || ''">{{params.buttondes || '立即兑换'}}</a>
                         <p class="ui-mt-20 ui-ta-c f-24 color-999" :style="{color:params.checkoutPricesColor}"  v-on:click="switchflag" v-bind:data-stat-id="params.eventid_check || ''">{{params.checkoutPrices || '已经兑换？点击查看红包'}}</p>
                     </template>
                 </div>
-                <div>
+                <div v-if="params.isshowcoupon != 1">
                     <template v-if="params.submitflag">
                         <a class="mod-btn f-28 ui-mt-40" id="exchange" v-on:click="checkoutcoupons" :style="{background:params.buttoncolor,color:params.btntextcolor}">立即查看</a>
                         <p class="ui-mt-20 ui-ta-c f-24 color-999" v-on:click="switchflag" v-bind:data-stat-id="params.eventid_back || ''">返回兑换红包</p>
