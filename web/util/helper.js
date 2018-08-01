@@ -57,7 +57,7 @@ export function getLevelPageData(levelIndex, obj) {
   }
 
   if (levelIndex.length) {
-    return setPageData(levelIndex, obj[index].children)
+    return getLevelPageData(levelIndex, obj[index].children)
   } else {
     return obj[index].children
   }

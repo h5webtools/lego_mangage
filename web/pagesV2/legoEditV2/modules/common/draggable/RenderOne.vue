@@ -20,7 +20,8 @@
               <span v-html="item.props && item.props.text" v-if="item.props && item.props.text"></span>
 
                <c-draggable-multi 
-                v-model="item.children" 
+                v-model="item.children"
+                slot="children"
                 :level=" level + 1 " 
                 :levelIndex="levelIndex + '-' + index" 
                 v-if="item.draggable" 
@@ -63,33 +64,7 @@ export default {
   watch: {},
   created() {},
   methods: {
-    onAdd(item, event) {
-      // 只有这里的updatePage： 拖拽到编辑区域的需要验证组件是否register以及注册
 
-      let newItem = item[event.newIndex];
-      setUuid(
-        item[event.newIndex],
-        event.newIndex,
-        this.level,
-        this.levelIndex,
-        item,
-        this.currentThemeStyle
-      );
-
-      if (!newItem.is_register) {
-        loadComponents(newItem.fileUrl, ()=> {
-          window[newItem.component_umd_name].install(Vue);
-          // Vue.use(newItem.component_umd_name)
-          console.log(Vue.options.components , '注册组件');
-          // TODO  安装一个记录一次， 再次拖拽不再安装
-          newItem.is_register = true;
-          this.updatePage(item);
-        })
-      } else {
-        this.updatePage(item);
-      }
-
-    }
   }
 };
 </script>
