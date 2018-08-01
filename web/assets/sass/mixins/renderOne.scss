@@ -1,0 +1,9 @@
+@mixin flex-row($state) {
+    &.is-#{$state} {
+      & > .draggableDesignItem {
+          & > .list-group-design {
+             @content;
+          }
+        }
+    }
+  }

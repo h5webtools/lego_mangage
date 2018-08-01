@@ -42,15 +42,17 @@ export default {
 };
 </script>
 
-<style lang="scss" >
+<style lang="scss">
 
+@import '~assets/sass/mixins/renderOne.scss';
 
 
 .draggableDesignItem {
   // width: 100%;
   .list-group-design {
+    position: relative;
     min-height: 50px;
-    padding-bottom: 20px;
+    padding-bottom: 15px;
   }
   .lego-row {
       min-height: 100px;
@@ -61,7 +63,57 @@ export default {
           width: 100%;
           display: flex;
        }
+      }
+
+      &.is-direction-row > .draggableDesignItem {
+        & > .list-group-design {
+          padding-bottom: 0;
+       }
+      }
+
+      &.is-direction-column-reverse > .draggableDesignItem {
+        & > .list-group-design {
+          padding-bottom: 0;
+       }
+     }
+
+        @include flex-row(justify-center) {
+      justify-content: center;
     }
+    @include flex-row(justify-end) {
+      justify-content: flex-end;
+    }
+    @include flex-row(justify-space-between) {
+      justify-content: space-between;
+    }
+    @include flex-row(justify-space-around) {
+      justify-content: space-around;
+    }
+
+    @include flex-row(align-middle) {
+      align-items: center;
+    }
+    @include flex-row(align-bottom) {
+      align-items: flex-end;
+    }
+
+    @include flex-row(direction-row) {
+      flex-direction: row;
+    }
+
+    @include flex-row(direction-row-reverse) {
+      flex-direction: row-reverse;
+    }
+
+    @include flex-row(direction-column) {
+      flex-direction: column;
+    }
+
+    @include flex-row(direction-column-reverse) {
+      flex-direction: column-reverse;
+    }
+
+
   }
     
     .lego-col {
@@ -87,49 +139,12 @@ export default {
   }
 }
 
-.lego-col{
-  flex: 1;
-}
 
-.draggableDesignItem .dragItem.lego-row.is-justify-center > .draggableDesignItem > .list-group-design {
+/* .draggableDesignItem .dragItem.lego-row.is-justify-center > .draggableDesignItem > .list-group-design {
   justify-content: center;
-}
+} */
 
-.draggableDesignItem .dragItem.lego-row.is-justify-end > .draggableDesignItem > .list-group-design {
-  justify-content: flex-end;
-}
 
-.draggableDesignItem .dragItem.lego-row.is-justify-space-between > .draggableDesignItem > .list-group-design {
-  justify-content: space-between;
-}
-
-.draggableDesignItem .dragItem.lego-row.is-justify-space-around > .draggableDesignItem > .list-group-design {
-  justify-content: space-around;
-}
-
-.draggableDesignItem .dragItem.lego-row.is-align-middle > .draggableDesignItem > .list-group-design {
-  align-items: center;
-}
-
-.draggableDesignItem .dragItem.lego-row.is-align-bottom > .draggableDesignItem > .list-group-design {
-  align-items: flex-end;
-}
-
-.draggableDesignItem .dragItem.lego-row.is-direction-row > .draggableDesignItem > .list-group-design {
-  flex-direction: row;
-}
-
-.draggableDesignItem .dragItem.lego-row.is-direction-row-reverse > .draggableDesignItem > .list-group-design {
-  flex-direction: row-reverse;
-}
-
-.draggableDesignItem .dragItem.lego-row.is-direction-column > .draggableDesignItem > .list-group-design {
-  flex-direction: column;
-}
-
-.draggableDesignItem .dragItem.lego-row.is-direction-column-reverse > .draggableDesignItem > .list-group-design {
-  flex-direction: column-reverse;
-}
 
 </style>
 
