@@ -7,7 +7,7 @@ import extend from '@jyb/lib-extend';
 import typeOf from '@jyb/lib-type-of';
 import stringifyObject from '@/util/stringify';
 import * as queryString from '@/util/querystring';
-import {setPageData, setPageDataItemByKey, updatePageItemThemeStyle, getLevelPageData} from '@/util/helper'
+import {setPageData, setPageDataItemByKey, updatePageItemThemeStyle, getLevelPageData, getLevelPageDataChildren} from '@/util/helper'
 
 
 // { tag: '', props: {}, children: [] }
@@ -51,11 +51,13 @@ const initialState = {
   },  
   menuActiveIndex: 'layout',
   isRegisterComponent: false,
-  registerComponentList: []
+  registerComponentList: [],
+  isDragging: false
 };
 
 // getters
 const getters = {
+  isDragging: state => state.isDragging,
   pageData: state => state.pageData,
   currentComponent: state => state.currentComponent,
   menuActiveIndex: state => state.menuActiveIndex,
@@ -115,24 +117,64 @@ const actions = {
   addRegisterComponentItem({ commit, state }, data) {
     commit('addRegisterComponentItem', data);
   },
+
+  setDragging({ commit, state }, data) {
+    commit('setDragging', data);
+  },
   
 };
 
 // mutations
 const mutations = {
   updatePage(state, result) {
-    const { levelIndex, data } = result;
-    let currentData = JSON.parse(JSON.stringify(data))
-    
+
+    // 如果是在renderOne 部分的levelIndex 是到children， 如果点击的是当前组件，那么levelIndex 就是直接到children
+
+    // 具体在拖拽元素的old levelIndex 中都是自己的真正位置， 以及 图层管理中的更改属性
+
+    let { levelIndex, item, itemIndex, dragType, oldLevel, oldLevelIndex, oldItemIndex} = result;
+
     // 顶级的是直接替换全部数据， 其余的每次是替换children的值， 第一个leveindex是多余的标志量
     // console.log(JSON.stringify(result));
-    if(levelIndex === 'top' || levelIndex === '0') {
-      state.pageData = currentData;
-    } else {
-      const indexArr = levelIndex.split('-')
-      indexArr.shift();
-      setPageData(indexArr, state.pageData, currentData)
+    if(dragType === 'add') {
+
+      let pageDataChildren = getLevelPageDataChildren(levelIndex, state.pageData)
+      pageDataChildren.splice(itemIndex, 0, item);
+      debugger
     }
+    
+    // 1、先根据old位置修改原有位置children数据， 然后根据新位置改数据; 
+    // 2、move过来的数据的levelIndex 是直接在pageData 里面的位置， 通过最后一位前的数据线定位数据， 然后根据最后一个位置进行splice
+    // 3 区分组内sort， 和跨组move
+
+    if(dragType === 'move') {
+      const oldIndexArr = oldLevelIndex.split('-') 
+      const oldLastItemIndex = oldIndexArr.pop();
+      const realOldLevelIndex = oldIndexArr.join('-')
+
+      let oldPageDataChildren = getLevelPageDataChildren(realOldLevelIndex, state.pageData)
+
+
+      if(levelIndex === oldIndexArr.join('-')) {
+        // 交换 oldLastItemIndex  和  itemIndex
+        let temp = oldPageDataChildren[oldLastItemIndex];
+        oldPageDataChildren[oldLastItemIndex] = oldPageDataChildren[itemIndex];
+        oldPageDataChildren[itemIndex] = temp;
+
+      } else {
+        debugger
+        // 根据新位置进行add item（保持原有index 不变）
+
+        let pageDataChildren = getLevelPageDataChildren(levelIndex, state.pageData)
+        pageDataChildren.splice(itemIndex, 0, item);
+
+        // 保持原有index 不变的情况进行 remove
+        oldPageDataChildren.splice(oldLastItemIndex, 1);
+
+      }
+
+    }
+
   },
 
   setCurrentComponent(state, result) {
@@ -171,10 +213,11 @@ const mutations = {
     state.isRegisterComponent = data
   },
   updateValueDirect(state, datas) {
+    debugger
     const { item: oldItem, levelIndex, itemIndex, update } = datas;
     // state.currentComponent = data;
 
-    let data;
+/*     let data;
 
     if(levelIndex === 'top' || levelIndex === '0') {
       data = state.pageData[itemIndex]
@@ -183,12 +226,14 @@ const mutations = {
       indexArr.shift();
       const children = getLevelPageData(indexArr, state.pageData);
       data = children[itemIndex]
-    }
+    } */
+
+    let pageDataChildren = getLevelPageDataChildren(levelIndex, state.pageData, 1)
 
     update.map(item => {
       const keys = item.key.split('.')
       if(keys.length > 1) {
-        setPageDataItemByKey(keys, data, item.value)
+        setPageDataItemByKey(keys, pageDataChildren, item.value)
       } else {
         data[item.key] = item.value
       }
@@ -204,6 +249,10 @@ const mutations = {
 
   addRegisterComponentItem(state, data) {
     state.registerComponentList.push(data);
+  },
+
+  setDragging(state, data) {
+    state.isDragging = data;
   }
 
 };

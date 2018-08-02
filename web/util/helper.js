@@ -44,7 +44,45 @@ export function setPageData(levelIndex, obj, changeData) {
   // a = [{children: [{a: 2}, {b: 2, children: [{test: 1}, {test2: 3}]}]}]
   // a[0]['children'][1]['children']
 }
+/**
+ * 
+ * @param {*} levelIndex 
+ * @param {*} pageData 
+ * @param {*} type 默认0 找的是 找children； 1 是当前位置直接找元素
+ */
+export function getLevelPageDataChildren(levelIndex, pageData, type = 0) {
+  debugger
+  let pageDataChildren = [];
+  if(levelIndex === 'top' || levelIndex === '0') {
 
+    pageDataChildren = pageData
+  } else if(type === 1) {
+
+    const oldIndexArr = levelIndex.split('-');
+    const oldLastItemIndex = oldIndexArr.pop();
+    const realOldLevelIndex = oldIndexArr.join('-');
+
+    if(realOldLevelIndex === 'top' || realOldLevelIndex === '0') {
+      pageDataChildren = pageData[oldLastItemIndex]
+    } else {
+      oldIndexArr.shift();
+      pageDataChildren = getLevelPageData(oldIndexArr, pageData, type)[oldLastItemIndex]
+    }
+
+  } else {
+    const indexArr = levelIndex.split('-')
+    indexArr.shift();
+    pageDataChildren = getLevelPageData(indexArr, pageData, type);
+  }
+
+  return pageDataChildren;
+}
+
+/**
+ * 
+ * @param {array} levelIndex 
+ * @param {*} obj 
+ */
 export function getLevelPageData(levelIndex, obj) {
   var index = levelIndex.shift()
   if (!obj[index]) {
@@ -93,7 +131,7 @@ export function setPageDataItemByKey(levelIndex, obj, changeData) {
  * @param {*} levelIndex  索引顺序（例如0-2）
  * component_type: 1 是业务组件，需要遍历下级的uuid的组件
  */
-export function setUuid(item, index, level, levelIndex, sbilingItem, currentThemeStyle) {
+export function setUuid(item, index, level, levelIndex, currentThemeStyle) {
   _changeOneItemThemeExtend(item, currentThemeStyle)
   _changeOneItemExtendProp(item)
   // 
@@ -116,7 +154,7 @@ export function setUuid(item, index, level, levelIndex, sbilingItem, currentThem
 
     if (item.props.children) {
       item.props.children.map((child, childIndex) => {
-        setUuid(child, childIndex, level + 1, '' + levelIndex + '-' + childIndex, item.props.children, currentThemeStyle)
+        setUuid(child, childIndex, level + 1, '' + levelIndex + '-' + childIndex, currentThemeStyle)
       })
       item.children = item.props.children
     }

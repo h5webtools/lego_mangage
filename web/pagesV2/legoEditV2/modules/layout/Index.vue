@@ -16,9 +16,24 @@
           center
           show-icon>
         </el-alert> -->
-        <editor-render class="iphone-container"
+<!--         <editor-render class="iphone-container"
           :page-data="pageData"
-        ></editor-render>
+        ></editor-render> -->
+        <div class="iphone-container"  v-draggable :class="{'isDragging': isDragging}">
+<!--             <c-h5-draggable-multi :currentListData="pageData"> </c-h5-draggable-multi> -->
+            <c-h5-draggable-multi 
+                :item="itemChild"
+                :key="indexChild" 
+                :itemIndex="indexChild"
+                :level="  level + 1 " 
+                :levelIndex="levelIndex + '-' + indexChild"  
+                v-for="(itemChild, indexChild) in pageData"
+                element="div" 
+                class="draggableDesign" 
+                >
+            </c-h5-draggable-multi>
+        </div>
+        
       </div>
     </el-main>
     
@@ -32,13 +47,23 @@
         </el-tab-pane>
         <el-tab-pane label="图层管理">
               <!-- 组件树 -->
-<!--             <editor-tree
-              
-              @handleTreeNodeClick="handleTreeNodeClick"
-              :page-data="pageData"
-              :current="currentComponent.uid"
-            ></editor-tree> -->
-            <editor-tree></editor-tree>
+
+            <div class="tree-manage multi-tree_children">
+            <!-- <editor-tree></editor-tree> -->
+              <c-h5-draggable-multi-tree 
+                  :item="itemChild"
+                  :key="indexChild" 
+                  :itemIndex="indexChild"
+                  :level="  level + 1 " 
+                  :levelIndex="levelIndex + '-' + indexChild"  
+                  v-for="(itemChild, indexChild) in pageData"
+                  element="div" 
+                  class="draggableDesign" 
+                  >
+              </c-h5-draggable-multi-tree>
+            </div>
+
+
         </el-tab-pane>
 
       </el-tabs>
@@ -67,24 +92,25 @@ export default {
   },
   data() {
     return {
-      codeDialog: true
+      codeDialog: true,
+      level: 0,
+      levelIndex: "0",
+      draggable: true
     };
   },
   computed: {
     ...mapGetters({
+      isDragging: "editor/isDragging",
       pageData: "editor/pageData",
       widgetList: "widget/widgetList",
       currentComponent: "editor/currentComponent"
-    }),
+    })
   },
-  created() {
-
-  },
+  created() {},
   methods: {
     handleTreeNodeClick(data) {
       this.$store.dispatch("editor/setCurrentComponent", data);
-    },
-
+    }
   }
 };
 </script>
@@ -113,7 +139,7 @@ export default {
 
 .layout__aside-right {
   // width: 340px;
-  width: 450px!important;
+  width: 450px !important;
   // border-left: 1px solid #ebeef5;
   .prop-edit-area {
     height: 100%;

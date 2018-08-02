@@ -6,4 +6,13 @@
           }
         }
     }
-  }
+}
+
+
+@mixin flex-row2($state) {
+  &.is-#{$state} {
+      & > .list-group-design {
+          @content;
+      }
+    }
+}

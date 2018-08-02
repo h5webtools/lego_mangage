@@ -8,24 +8,18 @@
     >
       <div class="widget-box">
 
-          <c-draggable  class="draggableLib"  element="div" v-model="item.widgetList" :options="dragOptionsLib" :move="onMoveLib"  :clone='onCloneLib' @choose='onChooseLib'>
-                <transition-group type="transition" :name="'flip-list'" tag="ul" class="list-group-lib">
-                    <!-- <li class="list-group-item" v-for="(element, index) in formLib" :key="index">
-                        {{element.label_type}}
-                    </li> -->
-                      <editor-widget
-                        v-for="(widget, index) in item.widgetList"
-                        :key="index"
-                        :widget="widget">
-                          <div slot="widget">
-                            <div class="widget-thumb">
-                              <img :src="widget.thumb" :alt="widget.name">
-                            </div>
-                            <div class="widget-name">{{widget.name}}</div>
-                          </div>
-                      </editor-widget>
-                </transition-group>
-            </c-draggable>
+          <editor-widget
+            v-for="(widget, index) in item.widgetList"
+            :key="index"
+            :widget="widget">
+              <div slot="widget">
+                <div class="widget-thumb">
+                  <img :src="widget.thumb" :alt="widget.name">
+                </div>
+                <div class="widget-name">{{widget.name}}</div>
+              </div>
+          </editor-widget>
+          
       </div>
     </el-collapse-item>
   </el-collapse>
