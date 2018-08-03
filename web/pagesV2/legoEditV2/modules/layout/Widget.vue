@@ -1,12 +1,13 @@
 <template>
 <!--   <div
+    @drag="handleDrag"
     
   > -->
   <div class="widget-single drag-element"
     draggable="true"
-    @dragstart="handleDragStart">
-<!--         @drag="handleDrag"
-    @dragend="handleDragEnd"> -->
+    @dragstart="handleDragStart" 
+    @dragend="handleDragEnd"> 
+    
     <slot name="widget"></slot>
   </div>
 </template>
@@ -36,6 +37,7 @@ export default {
       console.log("widget DragOver");
     },
     handleDragEnd(e) {
+      this.$store.dispatch('editor/setDragging', false);
       console.log("widget Dragend");
       e.dataTransfer.clearData("dragElementData");
     }

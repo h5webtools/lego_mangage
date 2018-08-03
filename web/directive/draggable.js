@@ -1,8 +1,8 @@
 /**
  * 拖拽指令
  */
-
-import { setUuid } from '@/util/helper'
+import Vue from 'vue';
+import { setUuid, loadComponents } from '@/util/helper';
 
 const DROP_HIGHLIGHT = 'drop-highlight';
 
@@ -46,8 +46,6 @@ function getItemIndex(event, el, ctx) {
   if (childrenLength >= 1) {
     instanceLast = children[childrenLength - 1].getBoundingClientRect();
   }
-  debugger
-
 
   for (let i = 0; i < childrenLength; i++) {
     const instanceBefore = children[i].getBoundingClientRect();
@@ -123,6 +121,13 @@ function handleDragOver(e) {
   toggleDragClass(this, true);
 }
 
+function dragItemHandleDrop(e, ctx) {
+  debugger
+  ctx.$store.dispatch('editor/setDragging', false);
+  console.log("render drag item Dragend");
+  e.dataTransfer.clearData("dragElementData");
+}
+
 function handleDrop(e, ctx) {
   console.log('drop--------', ctx.levelIndex, ctx)
   // e.preventDefault();
@@ -160,10 +165,9 @@ function handleDrop(e, ctx) {
     }
 
 
-
     if (!item.is_register) {
-      loadComponents(newItem.fileUrl, () => {
-        window[newItem.component_umd_name].install(Vue);
+      loadComponents(item.fileUrl, () => {
+        window[item.component_umd_name].install(Vue);
         // Vue.use(newItem.component_umd_name)
         console.log(Vue.options.components, '注册组件');
         // TODO  安装一个记录一次， 再次拖拽不再安装
@@ -184,7 +188,6 @@ function handleDrop(e, ctx) {
 
   ctx.$store.dispatch('editor/setDragging', false);
   e.dataTransfer.clearData('dragElementData');
-  e.dataTransfer.clearData('dragElementType');
 
 }
 
@@ -205,10 +208,16 @@ export default {
       handleDragStart.call(this, e, ctx);
     };
 
+    el._dragItemHandleDrop = function (e) {
+      dragItemHandleDrop.call(this, e, ctx);
+    };
+    
+
     // 最外层容器不能被拖拽
     if (!el.classList.contains('iphone-container') && !el.classList.contains('itree-manage')) {
       el.draggable = true;
       el.addEventListener('dragstart', el._handleDragStart);
+      el.addEventListener('drop', el._dragItemHandleDrop);
     }
     // 对于有children才有drop， 对于无childern 只有drag
     // ctx.tag_name  lego-row  lego-col

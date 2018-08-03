@@ -8,7 +8,7 @@ import typeOf from '@jyb/lib-type-of';
 import stringifyObject from '@/util/stringify';
 import * as queryString from '@/util/querystring';
 import {setPageData, setPageDataItemByKey, updatePageItemThemeStyle, getLevelPageData, getLevelPageDataChildren} from '@/util/helper'
-import Vue from 'Vue';
+import Vue from 'vue';
 
 
 // { tag: '', props: {}, children: [] }
