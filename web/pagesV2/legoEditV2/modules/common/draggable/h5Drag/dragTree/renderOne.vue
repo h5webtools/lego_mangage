@@ -6,13 +6,16 @@
       class="dragItem tree-collapse"
       v-if="item.is_register === true || typeof item.is_register  === 'undefined' ">
 
-        <div class="tree-collapse_operate" >
+        <div class="tree-collapse_operate" :style="operateStyle" @click="setCurrentItem" >
               <span class="label">             
                 <span class="packup-icon" @click.stop.prevent="updateItemFold(item)"  v-show="item.children && item.children.length > 0"></span>
                 {{item.name}} 
               </span>
 
-              <span>
+
+              <span class="collapse_operate-area">
+               <i class="el-icon-delete" @click.stop.prevent="removeItem"></i>
+<!-- <el-button plain icon="el-icon-delete">搜索</el-button> -->
                 <el-button
                   :class="item.extendProps.isLocked ? 'locked' : 'unLocked'"
                   type="text"
@@ -59,11 +62,33 @@ export default {
     /*     pageData() {
       return this.$store.state.editor.pageData;
     } */
+    operateStyle() {
+      return {
+        "padding-left": 10 + this.level * 5 + "px"
+      };
+    }
   },
   watch: {},
   created() {},
   methods: {
-    lock(item,  key = "extendProps.isLocked") {
+    removeItem() {
+      this.$store.dispatch("editor/removeItem", {
+        item: this.item,
+        levelIndex: this.levelIndex,
+        itemIndex: this.itemIndex,
+        level: this.level
+      });
+    },
+
+    setCurrentItem() {
+      this.$store.dispatch("editor/setCurrentComponent", {
+        item: this.item,
+        levelIndex: this.levelIndex,
+        itemIndex: this.itemIndex,
+        level: this.level
+      });
+    },
+    lock(item, key = "extendProps.isLocked") {
       this.$store.dispatch("editor/updateValueDirect", {
         item: item,
         levelIndex: this.levelIndex,
@@ -77,7 +102,6 @@ export default {
       });
     },
     updateItemFold(item, key = "extendProps.isFolded") {
-      debugger;
       this.$store.dispatch("editor/updateValueDirect", {
         item: item,
         levelIndex: this.levelIndex,
@@ -100,17 +124,17 @@ export default {
 .tree-manage {
   &.multi-tree_children {
     & > .dragItem {
-      background: #f5f6fa;
+      background-color: #ffffff;
       &:nth-child(2n) {
-        background: #d8dbec;
+        background-color: #f5f6fa;
       }
     }
   }
 }
+
 .multi-tree_children {
   transition: all 0.35s;
   & > .dragItem {
-    padding-left: 30px;
     font-size: 16px;
     color: #58586e;
     letter-spacing: 0;
@@ -149,6 +173,15 @@ export default {
         display: flex;
         align-items: center;
       }
+      & > .collapse_operate-area {
+        display: flex;
+        align-items: center;
+        .el-icon-delete {
+          font-size: 20px;
+          cursor: pointer;
+          margin-right: 10px;
+        }
+      }
 
       & .locked {
         width: 25px;
@@ -163,11 +196,17 @@ export default {
           0 / 100% 100%;
       }
     }
-  }
-}
 
-.drop-highlight {
-  border: 1px solid #ff0000 !important;
+    &.dragItem_current {
+      & > .tree-collapse_operate {
+        background-color: rgba(58, 74, 167, 0.2);
+      }
+    }
+  }
+
+  .drop-highlight {
+    border: 1px solid #ff0000 !important;
+  }
 }
 </style>
 

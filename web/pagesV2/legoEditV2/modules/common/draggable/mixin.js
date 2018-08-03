@@ -54,13 +54,8 @@ export default {
         };
     },
     watch: {
-        /*         listData(newVal, oldVal) {
-                    debugger
-                    this.currentListData = JSON.parse(JSON.stringify(newVal));
-                }, */
         listData: {
             handler(newVal, oldVal) {
-               debugger
                this.currentListData = JSON.parse(JSON.stringify(newVal))
                // this.currentListData = newVal
             },
@@ -72,7 +67,6 @@ export default {
     },
     methods: {
         onChoose(item, event) {
-            // debugger
             console.log('onChoose');
             // TODO 深层的例如button 点击还未阻止
             event.stopPropagation();
@@ -91,7 +85,6 @@ export default {
             }, 50);
         },
         onAdd(item, event) {
-            debugger
             console.log('onAdd', item);
             // 只有这里的updatePage： 拖拽到编辑区域的需要验证组件是否register以及注册
 

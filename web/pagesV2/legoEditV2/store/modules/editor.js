@@ -88,6 +88,10 @@ const actions = {
     commit('setCurrentComponent', result);
   },
 
+  removeItem({ commit }, result) {
+    commit('removeItem', result);
+  },
+
   setCurrentThemeStyle({ commit }, result) {
     commit('setCurrentThemeStyle', result);
   },
@@ -140,7 +144,6 @@ const mutations = {
 
       let pageDataChildren = getLevelPageDataChildren(levelIndex, state.pageData)
       pageDataChildren.splice(itemIndex, 0, item);
-      debugger
     }
     
     // 1、先根据old位置修改原有位置children数据， 然后根据新位置改数据; 
@@ -162,7 +165,6 @@ const mutations = {
         oldPageDataChildren[itemIndex] = temp;
 
       } else {
-        debugger
         // 根据新位置进行add item（保持原有index 不变）
 
         let pageDataChildren = getLevelPageDataChildren(levelIndex, state.pageData)
@@ -179,24 +181,29 @@ const mutations = {
 
   setCurrentComponent(state, result) {
     // item 是JSONpagedata 后的子元素
-    const {item, levelIndex, itemIndex} = result;
+    const {item, levelIndex, itemIndex, level} = result;
 
     if(state.currentComponent.extendProps) {
       state.currentComponent.extendProps.isCurrent = false;
     }
 
-    let data;
-    if(levelIndex === 'top' || levelIndex === '0') {
-      data = state.pageData[itemIndex]
-    } else {
-      const indexArr = levelIndex.split('-')
-      indexArr.shift();
-      const children = getLevelPageData(indexArr, state.pageData);
-      data = children[itemIndex]
-    }
+    let currentData = getLevelPageDataChildren(levelIndex, state.pageData, 1)
 
-    data.extendProps.isCurrent = true;
-    state.currentComponent = data;
+    currentData.extendProps.isCurrent = true;
+    state.currentComponent = currentData;
+  },
+
+  removeItem(state, result) {
+    const {item, levelIndex, itemIndex, level} = result;
+
+    const oldIndexArr = levelIndex.split('-') 
+    const oldLastItemIndex = oldIndexArr.pop();
+    const realOldLevelIndex = oldIndexArr.join('-')
+
+    let oldPageDataChildren = getLevelPageDataChildren(realOldLevelIndex, state.pageData);
+
+    oldPageDataChildren.splice(oldLastItemIndex, 1)
+
   },
 
   setCurrentThemeStyle(state, result) {
@@ -213,7 +220,6 @@ const mutations = {
     state.isRegisterComponent = data
   },
   updateValueDirect(state, datas) {
-    debugger
     const { item: oldItem, levelIndex, itemIndex, update } = datas;
     // state.currentComponent = data;
 
@@ -228,12 +234,12 @@ const mutations = {
       data = children[itemIndex]
     } */
 
-    let pageDataChildren = getLevelPageDataChildren(levelIndex, state.pageData, 1)
+    let currentData = getLevelPageDataChildren(levelIndex, state.pageData, 1)
 
     update.map(item => {
       const keys = item.key.split('.')
       if(keys.length > 1) {
-        setPageDataItemByKey(keys, pageDataChildren, item.value)
+        setPageDataItemByKey(keys, currentData, item.value)
       } else {
         data[item.key] = item.value
       }

@@ -7,10 +7,10 @@ import { setUuid } from '@/util/helper'
 const DROP_HIGHLIGHT = 'drop-highlight';
 
 
-function updatePage(e, ctx, that, item, dragType, oldLevel, oldLevelIndex, oldItemIndex) {
+function updatePage(e, ctx, that, item, itemIndex, dragType, oldLevel, oldLevelIndex, oldItemIndex) {
   ctx.$store.dispatch('editor/updatePage', {
     item: item,
-    itemIndex: getItemIndex(e, that, ctx),
+    itemIndex: itemIndex,
     level: ctx.level,
     levelIndex: ctx.levelIndex,
     dragType: dragType,
@@ -111,13 +111,14 @@ function handleDrop(e, ctx) {
     // 添加children
     // 先管clone widget 直接add的
 
+    const itemIndex = getItemIndex(e, this, ctx)
+
     if(dragType === 'add') {
       setUuid(
         item,
-        this.itemIndex,
+        itemIndex,
         this.level,
         this.levelIndex,
-        item,
         ctx.$store.getters['editor/currentThemeStyle']
        );
     }
@@ -131,10 +132,10 @@ function handleDrop(e, ctx) {
         console.log(Vue.options.components, '注册组件');
         // TODO  安装一个记录一次， 再次拖拽不再安装
         item.is_register = true;
-        updatePage(e, ctx, this, item, dragType, oldLevel, oldLevelIndex, oldItemIndex)
+        updatePage(e, ctx, this, item, itemIndex, dragType, oldLevel, oldLevelIndex, oldItemIndex)
     })
     } else {
-      updatePage(e, ctx, this, item, dragType, oldLevel, oldLevelIndex, oldItemIndex)
+      updatePage(e, ctx, this, item, itemIndex, dragType, oldLevel, oldLevelIndex, oldItemIndex)
     }
 
 

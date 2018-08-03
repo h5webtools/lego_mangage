@@ -78,34 +78,7 @@ export default {
 </script>
 
 <style lang="scss" >
-.widget-list{
-  .el-collapse-item__header{
-    font-size: 16px;
-    color: #5F6270;
-  }
 
-  .widget-box {
-  padding: 24px 20px 0 22px;
-  & .list-group-lib{
-    & > .widget-single{
-      & > div{
-        cursor: move;
-      }
-      &:nth-child(3n) {
-        padding-right: 0;
-      }
-      & .widget-name{
-        margin: 5px 0 20px 0;
-        text-align: center;
-        font-size: 12px;
-        line-height: 12px;
-        color: #8489AB;
-        letter-spacing: 0;
-      }
-    }
-  }  
-}
-}
 
 </style>
 

@@ -1,6 +1,8 @@
 import { setUuid } from '@/util/helper'
 import { mapGetters } from 'vuex';
-
+/**
+ * 必须区分直接点中组件是levelindex是真实索引； 拖拽到目标位置的索引的children索引
+ */
 export default {
     props: {
 /*         currentListData: {
@@ -41,13 +43,9 @@ export default {
         };
     },
     watch: {
-        /*         listData(newVal, oldVal) {
-                    debugger
-                    this.currentListData = JSON.parse(JSON.stringify(newVal));
-                }, */
+
         currentListData: {
             handler(newVal, oldVal) {
-               debugger
                // this.currentListData = newVal
             },
             deep: true//对象内部的属性监听，也叫深度监听

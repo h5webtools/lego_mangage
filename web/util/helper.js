@@ -48,10 +48,9 @@ export function setPageData(levelIndex, obj, changeData) {
  * 
  * @param {*} levelIndex 
  * @param {*} pageData 
- * @param {*} type 默认0 找的是 找children； 1 是当前位置直接找元素
+ * @param {*} type 默认0 找的是 找所在children； 1 是当前位置直接找元素，直接可用
  */
 export function getLevelPageDataChildren(levelIndex, pageData, type = 0) {
-  debugger
   let pageDataChildren = [];
   if(levelIndex === 'top' || levelIndex === '0') {
 

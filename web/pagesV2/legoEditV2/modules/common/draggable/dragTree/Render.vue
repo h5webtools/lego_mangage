@@ -31,13 +31,6 @@ export default {
       get() {
         return this.$store.state.editor.pageData;
       }
-      /*       set(value) {
-        debugger
-        this.$store.commit("editor/updatePage", {
-          levelKey: "top",
-          data: value
-        });
-      } */
     }
   },
   methods: {}

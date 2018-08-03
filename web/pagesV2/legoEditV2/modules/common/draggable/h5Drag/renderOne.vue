@@ -84,12 +84,20 @@ export default {
     }
   }
 
-
-}
-
-.drop-highlight {
+  .dragItem_current{
     border: 1px solid #ff0000!important;
+  }
+
+  .drop-highlight {
+    border: 1px solid #409EFF!important;
+  }
+  &.drop-highlight {
+    border: 1px solid #409EFF!important;
+  }
+
 }
+
+
 
 </style>
 
