@@ -11,11 +11,9 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import EditorRender from '../common/render.vue';
 
 export default {
   components: {
-    EditorRender
   },
   computed: {
     ...mapGetters({

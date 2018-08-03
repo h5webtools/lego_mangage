@@ -33,31 +33,55 @@ function toggleDragClass(el, mark) {
 
 function getItemIndex(event, el, ctx) {
   // 先计算水平排列
-  const children = el.children
+  let children = el.children
+  if (ctx.renderType === 'tree') {
+     // tree-collapse_operate   .multi-tree_children
+    children = el.children[1].children
+  }
   const childrenLength = children.length;
-  const { pageX, pageY } = event; 
+  const { pageX, pageY } = event;
   let itemIndex = 0;
-  
-  let instanceLast = {x: 0, y: 0}
-  if(childrenLength >= 1) {
+
+  let instanceLast = { x: 0, y: 0 }
+  if (childrenLength >= 1) {
     instanceLast = children[childrenLength - 1].getBoundingClientRect();
   }
-  
+  debugger
+
+
   for (let i = 0; i < childrenLength; i++) {
     const instanceBefore = children[i].getBoundingClientRect();
 
-   if(pageX > (instanceLast.x + instanceBefore.width) || pageY > (instanceLast.y + instanceLast.height)) {
-      // 在最后一个之后
-      itemIndex = childrenLength;
-      break;
-    } 
-   
-    if (pageX >= instanceBefore.x && pageX < (instanceBefore.x + instanceBefore.width) && pageY >= instanceBefore.y && pageY < (instanceBefore.y + instanceBefore.height)) {
-      itemIndex = i;
-      break;
+    if (ctx.renderType === 'tree') {
+      // 只比较纵向
+      if (pageY > (instanceLast.y + instanceLast.height)) {
+        // 在最后一个之后
+        itemIndex = childrenLength;
+        break;
+      }
+
+      if (pageY >= instanceBefore.y && pageY < (instanceBefore.y + instanceBefore.height)) {
+        itemIndex = i;
+        break;
+      } else {
+        itemIndex = i;
+      }
     } else {
-      itemIndex = i;
+
+      if (pageX > (instanceLast.x + instanceBefore.width) || pageY > (instanceLast.y + instanceLast.height)) {
+        // 在最后一个之后
+        itemIndex = childrenLength;
+        break;
+      }
+
+      if (pageX >= instanceBefore.x && pageX < (instanceBefore.x + instanceBefore.width) && pageY >= instanceBefore.y && pageY < (instanceBefore.y + instanceBefore.height)) {
+        itemIndex = i;
+        break;
+      } else {
+        itemIndex = i;
+      }
     }
+
   }
   console.log('drag itemIndex: ' + itemIndex)
 
@@ -65,12 +89,12 @@ function getItemIndex(event, el, ctx) {
 
 }
 
-function handleDragStart(e , ctx) {
+function handleDragStart(e, ctx) {
   console.log('dragstart--------', ctx.levelIndex, ctx, ctx.$store.getters['editor/isDragging']
-)
+  )
 
   const isDragging = ctx.$store.getters['editor/isDragging'];
-  if(isDragging) {
+  if (isDragging) {
     return false;
   }
   // e.preventDefault();
@@ -105,22 +129,34 @@ function handleDrop(e, ctx) {
   e.stopPropagation();
 
   const elementData = e.dataTransfer.getData('dragElementData');
-  
-  if (typeof elementData !== 'undefined' &&  elementData !== '') {
-    const {  item, dragType, oldLevel, oldLevelIndex, oldItemIndex} = JSON.parse(elementData)
+
+  if (typeof elementData !== 'undefined' && elementData !== '') {
+    const { item, dragType, oldLevel, oldLevelIndex, oldItemIndex } = JSON.parse(elementData)
     // 添加children
     // 先管clone widget 直接add的
 
     const itemIndex = getItemIndex(e, this, ctx)
 
-    if(dragType === 'add') {
+    if (dragType === 'add') {
       setUuid(
         item,
         itemIndex,
         this.level,
         this.levelIndex,
         ctx.$store.getters['editor/currentThemeStyle']
-       );
+      );
+    }
+
+    if (dragType === 'move') {
+      // 拖拽到自身
+      if (ctx.levelIndex === oldLevelIndex) {
+        console.log('drag ===== drop ')
+        toggleDragClass(this, false);
+        ctx.$store.dispatch('editor/setDragging', false);
+        e.dataTransfer.clearData('dragElementData');
+        e.dataTransfer.clearData('dragElementType');
+        return;
+      }
     }
 
 
@@ -133,7 +169,7 @@ function handleDrop(e, ctx) {
         // TODO  安装一个记录一次， 再次拖拽不再安装
         item.is_register = true;
         updatePage(e, ctx, this, item, itemIndex, dragType, oldLevel, oldLevelIndex, oldItemIndex)
-    })
+      })
     } else {
       updatePage(e, ctx, this, item, itemIndex, dragType, oldLevel, oldLevelIndex, oldItemIndex)
     }
@@ -169,19 +205,19 @@ export default {
       handleDragStart.call(this, e, ctx);
     };
 
-    
-    if(!el.classList.contains('iphone-container')) {
+    // 最外层容器不能被拖拽
+    if (!el.classList.contains('iphone-container') && !el.classList.contains('itree-manage')) {
       el.draggable = true;
       el.addEventListener('dragstart', el._handleDragStart);
     }
     // 对于有children才有drop， 对于无childern 只有drag
     // ctx.tag_name  lego-row  lego-col
-    if(ctx.draggable === true || ctx.item.draggable === true) {
+    if (ctx.draggable === true || ctx.item.draggable === true) {
       el.addEventListener('dragenter', handleDragEnter);
       el.addEventListener('dragover', handleDragOver);
       el.addEventListener('drop', el._handleDrop);
       el.addEventListener('dragleave', handleDragLeave);
-    } 
+    }
 
 
 

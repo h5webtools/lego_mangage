@@ -7,7 +7,7 @@
         :key="levelIndex + '-' + itemIndex "  
         v-bind="item.props" 
         :uuid="levelIndex + '-' + itemIndex" 
-        :class="{'dragItem_current': item.extendProps &&item.extendProps.isCurrent}" 
+        :class="{'dragItem_current': item.extendProps &&item.extendProps.isCurrent, 'isDraggable': item.draggable}" 
         class="dragItem"
         v-if="item.is_register === true || typeof item.is_register  === 'undefined' ">
 
@@ -64,6 +64,9 @@ export default {
       min-height: 100px;
       display: flex;
       border: 1px dashed #999;
+  }
+  .dragItem{
+    transition: all 0.35s;
   }
 
   .lego-col {

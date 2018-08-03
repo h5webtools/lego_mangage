@@ -48,7 +48,7 @@
         <el-tab-pane label="图层管理">
               <!-- 组件树 -->
 
-            <div class="tree-manage multi-tree_children">
+            <div class="tree-manage multi-tree_children" v-draggable :class="{'isDragging': isDragging}">
             <!-- <editor-tree></editor-tree> -->
               <c-h5-draggable-multi-tree 
                   :item="itemChild"
@@ -79,16 +79,12 @@ import { mapGetters } from "vuex";
 import Vue from "vue";
 
 import EditorWidgetList from "./widget-list.vue";
-import EditorTree from "../common/draggable/dragTree/Render.vue";
-import EditorRender from "../common/draggable/Render.vue";
 
 import stringifyObject from "@/util/stringify";
 
 export default {
   components: {
-    EditorRender,
     EditorWidgetList,
-    EditorTree
   },
   data() {
     return {
@@ -182,6 +178,12 @@ export default {
       background-color: #ffffff;
       height: 100%;
       padding: 0;
+      & > .el-tab-pane{
+        height: 100%;
+        & > .tree-manage{
+          height: 100%;
+        }
+      }
     }
   }
 }

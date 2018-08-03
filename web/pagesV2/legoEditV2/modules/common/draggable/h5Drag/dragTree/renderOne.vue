@@ -56,7 +56,9 @@ export default {
   name: "renderOne",
   mixins: [draggableMixin],
   data() {
-    return {};
+    return {
+      renderType: 'tree'
+    };
   },
   computed: {
     /*     pageData() {
@@ -64,7 +66,7 @@ export default {
     } */
     operateStyle() {
       return {
-        "padding-left": 10 + this.level * 5 + "px"
+        "padding-left": 10 + this.level * 10 + "px"
       };
     }
   },
@@ -204,8 +206,19 @@ export default {
     }
   }
 
+  &.isDragging{
+    padding: 5px;
+    .isDraggable{
+      margin: 5px;
+      padding: 5px;
+    }
+  }
+
   .drop-highlight {
-    border: 1px solid #ff0000 !important;
+    border: 1px solid #409EFF!important;
+  }
+  &.drop-highlight {
+    border: 1px solid #409EFF!important;
   }
 }
 </style>

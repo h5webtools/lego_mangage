@@ -8,6 +8,7 @@ import typeOf from '@jyb/lib-type-of';
 import stringifyObject from '@/util/stringify';
 import * as queryString from '@/util/querystring';
 import {setPageData, setPageDataItemByKey, updatePageItemThemeStyle, getLevelPageData, getLevelPageDataChildren} from '@/util/helper'
+import Vue from 'Vue';
 
 
 // { tag: '', props: {}, children: [] }
@@ -131,6 +132,7 @@ const actions = {
 // mutations
 const mutations = {
   updatePage(state, result) {
+    debugger
 
     // 如果是在renderOne 部分的levelIndex 是到children， 如果点击的是当前组件，那么levelIndex 就是直接到children
 
@@ -157,12 +159,11 @@ const mutations = {
 
       let oldPageDataChildren = getLevelPageDataChildren(realOldLevelIndex, state.pageData)
 
-
       if(levelIndex === oldIndexArr.join('-')) {
         // 交换 oldLastItemIndex  和  itemIndex
         let temp = oldPageDataChildren[oldLastItemIndex];
-        oldPageDataChildren[oldLastItemIndex] = oldPageDataChildren[itemIndex];
-        oldPageDataChildren[itemIndex] = temp;
+        Vue.set(oldPageDataChildren, oldLastItemIndex, oldPageDataChildren[itemIndex] );
+        Vue.set(oldPageDataChildren, itemIndex, temp );
 
       } else {
         // 根据新位置进行add item（保持原有index 不变）
