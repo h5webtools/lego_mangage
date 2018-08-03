@@ -160,6 +160,9 @@ const mutations = {
       let oldPageDataChildren = getLevelPageDataChildren(realOldLevelIndex, state.pageData)
 
       if(levelIndex === oldIndexArr.join('-')) {
+        if(oldPageDataChildren.length <= 1 ) {
+          return false;
+        } 
         // 交换 oldLastItemIndex  和  itemIndex
         let temp = oldPageDataChildren[oldLastItemIndex];
         Vue.set(oldPageDataChildren, oldLastItemIndex, oldPageDataChildren[itemIndex] );

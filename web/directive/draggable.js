@@ -30,12 +30,17 @@ function toggleDragClass(el, mark) {
     el.classList.remove(DROP_HIGHLIGHT);
   }
 }
-
-function getItemIndex(event, el, ctx) {
+/**
+ * 计算目的地索引
+ * @param {} event 
+ * @param {*} el 
+ * @param {*} ctx 
+ */
+function getItemIndex(event, el, ctx, dragType) {
   // 先计算水平排列
   let children = el.children
   if (ctx.renderType === 'tree') {
-     // tree-collapse_operate   .multi-tree_children
+    // tree-collapse_operate   .multi-tree_children
     children = el.children[1].children
   }
   const childrenLength = children.length;
@@ -46,6 +51,7 @@ function getItemIndex(event, el, ctx) {
   if (childrenLength >= 1) {
     instanceLast = children[childrenLength - 1].getBoundingClientRect();
   }
+  debugger
 
   for (let i = 0; i < childrenLength; i++) {
     const instanceBefore = children[i].getBoundingClientRect();
@@ -54,7 +60,11 @@ function getItemIndex(event, el, ctx) {
       // 只比较纵向
       if (pageY > (instanceLast.y + instanceLast.height)) {
         // 在最后一个之后
-        itemIndex = childrenLength;
+        if (dragType === 'add') {
+          itemIndex = childrenLength;
+        } else {
+          itemIndex = childrenLength - 1;
+        }
         break;
       }
 
@@ -68,7 +78,11 @@ function getItemIndex(event, el, ctx) {
 
       if (pageX > (instanceLast.x + instanceBefore.width) || pageY > (instanceLast.y + instanceLast.height)) {
         // 在最后一个之后
-        itemIndex = childrenLength;
+        if (dragType === 'add') {
+          itemIndex = childrenLength;
+        } else {
+          itemIndex = childrenLength - 1;
+        }
         break;
       }
 
@@ -121,10 +135,9 @@ function handleDragOver(e) {
   toggleDragClass(this, true);
 }
 
-function dragItemHandleDrop(e, ctx) {
-  debugger
+function handleDragEnd(e, ctx) {
   ctx.$store.dispatch('editor/setDragging', false);
-  console.log("render drag item Dragend");
+  console.log("*********** render drag item Dragend ***********");
   e.dataTransfer.clearData("dragElementData");
 }
 
@@ -140,7 +153,7 @@ function handleDrop(e, ctx) {
     // 添加children
     // 先管clone widget 直接add的
 
-    const itemIndex = getItemIndex(e, this, ctx)
+    const itemIndex = getItemIndex(e, this, ctx, dragType)
 
     if (dragType === 'add') {
       setUuid(
@@ -151,7 +164,7 @@ function handleDrop(e, ctx) {
         ctx.$store.getters['editor/currentThemeStyle']
       );
     }
-
+    
     if (dragType === 'move') {
       // 拖拽到自身
       if (ctx.levelIndex === oldLevelIndex) {
@@ -208,16 +221,16 @@ export default {
       handleDragStart.call(this, e, ctx);
     };
 
-    el._dragItemHandleDrop = function (e) {
-      dragItemHandleDrop.call(this, e, ctx);
+    el._handleDragEnd = function (e) {
+      handleDragEnd.call(this, e, ctx);
     };
-    
+
 
     // 最外层容器不能被拖拽
     if (!el.classList.contains('iphone-container') && !el.classList.contains('itree-manage')) {
       el.draggable = true;
       el.addEventListener('dragstart', el._handleDragStart);
-      el.addEventListener('drop', el._dragItemHandleDrop);
+      el.addEventListener('dragend', el._handleDragEnd);
     }
     // 对于有children才有drop， 对于无childern 只有drag
     // ctx.tag_name  lego-row  lego-col
@@ -232,7 +245,7 @@ export default {
 
   },
   unbind(el) {
-    el.removeEventListener('dragstart', el._handleDragStart);
+    el.removeEventListener('dragend', el._handleDragStart);
     el.removeEventListener('dragenter', handleDragEnter);
     el.removeEventListener('dragover', handleDragOver);
     el.removeEventListener('drop', el._handleDrop);

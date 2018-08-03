@@ -66,7 +66,7 @@ export default {
     } */
     operateStyle() {
       return {
-        "padding-left": 10 + this.level * 10 + "px"
+        "padding-left": 10 + this.level * 18 + "px"
       };
     }
   },
