@@ -2,7 +2,7 @@
     <div 
       v-draggable
       :uuid="levelIndex + '-' + itemIndex" 
-      :class="[{'dragItem_current': item.extendProps &&item.extendProps.isCurrent}, item.extendProps.isFolded ? 'packup' : 'unfold']" 
+      :class="[{'dragItem_current': item.extendProps &&item.extendProps.isCurrent}, item.extendProps.isFolded ? 'packup' : 'unfold', item.draggable ? 'isDraggable' : '']" 
       class="dragItem tree-collapse"
       v-if="item.is_register === true || typeof item.is_register  === 'undefined' ">
 
@@ -207,10 +207,10 @@ export default {
   }
 
   &.isDragging{
-    padding: 5px;
+    padding: 20px;
     .isDraggable{
-      margin: 5px;
-      padding: 5px;
+      // margin: 20px;
+      padding: 10px;
     }
   }
 

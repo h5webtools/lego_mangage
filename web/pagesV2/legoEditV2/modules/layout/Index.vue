@@ -16,11 +16,7 @@
           center
           show-icon>
         </el-alert> -->
-<!--         <editor-render class="iphone-container"
-          :page-data="pageData"
-        ></editor-render> -->
         <div class="iphone-container"  v-draggable :class="{'isDragging': isDragging}">
-<!--             <c-h5-draggable-multi :currentListData="pageData"> </c-h5-draggable-multi> -->
             <c-h5-draggable-multi 
                 :item="itemChild"
                 :key="indexChild" 
