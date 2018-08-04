@@ -40,7 +40,7 @@
             </div>
 
             <div class="ui-ta-c col-operate">
-              <el-button size="mini" type="success">保存</el-button>
+              <el-button size="mini" type="success" @click="savePage">保存</el-button>
               <el-button size="mini" type="primary">活动配置</el-button>
               <el-button size="mini" type="info">预览</el-button>
               <el-button size="mini" type="warning">解锁</el-button>
@@ -65,20 +65,20 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+import * as util from "@jyb/lib-util";
+import * as queryString from "@/util/querystring";
+import logoImg from "assets/img/edit/LOGO.png";
+import rightWhite from "assets/img/edit/right-white.png";
+import { getUrlKey } from "@/util/helper";
 
-import { mapGetters } from 'vuex';
-import * as util from '@jyb/lib-util';
-import * as queryString from '@/util/querystring';
-import logoImg from 'assets/img/edit/LOGO.png'
-import rightWhite from 'assets/img/edit/right-white.png'
 // import themeQuery from "apiV2/theme"
-import * as themeQuery from "apiV2/theme"
+import * as themeQuery from "apiV2/theme";
+import * as pageQuery from "apiV2/page_edit";
 
-console.log(themeQuery)
+console.log(themeQuery);
 export default {
-  components: {
-
-  },
+  components: {},
   data() {
     return {
       logoImg: logoImg,
@@ -90,34 +90,43 @@ export default {
       // },
       themeStyle: [],
       currentThemeId: -1,
+      pageId: ""
     };
   },
   computed: {
     ...mapGetters({
-      activeIndex: 'editor/menuActiveIndex',
-      currentThemeStyle: 'editor/currentThemeStyle'
+      pageData: "editor/pageData",
+      activeIndex: "editor/menuActiveIndex",
+      currentThemeStyle: "editor/currentThemeStyle"
     })
   },
   created() {
+    this.pageId = getUrlKey("pageId");
     this.getLegoThemeStyle();
+    if(this.pageId) {
+      this.getPage();
+    }
   },
   methods: {
     getLegoThemeStyle() {
       themeQuery.getLegoThemeStyle().then(json => {
-        if(json.code == 0) {
+        if (json.code == 0) {
           json.data.theme_list.forEach(item => {
-            item.config = JSON.parse(item.config)
+            item.config = JSON.parse(item.config);
           });
           this.themeStyle = json.data.theme_list;
-          
-          if(!this.currentThemeStyle.t_theme_style_id) {
-            this.$store.dispatch("editor/setCurrentThemeStyle", json.data.theme_list[0]);
+
+          if (!this.currentThemeStyle.t_theme_style_id) {
+            this.$store.dispatch(
+              "editor/setCurrentThemeStyle",
+              json.data.theme_list[0]
+            );
           }
-        } 
-      })
+        }
+      });
     },
     pickerThemeItem(type, item) {
-      if(this.currentThemeStyle.t_theme_style_id === item.t_theme_style_id) {
+      if (this.currentThemeStyle.t_theme_style_id === item.t_theme_style_id) {
         return false;
       }
 
@@ -127,124 +136,157 @@ export default {
       this.$store.dispatch("editor/updatePageItemThemeStyle", {
         currentTheme: item
       });
+    },
+    savePage() {
+      let postData = {};
+      postData.pageContent = JSON.stringify(this.pageData);
+      if (this.pageId) {
+        postData.pageId = this.pageId;
+      }
+      pageQuery
+        .savePage(postData)
+        .then(json => {
+          if (json.code == 0) {
+            if (!this.pageId) {
+              this.pageId = json.data.pageId
+            }
+          }
+        })
+        .catch(() => {});
+    },
+    getPage() {
+      let postData = {
+        pageId: this.pageId
+      };
+      pageQuery
+        .getPage(postData)
+        .then(json => {
+          if (json.code == 0) {
+            this.$store.dispatch("editor/updatePage", {
+              dragType: 'none',
+              item: JSON.parse(json.data.page_content)
+            })
+          } else {
+            this.$message.error('该页面不存在')
+          }
+        })
+        .catch(() => {});
     }
   }
-}
+};
 </script>
 
 <style lang="scss" >
 .el-header-lego {
-  background: #FFFFFF;
-  box-shadow: 0 0 4px 0 rgba(77,77,100,0.24);
+  background: #ffffff;
+  box-shadow: 0 0 4px 0 rgba(77, 77, 100, 0.24);
   height: 64px;
   position: fixed;
   top: 0;
-  width:100%;
+  width: 100%;
   padding: 0;
   left: 0;
   z-index: 1000;
   line-height: 64px;
   font-size: 14px;
-  color: #58586E;
-  & > .el-row{
+  color: #58586e;
+  & > .el-row {
     display: flex;
     justify-content: space-between;
-    .col-logo{
+    .col-logo {
       width: 340px;
       flex: 0 0 340px;
-      @media  screen and (max-width: 1450px) {
+      @media screen and (max-width: 1450px) {
         flex: 1 1 100px;
       }
       .logo {
         text-align: center;
         font-size: 24px;
         font-weight: bold;
-        color: #FF6E34;
+        color: #ff6e34;
       }
-      img{
+      img {
         vertical-align: baseline;
       }
     }
-    .flex-between{
+    .flex-between {
       flex: 5;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      .col-base{
+      .col-base {
         flex: 1 1 200px;
       }
-      .col-theme{
+      .col-theme {
         flex: 1 0 120px;
       }
-      .col-scale{
+      .col-scale {
         // border: solid 1px #C3C8E4;
         height: 24px;
         display: flex;
         flex: 0 0 108px;
         font-size: 0;
-        & > .col-scale-number{
+        & > .col-scale-number {
           text-align: center;
           height: 24px;
           line-height: 24px;
           width: 60px;
           font-size: 14px;
-          color: #58586E;
-          position:relative;
-          &::after{
-            content: '';
-            width:103%;
+          color: #58586e;
+          position: relative;
+          &::after {
+            content: "";
+            width: 103%;
             height: 1px;
             display: block;
-            bottom:0;
+            bottom: 0;
             left: -1px;
             position: absolute;
-            background-color: #C3C8E4;
+            background-color: #c3c8e4;
           }
-          &::before{
-            content: '';
-            width:103%;
+          &::before {
+            content: "";
+            width: 103%;
             height: 1px;
             display: block;
             left: -1px;
-            top:0;
+            top: 0;
             position: absolute;
-            background-color: #C3C8E4;
+            background-color: #c3c8e4;
           }
           // border-top: 1px solid #C3C8E4;
           // border-bottom: 1px solid #C3C8E4;
         }
-        & > .col-scale__zoom-out{
+        & > .col-scale__zoom-out {
           line-height: 64px;
           width: 24px;
           height: 24px;
-          background: url('../../../../assets/img/edit/nav_ic_zoomout@2x.png') 0 0/100% 100%
+          background: url("../../../../assets/img/edit/nav_ic_zoomout@2x.png") 0
+            0/100% 100%;
         }
-        & > .col-scale__zoom-in{
+        & > .col-scale__zoom-in {
           line-height: 64px;
           width: 24px;
           height: 24px;
-          background: url('../../../../assets/img/edit/nav_ic_zoomin@2x.png') 0 0/100% 100%
+          background: url("../../../../assets/img/edit/nav_ic_zoomin@2x.png") 0
+            0/100% 100%;
         }
       }
-      .col-operate{
+      .col-operate {
         flex: 3 1 550px;
       }
-   }
+    }
 
-    .col-user{
+    .col-user {
       margin-right: 20px;
       width: 80px;
       flex: 0 0 80px;
     }
   }
-
-
-
-
 }
 
 .theme-item {
-  border: 1px solid #C3C8E4;
+  border: 1px solid #c3c8e4;
   border-radius: 2px;
   display: inline-block;
   width: 24px;
@@ -256,13 +298,13 @@ export default {
   margin-right: 10px;
   margin-top: 5px;
   cursor: pointer;
-  & > .el-icon-check{
+  & > .el-icon-check {
     width: 100%;
     height: 100%;
     line-height: 24px;
     font-weight: bolder;
     font-size: 20px;
-    color: #FEFEFE;
+    color: #fefefe;
   }
 }
 </style>

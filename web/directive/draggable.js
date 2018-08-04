@@ -51,7 +51,6 @@ function getItemIndex(event, el, ctx, dragType) {
   if (childrenLength >= 1) {
     instanceLast = children[childrenLength - 1].getBoundingClientRect();
   }
-  debugger
 
   for (let i = 0; i < childrenLength; i++) {
     const instanceBefore = children[i].getBoundingClientRect();

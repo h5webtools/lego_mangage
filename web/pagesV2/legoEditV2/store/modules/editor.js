@@ -132,13 +132,16 @@ const actions = {
 // mutations
 const mutations = {
   updatePage(state, result) {
-    debugger
 
     // 如果是在renderOne 部分的levelIndex 是到children， 如果点击的是当前组件，那么levelIndex 就是直接到children
 
     // 具体在拖拽元素的old levelIndex 中都是自己的真正位置， 以及 图层管理中的更改属性
 
     let { levelIndex, item, itemIndex, dragType, oldLevel, oldLevelIndex, oldItemIndex} = result;
+
+    if(dragType === 'none') {
+      state.pageData = item;
+    }
 
     // 顶级的是直接替换全部数据， 其余的每次是替换children的值， 第一个leveindex是多余的标志量
     // console.log(JSON.stringify(result));

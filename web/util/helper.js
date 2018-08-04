@@ -392,7 +392,6 @@ export function _formatWidgetStyle(formatWidget, component_group_index) {
  * @param {*} callback 
  */
 export function loadComponents(fileUrl, callback) {
-  debugger
   // var scriptTag = document.getElementById(id);
   var oHead = document.getElementsByTagName("HEAD").item(0);
   var oScript = document.createElement("script");

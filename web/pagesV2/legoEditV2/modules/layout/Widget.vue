@@ -37,7 +37,6 @@ export default {
       console.log("widget DragOver");
     },
     handleDragEnd(e) {
-      debugger
       this.$store.dispatch('editor/setDragging', false);
       console.log("widget Dragend");
       e.dataTransfer.clearData("dragElementData");
