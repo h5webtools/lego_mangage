@@ -12,5 +12,7 @@ module.exports = app => {
   const routerPrefix = '/' + version
   // app.router.get(routerPrefix , controller[version].lego.home.index);
   app.router.redirect(routerPrefix, routerPrefix +  '/legoEdit', 302);
+  // 打包
+  app.router.post(routerPrefix +  '/legoPackage', controller[version].lego.index.legoPackage);
 
 };

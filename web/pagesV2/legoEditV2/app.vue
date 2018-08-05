@@ -1,6 +1,5 @@
 <template>
  <el-container>
-
     <editor-header></editor-header>
 
     <div class="el-container-lego">
@@ -15,7 +14,9 @@ import Vue from "vue";
 import * as util from "@jyb/lib-util";
 import * as queryString from "@/util/querystring";
 
-import * as componentQuery from "apiV2/component"
+import * as componentQuery from "apiV2/component";
+
+import * as legoQuery from "apiV2/lego";
 
 // component
 import EditorLayout from "./modules/layout/index.vue";
@@ -64,6 +65,9 @@ export default {
     }
   },
   created() {
+    legoQuery.getLegoPackage().then(json => {
+      debugger;
+    });
     /*     this.loadComponents('testid' , '/public/style/style1.js' , function(){
       window.ButtonTest.install(Vue);
       console.log(Vue.options.components , '注册组件0');
@@ -90,6 +94,7 @@ export default {
   },
   methods: {
     getWidgetList() {
+      debugger;
       componentQuery
         .getWidgetList({
         })

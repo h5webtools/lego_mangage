@@ -2,6 +2,8 @@
 
 const Controller = require('egg').Controller;
 const errCode = require('../../../constant/errCode');
+const { exec } = require('child_process');
+const path = require('path');
 
 const DELETE_LOCK_KEY_FAILED = 610007;    // redis删除锁失败
 const EMPTY_LOCK_DATA = 610008; // 没有获取到锁
@@ -29,7 +31,6 @@ const PAGE_ID_NOT_EXIST = 810011;       // 活动页面不存在
 class LegoIndexController extends Controller {
   async index() {
     // 菜单暂时不做缓存， 因为可能被修改， 到时候不同步
-
 
     const operateUser = this.ctx.session.passportJyb.operateUser;
     if(!this.ctx.session.userid) {
@@ -65,6 +66,28 @@ class LegoIndexController extends Controller {
       }
     }
   }
+
+  async legoPackage() { // 乐高打包
+    this.ctx.logger.info(this.config.legoConfig.path);
+    try {
+      const std = await exec('jfet build', {
+        cwd:this.config.legoConfig.path
+        //cwd: path.resolve(__dirname, '..', '..', '..', '..', 'build_static')
+      },(err, stdout, stderr) => {
+        if (err) {
+          this.ctx.body = 'error';
+          return;
+        }
+        this.ctx.body = 'success';
+      });
+      this.ctx.body = 'success';
+    } catch (error) {
+      // todo
+      this.ctx.logger.info(error);
+      this.ctx.body = '...error';
+    }
+  }
+
 }
 
 module.exports = LegoIndexController;

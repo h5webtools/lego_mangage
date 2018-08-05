@@ -3,12 +3,10 @@ import service from 'services';
 import {version} from './const.js'
 const routerPrefix = '/' + version
 
-export function getWidgetList(data) {
+export function getLegoPackage(data) {
   return service({
-    url: routerPrefix + '/getWidgetList',
+    url: routerPrefix + '/legoPackage',
     method: 'post',
     data
   });
 }
-
-
