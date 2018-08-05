@@ -11,4 +11,9 @@ module.exports = app => {
   const routerPrefix = '/' + version
   app.router.get(routerPrefix +  '/legoEdit', controller[version].legoEdit.index.index);
 
+  app.router.post(routerPrefix +  '/legoEdit/savePage', controller[version].legoEdit.npm.savePage);
+  
+
+  app.router.post(routerPrefix +  '/legoEdit/getPage', controller[version].legoEdit.npm.getPage);
+
 };

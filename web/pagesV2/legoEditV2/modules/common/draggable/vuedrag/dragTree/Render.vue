@@ -14,6 +14,7 @@ export default {
     //   default: null
     // },
   },
+  name: "renderOneTree",
   data() {
     return {
       dragOptions: {
@@ -29,12 +30,6 @@ export default {
     pageData: {
       get() {
         return this.$store.state.editor.pageData;
-      },
-      set(value) {
-        this.$store.commit("editor/updatePage", {
-          levelKey: "top",
-          data: value
-        });
       }
     }
   },
@@ -72,10 +67,10 @@ export default {
       & > .tree-collapse {
         width: 100%;
         &.unfold {
-          & > .draggableTreeItem{
+          & > .draggableTreeItem {
             height: auto;
           }
-          &  .packup-icon {
+          & .packup-icon {
             width: 20px;
             height: 20px;
             background: url("../../../../../../assets/img/edit/layers_ic_unfold@2x.png")
@@ -83,12 +78,12 @@ export default {
           }
         }
         &.packup {
-          & > .draggableTreeItem{
-            // display: none;
+          & > .draggableTreeItem {
+            display: none;
             // opacity: 0;
-            height: 0;
+            // height: 0;
           }
-          &  .packup-icon {
+          & .packup-icon {
             width: 20px;
             height: 20px;
             background: url("../../../../../../assets/img/edit/layers_ic_packup@2x.png")
@@ -122,6 +117,11 @@ export default {
         }
       }
     }
+  }
+
+  .dragItem_current {
+    // border: 1px solid red;
+    background-color: #95a2e8 !important;
   }
 }
 </style>

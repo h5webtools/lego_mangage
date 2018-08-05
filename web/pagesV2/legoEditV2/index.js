@@ -6,6 +6,7 @@ import ElementUI, { Message as $message } from 'element-ui';
 
 import App from './app.vue';
 
+import draggable from '@/directive/draggable';
 
 import editor from './store/modules/editor';
 import widget from './store/modules/widget';
@@ -14,9 +15,13 @@ import widget from './store/modules/widget';
 import vStore from './store';
 
 import cDraggable from 'vuedraggable'
-import cDraggableMulti from './modules/common/draggable/RenderOne.vue'
-import cDraggableMultiTree from './modules/common/draggable/dragTree/RenderOne.vue'
-import legoComponentBasic from '@lego/lego_component_basic/page/show/index.js'
+
+
+import cH5DraggableMulti from './modules/common/draggable/h5Drag/renderOne.vue'
+
+import cH5DraggableMultiTree from './modules/common/draggable/h5Drag/dragTree/renderOne.vue'
+
+import legoComponentBasic from '@lego/lego_component_basic/page/show'
 import legoEditProp from '@lego/lego_component_basic/page/edit/components/editorProps';
 
 import './index.scss';
@@ -51,12 +56,17 @@ Vue.use(legoComponentBasic)
 Vue.use(legoEditProp)
 console.log(legoComponentBasic , '基础组件','开始入口')
 console.log(legoEditProp , 'edit');
+
 Vue.component('c-draggable', cDraggable)
-Vue.component('c-draggable-multi', cDraggableMulti)
-Vue.component('c-draggable-multi-tree', cDraggableMultiTree)
+Vue.component('c-h5-draggable-multi', cH5DraggableMulti)
+Vue.component('c-h5-draggable-multi-tree', cH5DraggableMultiTree)
+
 
 vStore.registerModule('editor', editor);
 vStore.registerModule('widget', widget);
+
+
+Vue.directive('draggable', draggable);
 
 // import './register/index'
 // import('public/testA.vue');

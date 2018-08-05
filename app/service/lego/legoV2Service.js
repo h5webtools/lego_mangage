@@ -59,6 +59,42 @@ class LegoV2Service extends Service {
     , [data.theme_id]);
     return result;
   }
+  /**
+   * @description 新增活动页面
+   * @param {*} data 
+   */
+  async insertPageInfo(data) {
+    this.ctx.logger.info('新增活动页面配置 ');
+    let insertData = this.app.mysql.get('dbLego').insert('t_page', {
+      page_content: data.pageContent,
+      page_editdate: data.updateTime,
+      // page_act_id: data.actId
+    })
+    return insertData;
+  }
+  async updatePageInfo(data) {
+    this.ctx.logger.info('更新活动页面配置 ');
+    let result = await this.app.mysql.get('dbLego').query(`
+    update t_page set 
+    page_content = ? , 
+    page_editdate = ? , 
+    last_save_erp = ? 
+    where id= ? ` , 
+     [data.pageContent, data.updateTime , data.user , data.pageId]);
+    return result.affectedRows === 1;
+  }
+
+  async getPage(data) {
+    this.ctx.logger.info('获取活动页面配置 ');
+/*     let result = await this.app.mysql.get('dbLego').query(`
+    SELECT page_content, id FROM  t_page set 
+    where id= ? ` , 
+     [data.pageId]);
+    return result; */
+
+    let result = await this.app.mysql.get('dbLego').get('t_page', {id: data.pageId})
+    return result;
+  }
 }
 
 module.exports = LegoV2Service;

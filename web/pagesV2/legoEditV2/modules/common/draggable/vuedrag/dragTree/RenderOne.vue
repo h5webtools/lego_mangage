@@ -1,15 +1,15 @@
 <template>
   <c-draggable  element="div" class="draggableTreeItem" v-model="currentListData" :options="dragOptions" @choose='onChoose(currentListData, $event)'  @add="onAdd(currentListData, $event)" :move="onMove" @end="onEnd(currentListData, $event)" @sort="onSort(currentListData, $event)" @remove="onRemove(currentListData, $event)">
 
-      <transition-group name="no" class="list-group-design" tag="ul">
+      <transition-group name="no" class="list-group-design" tag="div">
       <!-- <transition-group name="no" class="list-group-design" type="transition"> -->
         
-         <div v-for="(item, index) in currentListData" :key="levelIndex + '-' + index" class="dragItem" :style="style">
+         <div v-for="(item, index) in currentListData" :key="levelIndex + '-' + index" class="dragItem" :class="{'dragItem_current': item.extendProps &&item.extendProps.isCurrent}" :style="style">
 
             <div  :key="levelIndex + '-' + index "  v-bind="item.com_config" :uuid="levelIndex + '-' + index" class="tree-collapse" :class="item.extendProps.isFolded ? 'packup' : 'unfold'">
               <div class="tree-collapse_operate" >
                  <span class="label">             
-                   <span class="packup-icon" @click="updateItemFold(item)"  v-show="item.children &&item.children.length > 0"></span>
+                   <span class="packup-icon" @click.stop.prevent="updateItemFold(item, index)"  v-show="item.children && item.children.length > 0"></span>
                    {{item.name}} 
                  </span>
 
@@ -18,7 +18,7 @@
                       :class="item.extendProps.isLocked ? 'locked' : 'unLocked'"
                       type="text"
                       size="mini"
-                      @click="() => lock(item)">
+                      @click="() => lock(item, index)">
                       
                     </el-button>
                   </span>
@@ -72,9 +72,11 @@ export default {
   watch: {},
   created() {},
   methods: {
-    lock(item, key = "extendProps.isLocked") {
+    lock(item, itemIndex, key = "extendProps.isLocked") {
       this.$store.dispatch("editor/updateValueDirect", {
-        data: item,
+        item: item,
+        levelIndex: this.levelIndex,
+        itemIndex: itemIndex,
         update: [
           {
             key: key,
@@ -83,9 +85,11 @@ export default {
         ]
       });
     },
-    updateItemFold(item, key = "extendProps.isFolded") {
+    updateItemFold(item, itemIndex, key = "extendProps.isFolded") {
       this.$store.dispatch("editor/updateValueDirect", {
-        data: item,
+        item: item,
+        levelIndex: this.levelIndex,
+        itemIndex: itemIndex,
         update: [
           {
             key: key,

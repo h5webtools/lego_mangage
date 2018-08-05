@@ -8,24 +8,18 @@
     >
       <div class="widget-box">
 
-          <c-draggable  class="draggableLib"  element="div" v-model="item.widgetList" :options="dragOptionsLib" :move="onMoveLib"  :clone='onCloneLib' @choose='onChooseLib'>
-                <transition-group type="transition" :name="'flip-list'" tag="ul" class="list-group-lib">
-                    <!-- <li class="list-group-item" v-for="(element, index) in formLib" :key="index">
-                        {{element.label_type}}
-                    </li> -->
-                      <editor-widget
-                        v-for="(widget, index) in item.widgetList"
-                        :key="index"
-                        :widget="widget">
-                          <div slot="widget">
-                            <div class="widget-thumb">
-                              <img :src="widget.thumb" :alt="widget.name">
-                            </div>
-                            <div class="widget-name">{{widget.name}}</div>
-                          </div>
-                      </editor-widget>
-                </transition-group>
-            </c-draggable>
+          <editor-widget
+            v-for="(widget, index) in item.widgetList"
+            :key="index"
+            :widget="widget">
+              <div slot="widget">
+                <div class="widget-thumb">
+                  <img :src="widget.thumb" :alt="widget.name">
+                </div>
+                <div class="widget-name">{{widget.name}}</div>
+              </div>
+          </editor-widget>
+          
       </div>
     </el-collapse-item>
   </el-collapse>
@@ -84,34 +78,7 @@ export default {
 </script>
 
 <style lang="scss" >
-.widget-list{
-  .el-collapse-item__header{
-    font-size: 16px;
-    color: #5F6270;
-  }
 
-  .widget-box {
-  padding: 24px 20px 0 22px;
-  & .list-group-lib{
-    & > .widget-single{
-      & > div{
-        cursor: move;
-      }
-      &:nth-child(3n) {
-        padding-right: 0;
-      }
-      & .widget-name{
-        margin: 5px 0 20px 0;
-        text-align: center;
-        font-size: 12px;
-        line-height: 12px;
-        color: #8489AB;
-        letter-spacing: 0;
-      }
-    }
-  }  
-}
-}
 
 </style>
 

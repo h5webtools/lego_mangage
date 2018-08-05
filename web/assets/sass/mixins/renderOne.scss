@@ -1,0 +1,18 @@
+@mixin flex-row($state) {
+    &.is-#{$state} {
+      & > .draggableDesignItem {
+          & > .list-group-design {
+             @content;
+          }
+        }
+    }
+}
+
+
+@mixin flex-row2($state) {
+  &.is-#{$state} {
+      & > .list-group-design {
+          @content;
+      }
+    }
+}
