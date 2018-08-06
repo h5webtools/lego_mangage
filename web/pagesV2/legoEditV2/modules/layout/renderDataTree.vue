@@ -8,7 +8,7 @@
                   :level="  level + 1 " 
                   :levelIndex="levelIndex + '-' + indexChild"  
                   v-for="(itemChild, indexChild) in pageData"
-                  element="div" 
+                  :childrenLength="pageData.length"
                   class="draggableDesign" 
                   >
               </c-h5-draggable-multi-tree>
@@ -28,7 +28,7 @@ export default {
       level: 0,
       levelIndex: "0",
       draggable: true,
-      renderType: 'tree'
+      renderType: 'tree',
     };
   },
   computed: {

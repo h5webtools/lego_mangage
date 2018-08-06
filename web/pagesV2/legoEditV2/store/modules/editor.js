@@ -93,6 +93,10 @@ const actions = {
     commit('removeItem', result);
   },
 
+  sortItem({ commit }, result) {
+    commit('sortItem', result);
+  },
+
   setCurrentThemeStyle({ commit }, result) {
     commit('setCurrentThemeStyle', result);
   },
@@ -222,6 +226,21 @@ const mutations = {
 
     oldPageDataChildren.splice(oldLastItemIndex, 1)
 
+  },
+
+  sortItem(state, result) {
+    const {item, levelIndex, itemIndex, level, oldIndex} = result;
+
+    const oldIndexArr = levelIndex.split('-') 
+    const oldLastItemIndex = Number(oldIndexArr.pop());
+    const realOldLevelIndex = oldIndexArr.join('-')
+
+    let oldPageDataChildren = getLevelPageDataChildren(realOldLevelIndex, state.pageData);
+
+    // 交换 oldLastItemIndex  和  itemIndex
+    let temp = oldPageDataChildren[oldIndex];
+    Vue.set(oldPageDataChildren, oldIndex, oldPageDataChildren[itemIndex] );
+    Vue.set(oldPageDataChildren, itemIndex, temp );
   },
 
   setCurrentThemeStyle(state, result) {

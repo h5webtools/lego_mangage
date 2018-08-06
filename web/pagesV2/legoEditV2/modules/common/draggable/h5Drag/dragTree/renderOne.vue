@@ -14,6 +14,10 @@
 
 
               <span class="collapse_operate-area">
+                <i v-show="itemIndex > 0" class="el-icon-sort-up" @click.stop.prevent="sortItem('up')"></i>
+
+                <i v-show="itemIndex < childrenLength - 1" class="el-icon-sort-down" @click.stop.prevent="sortItem('down')"></i>
+
                <i class="el-icon-delete" @click.stop.prevent="removeItem"></i>
 <!-- <el-button plain icon="el-icon-delete">搜索</el-button> -->
                 <el-button
@@ -35,6 +39,7 @@
                 :level=" level + 1 " 
                 :levelIndex="levelIndex + '-' + indexChild" 
                 v-if="item.draggable" 
+                :childrenLength="item.children && item.children.length || 0"
                 class="draggableDesign">
 
               </c-h5-draggable-multi-tree>
@@ -72,6 +77,25 @@ export default {
   watch: {},
   created() {},
   methods: {
+
+    sortItem(sortType) {
+      let newIndex;
+      if(sortType === 'up') {
+        newIndex = this.itemIndex - 1;
+      } else {
+        newIndex = this.itemIndex + 1;
+      }
+
+      this.$store.dispatch("editor/sortItem", {
+        item: this.item,
+        levelIndex: this.levelIndex,
+        itemIndex: newIndex,
+        level: this.level,
+        oldIndex: this.itemIndex
+      });
+
+
+    },
     removeItem() {
       this.$store.dispatch("editor/removeItem", {
         item: this.item,
@@ -178,6 +202,18 @@ export default {
         display: flex;
         align-items: center;
         .el-icon-delete {
+          font-size: 20px;
+          cursor: pointer;
+          margin-right: 10px;
+        }
+
+        .el-icon-sort-up {
+          font-size: 20px;
+          cursor: pointer;
+          margin-right: 10px;
+        }
+
+        .el-icon-sort-down {
           font-size: 20px;
           cursor: pointer;
           margin-right: 10px;
