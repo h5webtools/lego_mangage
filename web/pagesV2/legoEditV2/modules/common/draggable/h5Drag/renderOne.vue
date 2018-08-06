@@ -78,7 +78,7 @@ export default {
   &.isDragging{
     padding: 5px;
     .lego-row{
-      margin: 5px;
+      margin: 10px;
       padding: 5px;
     }
     .lego-col{

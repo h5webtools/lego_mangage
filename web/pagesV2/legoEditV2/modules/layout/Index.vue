@@ -16,19 +16,7 @@
           center
           show-icon>
         </el-alert> -->
-        <div class="iphone-container"  v-draggable :class="{'isDragging': isDragging}">
-            <c-h5-draggable-multi 
-                :item="itemChild"
-                :key="indexChild" 
-                :itemIndex="indexChild"
-                :level="  level + 1 " 
-                :levelIndex="levelIndex + '-' + indexChild"  
-                v-for="(itemChild, indexChild) in pageData"
-                element="div" 
-                class="draggableDesign" 
-                >
-            </c-h5-draggable-multi>
-        </div>
+        <render-data></render-data>
         
       </div>
     </el-main>
@@ -44,21 +32,7 @@
         <el-tab-pane label="图层管理">
               <!-- 组件树 -->
 
-            <div class="tree-manage multi-tree_children" v-draggable :class="{'isDragging': isDragging}">
-            <!-- <editor-tree></editor-tree> -->
-              <c-h5-draggable-multi-tree 
-                  :item="itemChild"
-                  :key="indexChild" 
-                  :itemIndex="indexChild"
-                  :level="  level + 1 " 
-                  :levelIndex="levelIndex + '-' + indexChild"  
-                  v-for="(itemChild, indexChild) in pageData"
-                  element="div" 
-                  class="draggableDesign" 
-                  >
-              </c-h5-draggable-multi-tree>
-            </div>
-
+          <render-data-tree></render-data-tree>
 
         </el-tab-pane>
 
@@ -75,12 +49,16 @@ import { mapGetters } from "vuex";
 import Vue from "vue";
 
 import EditorWidgetList from "./widget-list.vue";
+import RenderData from "./renderData.vue"
+import RenderDataTree from "./renderDataTree.vue"
 
 import stringifyObject from "@/util/stringify";
 
 export default {
   components: {
     EditorWidgetList,
+    RenderData,
+    RenderDataTree
   },
   data() {
     return {

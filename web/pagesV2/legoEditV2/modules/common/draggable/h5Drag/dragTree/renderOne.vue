@@ -28,15 +28,14 @@
 
           <div class="multi-tree_children">
               <c-h5-draggable-multi-tree
-              :item="itemChild"
-              :key="levelIndex + '-' + indexChild "  
-              v-for="(itemChild, indexChild) in item.children"
-              slot="children"
-              :itemIndex="indexChild"
-              :level=" level + 1 " 
-              :levelIndex="levelIndex + '-' + indexChild" 
-              v-if="item.draggable" 
-              class="draggableDesign">
+                :item="itemChild"
+                :key="levelIndex + '-' + indexChild "  
+                v-for="(itemChild, indexChild) in item.children"
+                :itemIndex="indexChild"
+                :level=" level + 1 " 
+                :levelIndex="levelIndex + '-' + indexChild" 
+                v-if="item.draggable" 
+                class="draggableDesign">
 
               </c-h5-draggable-multi-tree>
           </div>
@@ -207,10 +206,11 @@ export default {
   }
 
   &.isDragging{
-    padding: 20px;
+    padding: 20px 10px;
     .isDraggable{
-      // margin: 20px;
-      padding: 10px;
+      margin:  20px 0;
+      padding: 5px 0;
+      border: 1px dashed #999;
     }
   }
 

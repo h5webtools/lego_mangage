@@ -6,6 +6,8 @@ import { setUuid, loadComponents } from '@/util/helper';
 
 const DROP_HIGHLIGHT = 'drop-highlight';
 
+const instanceX = 10;
+const instanceY = 20;
 
 function updatePage(e, ctx, that, item, itemIndex, dragType, oldLevel, oldLevelIndex, oldItemIndex) {
   ctx.$store.dispatch('editor/updatePage', {
@@ -39,24 +41,43 @@ function toggleDragClass(el, mark) {
 function getItemIndex(event, el, ctx, dragType) {
   // 先计算水平排列
   let children = el.children
-  if (ctx.renderType === 'tree') {
+/*   if (ctx.renderType === 'tree') {
     // tree-collapse_operate   .multi-tree_children
     children = el.children[1].children
+  } */
+  if (ctx.renderType === 'tree') {
+    if(!el.classList.contains('tree-manage')) {
+      // tree-collapse_operate   .multi-tree_children
+      children = el.children[1].children
+    }
   }
   const childrenLength = children.length;
   const { pageX, pageY } = event;
   let itemIndex = 0;
 
   let instanceLast = { x: 0, y: 0 }
+  let instanceFirst = { x: 0, y: 0 }
   if (childrenLength >= 1) {
+    instanceFirst = children[0].getBoundingClientRect();
     instanceLast = children[childrenLength - 1].getBoundingClientRect();
   }
 
   for (let i = 0; i < childrenLength; i++) {
     const instanceBefore = children[i].getBoundingClientRect();
+    let instanceNext = {x:0, y: 0};
+    if(i < childrenLength - 1) {
+      instanceNext = children[i + 1].getBoundingClientRect();
+    }
 
     if (ctx.renderType === 'tree') {
       // 只比较纵向
+
+      if (pageY < instanceFirst.y ) {
+        // 在第一个之前
+        itemIndex = 0;
+        break;
+      }
+
       if (pageY > (instanceLast.y + instanceLast.height)) {
         // 在最后一个之后
         if (dragType === 'add') {
@@ -67,13 +88,24 @@ function getItemIndex(event, el, ctx, dragType) {
         break;
       }
 
-      if (pageY >= instanceBefore.y && pageY < (instanceBefore.y + instanceBefore.height)) {
+      if (pageY >= instanceBefore.y && pageY < instanceBefore.bottom) {
         itemIndex = i;
+        break;
+      } else if(pageY >= instanceBefore.y && (pageY < instanceNext.y)) {
+        // 处在margin之间的距离
+        itemIndex = i + 1;
         break;
       } else {
         itemIndex = i;
       }
+
     } else {
+
+      if (pageX < instanceFirst.x  || pageY < instanceFirst.y ) {
+        // 在第一个之前
+        itemIndex = 0;
+        break;
+      }
 
       if (pageX > (instanceLast.x + instanceBefore.width) || pageY > (instanceLast.y + instanceLast.height)) {
         // 在最后一个之后
@@ -106,6 +138,7 @@ function handleDragStart(e, ctx) {
 
   const isDragging = ctx.$store.getters['editor/isDragging'];
   if (isDragging) {
+    // debugger
     return false;
   }
   // e.preventDefault();
@@ -226,7 +259,7 @@ export default {
 
 
     // 最外层容器不能被拖拽
-    if (!el.classList.contains('iphone-container') && !el.classList.contains('itree-manage')) {
+    if (!el.classList.contains('iphone-container') && !el.classList.contains('tree-manage')) {
       el.draggable = true;
       el.addEventListener('dragstart', el._handleDragStart);
       el.addEventListener('dragend', el._handleDragEnd);
@@ -234,6 +267,7 @@ export default {
     // 对于有children才有drop， 对于无childern 只有drag
     // ctx.tag_name  lego-row  lego-col
     if (ctx.draggable === true || ctx.item.draggable === true) {
+      el.setAttribute('data-dropable', true)
       el.addEventListener('dragenter', handleDragEnter);
       el.addEventListener('dragover', handleDragOver);
       el.addEventListener('drop', el._handleDrop);
@@ -244,6 +278,8 @@ export default {
 
   },
   unbind(el) {
+    debugger
+    console.log('------------unbind---------')
     el.removeEventListener('dragend', el._handleDragStart);
     el.removeEventListener('dragenter', handleDragEnter);
     el.removeEventListener('dragover', handleDragOver);

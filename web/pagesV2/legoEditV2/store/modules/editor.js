@@ -157,19 +157,30 @@ const mutations = {
 
     if(dragType === 'move') {
       const oldIndexArr = oldLevelIndex.split('-') 
+      // 原先位置的索引位置
       const oldLastItemIndex = oldIndexArr.pop();
       const realOldLevelIndex = oldIndexArr.join('-')
 
       let oldPageDataChildren = getLevelPageDataChildren(realOldLevelIndex, state.pageData)
 
+      // 同级
       if(levelIndex === oldIndexArr.join('-')) {
         if(oldPageDataChildren.length <= 1 ) {
           return false;
         } 
         // 交换 oldLastItemIndex  和  itemIndex
-        let temp = oldPageDataChildren[oldLastItemIndex];
+/*         let temp = oldPageDataChildren[oldLastItemIndex];
         Vue.set(oldPageDataChildren, oldLastItemIndex, oldPageDataChildren[itemIndex] );
-        Vue.set(oldPageDataChildren, itemIndex, temp );
+        Vue.set(oldPageDataChildren, itemIndex, temp ); */
+        if(itemIndex > oldLastItemIndex) {
+          oldPageDataChildren.splice(itemIndex, 0, item)
+          oldPageDataChildren.splice(oldLastItemIndex, 1)
+        } else if(itemIndex < oldLastItemIndex) {
+          oldPageDataChildren.splice(itemIndex, 0, item)
+          oldPageDataChildren.splice(oldLastItemIndex + 1, 1)
+        } else {
+          return false;
+        }
 
       } else {
         // 根据新位置进行add item（保持原有index 不变）
