@@ -41,10 +41,7 @@ function toggleDragClass(el, mark) {
 function getItemIndex(event, el, ctx, dragType) {
   // 先计算水平排列
   let children = el.children
-/*   if (ctx.renderType === 'tree') {
-    // tree-collapse_operate   .multi-tree_children
-    children = el.children[1].children
-  } */
+
   if (ctx.renderType === 'tree') {
     if(!el.classList.contains('tree-manage')) {
       // tree-collapse_operate   .multi-tree_children
@@ -64,7 +61,7 @@ function getItemIndex(event, el, ctx, dragType) {
 
   for (let i = 0; i < childrenLength; i++) {
     const instanceBefore = children[i].getBoundingClientRect();
-    let instanceNext = {x:0, y: 0};
+    let instanceNext = {x: 0, y: 0};
     if(i < childrenLength - 1) {
       instanceNext = children[i + 1].getBoundingClientRect();
     }
@@ -81,9 +78,9 @@ function getItemIndex(event, el, ctx, dragType) {
       if (pageY > (instanceLast.y + instanceLast.height)) {
         // 在最后一个之后
         if (dragType === 'add') {
-          itemIndex = childrenLength;
+          itemIndex = childrenLength + 1;
         } else {
-          itemIndex = childrenLength - 1;
+          itemIndex = childrenLength;
         }
         break;
       }
@@ -93,7 +90,8 @@ function getItemIndex(event, el, ctx, dragType) {
         break;
       } else if(pageY >= instanceBefore.y && (pageY < instanceNext.y)) {
         // 处在margin之间的距离
-        itemIndex = i + 1;
+        // itemIndex = i + 1
+        itemIndex = i
         break;
       } else {
         itemIndex = i;
@@ -110,9 +108,9 @@ function getItemIndex(event, el, ctx, dragType) {
       if (pageX > (instanceLast.x + instanceBefore.width) || pageY > (instanceLast.y + instanceLast.height)) {
         // 在最后一个之后
         if (dragType === 'add') {
-          itemIndex = childrenLength;
+          itemIndex = childrenLength + 1;
         } else {
-          itemIndex = childrenLength - 1;
+          itemIndex = childrenLength;
         }
         break;
       }
@@ -278,9 +276,8 @@ export default {
 
   },
   unbind(el) {
-    debugger
-    console.log('------------unbind---------')
-    el.removeEventListener('dragend', el._handleDragStart);
+    el.removeEventListener('dragstart', el._handleDragStart);
+    el.removeEventListener('dragend', el._handleDragEnd);
     el.removeEventListener('dragenter', handleDragEnter);
     el.removeEventListener('dragover', handleDragOver);
     el.removeEventListener('drop', el._handleDrop);
