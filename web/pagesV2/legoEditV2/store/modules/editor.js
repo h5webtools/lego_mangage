@@ -154,11 +154,11 @@ const mutations = {
     // 1、先根据old位置修改原有位置children数据， 然后根据新位置改数据; 
     // 2、move过来的数据的levelIndex 是直接在pageData 里面的位置， 通过最后一位前的数据线定位数据， 然后根据最后一个位置进行splice
     // 3 区分组内sort， 和跨组move
-
+    
     if(dragType === 'move') {
       const oldIndexArr = oldLevelIndex.split('-') 
       // 原先位置的索引位置
-      const oldLastItemIndex = oldIndexArr.pop();
+      const oldLastItemIndex = Number(oldIndexArr.pop());
       const realOldLevelIndex = oldIndexArr.join('-')
 
       let oldPageDataChildren = getLevelPageDataChildren(realOldLevelIndex, state.pageData)
@@ -215,7 +215,7 @@ const mutations = {
     const {item, levelIndex, itemIndex, level} = result;
 
     const oldIndexArr = levelIndex.split('-') 
-    const oldLastItemIndex = oldIndexArr.pop();
+    const oldLastItemIndex = Number(oldIndexArr.pop());
     const realOldLevelIndex = oldIndexArr.join('-')
 
     let oldPageDataChildren = getLevelPageDataChildren(realOldLevelIndex, state.pageData);

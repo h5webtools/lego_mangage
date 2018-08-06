@@ -58,7 +58,7 @@ export function getLevelPageDataChildren(levelIndex, pageData, type = 0) {
   } else if(type === 1) {
 
     const oldIndexArr = levelIndex.split('-');
-    const oldLastItemIndex = oldIndexArr.pop();
+    const oldLastItemIndex = Number(oldIndexArr.pop());
     const realOldLevelIndex = oldIndexArr.join('-');
 
     if(realOldLevelIndex === 'top' || realOldLevelIndex === '0') {
