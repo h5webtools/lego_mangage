@@ -4,6 +4,9 @@ const Controller = require('egg').Controller;
 const errCode = require('../../../constant/errCode');
 const { exec } = require('child_process');
 const path = require('path');
+const fs = require('fs-extra');
+
+
 
 const DELETE_LOCK_KEY_FAILED = 610007;    // redis删除锁失败
 const EMPTY_LOCK_DATA = 610008; // 没有获取到锁
@@ -67,11 +70,27 @@ class LegoIndexController extends Controller {
     }
   }
 
-  async legoPackage() { // 乐高打包
-    this.ctx.logger.info(this.config.legoConfig.path);
+  async publishSit() { // 乐高打包
+    this.ctx.logger.info(this.config.legoConfigV2.path);
+    let raw = this.ctx.request.rawBody;
+    let pageContent = raw.pageContent;
+    
+    //let previewTem = fs.readFileSync(`${this.config.legoConfigV2.path}/pages/index/index.js`);
+
+    //let replacePreviewData = previewTem.toString().replace("LEGOCONFIG", pageContent);
+    this._replaceJsTemplate(`${this.config.legoConfigV2.path}/pages/index/`,pageContent );
+
+    this._replaceJfetConfig(`${this.config.legoConfigV2.path}/`,'./h5_act/20180800/test2');
+
+    this._replacePagenameConfig(`${this.config.legoConfigV2.path}/pages/index/`,'title - test');
+
+    //this.ctx.logger.info(replacePreviewData);
+
+    //let actPageRet = fs.writeFileSync(`${this.config.legoConfigV2.path}/pages/index/index.js`, replacePreviewData, 'utf-8');//要删除
+
     try {
       const std = await exec('jfet build', {
-        cwd:this.config.legoConfig.path
+        cwd:this.config.legoConfigV2.path
         //cwd: path.resolve(__dirname, '..', '..', '..', '..', 'build_static')
       },(err, stdout, stderr) => {
         if (err) {
@@ -85,6 +104,94 @@ class LegoIndexController extends Controller {
       // todo
       this.ctx.logger.info(error);
       this.ctx.body = '...error';
+    }
+  }
+
+  async _replacePagenameConfig(dir, title) {
+    this.ctx.logger.info(`读取模板并替换{{pageTitle}}关键字`);
+    let templateJs;
+    try {
+      templateJs = fs.readFileSync(`${__dirname}/template/${this.config.legoConfigV2.hbsTjs}`);
+    } catch (e) {
+      this.ctx.logger.error(`读取模板文件失败`);
+      return {
+        code: READ_TEMPLATE_FAILED,
+        msg: '读取js模板文件失败'
+      }
+    }
+    let replaceData = templateJs.toString().replace(/{{pageTitle}}/g, title);
+    let writeRet = fs.writeFileSync(`${dir}/${this.config.legoConfigV2.hbs}`, replaceData, 'utf-8');
+
+    if (!writeRet) {
+      this.ctx.logger.info(`在${dir}下创建脚本文件成功`);
+      return {
+        code: 0
+      }
+    } else {
+      this.ctx.logger.info(`在${dir}下创建脚本文件失败`);
+      return {
+        code: WRITE_ACT_ENTRYFILE_FAILED,
+        msg: `写${this.config.legoConfigV2.actJs}文件失败`
+      }
+    }
+  }
+
+
+  async _replaceJfetConfig(dir, outputPath) {
+    this.ctx.logger.info(`读取模板并替换{{outputPath}}关键字`);
+    let templateJs;
+    try {
+      templateJs = fs.readFileSync(`${__dirname}/template/${this.config.legoConfigV2.jfetconfig}`);
+    } catch (e) {
+      this.ctx.logger.error(`读取模板文件失败`);
+      return {
+        code: READ_TEMPLATE_FAILED,
+        msg: '读取js模板文件失败'
+      }
+    }
+    let replaceData = templateJs.toString().replace("{{outputPath}}", outputPath);
+    let writeRet = fs.writeFileSync(`${dir}/${this.config.legoConfigV2.jfetJs}`, replaceData, 'utf-8');
+
+    if (!writeRet) {
+      this.ctx.logger.info(`在${dir}下创建脚本文件成功`);
+      return {
+        code: 0
+      }
+    } else {
+      this.ctx.logger.info(`在${dir}下创建脚本文件失败`);
+      return {
+        code: WRITE_ACT_ENTRYFILE_FAILED,
+        msg: `写${this.config.legoConfigV2.actJs}文件失败`
+      }
+    }
+  }
+
+  async _replaceJsTemplate(dir, legoConfig) {
+    this.ctx.logger.info(`读取模板并替换LEGOCONFIG关键字`);
+    let templateJs;
+    try {
+      templateJs = fs.readFileSync(`${__dirname}/template/${this.config.legoConfigV2.templateJs}`);
+    } catch (e) {
+      this.ctx.logger.error(`读取模板文件失败`);
+      return {
+        code: READ_TEMPLATE_FAILED,
+        msg: '读取js模板文件失败'
+      }
+    }
+    let replaceData = templateJs.toString().replace("LEGOCONFIG", legoConfig);
+    let writeRet = fs.writeFileSync(`${dir}/${this.config.legoConfigV2.actJs}`, replaceData, 'utf-8');
+
+    if (!writeRet) {
+      this.ctx.logger.info(`在${dir}下创建脚本文件成功`);
+      return {
+        code: 0
+      }
+    } else {
+      this.ctx.logger.info(`在${dir}下创建脚本文件失败`);
+      return {
+        code: WRITE_ACT_ENTRYFILE_FAILED,
+        msg: `写${this.config.legoConfigV2.actJs}文件失败`
+      }
     }
   }
 

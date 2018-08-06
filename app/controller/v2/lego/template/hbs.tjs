@@ -1,0 +1,17 @@
+---
+layout: mobile.hbs
+title: {{pageTitle}}
+keywords: {{pageTitle}}
+description: {{pageTitle}}
+cssFile:
+- css/index.css
+jsFile:
+- js/index.js
+cdnURLs:
+- https://cdnsit.jyblife.com/static/js/lib/jsapi-1.7.0.js
+- https://cdnsit.jyblife.com/static/js/lib/zepto-1.2.0-all-min.js
+---
+
+<div id="container" class="ui-no-tap-highlight">
+</div>
+<!--#include virtual="/sinclude/env.tpl"-->

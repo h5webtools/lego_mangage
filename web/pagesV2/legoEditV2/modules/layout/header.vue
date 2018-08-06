@@ -44,7 +44,7 @@
               <el-button size="mini" type="primary">活动配置</el-button>
               <el-button size="mini" type="info">预览</el-button>
               <el-button size="mini" type="warning">解锁</el-button>
-              <el-button size="mini" type="success">集成发布</el-button>
+              <el-button size="mini" type="success" @click="publishSit">集成发布</el-button>
               <el-button size="mini" type="success">线上发布</el-button>
             </div>
         </div>
@@ -75,6 +75,7 @@ import { getUrlKey } from "@/util/helper";
 // import themeQuery from "apiV2/theme"
 import * as themeQuery from "apiV2/theme";
 import * as pageQuery from "apiV2/page_edit";
+import * as legoQuery from "apiV2/lego";
 
 console.log(themeQuery);
 export default {
@@ -153,6 +154,13 @@ export default {
           }
         })
         .catch(() => {});
+    },
+    publishSit() {
+      let postData = {};
+      postData.pageContent = JSON.stringify(this.pageData);
+        legoQuery.publishSit(postData).then(json => {
+        debugger;
+      });
     },
     getPage() {
       let postData = {

@@ -13,6 +13,6 @@ module.exports = app => {
   // app.router.get(routerPrefix , controller[version].lego.home.index);
   app.router.redirect(routerPrefix, routerPrefix +  '/legoEdit', 302);
   // 打包
-  app.router.post(routerPrefix +  '/legoPackage', controller[version].lego.index.legoPackage);
+  app.router.post(routerPrefix +  '/publishSit', controller[version].lego.index.publishSit);
 
 };

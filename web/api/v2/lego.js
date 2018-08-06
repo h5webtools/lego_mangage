@@ -10,3 +10,11 @@ export function getLegoPackage(data) {
     data
   });
 }
+
+export function publishSit(data) {
+  return service({
+    url: routerPrefix + '/publishSit',
+    method: 'post',
+    data
+  });
+}

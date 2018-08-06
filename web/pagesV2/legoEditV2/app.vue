@@ -65,9 +65,7 @@ export default {
     }
   },
   created() {
-    legoQuery.getLegoPackage().then(json => {
-      debugger;
-    });
+   
     /*     this.loadComponents('testid' , '/public/style/style1.js' , function(){
       window.ButtonTest.install(Vue);
       console.log(Vue.options.components , '注册组件0');

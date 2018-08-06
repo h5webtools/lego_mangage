@@ -1,0 +1,11 @@
+module.exports = {
+  build(abc, context) {
+    context.setConfig({
+        outputPath: '{{outputPath}}',
+        publicPath: ''
+    });
+    context.entry = {
+      "index": "./pages/index.js"
+    }
+  }
+};

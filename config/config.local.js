@@ -115,6 +115,21 @@ module.exports = appInfo => {
     branchName: 'lego_dev'
   }
 
+
+  config.legoConfigV2 = {
+    // path: '/data/www/lego/h5_lego_actpage/release/act/',
+    path: '/Users/zhaoshali/work/www/lego/build_static',
+    templateJs: 'index.tjs',
+    jfetconfig:'jfet_config.tjs',
+    previewTem: 'confirm_publish.tjs',
+    hbsTjs: 'hbs.tjs',
+    actJs: 'index.js',
+    jfetJs:'jfet.config.js',
+    hbs:'index.hbs',
+    minifyJs: false,
+    branchName: 'lego_dev'
+  }
+
   config.envConfig = {
     BASE_API: 'http://172.16.1.8:9014/hanyi/manage',
     RELEASE_PATH: 'http://r.jtjr.com/task/interface',
