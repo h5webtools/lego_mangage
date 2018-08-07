@@ -24,9 +24,14 @@
     <!-- 右边侧边栏 -->
     <el-aside class="layout__aside-right" >
       <el-tabs type="border-card" class="prop-edit-area">
-        <el-tab-pane label="组件编辑" width="170px" >
+        <el-tab-pane label="样式选择" v-if="showComponentStyle">
           <!-- 属性配置 -->
-          <lego-edit-prop :component="currentComponent"></lego-edit-prop>
+           <select-com-style></select-com-style>
+        </el-tab-pane>
+
+        <el-tab-pane label="组件编辑" >
+          <!-- 属性配置 -->
+          <lego-edit-prop :component="currentComponent" ></lego-edit-prop>
            <!-- <editor-props :component="currentComponent"></editor-props> -->
         </el-tab-pane>
         <el-tab-pane label="图层管理">
@@ -51,6 +56,7 @@ import Vue from "vue";
 import EditorWidgetList from "./widget-list.vue";
 import RenderData from "./renderData.vue"
 import RenderDataTree from "./renderDataTree.vue"
+import selectComStyle from "../common/selectComponentStyle.vue"
 
 import stringifyObject from "@/util/stringify";
 
@@ -58,7 +64,8 @@ export default {
   components: {
     EditorWidgetList,
     RenderData,
-    RenderDataTree
+    RenderDataTree,
+    selectComStyle
   },
   data() {
     return {
@@ -74,7 +81,10 @@ export default {
       pageData: "editor/pageData",
       widgetList: "widget/widgetList",
       currentComponent: "editor/currentComponent"
-    })
+    }),
+    showComponentStyle() {
+      return this.currentComponent && this.currentComponent.shows && (this.currentComponent.shows.length > 1)
+    }
   },
   created() {},
   methods: {
@@ -121,10 +131,11 @@ export default {
           & > .el-tabs__nav-scroll {
             width: 100%;
             & > .el-tabs__nav {
+              display: flex;
               width: 100%;
               & > .el-tabs__item {
                 height: 48px;
-                width: calc(50%);
+                flex: 1;
                 line-height: 48px;
                 text-align: center;
                 background: #ebecf6;

@@ -256,6 +256,8 @@ const mutations = {
     if (state.currentComponent.model[key]) {
       state.currentComponent.model[key].value = value;
       state.currentComponent.props[key] = value;
+    } else {
+      state.currentComponent[key] = value
     }
   },
   registerComponent(state, data) {
