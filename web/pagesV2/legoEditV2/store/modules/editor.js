@@ -7,7 +7,7 @@ import extend from '@jyb/lib-extend';
 import typeOf from '@jyb/lib-type-of';
 import stringifyObject from '@/util/stringify';
 import * as queryString from '@/util/querystring';
-import {setPageData, setPageDataItemByKey, updatePageItemThemeStyle, getLevelPageData, getLevelPageDataChildren} from '@/util/helper'
+import {setPageData, setPageDataItemByKey, updatePageItemThemeStyle, getLevelPageData, getLevelPageDataChildren, setDirectCurrentComponent} from '@/util/helper'
 import Vue from 'vue';
 
 
@@ -198,6 +198,11 @@ const mutations = {
       }
 
     }
+
+
+    setDirectCurrentComponent({
+      item: item
+    }, state)
 
   },
 

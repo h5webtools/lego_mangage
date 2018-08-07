@@ -385,6 +385,24 @@ export function _formatWidgetStyle(formatWidget, component_group_index) {
   delete formatWidget[component_group_index].widgetKeyList;
 }
 
+
+/**
+ * 直接选中当前item
+ * @param {} result 
+ * @param {*} currentComponent 
+ */
+export function setDirectCurrentComponent(result, state) {
+      // item 是JSONpagedata 后的子元素
+      const {item} = result;
+      if(state.currentComponent.extendProps) {
+        state.currentComponent.extendProps.isCurrent = false;
+      }
+  
+      item.extendProps.isCurrent = true;
+      state.currentComponent = item;
+}
+
+
 /**
  * 远程加载组件
  * @param {*} id 
