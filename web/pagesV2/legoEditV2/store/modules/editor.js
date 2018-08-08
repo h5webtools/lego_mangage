@@ -53,12 +53,10 @@ const initialState = {
   menuActiveIndex: 'layout',
   isRegisterComponent: false,
   registerComponentList: [],
-  isDragging: false
 };
 
 // getters
 const getters = {
-  isDragging: state => state.isDragging,
   pageData: state => state.pageData,
   currentComponent: state => state.currentComponent,
   menuActiveIndex: state => state.menuActiveIndex,
@@ -125,10 +123,6 @@ const actions = {
   // 增加已经注册组件的备注列表
   addRegisterComponentItem({ commit, state }, data) {
     commit('addRegisterComponentItem', data);
-  },
-
-  setDragging({ commit, state }, data) {
-    commit('setDragging', data);
   },
   
 };
@@ -301,9 +295,7 @@ const mutations = {
     state.registerComponentList.push(data);
   },
 
-  setDragging(state, data) {
-    state.isDragging = data;
-  }
+
 
 };
 

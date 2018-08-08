@@ -6,8 +6,7 @@ import { setUuid, loadComponents } from '@/util/helper';
 
 const DROP_HIGHLIGHT = 'drop-highlight';
 
-const instanceX = 10;
-const instanceY = 20;
+const isDragging = 'isDragging'
 
 function updatePage(e, ctx, that, item, itemIndex, dragType, oldLevel, oldLevelIndex, oldItemIndex) {
   ctx.$store.dispatch('editor/updatePage', {
@@ -30,6 +29,22 @@ function toggleDragClass(el, mark) {
     }
   } else {
     el.classList.remove(DROP_HIGHLIGHT);
+  }
+}
+
+function toggleContainerDragClass(el, ctx, mark) {
+
+  let container = 'iphone-container';
+  if (ctx.renderType === 'tree') {
+    container = 'tree-manage'
+  }
+  container = document.querySelector(`.${container}`)
+  if (mark) {
+    if (!container.classList.contains(isDragging)) {
+      container.classList.add(isDragging);
+    }
+  } else {
+    container.classList.remove(isDragging);
   }
 }
 /**
@@ -131,16 +146,10 @@ function getItemIndex(event, el, ctx, dragType) {
 }
 
 function handleDragStart(e, ctx) {
-  console.log('dragstart--------', ctx.levelIndex, ctx, ctx.$store.getters['editor/isDragging']
-  )
+  debugger
+  console.log('dragstart--------', ctx.levelIndex, ctx)
 
-  const isDragging = ctx.$store.getters['editor/isDragging'];
-  if (isDragging) {
-    // debugger
-    return false;
-  }
-  // e.preventDefault();
-  // e.stopPropagation();
+
   const data = {
     dragType: 'move',
     item: ctx.item,
@@ -148,8 +157,9 @@ function handleDragStart(e, ctx) {
     oldLevelIndex: ctx.levelIndex,
     oldItemIndex: ctx.itemIndex
   }
-  ctx.$store.dispatch('editor/setDragging', true);
+  // ctx.$store.dispatch('editor/setDragging', true);
   e.dataTransfer.setData('dragElementData', JSON.stringify(data));
+  toggleContainerDragClass(this, ctx, true);
 }
 
 function handleDragEnter(e) {
@@ -166,7 +176,8 @@ function handleDragOver(e) {
 }
 
 function handleDragEnd(e, ctx) {
-  ctx.$store.dispatch('editor/setDragging', false);
+  // ctx.$store.dispatch('editor/setDragging', false);
+  toggleContainerDragClass(this, ctx, false);
   console.log("*********** render drag item Dragend ***********");
   e.dataTransfer.clearData("dragElementData");
 }
@@ -200,7 +211,7 @@ function handleDrop(e, ctx) {
       if (ctx.levelIndex === oldLevelIndex) {
         console.log('drag ===== drop ')
         toggleDragClass(this, false);
-        ctx.$store.dispatch('editor/setDragging', false);
+        // ctx.$store.dispatch('editor/setDragging', false);
         e.dataTransfer.clearData('dragElementData');
         e.dataTransfer.clearData('dragElementType');
         return;
@@ -248,10 +259,12 @@ export default {
     };
 
     el._handleDragStart = function (e) {
+      e.stopPropagation();
       handleDragStart.call(this, e, ctx);
     };
 
     el._handleDragEnd = function (e) {
+      e.stopPropagation();
       handleDragEnd.call(this, e, ctx);
     };
 

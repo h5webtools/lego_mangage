@@ -1,5 +1,5 @@
 <template>
-            <div class="tree-manage multi-tree_children" v-draggable :class="{'isDragging': isDragging}">
+            <div class="tree-manage multi-tree_children" v-draggable >
             <!-- <editor-tree></editor-tree> -->
               <c-h5-draggable-multi-tree 
                   :item="itemChild"

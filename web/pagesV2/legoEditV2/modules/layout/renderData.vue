@@ -1,5 +1,5 @@
 <template>
-        <div class="iphone-container"  v-draggable :class="{'isDragging': isDragging}">
+        <div class="iphone-container"  v-draggable >
             <c-h5-draggable-multi 
                 :item="itemChild"
                 :key="indexChild" 
