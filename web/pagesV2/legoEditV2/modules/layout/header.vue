@@ -192,7 +192,6 @@ export default {
       this.dialogPageConfigVisiable = true;
     },
     savePageConfig(pageConfigForm) {
-      //debugger;
       this.$refs['pageConfigForm'].validate((valid) => {
         if (valid) {
           let basicInfo = {};
@@ -227,10 +226,14 @@ export default {
     },
     savePage() {
       let postData = {};
+
+      // 先重置 currentComponent的
+      this.$store.commit("editor/setCurrentComponent", {});
       postData.pageContent = JSON.stringify(this.pageData);
       if (this.pageId) {
         postData.pageId = this.pageId;
       }
+      
       pageQuery
         .savePage(postData)
         .then(json => {

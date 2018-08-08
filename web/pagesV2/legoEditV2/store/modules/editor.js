@@ -208,10 +208,14 @@ const mutations = {
       state.currentComponent.extendProps.isCurrent = false;
     }
 
-    let currentData = getLevelPageDataChildren(levelIndex, state.pageData, 1)
+    if(levelIndex) {
+      let currentData = getLevelPageDataChildren(levelIndex, state.pageData, 1)
 
-    currentData.extendProps.isCurrent = true;
-    state.currentComponent = currentData;
+      currentData.extendProps.isCurrent = true;
+      state.currentComponent = currentData;
+    }
+
+
   },
 
   removeItem(state, result) {
