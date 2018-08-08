@@ -146,7 +146,6 @@ function getItemIndex(event, el, ctx, dragType) {
 }
 
 function handleDragStart(e, ctx) {
-  debugger
   console.log('dragstart--------', ctx.levelIndex, ctx)
 
 
@@ -157,7 +156,6 @@ function handleDragStart(e, ctx) {
     oldLevelIndex: ctx.levelIndex,
     oldItemIndex: ctx.itemIndex
   }
-  // ctx.$store.dispatch('editor/setDragging', true);
   e.dataTransfer.setData('dragElementData', JSON.stringify(data));
   toggleContainerDragClass(this, ctx, true);
 }
@@ -176,7 +174,6 @@ function handleDragOver(e) {
 }
 
 function handleDragEnd(e, ctx) {
-  // ctx.$store.dispatch('editor/setDragging', false);
   toggleContainerDragClass(this, ctx, false);
   console.log("*********** render drag item Dragend ***********");
   e.dataTransfer.clearData("dragElementData");
@@ -211,7 +208,6 @@ function handleDrop(e, ctx) {
       if (ctx.levelIndex === oldLevelIndex) {
         console.log('drag ===== drop ')
         toggleDragClass(this, false);
-        // ctx.$store.dispatch('editor/setDragging', false);
         e.dataTransfer.clearData('dragElementData');
         e.dataTransfer.clearData('dragElementType');
         return;
@@ -240,7 +236,6 @@ function handleDrop(e, ctx) {
     console.warn('未获取到drag数据');
   }
 
-  ctx.$store.dispatch('editor/setDragging', false);
   e.dataTransfer.clearData('dragElementData');
 
 }
