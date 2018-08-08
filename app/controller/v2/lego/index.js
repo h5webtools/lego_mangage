@@ -2,7 +2,7 @@
 
 const Controller = require('egg').Controller;
 const errCode = require('../../../constant/errCode');
-const { exec } = require('child_process');
+const { exec, execSync } = require('child_process');
 const path = require('path');
 const fs = require('fs-extra');
 
@@ -20,7 +20,7 @@ const CREATE_WEBPACK_ENV_FAILED = 610014; // 创建webpack指定环境
 const MKDIR_FAILED = 610015; // 创建目录失败
 const TRANSLATE_OLD_PATH_FAILED = 610016; // 迁移老文件失败
 const CREATE_ACT_PAGE_FAILED = 610017; // 创建活动页面失败
-const WEBPACK_CPMPILE_FAILED = 610018; // WEBPACK编译失败
+const WEBPACK_CPMPILE_FAILED = 610018; // jfet编译失败
 const SUBMIT_GIT_FAILED = 610019; // 提交git仓库失败
 const CREATE_RELEASETASK_FAILED = 610020; // 创建发布单失败
 const QUERY_DATABASE_FAILED = 710010; // 查询数据库失败
@@ -30,6 +30,11 @@ const ACT_DIR_EXIST = 710013;         // 活动目录有冲突
 const COPY_ACT_PAGE_FAILED = 710014;  // 拷贝新页面失败
 const RELATE_PAGE_ACT_FAILED = 810010;  // 关联页面和活动号失败
 const PAGE_ID_NOT_EXIST = 810011;       // 活动页面不存在
+
+const globalReg = {
+  errBeginReg : /===== ERROR_START =====/g,
+  errEndReg : /===== ERROR_END =====/g
+}
 
 class LegoIndexController extends Controller {
   async index() {
@@ -74,36 +79,76 @@ class LegoIndexController extends Controller {
     this.ctx.logger.info(this.config.legoConfigV2.path);
     let raw = this.ctx.request.rawBody;
     let pageContent = raw.pageContent;
+
+    this.ctx.logger.info(raw);
     
     //let previewTem = fs.readFileSync(`${this.config.legoConfigV2.path}/pages/index/index.js`);
 
     //let replacePreviewData = previewTem.toString().replace("LEGOCONFIG", pageContent);
-    this._replaceJsTemplate(`${this.config.legoConfigV2.path}/pages/index/`,pageContent );
 
-    this._replaceJfetConfig(`${this.config.legoConfigV2.path}/`,'./h5_act/20180800/test2');
+    //this._replaceJsTemplate(`${this.config.legoConfigV2.path}/pages/index/`,pageContent );
+    this._replaceJsTemplate(`${this.config.legoConfigV2.LegoActPath}/development/${raw.dateFolder}/${raw.pageMenu}/pages/index/`,pageContent );
 
-    this._replacePagenameConfig(`${this.config.legoConfigV2.path}/pages/index/`,'title - test');
+    this._replaceJfetConfig(`${this.config.legoConfigV2.LegoActPath}/development/${raw.dateFolder}/${raw.pageMenu}/`,
+    `../../../release/${raw.dateFolder}/${raw.pageMenu}`);
+
+    this._replacePagenameConfig(`${this.config.legoConfigV2.LegoActPath}/development/${raw.dateFolder}/${raw.pageMenu}/pages/index/`,raw.pageTitle);
 
     //this.ctx.logger.info(replacePreviewData);
 
     //let actPageRet = fs.writeFileSync(`${this.config.legoConfigV2.path}/pages/index/index.js`, replacePreviewData, 'utf-8');//要删除
-
+    
     try {
-      const std = await exec('jfet build', {
-        cwd:this.config.legoConfigV2.path
-        //cwd: path.resolve(__dirname, '..', '..', '..', '..', 'build_static')
-      },(err, stdout, stderr) => {
-        if (err) {
-          this.ctx.body = 'error';
-          return;
+      var output = execSync('jfet build', {
+        cwd:`${this.config.legoConfigV2.LegoActPath}/development/${raw.dateFolder}/${raw.pageMenu}/`
+      }).toString();
+
+      this.ctx.logger.info('----begin----');
+      this.ctx.logger.info(output);
+      this.ctx.logger.info('----end-----');
+
+      if(globalReg.errBeginReg.test(output) && globalReg.errEndReg.test(output)){
+        this.ctx.body = {
+          code: WEBPACK_CPMPILE_FAILED,
+          msg:'编译失败'
         }
-        this.ctx.body = 'success';
-      });
-      this.ctx.body = 'success';
+      }else{
+        this.ctx.body = {
+          code:0,
+          msg:'编译成功'
+        }
+      }
+      
+      // const std = await execSync('jfet build', {
+      //   cwd:this.config.legoConfigV2.path
+      //   //cwd: path.resolve(__dirname, '..', '..', '..', '..', 'build_static')
+      // },(err, stdout, stderr) => {
+      //   this.ctx.logger.info(err);
+      //   this.ctx.logger.info(stdout);
+      //   this.ctx.logger.info(stderr);
+      //   if (err) {
+      //     this.ctx.logger.info(err);
+      //     this.ctx.body = {
+      //       code:1
+      //     }
+      //   }else{
+      //     this.ctx.body = {
+      //       code:0
+      //     }
+      //   }
+      //   this.ctx.body = {
+      //     code:0
+      //   }
+      // });
+      // this.ctx.body = {
+      //   code:0
+      // }
     } catch (error) {
       // todo
       this.ctx.logger.info(error);
-      this.ctx.body = '...error';
+      this.ctx.body = {
+        code:1
+      }
     }
   }
 

@@ -1,0 +1,16 @@
+.icon-element {
+  display: inline-block;
+  content: "";
+}
+
+.icon-element__small-success {
+  width: rem(21);
+  height: rem(21);
+  @include full-bg("../img/icon_small_success.png");
+}
+
+.icon-element__small-warning {
+  width: rem(21);
+  height: rem(21);
+  @include full-bg("../img/icon_small_warning.png");
+}

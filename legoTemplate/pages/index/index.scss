@@ -1,0 +1,17 @@
+$pageWidth: 750px;
+$baseFontSize: 100px;
+$spaces: 6 8 10 12 16 18 20 22 26 28 30 32 36 40 46 50 60 66 68 70;
+$textColors: 338fe6 b4b4b4 999;
+
+@import "../../assets/sass/common";
+
+body {
+  background-color: #d0b794;
+}
+
+.mod-c-header {
+  .banner {
+    width: 100%;
+    margin: 0 auto;
+  }
+}

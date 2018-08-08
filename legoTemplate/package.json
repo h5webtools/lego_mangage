@@ -1,0 +1,36 @@
+{
+  "name": "oneYuanCup",
+  "version": "0.1.0",
+  "description": "一元杯子",
+  "main": "index.js",
+  "scripts": {
+    "mock": "concurrently --raw --kill-others \"npm run dev:mock\" \"npm run serve\"",
+    "dev": "concurrently --raw --kill-others \"npm run dev:watch\" \"npm run serve\"",
+    "serve": "cross-env SERVER_ENV=local jfet server -l -s",
+    "serve:build": "cross-env SERVER_ENV=build jfet server -s -c ../../release",
+    "dev:watch": "cross-env BUILD_ENV=local jfet build -w",
+    "dev:mock": "cross-env BUILD_ENV=mock jfet build -w",
+    "build:test": "cross-env BUILD_ENV=test jfet build",
+    "build:prod": "cross-env BUILD_ENV=prod jfet build",
+    "image": "jfet image --min",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "shali.zhao@jyblife.com",
+  "license": "ISC",
+  "dependencies": {
+    "@jyb/common-sass": "^1.0.2",
+    "@jyb/lib-event-emit": "^0.2.8",
+    "@jyb/lib-extend": "^0.1.9",
+    "@jyb/lib-type-of": "^1.0.14",
+    "@jyb/lib-util": "^0.1.17",
+    "@lego/lego_component_basic": "0.0.13-beta",
+    "@lego/lego_component_demo": "0.0.2-beta",
+    "fs-extra": "^7.0.0",
+    "vue": "^2.5.17",
+    "vuedraggable": "^2.16.0"
+  },
+  "devDependencies": {
+    "node-sass": "^4.9.2"
+  }
+}
