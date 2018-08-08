@@ -11,28 +11,36 @@ class LegoV2Service extends Service {
     return result.affectedRows === 1;
   }
 
-  async queryThemeList() {
-    let queryList = await this.app.mysql.get('dbLego').query(`select t_theme_style_id, t_theme_id, label, config from t_theme_style where t_theme_id = 1 `);
+  async queryThemeList(data) {
+    this.ctx.logger.info('获取乐高颜色主题配置');
+
+    let queryList = await this.app.mysql.get('dbLego').query(`select t_theme_style_id, t_theme_id, label, config from t_theme_style where t_theme_id = ? `, [data.theme_id]);
+    return queryList;
+  }
+
+  async queryThemeComList(data) {
+    this.ctx.logger.info('获取乐高颜色主题配置');
+
+    const sql = `
+      SELECT 
+      theme_style.t_theme_style_id,
+      theme_style.t_theme_id,
+      theme_style.label,
+      theme_style.config,
+      t_theme_style_component.com_theme_config,
+      t_theme_style_component.t_theme_com_version_id as component_style_version_id
+      FROM (SELECT t_theme_style_id, t_theme_id, label, config from t_theme_style where t_theme_id = ? ) AS theme_style 
+      LEFT JOIN t_theme_style_component ON theme_style.t_theme_style_id = t_theme_style_component.t_theme_style_id 
+      ORDER BY theme_style.t_theme_style_id ASC
+    `;
+
+    let queryList = await this.app.mysql.get('dbLego').query(sql, [data.theme_id]);
     return queryList;
   }
 
   async getWidgetList(data) {
-/*     const sql = `SELECT t_component.com_id, 
-		t_component.name, 
-		t_component.tag_name,
-		t_component.component_group, 
-    t_component.thumb, 
-    t_component.component_type,
-		t_theme_component_style.id as component_style_id, 
-		t_theme_component_style.com_config, 
-		t_theme_component_style.com_desc, 
-		t_theme_component_style.com_js, 
-		t_theme_component_style.com_css, 
-		t_theme_component_style.thumb as com_img  FROM t_component
-    INNER JOIN t_theme_component_style ON t_component.com_id = t_theme_component_style.com_id
-    WHERE t_theme_id = ?
-    ORDER BY  t_component.component_group ASC, t_component.priority ASC, t_component.com_id	ASC 
-    `*/
+    this.ctx.logger.info('获取组件列表');
+
     const sql = `
     SELECT t_component.com_id, 
 		t_component.name, 
@@ -40,18 +48,18 @@ class LegoV2Service extends Service {
 		t_component.component_group, 
     t_component.thumb, 
     t_component.component_type,
-    t_theme_component_style_version.style_id as component_style_id, 
+    t_theme_component_style_version.com_style_id as component_style_id, 
 		t_theme_component_style_version.id as component_style_version_id, 
 		t_theme_component_style_version.com_config, 
 		t_theme_component_style_version.com_desc, 
 		t_theme_component_style_version.com_js, 
 		t_theme_component_style_version.com_css, 
-    t_theme_component_style_version.thumb as com_img  FROM t_component
-    INNER JOIN t_theme_component_style ON t_component.com_id = t_theme_component_style.com_id
+    t_theme_component_style_version.thumb as com_img  FROM (SELECT *   FROM  t_theme_component  WHERE t_theme_id = ?) AS componentOrigin
+		INNER JOIN t_component ON t_component.com_id  = componentOrigin.com_id
+    INNER JOIN t_theme_component_style ON componentOrigin.t_theme_com_id = t_theme_component_style.t_theme_com_id
     INNER JOIN t_theme_component_style_version ON t_theme_component_style.new_version_id = t_theme_component_style_version.id
-    WHERE t_theme_id = ?
-    ORDER BY  t_component.component_group ASC, t_component.priority ASC, t_component.com_id	ASC`;
-
+    ORDER BY  t_component.component_group ASC, t_component.priority ASC, t_component.com_id	ASC
+    `
 
     // ORDER BY  FIELD(t_component.component_group, 1, 2, 3), t_component.priority ASC
 

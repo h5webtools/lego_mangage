@@ -112,11 +112,26 @@
     2: [{
       key: 'A',
       type: 'color',
-      // opacity: '1',
-    }],
+      cssKey: 'background-color', //  用于渲染的csskey
+    }]
         
 }
 ```
+{
+    1: [{   
+      key: 'B',  
+      type: 'color',  
+      cssKey: 'background-color', 
+      opacity: '0.3'  
+    }],
+    2: [{
+      key: 'A',
+      type: 'color',
+      cssKey: 'background-color', 
+    }]
+}
+
+
 
 - tag_name
 渲染时候的tag_name,  必须和注册组件标签一致
@@ -188,6 +203,7 @@ component.component_umd_name = 'Lego' + component.tag_name;
 ```
 
 # 组件JSON
+
 # row
 
 ```javascript
@@ -374,22 +390,7 @@ component.component_umd_name = 'Lego' + component.tag_name;
   "thumb": "http://localhost:7002/public/images/button@2x.png",
   "name": "按钮",
   "tag": "lego-button",
-  "themeExtend": {
-    "1": [
-      {
-        "key": "B",
-        "type": "color",
-        "cssKey": "background-color",
-        "opacity": "0.3"
-      }
-    ],
-    "2": [
-      {
-        "key": "A",
-        "type": "color"
-      }
-    ]
-  },
+  "themeExtend": [1, 2],
   "extendProps": {
     "isCurrent": false,
     "isLocked": false,
@@ -523,4 +524,68 @@ component.component_umd_name = 'Lego' + component.tag_name;
     "eventType": ""
   }
 }
+```
+
+## 业务组件数据
+
+### headmap
+
+```javascript
+{
+      com_id: '',
+      name: 'headmap组件',
+      tag_name: 'lego-headmap',   
+      draggable:true,
+      showIndex:0,        
+      component_type: 1,   
+      children:[],  
+      shows:[],
+      model: {   
+        img_url: {
+            cellType: 'text',
+            value: '',
+            title: '图片地址',
+            desc: '图片地址',
+            placeHolder:'头图地址'
+        }
+      },
+      props: {
+        img_url:'http://lego.jyb.com/images//banner_txvideo.png',
+        comType:'lego-headmap', 
+        className:'headmap-theme1-style1',
+        children:[
+          {
+            tag_name:'lego-button',
+            name: '按钮',
+            themeExtend: [1],
+            props: {
+              disabled: false,
+              styles: {},
+              size: 'default',
+              labelWidth: '',
+              text: 'button-test-desc1',
+              btnType:'',
+              btnToUrl:'javascript:;',
+              eventId:'',
+              className:'headmap-theme1-style1__btn-up'
+            }
+          }, {
+            tag_name:'lego-button', 
+            name: '按钮',           
+            themeExtend: [2],
+            props: {
+              disabled: false,
+              styles: { 'width': '212px' },
+              size: 'default',
+              labelWidth: '',
+              text: 'button-test-down',
+              btnType:'',
+              btnToUrl:'javascript:;',
+              eventId:'',
+              className:'headmap-theme1-style1__btn-down'
+            }
+          }
+        ]
+      }
+    }
 ```

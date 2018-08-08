@@ -130,7 +130,12 @@ export function setPageDataItemByKey(levelIndex, obj, changeData) {
  * @param {*} levelIndex  索引顺序（例如0-2）
  * component_type: 1 是业务组件，需要遍历下级的uuid的组件
  */
-export function setUuid(item, index, level, levelIndex, currentThemeStyle) {
+export function setUuid(item, index, level, levelIndex, currentThemeStyle, topItem = null) {
+
+  if(topItem) {
+    item.component_style_version_id = topItem.component_style_version_id
+  }
+
   _changeOneItemThemeExtend(item, currentThemeStyle)
   _changeOneItemExtendProp(item)
   // 
@@ -143,6 +148,7 @@ export function setUuid(item, index, level, levelIndex, currentThemeStyle) {
     }
   }
   
+  // component_type 1 是需要主动破开props放置到data
   if (item.component_type === '1') {
     if (!item.props.uuid) {
       item.props.uuid = '' + levelIndex + '-' + index
@@ -153,7 +159,7 @@ export function setUuid(item, index, level, levelIndex, currentThemeStyle) {
 
     if (item.props.children) {
       item.props.children.map((child, childIndex) => {
-        setUuid(child, childIndex, level + 1, '' + levelIndex + '-' + childIndex, currentThemeStyle)
+        setUuid(child, childIndex, level + 1, '' + levelIndex + '-' + childIndex, currentThemeStyle, item)
       })
       item.children = item.props.children
     }
@@ -188,12 +194,28 @@ export function updatePageItemThemeStyle(data, currentThemeStyle) {
  * @param {*} currentThemeStyle 
  */
 export function _changeOneItemThemeExtend(item, currentThemeStyle) {
-  if (item.themeExtend) {
+  if (item.themeExtend && item.themeExtend.length > 0) {
     // 当前主题下的哪个配色 (主题style目前只有color， 但用于组件的字体色和背景色)
-    const themeExtendStyleOne = item.themeExtend[currentThemeStyle.t_theme_id]
-    if (themeExtendStyleOne) {
+    // const themeExtendStyleOne = item.themeExtend[currentThemeStyle.t_theme_id]
+
+    const themeExtendStyleComConfig = currentThemeStyle.com_theme_config[item.component_style_version_id]
+
+    if (themeExtendStyleComConfig) {
+
+      let themeExtendStyleComConfigFilter = []
+      Object.keys(themeExtendStyleComConfig).forEach(positionKey => {
+        var a = +positionKey;
+        if(item.themeExtend.indexOf(positionKey) !== -1 || item.themeExtend.indexOf(+ positionKey) !== -1) {
+          themeExtendStyleComConfigFilter = themeExtendStyleComConfigFilter.concat(themeExtendStyleComConfig[positionKey])
+        }
+      })
+      if(themeExtendStyleComConfigFilter.length < 1) {
+        return;
+      }
+
       if (!item.props.originStyles) item.props.originStyles = {}
-      themeExtendStyleOne.forEach(styleItem => {
+
+      themeExtendStyleComConfigFilter.forEach(styleItem => {
         const cssValue = currentThemeStyle.config[styleItem.key.toUpperCase()][styleItem.type];
 
         if (cssValue) {
@@ -216,7 +238,10 @@ export function _changeOneItemThemeExtend(item, currentThemeStyle) {
   }
 }
 
-
+/**
+ * 增加编辑属性
+ * @param {} item 
+ */
 export function _changeOneItemExtendProp(item) {
   if(!item.extendProps) {
     item.extendProps = {
@@ -400,6 +425,36 @@ export function setDirectCurrentComponent(result, state) {
   
       item.extendProps.isCurrent = true;
       state.currentComponent = item;
+}
+
+
+/**
+ * 格式化theme_list （将某个themeStyle 下的组件配色分组）
+ * @param {*} theme_list 
+ */
+export function formatThemeComStyle(theme_list) {
+  let formatThemeComStyle = [];
+  let formatThemeComStyleObj = {};
+  
+  theme_list.forEach(item => {
+    if(!formatThemeComStyleObj[item.t_theme_style_id]) {
+      formatThemeComStyleObj[item.t_theme_style_id] = {};
+      formatThemeComStyleObj[item.t_theme_style_id].com_theme_config = {}
+      formatThemeComStyleObj[item.t_theme_style_id].config = JSON.parse(item.config)
+      formatThemeComStyleObj[item.t_theme_style_id].label = item.label
+      formatThemeComStyleObj[item.t_theme_style_id].t_theme_style_id = item.t_theme_style_id
+    }
+    
+    if(item.component_style_version_id ) {
+      formatThemeComStyleObj[item.t_theme_style_id].com_theme_config[item.component_style_version_id] =  JSON.parse(item.com_theme_config)
+    }
+  })
+  
+  Object.keys(formatThemeComStyleObj).forEach(t_theme_id => {
+    formatThemeComStyle.push(formatThemeComStyleObj[t_theme_id])
+  })
+  
+  return formatThemeComStyle;
 }
 
 
