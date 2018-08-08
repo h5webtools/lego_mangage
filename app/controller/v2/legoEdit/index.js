@@ -2,29 +2,11 @@
 
 const Controller = require('egg').Controller;
 const errCode = require('../../../constant/errCode');
+const path = require('path');
+const fs = require('fs-extra');
 
-const DELETE_LOCK_KEY_FAILED = 610007;    // redis删除锁失败
-const EMPTY_LOCK_DATA = 610008; // 没有获取到锁
-const EMPTY_ACT_ID = 610009;    // 活动号为空
-const INSTALL_FAILED = 610010; // 安装依赖失败
-const INSTALL_FILE_NOT_EXIST = 610011; // package.json文件不存在
-const READ_TEMPLATE_FAILED = 610012; // 读取模板文件失败
-const WRITE_ACT_ENTRYFILE_FAILED = 610013; // 写js文件模板失败
-const WRITE_DEPENDENCYFILE_FAILED = 610021; // 写package.json依赖文件失败
-const CREATE_WEBPACK_ENV_FAILED = 610014; // 创建webpack指定环境
-const MKDIR_FAILED = 610015; // 创建目录失败
-const TRANSLATE_OLD_PATH_FAILED = 610016; // 迁移老文件失败
-const CREATE_ACT_PAGE_FAILED = 610017; // 创建活动页面失败
-const WEBPACK_CPMPILE_FAILED = 610018; // WEBPACK编译失败
-const SUBMIT_GIT_FAILED = 610019; // 提交git仓库失败
-const CREATE_RELEASETASK_FAILED = 610020; // 创建发布单失败
-const QUERY_DATABASE_FAILED = 710010; // 查询数据库失败
-const INSERT_DATA_FAILED = 710011;    // 插入数据库失败
-const UPDATE_DATA_FAILED = 710012;    // 更新数据失败
-const ACT_DIR_EXIST = 710013;         // 活动目录有冲突
-const COPY_ACT_PAGE_FAILED = 710014;  // 拷贝新页面失败
-const RELATE_PAGE_ACT_FAILED = 810010;  // 关联页面和活动号失败
-const PAGE_ID_NOT_EXIST = 810011;       // 活动页面不存在
+const QUERY_DATABASE_FAILED = 720010; // 查询数据库失败
+const INSERT_DATABASE_FAILD = 720011; // 插入数据库失败
 
 class LegoEditController extends Controller {
   async index() {
@@ -76,8 +58,63 @@ class LegoEditController extends Controller {
       env: this.app.config.env,
     });
   }
+  async savePageBasicInfo() {
+    this.ctx.logger.info(this.ctx.request.rawBody);
+   
+    let raw = this.ctx.request.rawBody,
+        pageMenu = raw.pageMenu,
+        pageTitle = raw.pageTitle,
+        now = await this.ctx.helper.dateFormat('yyyy-MM-dd hh:mm:ss', new Date()),
+        dateFolder = await this.ctx.helper.dateFormat('yyyyMM00', new Date());
+    try {
+      let ret;
+      if(raw.pageId) {
+        ret = await this.service.lego.legoV2Service.updatePageBasicInfo({
+          pageId: raw.pageId,
+          pageMenu: raw.pageMenu,
+          pageTitle: raw.pageTitle,
+          updateTime: await this.ctx.helper.dateFormat('yyyy-MM-dd hh:mm:ss', new Date()),
+          user: this.ctx.session.userAccount
+        });
+
+        fs.copySync(`${this.config.legoConfigV2.LegoManagerPath}/legoTemplate`,
+         `${this.config.legoConfigV2.LegoActPath}/development/${dateFolder}/${pageMenu}/`);
+
+        this.ctx.body = {
+          code: ret ? 0 : INSERT_DATABASE_FAILD,
+          msg: ret ? '' : '更新基本信息失败'
+        }
+      } else {
+        ret = await this.service.lego.legoV2Service.insertPageBasicInfo({
+          pageTitle: pageTitle,
+          pageMenu: pageMenu,
+          dateFolder: dateFolder,
+          updateTime: await this.ctx.helper.dateFormat('yyyy-MM-dd hh:mm:ss', new Date()),
+          user: this.ctx.session.userAccount
+        });
+        //  初始化工程项目 复制模板结构到指定的目录
+        fs.copySync(`${this.config.legoConfigV2.LegoManagerPath}/legoTemplate`,
+         `${this.config.legoConfigV2.LegoActPath}/development/${dateFolder}/${pageMenu}/`);
+        //fs.copySync(path.resolve(__dirname, '..' , 'legoTemplate'), `/Users/zhaoshali/work/www/lego/ lego_act/development/${dateFolder}/${pageMenu}/`);
+        this.ctx.body = {
+          code: 0,
+          data: {
+            pageId: ret.insertId,
+            dateFolder: dateFolder
+          }
+        }
+
+      }
 
 
+    } catch(e) {
+      this.ctx.logger.info('更新页面配置失败'+ e.message);
+      this.ctx.body = {
+        code: QUERY_DATABASE_FAILED,
+        msg: e.message()
+      }
+    }
+  }
 }
 
 module.exports = LegoEditController;

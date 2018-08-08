@@ -54,7 +54,7 @@ window.GLOBALEVENTEMIT || (window.GLOBALEVENTEMIT = eventEmit);
 Vue.use(ElementUI);
 Vue.use(legoComponentBasic)
 Vue.use(legoEditProp)
-console.log(legoComponentBasic , '基础组件')
+console.log(legoComponentBasic , '基础组件','开始入口')
 console.log(legoEditProp , 'edit');
 
 Vue.component('c-draggable', cDraggable)

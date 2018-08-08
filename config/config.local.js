@@ -107,10 +107,27 @@ module.exports = appInfo => {
 
   config.legoConfig = {
     // path: '/data/www/lego/h5_lego_actpage/release/act/',
-    path: 'D:/lego',
+    path: '/Users/zhaoshali/work/www/lego/build_static',
     templateJs: 'index_dev.tjs',
     previewTem: 'confirm_publish.tjs',
     actJs: 'index.js',
+    minifyJs: false,
+    branchName: 'lego_dev'
+  }
+
+
+  config.legoConfigV2 = {
+    // path: '/data/www/lego/h5_lego_actpage/release/act/',
+    path: '/Users/zhaoshali/work/www/lego/build_static',
+    LegoManagerPath:'/Users/zhaoshali/work/git/lego_manage',
+    LegoActPath:'/Users/zhaoshali/work/www/lego/lego_act',
+    templateJs: 'index.tjs',
+    jfetconfig:'jfet_config.tjs',
+    previewTem: 'confirm_publish.tjs',
+    hbsTjs: 'hbs.tjs',
+    actJs: 'index.js',
+    jfetJs:'jfet.config.js',
+    hbs:'index.hbs',
     minifyJs: false,
     branchName: 'lego_dev'
   }

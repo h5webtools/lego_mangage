@@ -16,4 +16,8 @@ module.exports = app => {
 
   app.router.post(routerPrefix +  '/legoEdit/getPage', controller[version].legoEdit.npm.getPage);
 
+  app.router.post(routerPrefix +  '/legoEdit/savePageBasicInfo', controller[version].legoEdit.index.savePageBasicInfo);
+
+  
+
 };

@@ -41,10 +41,10 @@
 
             <div class="ui-ta-c col-operate">
               <el-button size="mini" type="success" @click="savePage">保存</el-button>
-              <el-button size="mini" type="primary">活动配置</el-button>
+              <el-button size="mini" type="primary" @click="pageConfig">活动配置</el-button>
               <el-button size="mini" type="info">预览</el-button>
               <el-button size="mini" type="warning">解锁</el-button>
-              <el-button size="mini" type="success">集成发布</el-button>
+              <el-button size="mini" type="success" @click="publishSit">集成发布</el-button>
               <el-button size="mini" type="success">线上发布</el-button>
             </div>
         </div>
@@ -61,6 +61,20 @@
         </div>
 
       </el-row>
+      <el-dialog title="基本配置" :visible.sync="dialogPageConfigVisiable">
+        <el-form :model="pageConfigForm" status-icon :rules="pageConfigRules" ref="pageConfigForm"> 
+          <el-form-item label="活动名称" prop="pageTitle" :label-width="formLabelWidth">
+            <el-input v-model="pageConfigForm.pageTitle" auto-complete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="目录名称" prop="pageMenu" :label-width="formLabelWidth">
+            <el-input v-model="pageConfigForm.pageMenu" auto-complete="off"></el-input>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="dialogPageConfigVisiable = false">取 消</el-button>
+          <el-button type="primary" @click="savePageConfig(pageConfigForm)">确 定</el-button>
+        </div>
+      </el-dialog>
     </el-header>
 </template>
 
@@ -75,22 +89,46 @@ import { getUrlKey, formatThemeComStyle } from "@/util/helper";
 // import themeQuery from "apiV2/theme"
 import * as themeQuery from "apiV2/theme";
 import * as pageQuery from "apiV2/page_edit";
+import * as legoQuery from "apiV2/lego";
+
 
 console.log(themeQuery);
 export default {
   components: {},
   data() {
+    var checkPath = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入页面路径'));
+      } else if(!this.pagePathReg.test(value)){
+        callback(new Error('目录必须以5位或以上字母、数字、下划线组成'));
+      }else {
+        callback();
+      }
+    };
     return {
       logoImg: logoImg,
       rightWhite: rightWhite,
       loading: true,
       userName: window.userInfo.userName,
-      // currentThemeStyle: {
-      //   config: {}
-      // },
       themeStyle: [],
       currentThemeId: -1,
-      pageId: ""
+      pageId: "",
+      dialogPageConfigVisiable: false,
+      pageConfigForm: {
+        pageTitle: '',
+        pageMenu:'',
+        dateFolder:''
+      },
+      pageConfigRules: {
+        pageTitle: [
+          { required: true, message: '请输入活动名称', trigger: 'blur' }
+        ],
+        pageMenu: [
+          { validator: checkPath, trigger: 'blur', required: true }
+        ]
+      },
+      formLabelWidth: '80px',
+      pagePathReg: /^[a-zA-Z0-9_]{5,30}$/
     };
   },
   computed: {
@@ -105,9 +143,23 @@ export default {
     this.getLegoThemeStyle();
     if(this.pageId) {
       this.getPage();
+    } else {
+      this.dialogPageConfigVisiable = true;
     }
   },
   methods: {
+    addUrlParam(url, key, value) {
+      url = url.replace(/？/g, "?");//异常处理
+      let reg = /key[=]/,
+          hasQuery = /\?/.test(url);
+      let hasAnchor = url.indexOf('#') > -1;
+      if (reg.test(url)) {//进行替换
+          url = url.replace(reg, key + "=" + value);
+      } else {//没有，则进行追加
+          url = hasAnchor ? url.replace("#", (hasQuery ? "&" : "?") + key + "=" + value + "#") : (url + (hasQuery ? "&" : "?") + key + "=" + value);
+      }
+      return url;
+    },
     getLegoThemeStyle() {
       themeQuery.getLegoThemeComStyle({}).then(json => {
         if (json.code == 0) {
@@ -136,6 +188,43 @@ export default {
         currentTheme: item
       });
     },
+    pageConfig() {
+      this.dialogPageConfigVisiable = true;
+    },
+    savePageConfig(pageConfigForm) {
+      //debugger;
+      this.$refs['pageConfigForm'].validate((valid) => {
+        if (valid) {
+          let basicInfo = {};
+          basicInfo.pageId = this.pageId;
+          Object.assign(basicInfo, this.pageConfigForm);
+          pageQuery.savePageBasicInfo(basicInfo).then(json => {
+            if(json.code == 0){
+              if(json && json.data && json.data.pageId){
+                let _url = this.addUrlParam(location.href,'pageId' , json.data.pageId);
+                location.href = _url;
+              }else{
+                this.$message({
+                  message: '保存基本配置成功',
+                  type: 'success',
+                  duration:3000
+                });
+              }
+              
+            } else {
+              this.$message({
+                message: json.msg,
+                type: 'fail',
+                duration:3000
+              });
+            }
+          })
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      });
+    },
     savePage() {
       let postData = {};
       postData.pageContent = JSON.stringify(this.pageData);
@@ -149,9 +238,34 @@ export default {
             if (!this.pageId) {
               this.pageId = json.data.pageId
             }
+            this.$message({
+              message: '保存成功',
+              type: 'success',
+              duration:3000
+            });
           }
         })
-        .catch(() => {});
+        .catch(() => {});   
+    },
+    publishSit() {
+      let postData = {};
+      postData.pageContent = JSON.stringify(this.pageData);
+      Object.assign(postData, this.pageConfigForm);
+        legoQuery.publishSit(postData).then(json => {
+          if(json.code == 0){
+            this.$message({
+              message: '发布成功',
+              type: 'success',
+              duration:3000
+            });
+          }else{
+            this.$message({
+              message: '发布失败',
+              type: 'success',
+              duration:3000
+            });
+          }
+      });
     },
     getPage() {
       let postData = {
@@ -161,10 +275,15 @@ export default {
         .getPage(postData)
         .then(json => {
           if (json.code == 0) {
+            let _data = json.data;
             this.$store.dispatch("editor/updatePage", {
               dragType: 'none',
-              item: JSON.parse(json.data.page_content)
-            })
+              item: JSON.parse(_data.page_content)
+            });
+            //更新路径和页面标题
+            this.pageConfigForm.pageTitle = _data.page_title;
+            this.pageConfigForm.pageMenu = _data.page_menu; 
+            this.pageConfigForm.dateFolder = _data.date_folder;
           } else {
             this.$message.error('该页面不存在')
           }
@@ -306,4 +425,13 @@ export default {
     color: #fefefe;
   }
 }
+.el-dialog__wrapper{
+  line-height: 24px;
+  .el-dialog__title {
+    line-height: 24px;
+    font-size: 18px;
+    color: #303133;
+  }
+}
+
 </style>

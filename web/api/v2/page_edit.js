@@ -19,3 +19,17 @@ export function getPage(data) {
     data
   });
 }
+
+
+
+
+export function savePageBasicInfo(data) {
+  return service({
+    url: routerPrefix + '/legoEdit/savePageBasicInfo',
+    method: 'post',
+    data
+  });
+}
+
+
+

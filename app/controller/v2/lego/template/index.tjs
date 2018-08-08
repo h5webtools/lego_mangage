@@ -1,0 +1,38 @@
+
+import './index.scss';
+
+import legoComponentBasic from '@lego/lego_component_basic/public/js/index.js'
+
+import Vue from 'vue' ;
+
+import App from './App.vue';
+
+import editor from '../../store/modules/editor';
+import widget from '../../store/modules/widget';
+import vStore from '../../store';
+
+import cRenderCom from '../../modules/common/RenderOne.vue'
+
+const EventEmit = require('@jyb/lib-event-emit');
+
+window.Lego_ComponentConfig = LEGOCONFIG
+
+Vue.component('c-render-com', cRenderCom)
+
+
+Vue.use(legoComponentBasic.default)
+
+vStore.registerModule('editor', editor);
+vStore.registerModule('widget', widget);
+
+
+var eventEmit = new EventEmit();
+window.GLOBALEVENTEMIT || (window.GLOBALEVENTEMIT = eventEmit);
+
+new Vue({
+  el: '#container',
+  render(h){
+    return h(App);
+  }
+});
+
