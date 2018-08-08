@@ -30,6 +30,9 @@ export default {
         itemIndex: {
             type: Number,
             // default: 0
+        },
+        childrenLength: {
+            type: Number
         }
     },
     computed: {

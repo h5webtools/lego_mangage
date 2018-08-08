@@ -10,3 +10,14 @@ export function getLegoThemeStyle(data) {
     data
   });
 }
+
+export function getLegoThemeComStyle(data) {
+  return service({
+    url: routerPrefix + '/getLegoThemeComStyle',
+    method: 'post',
+    data
+  });
+}
+
+
+

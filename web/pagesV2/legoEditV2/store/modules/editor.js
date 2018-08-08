@@ -7,7 +7,7 @@ import extend from '@jyb/lib-extend';
 import typeOf from '@jyb/lib-type-of';
 import stringifyObject from '@/util/stringify';
 import * as queryString from '@/util/querystring';
-import {setPageData, setPageDataItemByKey, updatePageItemThemeStyle, getLevelPageData, getLevelPageDataChildren} from '@/util/helper'
+import {setPageData, setPageDataItemByKey, updatePageItemThemeStyle, getLevelPageData, getLevelPageDataChildren, setDirectCurrentComponent} from '@/util/helper'
 import Vue from 'vue';
 
 
@@ -53,12 +53,10 @@ const initialState = {
   menuActiveIndex: 'layout',
   isRegisterComponent: false,
   registerComponentList: [],
-  isDragging: false
 };
 
 // getters
 const getters = {
-  isDragging: state => state.isDragging,
   pageData: state => state.pageData,
   currentComponent: state => state.currentComponent,
   menuActiveIndex: state => state.menuActiveIndex,
@@ -93,6 +91,10 @@ const actions = {
     commit('removeItem', result);
   },
 
+  sortItem({ commit }, result) {
+    commit('sortItem', result);
+  },
+
   setCurrentThemeStyle({ commit }, result) {
     commit('setCurrentThemeStyle', result);
   },
@@ -122,10 +124,6 @@ const actions = {
   addRegisterComponentItem({ commit, state }, data) {
     commit('addRegisterComponentItem', data);
   },
-
-  setDragging({ commit, state }, data) {
-    commit('setDragging', data);
-  },
   
 };
 
@@ -154,22 +152,33 @@ const mutations = {
     // 1、先根据old位置修改原有位置children数据， 然后根据新位置改数据; 
     // 2、move过来的数据的levelIndex 是直接在pageData 里面的位置， 通过最后一位前的数据线定位数据， 然后根据最后一个位置进行splice
     // 3 区分组内sort， 和跨组move
-
+    
     if(dragType === 'move') {
       const oldIndexArr = oldLevelIndex.split('-') 
-      const oldLastItemIndex = oldIndexArr.pop();
+      // 原先位置的索引位置
+      const oldLastItemIndex = Number(oldIndexArr.pop());
       const realOldLevelIndex = oldIndexArr.join('-')
 
       let oldPageDataChildren = getLevelPageDataChildren(realOldLevelIndex, state.pageData)
 
+      // 同级
       if(levelIndex === oldIndexArr.join('-')) {
         if(oldPageDataChildren.length <= 1 ) {
           return false;
         } 
         // 交换 oldLastItemIndex  和  itemIndex
-        let temp = oldPageDataChildren[oldLastItemIndex];
+/*         let temp = oldPageDataChildren[oldLastItemIndex];
         Vue.set(oldPageDataChildren, oldLastItemIndex, oldPageDataChildren[itemIndex] );
-        Vue.set(oldPageDataChildren, itemIndex, temp );
+        Vue.set(oldPageDataChildren, itemIndex, temp ); */
+        if(itemIndex > oldLastItemIndex) {
+          oldPageDataChildren.splice(itemIndex, 0, item)
+          oldPageDataChildren.splice(oldLastItemIndex, 1)
+        } else if(itemIndex < oldLastItemIndex) {
+          oldPageDataChildren.splice(itemIndex, 0, item)
+          oldPageDataChildren.splice(oldLastItemIndex + 1, 1)
+        } else {
+          return false;
+        }
 
       } else {
         // 根据新位置进行add item（保持原有index 不变）
@@ -183,6 +192,11 @@ const mutations = {
       }
 
     }
+
+
+    setDirectCurrentComponent({
+      item: item
+    }, state)
 
   },
 
@@ -204,13 +218,28 @@ const mutations = {
     const {item, levelIndex, itemIndex, level} = result;
 
     const oldIndexArr = levelIndex.split('-') 
-    const oldLastItemIndex = oldIndexArr.pop();
+    const oldLastItemIndex = Number(oldIndexArr.pop());
     const realOldLevelIndex = oldIndexArr.join('-')
 
     let oldPageDataChildren = getLevelPageDataChildren(realOldLevelIndex, state.pageData);
 
     oldPageDataChildren.splice(oldLastItemIndex, 1)
 
+  },
+
+  sortItem(state, result) {
+    const {item, levelIndex, itemIndex, level, oldIndex} = result;
+
+    const oldIndexArr = levelIndex.split('-') 
+    const oldLastItemIndex = Number(oldIndexArr.pop());
+    const realOldLevelIndex = oldIndexArr.join('-')
+
+    let oldPageDataChildren = getLevelPageDataChildren(realOldLevelIndex, state.pageData);
+
+    // 交换 oldLastItemIndex  和  itemIndex
+    let temp = oldPageDataChildren[oldIndex];
+    Vue.set(oldPageDataChildren, oldIndex, oldPageDataChildren[itemIndex] );
+    Vue.set(oldPageDataChildren, itemIndex, temp );
   },
 
   setCurrentThemeStyle(state, result) {
@@ -221,6 +250,8 @@ const mutations = {
     if (state.currentComponent.model[key]) {
       state.currentComponent.model[key].value = value;
       state.currentComponent.props[key] = value;
+    } else {
+      state.currentComponent[key] = value
     }
   },
   registerComponent(state, data) {
@@ -264,9 +295,7 @@ const mutations = {
     state.registerComponentList.push(data);
   },
 
-  setDragging(state, data) {
-    state.isDragging = data;
-  }
+
 
 };
 

@@ -6,6 +6,7 @@ import { setUuid, loadComponents } from '@/util/helper';
 
 const DROP_HIGHLIGHT = 'drop-highlight';
 
+const isDragging = 'isDragging'
 
 function updatePage(e, ctx, that, item, itemIndex, dragType, oldLevel, oldLevelIndex, oldItemIndex) {
   ctx.$store.dispatch('editor/updatePage', {
@@ -30,6 +31,22 @@ function toggleDragClass(el, mark) {
     el.classList.remove(DROP_HIGHLIGHT);
   }
 }
+
+function toggleContainerDragClass(el, ctx, mark) {
+
+  let container = 'iphone-container';
+  if (ctx.renderType === 'tree') {
+    container = 'tree-manage'
+  }
+  container = document.querySelector(`.${container}`)
+  if (mark) {
+    if (!container.classList.contains(isDragging)) {
+      container.classList.add(isDragging);
+    }
+  } else {
+    container.classList.remove(isDragging);
+  }
+}
 /**
  * 计算目的地索引
  * @param {} event 
@@ -39,48 +56,76 @@ function toggleDragClass(el, mark) {
 function getItemIndex(event, el, ctx, dragType) {
   // 先计算水平排列
   let children = el.children
+
   if (ctx.renderType === 'tree') {
-    // tree-collapse_operate   .multi-tree_children
-    children = el.children[1].children
+    if(!el.classList.contains('tree-manage')) {
+      // tree-collapse_operate   .multi-tree_children
+      children = el.children[1].children
+    }
   }
   const childrenLength = children.length;
   const { pageX, pageY } = event;
   let itemIndex = 0;
 
   let instanceLast = { x: 0, y: 0 }
+  let instanceFirst = { x: 0, y: 0 }
   if (childrenLength >= 1) {
+    instanceFirst = children[0].getBoundingClientRect();
     instanceLast = children[childrenLength - 1].getBoundingClientRect();
   }
 
   for (let i = 0; i < childrenLength; i++) {
     const instanceBefore = children[i].getBoundingClientRect();
+    let instanceNext = {x: 0, y: 0};
+    if(i < childrenLength - 1) {
+      instanceNext = children[i + 1].getBoundingClientRect();
+    }
 
     if (ctx.renderType === 'tree') {
       // 只比较纵向
+
+      if (pageY < instanceFirst.y ) {
+        // 在第一个之前
+        itemIndex = 0;
+        break;
+      }
+
       if (pageY > (instanceLast.y + instanceLast.height)) {
         // 在最后一个之后
         if (dragType === 'add') {
-          itemIndex = childrenLength;
+          itemIndex = childrenLength + 1;
         } else {
-          itemIndex = childrenLength - 1;
+          itemIndex = childrenLength;
         }
         break;
       }
 
-      if (pageY >= instanceBefore.y && pageY < (instanceBefore.y + instanceBefore.height)) {
+      if (pageY >= instanceBefore.y && pageY < instanceBefore.bottom) {
         itemIndex = i;
+        break;
+      } else if(pageY >= instanceBefore.y && (pageY < instanceNext.y)) {
+        // 处在margin之间的距离
+        // itemIndex = i + 1
+        itemIndex = i
         break;
       } else {
         itemIndex = i;
       }
+
     } else {
+
+      if (pageX < instanceFirst.x  || pageY < instanceFirst.y ) {
+        // 在第一个之前
+        itemIndex = 0;
+        break;
+      }
 
       if (pageX > (instanceLast.x + instanceBefore.width) || pageY > (instanceLast.y + instanceLast.height)) {
         // 在最后一个之后
         if (dragType === 'add') {
-          itemIndex = childrenLength;
+          itemIndex = childrenLength + 1;
         } else {
-          itemIndex = childrenLength - 1;
+          itemIndex = childrenLength;
         }
         break;
       }
@@ -101,15 +146,10 @@ function getItemIndex(event, el, ctx, dragType) {
 }
 
 function handleDragStart(e, ctx) {
-  console.log('dragstart--------', ctx.levelIndex, ctx, ctx.$store.getters['editor/isDragging']
-  )
+  debugger
+  console.log('dragstart--------', ctx.levelIndex, ctx)
 
-  const isDragging = ctx.$store.getters['editor/isDragging'];
-  if (isDragging) {
-    return false;
-  }
-  // e.preventDefault();
-  // e.stopPropagation();
+
   const data = {
     dragType: 'move',
     item: ctx.item,
@@ -117,8 +157,9 @@ function handleDragStart(e, ctx) {
     oldLevelIndex: ctx.levelIndex,
     oldItemIndex: ctx.itemIndex
   }
-  ctx.$store.dispatch('editor/setDragging', true);
+  // ctx.$store.dispatch('editor/setDragging', true);
   e.dataTransfer.setData('dragElementData', JSON.stringify(data));
+  toggleContainerDragClass(this, ctx, true);
 }
 
 function handleDragEnter(e) {
@@ -135,7 +176,8 @@ function handleDragOver(e) {
 }
 
 function handleDragEnd(e, ctx) {
-  ctx.$store.dispatch('editor/setDragging', false);
+  // ctx.$store.dispatch('editor/setDragging', false);
+  toggleContainerDragClass(this, ctx, false);
   console.log("*********** render drag item Dragend ***********");
   e.dataTransfer.clearData("dragElementData");
 }
@@ -169,7 +211,7 @@ function handleDrop(e, ctx) {
       if (ctx.levelIndex === oldLevelIndex) {
         console.log('drag ===== drop ')
         toggleDragClass(this, false);
-        ctx.$store.dispatch('editor/setDragging', false);
+        // ctx.$store.dispatch('editor/setDragging', false);
         e.dataTransfer.clearData('dragElementData');
         e.dataTransfer.clearData('dragElementType');
         return;
@@ -217,16 +259,18 @@ export default {
     };
 
     el._handleDragStart = function (e) {
+      e.stopPropagation();
       handleDragStart.call(this, e, ctx);
     };
 
     el._handleDragEnd = function (e) {
+      e.stopPropagation();
       handleDragEnd.call(this, e, ctx);
     };
 
 
     // 最外层容器不能被拖拽
-    if (!el.classList.contains('iphone-container') && !el.classList.contains('itree-manage')) {
+    if (!el.classList.contains('iphone-container') && !el.classList.contains('tree-manage')) {
       el.draggable = true;
       el.addEventListener('dragstart', el._handleDragStart);
       el.addEventListener('dragend', el._handleDragEnd);
@@ -234,6 +278,7 @@ export default {
     // 对于有children才有drop， 对于无childern 只有drag
     // ctx.tag_name  lego-row  lego-col
     if (ctx.draggable === true || ctx.item.draggable === true) {
+      el.setAttribute('data-dropable', true)
       el.addEventListener('dragenter', handleDragEnter);
       el.addEventListener('dragover', handleDragOver);
       el.addEventListener('drop', el._handleDrop);
@@ -244,7 +289,8 @@ export default {
 
   },
   unbind(el) {
-    el.removeEventListener('dragend', el._handleDragStart);
+    el.removeEventListener('dragstart', el._handleDragStart);
+    el.removeEventListener('dragend', el._handleDragEnd);
     el.removeEventListener('dragenter', handleDragEnter);
     el.removeEventListener('dragover', handleDragOver);
     el.removeEventListener('drop', el._handleDrop);

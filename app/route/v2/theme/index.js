@@ -13,4 +13,6 @@ module.exports = app => {
 
   // 获取乐高主题色配置
   app.router.post(routerPrefix +  '/getLegoThemeStyle', controller[version].theme.index.getLegoThemeStyle);
+
+  app.router.post(routerPrefix +  '/getLegoThemeComStyle', controller[version].theme.index.getLegoThemeComStyle);
 };

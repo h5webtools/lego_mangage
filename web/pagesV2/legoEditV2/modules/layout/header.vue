@@ -84,7 +84,7 @@ import * as util from "@jyb/lib-util";
 import * as queryString from "@/util/querystring";
 import logoImg from "assets/img/edit/LOGO.png";
 import rightWhite from "assets/img/edit/right-white.png";
-import { getUrlKey } from "@/util/helper";
+import { getUrlKey, formatThemeComStyle } from "@/util/helper";
 
 // import themeQuery from "apiV2/theme"
 import * as themeQuery from "apiV2/theme";
@@ -161,17 +161,16 @@ export default {
       return url;
     },
     getLegoThemeStyle() {
-      themeQuery.getLegoThemeStyle().then(json => {
+      themeQuery.getLegoThemeComStyle({}).then(json => {
         if (json.code == 0) {
-          json.data.theme_list.forEach(item => {
-            item.config = JSON.parse(item.config);
-          });
-          this.themeStyle = json.data.theme_list;
+          // 格式化theme_list （将某个themeStyle 下的组件配色分组）
+          
+          this.themeStyle = formatThemeComStyle(json.data.theme_list)
 
           if (!this.currentThemeStyle.t_theme_style_id) {
             this.$store.dispatch(
               "editor/setCurrentThemeStyle",
-              json.data.theme_list[0]
+              this.themeStyle[0]
             );
           }
         }
