@@ -320,6 +320,7 @@ export default {
         .getPage(postData)
         .then(json => {
           if (json.code == 0) {
+            debugger
             let _data = json.data;
             //更新路径和页面标题
             this.pageConfigForm.pageTitle = _data.page_title;
@@ -354,12 +355,11 @@ export default {
                 }); */
                 });
               });
+
+
+            this.$store.dispatch("editor/setRegisterComponentList", registerComponentList);
             }
 
-            this.$store.dispatch("editor/setRegisterComponentList", {
-              dragType: "none",
-              item: registerComponentList
-            });
           } else {
             this.$message.error("该页面不存在");
           }
