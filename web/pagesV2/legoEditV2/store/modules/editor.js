@@ -134,7 +134,6 @@ const actions = {
 // mutations
 const mutations = {
   updatePage(state, result) {
-    debugger
 
     // 如果是在renderOne 部分的levelIndex 是到children， 如果点击的是当前组件，那么levelIndex 就是直接到children
 
@@ -286,7 +285,6 @@ const mutations = {
     state.isRegisterComponent = data
   },
   updateValueDirect(state, datas) {
-    debugger
     const { item: oldItem, levelIndex, itemIndex, update } = datas;
     // state.currentComponent = data;
 

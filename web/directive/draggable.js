@@ -219,11 +219,12 @@ function handleDrop(e, ctx) {
 
       const registerComponentList =  ctx.$store.getters['editor/registerComponentList']
       if(registerComponentList[item.component_umd_name]) {
+        item.is_register = true;
 
         updatePage(e, ctx, this, item, itemIndex, dragType, oldLevel, oldLevelIndex, oldItemIndex)
 
       } else {
-        
+
         loadComponents(item.fileUrl, () => {
           window[item.component_umd_name].install(Vue);
           // Vue.use(newItem.component_umd_name)
