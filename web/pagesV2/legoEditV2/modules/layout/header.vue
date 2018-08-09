@@ -143,7 +143,7 @@ export default {
     })
   },
   watch: {
-    'loadComponent.count' (newVal, oldVal) {
+    "loadComponent.count"(newVal, oldVal) {
       if (newVal === this.loadComponent.sum) {
         this.$store.dispatch("editor/updatePage", {
           dragType: "none",
@@ -160,8 +160,6 @@ export default {
     } else {
       this.dialogPageConfigVisiable = true;
     }
-
-    
   },
   methods: {
     addUrlParam(url, key, value) {
@@ -284,33 +282,34 @@ export default {
     },
     publishSit() {
       let postData = {},
-          comConfig = "let vuecomponents = { \n ";
+        comConfig = "let vuecomponents = { \n ";
       postData.pageContent = JSON.stringify(this.pageData);
       Object.assign(postData, this.pageConfigForm);
-      
-      this.pageData.forEach((item ,index) => {
+
+      this.pageData.forEach((item, index) => {
         console.log(item.component_umd_name);
-        comConfig += "legoComponentBasic:require('@lego/lego_component_basic/public/js/index.js'), \n " 
+        comConfig +=
+          "legoComponentBasic:require('@lego/lego_component_basic/public/js/index.js'), \n ";
       });
 
-      comConfig += '};';
+      comConfig += "};";
       console.log(comConfig);
       // return;
       // debugger;
-        legoQuery.publishSit(postData).then(json => {
-          if(json.code == 0){
-            this.$message({
-              message: '发布成功',
-              type: 'success',
-              duration:3000
-            });
-          }else{
-            this.$message({
-              message: '发布失败',
-              type: 'success',
-              duration:3000
-            });
-          }
+      legoQuery.publishSit(postData).then(json => {
+        if (json.code == 0) {
+          this.$message({
+            message: "发布成功",
+            type: "success",
+            duration: 3000
+          });
+        } else {
+          this.$message({
+            message: "发布失败",
+            type: "success",
+            duration: 3000
+          });
+        }
       });
     },
     getPage() {
@@ -326,36 +325,41 @@ export default {
             this.pageConfigForm.pageTitle = _data.page_title;
             this.pageConfigForm.pageMenu = _data.page_menu;
             this.pageConfigForm.dateFolder = _data.date_folder;
-            let registerComponentList = JSON.parse(_data.page_register_com);
+            let registerComponentList = JSON.parse(_data.page_register_com || "[]");
             const self = this;
-            
-            let registerComponentListKey = Object.keys(registerComponentList)
+
+            let registerComponentListKey = Object.keys(registerComponentList);
 
             this.page_content = JSON.parse(_data.page_content);
 
             this.loadComponent.sum = registerComponentListKey.length;
-            registerComponentListKey.forEach(key => {
-             
-              const item = registerComponentList[key];
-              loadComponents(item.fileUrl, () => {
-                window[item.name].install(Vue);
-                // Vue.use(newItem.component_umd_name)
-                console.log(Vue.options.components, "注册组件");
-                self.loadComponent.count++;
-                // TODO  安装一个记录一次， 再次拖拽不再安装
-                /*                 ctx.$store.dispatch('editor/addRegisterComponentItem', {
+            
+            if (registerComponentListKey.length === 0) {
+              this.$store.dispatch("editor/updatePage", {
+                dragType: "none",
+                item: this.page_content
+              });
+            } else {
+              registerComponentListKey.forEach(key => {
+                const item = registerComponentList[key];
+                loadComponents(item.fileUrl, () => {
+                  window[item.name].install(Vue);
+                  // Vue.use(newItem.component_umd_name)
+                  console.log(Vue.options.components, "注册组件");
+                  self.loadComponent.count++;
+                  // TODO  安装一个记录一次， 再次拖拽不再安装
+                  /*                 ctx.$store.dispatch('editor/addRegisterComponentItem', {
                   name: item.component_umd_name,
                   fileUrl: item.fileUrl
                 }); */
+                });
               });
-            });
-
+            }
 
             this.$store.dispatch("editor/setRegisterComponentList", {
               dragType: "none",
               item: registerComponentList
             });
-            
           } else {
             this.$message.error("该页面不存在");
           }
