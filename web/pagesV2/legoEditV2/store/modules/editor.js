@@ -52,7 +52,7 @@ const initialState = {
   },  
   menuActiveIndex: 'layout',
   isRegisterComponent: false,
-  registerComponentList: [],
+  registerComponentList: {},
 };
 
 // getters
@@ -124,12 +124,17 @@ const actions = {
   addRegisterComponentItem({ commit, state }, data) {
     commit('addRegisterComponentItem', data);
   },
+
+  setRegisterComponentList({ commit, state }, data) {
+    commit('setRegisterComponentList', data);
+  }
   
 };
 
 // mutations
 const mutations = {
   updatePage(state, result) {
+    debugger
 
     // 如果是在renderOne 部分的levelIndex 是到children， 如果点击的是当前组件，那么levelIndex 就是直接到children
 
@@ -139,6 +144,7 @@ const mutations = {
 
     if(dragType === 'none') {
       state.pageData = item;
+      return false;
     }
 
     // 顶级的是直接替换全部数据， 其余的每次是替换children的值， 第一个leveindex是多余的标志量
@@ -280,6 +286,7 @@ const mutations = {
     state.isRegisterComponent = data
   },
   updateValueDirect(state, datas) {
+    debugger
     const { item: oldItem, levelIndex, itemIndex, update } = datas;
     // state.currentComponent = data;
 
@@ -314,7 +321,13 @@ const mutations = {
   },
 
   addRegisterComponentItem(state, data) {
-    state.registerComponentList.push(data);
+    const {name, fileUrl} = data
+
+    state.registerComponentList[name] = data;
+  },
+
+  setRegisterComponentList(state, data) {
+    state.registerComponentList = data;
   },
 
 

@@ -79,29 +79,29 @@
 </template>
 
 <script>
+import Vue from "vue";
 import { mapGetters } from "vuex";
+
 import * as util from "@jyb/lib-util";
 import * as queryString from "@/util/querystring";
 import logoImg from "assets/img/edit/LOGO.png";
 import rightWhite from "assets/img/edit/right-white.png";
-import { getUrlKey, formatThemeComStyle } from "@/util/helper";
+import { getUrlKey, formatThemeComStyle, loadComponents } from "@/util/helper";
 
 // import themeQuery from "apiV2/theme"
 import * as themeQuery from "apiV2/theme";
 import * as pageQuery from "apiV2/page_edit";
 import * as legoQuery from "apiV2/lego";
 
-
-console.log(themeQuery);
 export default {
   components: {},
   data() {
     var checkPath = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请输入页面路径'));
-      } else if(!this.pagePathReg.test(value)){
-        callback(new Error('目录必须以5位或以上字母、数字、下划线组成'));
-      }else {
+      if (value === "") {
+        callback(new Error("请输入页面路径"));
+      } else if (!this.pagePathReg.test(value)) {
+        callback(new Error("目录必须以5位或以上字母、数字、下划线组成"));
+      } else {
         callback();
       }
     };
@@ -113,21 +113,24 @@ export default {
       themeStyle: [],
       currentThemeId: -1,
       pageId: "",
+      page_content: null,
+      loadComponent: {
+        count: 0,
+        sum: 0
+      },
       dialogPageConfigVisiable: false,
       pageConfigForm: {
-        pageTitle: '',
-        pageMenu:'',
-        dateFolder:''
+        pageTitle: "",
+        pageMenu: "",
+        dateFolder: ""
       },
       pageConfigRules: {
         pageTitle: [
-          { required: true, message: '请输入活动名称', trigger: 'blur' }
+          { required: true, message: "请输入活动名称", trigger: "blur" }
         ],
-        pageMenu: [
-          { validator: checkPath, trigger: 'blur', required: true }
-        ]
+        pageMenu: [{ validator: checkPath, trigger: "blur", required: true }]
       },
-      formLabelWidth: '80px',
+      formLabelWidth: "80px",
       pagePathReg: /^[a-zA-Z0-9_]{5,30}$/
     };
   },
@@ -135,13 +138,24 @@ export default {
     ...mapGetters({
       pageData: "editor/pageData",
       activeIndex: "editor/menuActiveIndex",
-      currentThemeStyle: "editor/currentThemeStyle"
+      currentThemeStyle: "editor/currentThemeStyle",
+      registerComponentList: "editor/registerComponentList"
     })
+  },
+  watch: {
+    'loadComponent.count' (newVal, oldVal) {
+      if (newVal === this.loadComponent.sum) {
+        this.$store.dispatch("editor/updatePage", {
+          dragType: "none",
+          item: this.page_content
+        });
+      }
+    }
   },
   created() {
     this.pageId = getUrlKey("pageId");
     this.getLegoThemeStyle();
-    if(this.pageId) {
+    if (this.pageId) {
       this.getPage();
     } else {
       this.dialogPageConfigVisiable = true;
@@ -149,14 +163,18 @@ export default {
   },
   methods: {
     addUrlParam(url, key, value) {
-      url = url.replace(/？/g, "?");//异常处理
+      url = url.replace(/？/g, "?"); //异常处理
       let reg = /key[=]/,
-          hasQuery = /\?/.test(url);
-      let hasAnchor = url.indexOf('#') > -1;
-      if (reg.test(url)) {//进行替换
-          url = url.replace(reg, key + "=" + value);
-      } else {//没有，则进行追加
-          url = hasAnchor ? url.replace("#", (hasQuery ? "&" : "?") + key + "=" + value + "#") : (url + (hasQuery ? "&" : "?") + key + "=" + value);
+        hasQuery = /\?/.test(url);
+      let hasAnchor = url.indexOf("#") > -1;
+      if (reg.test(url)) {
+        //进行替换
+        url = url.replace(reg, key + "=" + value);
+      } else {
+        //没有，则进行追加
+        url = hasAnchor
+          ? url.replace("#", (hasQuery ? "&" : "?") + key + "=" + value + "#")
+          : url + (hasQuery ? "&" : "?") + key + "=" + value;
       }
       return url;
     },
@@ -164,8 +182,8 @@ export default {
       themeQuery.getLegoThemeComStyle({}).then(json => {
         if (json.code == 0) {
           // 格式化theme_list （将某个themeStyle 下的组件配色分组）
-          
-          this.themeStyle = formatThemeComStyle(json.data.theme_list)
+
+          this.themeStyle = formatThemeComStyle(json.data.theme_list);
 
           if (!this.currentThemeStyle.t_theme_style_id) {
             this.$store.dispatch(
@@ -192,34 +210,37 @@ export default {
       this.dialogPageConfigVisiable = true;
     },
     savePageConfig(pageConfigForm) {
-      this.$refs['pageConfigForm'].validate((valid) => {
+      this.$refs["pageConfigForm"].validate(valid => {
         if (valid) {
           let basicInfo = {};
           basicInfo.pageId = this.pageId;
           Object.assign(basicInfo, this.pageConfigForm);
           pageQuery.savePageBasicInfo(basicInfo).then(json => {
-            if(json.code == 0){
-              if(json && json.data && json.data.pageId){
-                let _url = this.addUrlParam(location.href,'pageId' , json.data.pageId);
+            if (json.code == 0) {
+              if (json && json.data && json.data.pageId) {
+                let _url = this.addUrlParam(
+                  location.href,
+                  "pageId",
+                  json.data.pageId
+                );
                 location.href = _url;
-              }else{
+              } else {
                 this.$message({
-                  message: '保存基本配置成功',
-                  type: 'success',
-                  duration:3000
+                  message: "保存基本配置成功",
+                  type: "success",
+                  duration: 3000
                 });
               }
-              
             } else {
               this.$message({
                 message: json.msg,
-                type: 'fail',
-                duration:3000
+                type: "fail",
+                duration: 3000
               });
             }
-          })
+          });
         } else {
-          console.log('error submit!!');
+          console.log("error submit!!");
           return false;
         }
       });
@@ -229,52 +250,54 @@ export default {
 
       // 先重置 currentComponent的
       this.$store.commit("editor/setCurrentComponent", {
-        type: 'removeCurrent'
+        type: "removeCurrent"
       });
       postData.pageContent = JSON.stringify(this.pageData);
+      postData.pageRegisterCom = JSON.stringify(this.registerComponentList);
+
       if (this.pageId) {
         postData.pageId = this.pageId;
       }
-      
+
       pageQuery
         .savePage(postData)
         .then(json => {
           if (json.code == 0) {
             if (!this.pageId) {
-              this.pageId = json.data.pageId
+              this.pageId = json.data.pageId;
             }
 
-           this.$store.commit("editor/setCurrentComponent", {
-             type: 'restoreCurrent'
-           });
+            this.$store.commit("editor/setCurrentComponent", {
+              type: "restoreCurrent"
+            });
 
-          this.$message({
-            message: '保存成功',
-            type: 'success',
-            duration:3000
-          });
+            this.$message({
+              message: "保存成功",
+              type: "success",
+              duration: 3000
+            });
           }
         })
-        .catch(() => {});   
+        .catch(() => {});
     },
     publishSit() {
       let postData = {};
       postData.pageContent = JSON.stringify(this.pageData);
       Object.assign(postData, this.pageConfigForm);
-        legoQuery.publishSit(postData).then(json => {
-          if(json.code == 0){
-            this.$message({
-              message: '发布成功',
-              type: 'success',
-              duration:3000
-            });
-          }else{
-            this.$message({
-              message: '发布失败',
-              type: 'success',
-              duration:3000
-            });
-          }
+      legoQuery.publishSit(postData).then(json => {
+        if (json.code == 0) {
+          this.$message({
+            message: "发布成功",
+            type: "success",
+            duration: 3000
+          });
+        } else {
+          this.$message({
+            message: "发布失败",
+            type: "success",
+            duration: 3000
+          });
+        }
       });
     },
     getPage() {
@@ -286,16 +309,41 @@ export default {
         .then(json => {
           if (json.code == 0) {
             let _data = json.data;
-            this.$store.dispatch("editor/updatePage", {
-              dragType: 'none',
-              item: JSON.parse(_data.page_content)
+            let registerComponentList = JSON.parse(_data.page_register_com);
+            const self = this;
+            
+            let registerComponentListKey = Object.keys(registerComponentList)
+
+            this.page_content = JSON.parse(_data.page_content);
+
+            this.loadComponent.sum = registerComponentListKey.length;
+            registerComponentListKey.forEach(key => {
+             
+              const item = registerComponentList[key];
+              loadComponents(item.fileUrl, () => {
+                window[item.name].install(Vue);
+                // Vue.use(newItem.component_umd_name)
+                console.log(Vue.options.components, "注册组件");
+                self.loadComponent.count++;
+                // TODO  安装一个记录一次， 再次拖拽不再安装
+                /*                 ctx.$store.dispatch('editor/addRegisterComponentItem', {
+                  name: item.component_umd_name,
+                  fileUrl: item.fileUrl
+                }); */
+              });
+            });
+
+
+            this.$store.dispatch("editor/setRegisterComponentList", {
+              dragType: "none",
+              item: registerComponentList
             });
             //更新路径和页面标题
             this.pageConfigForm.pageTitle = _data.page_title;
-            this.pageConfigForm.pageMenu = _data.page_menu; 
+            this.pageConfigForm.pageMenu = _data.page_menu;
             this.pageConfigForm.dateFolder = _data.date_folder;
           } else {
-            this.$message.error('该页面不存在')
+            this.$message.error("该页面不存在");
           }
         })
         .catch(() => {});
@@ -435,7 +483,7 @@ export default {
     color: #fefefe;
   }
 }
-.el-dialog__wrapper{
+.el-dialog__wrapper {
   line-height: 24px;
   .el-dialog__title {
     line-height: 24px;
@@ -443,5 +491,4 @@ export default {
     color: #303133;
   }
 }
-
 </style>

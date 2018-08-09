@@ -35,6 +35,7 @@ class LegoEditNpmController extends Controller {
         ret = await this.service.lego.legoV2Service.updatePageInfo({
           pageId: raw.pageId,
           pageContent: raw.pageContent,
+          pageRegisterCom: raw.pageRegisterCom,
           updateTime: await this.ctx.helper.dateFormat('yyyy-MM-dd hh:mm:ss', new Date()),
           user: this.ctx.session.userAccount
         });
@@ -46,6 +47,7 @@ class LegoEditNpmController extends Controller {
       } else {
         ret = await this.service.lego.legoV2Service.insertPageInfo({
           pageContent: raw.pageContent,
+          pageRegisterCom: raw.pageRegisterCom,
           updateTime: await this.ctx.helper.dateFormat('yyyy-MM-dd hh:mm:ss', new Date()),
           user: this.ctx.session.userAccount
         });
