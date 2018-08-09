@@ -4,13 +4,6 @@ const Service = require('egg').Service;
 
 class LegoV2Service extends Service {
 
-  async updatePageInfo(data) {
-    let result = await this.app.mysql.get('dbLego').query(`update tb_page set page_content = ? , page_editdate = ? , last_save_erp = ? 
-        where page_id= ? ` 
-    , [data.pageContent, data.updateTime , data.user , data.pageId]);
-    return result.affectedRows === 1;
-  }
-
   async queryThemeList(data) {
     this.ctx.logger.info('获取乐高颜色主题配置');
 
@@ -116,10 +109,11 @@ class LegoV2Service extends Service {
     let result = await this.app.mysql.get('dbLego').query(`
     update t_page set 
     page_content = ? , 
+    page_register_com = ?,
     page_editdate = ? , 
     last_save_erp = ? 
     where id= ? ` , 
-     [data.pageContent, data.updateTime , data.user , data.pageId]);
+     [data.pageContent, data.pageRegisterCom, data.updateTime , data.user , data.pageId]);
     return result.affectedRows === 1;
   }
 

@@ -216,14 +216,30 @@ function handleDrop(e, ctx) {
 
 
     if (!item.is_register) {
-      loadComponents(item.fileUrl, () => {
-        window[item.component_umd_name].install(Vue);
-        // Vue.use(newItem.component_umd_name)
-        console.log(Vue.options.components, '注册组件');
-        // TODO  安装一个记录一次， 再次拖拽不再安装
-        item.is_register = true;
+
+      const registerComponentList =  ctx.$store.getters['editor/registerComponentList']
+      if(registerComponentList[item.component_umd_name]) {
+
         updatePage(e, ctx, this, item, itemIndex, dragType, oldLevel, oldLevelIndex, oldItemIndex)
-      })
+
+      } else {
+        
+        loadComponents(item.fileUrl, () => {
+          window[item.component_umd_name].install(Vue);
+          // Vue.use(newItem.component_umd_name)
+          console.log(Vue.options.components, '注册组件');
+          // TODO  安装一个记录一次， 再次拖拽不再安装
+          item.is_register = true;
+          ctx.$store.dispatch('editor/addRegisterComponentItem', {
+            name: item.component_umd_name,
+            fileUrl: item.fileUrl
+          });
+  
+          updatePage(e, ctx, this, item, itemIndex, dragType, oldLevel, oldLevelIndex, oldItemIndex)
+  
+        })
+      }
+
     } else {
       updatePage(e, ctx, this, item, itemIndex, dragType, oldLevel, oldLevelIndex, oldItemIndex)
     }

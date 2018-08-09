@@ -33,7 +33,6 @@ export default {
   },
   computed: {
     ...mapGetters({
-      isDragging: "editor/isDragging",
       pageData: "editor/pageData",
     })
   },
