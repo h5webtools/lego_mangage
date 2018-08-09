@@ -202,18 +202,36 @@ const mutations = {
 
   setCurrentComponent(state, result) {
     // item 是JSONpagedata 后的子元素
-    const {item, levelIndex, itemIndex, level} = result;
+    const {item, levelIndex, itemIndex, level, type} = result;
+    if(type) {
+      if(type === 'removeCurrent') {
+        if(state.currentComponent.extendProps) {
+          state.currentComponent.extendProps.isCurrent = false;
+        }
+      }
 
-    if(state.currentComponent.extendProps) {
-      state.currentComponent.extendProps.isCurrent = false;
+      if(type === 'restoreCurrent') {
+        if(state.currentComponent.extendProps) {
+          state.currentComponent.extendProps.isCurrent = true;
+        }
+      }
+
+    } else {
+      if(state.currentComponent.extendProps) {
+        state.currentComponent.extendProps.isCurrent = false;
+      }
+  
+  /*     if(levelIndex) {
+        let currentData = getLevelPageDataChildren(levelIndex, state.pageData, 1)
+  
+        currentData.extendProps.isCurrent = true;
+        state.currentComponent = currentData;
+      } */
+      if(item) {
+        item.extendProps.isCurrent = true;
+      }
     }
 
-    if(levelIndex) {
-      let currentData = getLevelPageDataChildren(levelIndex, state.pageData, 1)
-
-      currentData.extendProps.isCurrent = true;
-      state.currentComponent = currentData;
-    }
 
 
   },

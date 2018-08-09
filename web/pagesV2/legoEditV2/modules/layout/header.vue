@@ -228,7 +228,9 @@ export default {
       let postData = {};
 
       // 先重置 currentComponent的
-      this.$store.commit("editor/setCurrentComponent", {});
+      this.$store.commit("editor/setCurrentComponent", {
+        type: 'removeCurrent'
+      });
       postData.pageContent = JSON.stringify(this.pageData);
       if (this.pageId) {
         postData.pageId = this.pageId;
@@ -241,11 +243,16 @@ export default {
             if (!this.pageId) {
               this.pageId = json.data.pageId
             }
-            this.$message({
-              message: '保存成功',
-              type: 'success',
-              duration:3000
-            });
+
+           this.$store.commit("editor/setCurrentComponent", {
+             type: 'restoreCurrent'
+           });
+
+          this.$message({
+            message: '保存成功',
+            type: 'success',
+            duration:3000
+          });
           }
         })
         .catch(() => {});   
