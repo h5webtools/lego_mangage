@@ -15,4 +15,11 @@ module.exports = app => {
   // 打包
   app.router.post(routerPrefix +  '/publishSit', controller[version].lego.index.publishSit);
 
+  // 获取npm包
+  app.router.post(routerPrefix +  '/getPackageVersions', controller[version].lego.npm.getPackageVersions);
+
+  // 更新npm包
+  app.router.post(routerPrefix +  '/updatePackageVersion', controller[version].lego.npm.updatePackageVersion);
+  
+
 };

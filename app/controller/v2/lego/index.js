@@ -5,7 +5,7 @@ const errCode = require('../../../constant/errCode');
 const { exec, execSync } = require('child_process');
 const path = require('path');
 const fs = require('fs-extra');
-
+const packageJson = require('./template/package.json');
 
 
 const DELETE_LOCK_KEY_FAILED = 610007;    // redis删除锁失败
@@ -72,6 +72,31 @@ class LegoIndexController extends Controller {
         code: QUERY_DATABASE_FAILED,
         msg: e.message()
       }
+    }
+  }
+
+  // 重新写package.json
+  async rewritePackage() {
+    // 读取package.json
+    try {
+      this.ctx.logger.info('写入package.json文件');
+      let writeRet = fs.writeFileSync(`${actPath}/package.json`, JSON.stringify(packageJson), 'utf-8');
+      // 写文件有问题
+      if(writeRet) {
+        this.ctx.logger.error('创建package.json文件失败');
+        this.ctx.body = {
+          code: WRITE_DEPENDENCYFILE_FAILED,
+          msg: '创建package.json文件失败'
+        }
+        return;
+      }
+    } catch(e) {
+      this.ctx.logger.error('生成package.json文件失败 '+ e.message);
+      this.ctx.body = {
+        code: WRITE_DEPENDENCYFILE_FAILED,
+        msg: e.message
+      }
+      return;
     }
   }
 

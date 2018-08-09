@@ -47,6 +47,6 @@ module.exports = app => {
   // 获取乐高主题色配置
   app.router.post('/lego/getLegoThemeColor', app.controller.lego.index.getLegoThemeColor);
   // 乐高打包
-  app.router.post('/lego/legoPackage', app.controller.lego.index.legoPackage);
-  app.router.post('/lego/publishSit', app.controller.lego.index.publishSit);
+  // app.router.post('/lego/legoPackage', app.controller.lego.index.legoPackage);
+  // app.router.post('/lego/publishSit', app.controller.lego.index.publishSit);
 };

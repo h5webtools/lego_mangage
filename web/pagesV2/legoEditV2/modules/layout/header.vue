@@ -146,6 +146,8 @@ export default {
     } else {
       this.dialogPageConfigVisiable = true;
     }
+
+    
   },
   methods: {
     addUrlParam(url, key, value) {
@@ -248,9 +250,20 @@ export default {
         .catch(() => {});   
     },
     publishSit() {
-      let postData = {};
+      let postData = {},
+          comConfig = "let vuecomponents = { \n ";
       postData.pageContent = JSON.stringify(this.pageData);
       Object.assign(postData, this.pageConfigForm);
+      
+      this.pageData.forEach((item ,index) => {
+        console.log(item.component_umd_name);
+        comConfig += "legoComponentBasic:require('@lego/lego_component_basic/public/js/index.js'), \n " 
+      });
+
+      comConfig += '};';
+      console.log(comConfig);
+      // return;
+      // debugger;
         legoQuery.publishSit(postData).then(json => {
           if(json.code == 0){
             this.$message({
@@ -276,14 +289,16 @@ export default {
         .then(json => {
           if (json.code == 0) {
             let _data = json.data;
+            this.pageConfigForm.pageTitle = _data.page_title;
+            this.pageConfigForm.pageMenu = _data.page_menu; 
+            this.pageConfigForm.dateFolder = _data.date_folder;
+
             this.$store.dispatch("editor/updatePage", {
               dragType: 'none',
               item: JSON.parse(_data.page_content)
             });
             //更新路径和页面标题
-            this.pageConfigForm.pageTitle = _data.page_title;
-            this.pageConfigForm.pageMenu = _data.page_menu; 
-            this.pageConfigForm.dateFolder = _data.date_folder;
+            
           } else {
             this.$message.error('该页面不存在')
           }

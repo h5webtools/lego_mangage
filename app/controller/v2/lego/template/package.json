@@ -1,0 +1,25 @@
+{
+  "name": "",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "mock": "concurrently --raw --kill-others \"npm run dev:mock\" \"npm run serve\"",
+    "dev": "concurrently --raw --kill-others \"npm run dev:watch\" \"npm run serve\"",
+    "serve": "cross-env SERVER_ENV=local jfet server -l -s",
+    "serve:build": "cross-env SERVER_ENV=build jfet server -s -c ../../release",
+    "dev:watch": "cross-env BUILD_ENV=local jfet build -w",
+    "dev:mock": "cross-env BUILD_ENV=mock jfet build -w",
+    "build:test": "cross-env BUILD_ENV=test jfet build",
+    "build:prod": "cross-env BUILD_ENV=prod jfet build",
+    "image": "jfet image --min",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "lego",
+  "license": "ISC",
+  "dependencies": {
+    "@jyb/lib-bimta": "^1.1.4",
+    "@jyb/lib-tracker": "^1.0.3",
+    "@jyb/common-sass": "^1.0.2"
+  }
+}

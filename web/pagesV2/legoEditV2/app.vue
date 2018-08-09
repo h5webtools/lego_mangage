@@ -92,7 +92,6 @@ export default {
   },
   methods: {
     getWidgetList() {
-      debugger;
       componentQuery
         .getWidgetList({
         })
