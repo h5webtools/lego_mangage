@@ -254,7 +254,6 @@ export default {
       });
       postData.pageContent = JSON.stringify(this.pageData);
       postData.pageRegisterCom = JSON.stringify(this.registerComponentList);
-
       if (this.pageId) {
         postData.pageId = this.pageId;
       }
@@ -285,15 +284,22 @@ export default {
         comConfig = "let vuecomponents = { \n ";
       postData.pageContent = JSON.stringify(this.pageData);
       Object.assign(postData, this.pageConfigForm);
-
-      this.pageData.forEach((item, index) => {
-        console.log(item.component_umd_name);
-        comConfig +=
-          "legoComponentBasic:require('@lego/lego_component_basic/public/js/index.js'), \n ";
-      });
+      //this.registerComponentList
+      for(let item in this.registerComponentList){  
+        if(item == 'LegoHeadmap'){
+          comConfig +=
+          "LegoHeadmap:require('@lego/lego_component_demo/public/js/index'), \n ";
+        }
+      }
+      // this.pageData.forEach((item, index) => {
+      //   console.log(item.component_umd_name);
+      //   comConfig +=
+      //     "legoComponentBasic:require('@lego/lego_component_basic/public/js/index.js'), \n ";
+      // });
 
       comConfig += "};";
       console.log(comConfig);
+      postData.comConfig = comConfig;
       // return;
       legoQuery.publishSit(postData).then(json => {
         if (json.code == 0) {

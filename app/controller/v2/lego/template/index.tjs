@@ -1,38 +1,46 @@
 
-import './index.scss';
+  import './index.scss';
 
-import legoComponentBasic from '@lego/lego_component_basic/public/js/index.js'
+  import legoComponentBasic from '@lego/lego_component_basic/public/js/index.js'
 
-import Vue from 'vue' ;
+  import Vue from 'vue' ;
 
-import App from './App.vue';
+  import App from './App.vue';
 
-import editor from '../../store/modules/editor';
-import widget from '../../store/modules/widget';
-import vStore from '../../store';
+  import editor from '../../store/modules/editor';
+  import widget from '../../store/modules/widget';
+  import vStore from '../../store';
 
-import cRenderCom from '../../modules/common/RenderOne.vue'
+  import cRenderCom from '../../modules/common/RenderOne.vue'
 
-const EventEmit = require('@jyb/lib-event-emit');
+  const EventEmit = require('@jyb/lib-event-emit');
 
-window.Lego_ComponentConfig = LEGOCONFIG
+  COMFLEX_COMPONENTS;
 
-Vue.component('c-render-com', cRenderCom)
+  window.Lego_ComponentConfig = LEGOCONFIG
 
+  Vue.component('c-render-com', cRenderCom)
+  
 
-Vue.use(legoComponentBasic.default)
-
-vStore.registerModule('editor', editor);
-vStore.registerModule('widget', widget);
-
-
-var eventEmit = new EventEmit();
-window.GLOBALEVENTEMIT || (window.GLOBALEVENTEMIT = eventEmit);
-
-new Vue({
-  el: '#container',
-  render(h){
-    return h(App);
+  for (var componentname in vuecomponents) {
+    if (vuecomponents.hasOwnProperty(componentname)) {
+      Vue.use(vuecomponents[componentname].default);
+    };
   }
-});
+
+  Vue.use(legoComponentBasic.default)
+
+  vStore.registerModule('editor', editor);
+  vStore.registerModule('widget', widget);
+
+
+  var eventEmit = new EventEmit();
+  window.GLOBALEVENTEMIT || (window.GLOBALEVENTEMIT = eventEmit);
+
+  new Vue({
+    el: '#container',
+    render(h){
+      return h(App);
+    }
+  });
 
