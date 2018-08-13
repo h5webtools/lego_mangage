@@ -23,7 +23,7 @@
   "author": "kardel.chen@jyblife.com",
   "license": "ISC",
   "dependencies": {
-    "@jyb/common-menu": "0.0.14",
+    "@jyb/vue-common-menu": "0.0.2",
     "axios": "^0.15.3",
     "clipboard": "^1.7.1",
     "element-ui": "^2.0.11",

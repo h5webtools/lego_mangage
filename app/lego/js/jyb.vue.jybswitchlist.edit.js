@@ -38,6 +38,7 @@ define(function (require, exports, module) {
       "contentColor": "",
       "selectedcontentColor": "",
       "selectedbgcolor": "",
+      "anchorUrl":"",
       "tabs": [],
       "tabType": 'switchlist',
       "npmversion": "",
