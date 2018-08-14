@@ -281,6 +281,7 @@ export function hex2RGB(color) {
 
 // widget 相关
 export function formatWidget(widgetList, componentGroupV2) {
+  debugger
   let formatWidget = [];
   const self = this;
 
@@ -322,10 +323,7 @@ export function _formatWidgetJSON(component) {
   try {
     com_config = JSON.parse(component.com_config);
   } catch(e) {
-    this.ctx.body = {
-      code: -1,
-      msg: e.message()
-    }
+    console.log(e)
   }
   com_config.com_id = component.com_id;
 
