@@ -414,16 +414,16 @@
                         </div>
                     </template>
                 </div>
-                <div v-if="params.isshowcoupon != 1">
+                <div>
                     <template v-if="!params.submitflag">
                         <a class="mod-btn f-28 ui-mt-40 " id="exchange" v-on:click="submit" :style="{background:params.buttoncolor,color:params.btntextcolor}" v-bind:data-stat-id="params.eventid_submit || ''">{{params.buttondes || '立即兑换'}}</a>
-                        <p class="ui-mt-20 ui-ta-c f-24 color-999" :style="{color:params.checkoutPricesColor}"  v-on:click="switchflag" v-bind:data-stat-id="params.eventid_check || ''">{{params.checkoutPrices || '已经兑换？点击查看红包'}}</p>
+                        <p v-if="params.isshowcoupon != 1" class="ui-mt-20 ui-ta-c f-24 color-999" :style="{color:params.checkoutPricesColor}"  v-on:click="switchflag" v-bind:data-stat-id="params.eventid_check || ''">{{params.checkoutPrices || '已经兑换？点击查看红包'}}</p>
                     </template>
                 </div>
-                <div v-if="params.isshowcoupon != 1">
+                <div>
                     <template v-if="params.submitflag">
                         <a class="mod-btn f-28 ui-mt-40" id="exchange" v-on:click="checkoutcoupons" :style="{background:params.buttoncolor,color:params.btntextcolor}">立即查看</a>
-                        <p class="ui-mt-20 ui-ta-c f-24 color-999" v-on:click="switchflag" v-bind:data-stat-id="params.eventid_back || ''">返回兑换红包</p>
+                        <p v-if="params.isshowcoupon != 1" class="ui-mt-20 ui-ta-c f-24 color-999" v-on:click="switchflag" v-bind:data-stat-id="params.eventid_back || ''">返回兑换红包</p>
                     </template>
                 </div>
             </div>
