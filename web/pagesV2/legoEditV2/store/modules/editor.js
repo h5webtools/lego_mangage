@@ -234,6 +234,7 @@ const mutations = {
       } */
       if(item) {
         item.extendProps.isCurrent = true;
+        state.currentComponent = item;
       }
     }
 
