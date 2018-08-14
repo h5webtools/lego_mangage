@@ -2,9 +2,11 @@
 
 const Controller = require('egg').Controller;
 const errCode = require('../../../constant/errCode');
-const { exec, execSync } = require('child_process');
+const { exec, execSync ,spawnSync} = require('child_process');
 const path = require('path');
 const fs = require('fs-extra');
+const simpleGit = require("simple-git");
+const qs = require('querystring');
 const packageJson = require('./template/package.json');
 
 
@@ -103,7 +105,8 @@ class LegoIndexController extends Controller {
   async publishSit() { // 乐高打包
     this.ctx.logger.info(this.config.legoConfigV2.path);
     let raw = this.ctx.request.rawBody;
-    let pageContent = raw.pageContent;
+    let pageContent = raw.pageContent,
+        comConfig = raw.comConfig;
 
     this.ctx.logger.info(raw);
     
@@ -112,67 +115,85 @@ class LegoIndexController extends Controller {
     //let replacePreviewData = previewTem.toString().replace("LEGOCONFIG", pageContent);
 
     //this._replaceJsTemplate(`${this.config.legoConfigV2.path}/pages/index/`,pageContent );
-    this._replaceJsTemplate(`${this.config.legoConfigV2.LegoActPath}/development/${raw.dateFolder}/${raw.pageMenu}/pages/index/`,pageContent );
+    this._replaceJsTemplate(`${this.config.legoConfigV2.LegoActPath}/development/${raw.dateFolder}/${raw.pageMenu}/pages/index/`
+        ,pageContent , comConfig);
 
     this._replaceJfetConfig(`${this.config.legoConfigV2.LegoActPath}/development/${raw.dateFolder}/${raw.pageMenu}/`,
-    `../../../release/${raw.dateFolder}/${raw.pageMenu}`);
+    `/release/act/${raw.dateFolder}/${raw.pageMenu}/`);
 
     this._replacePagenameConfig(`${this.config.legoConfigV2.LegoActPath}/development/${raw.dateFolder}/${raw.pageMenu}/pages/index/`,raw.pageTitle);
 
     //this.ctx.logger.info(replacePreviewData);
 
     //let actPageRet = fs.writeFileSync(`${this.config.legoConfigV2.path}/pages/index/index.js`, replacePreviewData, 'utf-8');//要删除
-    
-    try {
-      var output = execSync('jfet build', {
-        cwd:`${this.config.legoConfigV2.LegoActPath}/development/${raw.dateFolder}/${raw.pageMenu}/`
-      }).toString();
+    // 执行依赖安装
+    let templateRet = await Promise.all([this._installNpmPackages(`${this.config.legoConfigV2.LegoActPath}/development/${raw.dateFolder}/${raw.pageMenu}/`)]);
+    this.ctx.logger.info('执行依赖安装')
+    if (templateRet[0].code == 0) {
+      try {
+        var output = execSync('jfet build', {
+          cwd:`${this.config.legoConfigV2.LegoActPath}/development/${raw.dateFolder}/${raw.pageMenu}/`
+        }).toString();
+  
+        this.ctx.logger.info('----begin----');
+        this.ctx.logger.info(output);
+        this.ctx.logger.info('----end-----');
+  
+        if(globalReg.errBeginReg.test(output) && globalReg.errEndReg.test(output)){
+          this.ctx.body = {
+            code: WEBPACK_CPMPILE_FAILED,
+            msg:'编译失败'
+          }
+        }else{
+          //this._submitGit(raw.dateFolder, raw.pageMenu , raw.pageName);
+           // 要执行提交发布的动作
+           if (true) {
+             let _this = this;
+            await this._submitGit(raw.dateFolder, raw.pageMenu , raw.pageName).then(async (commitId, preCommitId) => {
+              // 提交git仓库成功，创建发布单
+              _this.ctx.logger.info('publishRet-------------------->',commitId,preCommitId);
+              let publishRet = await _this._createPublishTask(commitId, preCommitId, raw);
 
-      this.ctx.logger.info('----begin----');
-      this.ctx.logger.info(output);
-      this.ctx.logger.info('----end-----');
 
-      if(globalReg.errBeginReg.test(output) && globalReg.errEndReg.test(output)){
-        this.ctx.body = {
-          code: WEBPACK_CPMPILE_FAILED,
-          msg:'编译失败'
+              _this.ctx.logger.info('publishRet-------------------->',publishRet);
+              // 发布失败
+              if(!publishRet) {
+                _this.ctx.body = {
+                  code: 0,
+                  msg: 'success'
+                }
+                _this.ctx.logger.info('创建发布单成功-------------------->');
+              } else {
+                _this.ctx.body = {
+                  code: CREATE_RELEASETASK_FAILED,
+                  msg: '创建发布单失败，请重试，如果仍然失败请联系开发'
+                }
+              }
+            }).catch((error) => {
+              _this.ctx.logger.error('提交GIT失败：' + error);
+              _this.ctx.body = {
+                code: SUBMIT_GIT_FAILED,
+                msg: error
+              }
+            });
+          } else {
+            // 不需要指定提交和发布，直接返回
+            _this.ctx.body = {
+              code: 0,
+              msg: 'success'
+            }
+          }
+          this.ctx.body = {
+            code:0,
+            msg:'编译成功'
+          }
         }
-      }else{
+      } catch (error) {
+        // todo
+        this.ctx.logger.info(error);
         this.ctx.body = {
-          code:0,
-          msg:'编译成功'
+          code:1
         }
-      }
-      
-      // const std = await execSync('jfet build', {
-      //   cwd:this.config.legoConfigV2.path
-      //   //cwd: path.resolve(__dirname, '..', '..', '..', '..', 'build_static')
-      // },(err, stdout, stderr) => {
-      //   this.ctx.logger.info(err);
-      //   this.ctx.logger.info(stdout);
-      //   this.ctx.logger.info(stderr);
-      //   if (err) {
-      //     this.ctx.logger.info(err);
-      //     this.ctx.body = {
-      //       code:1
-      //     }
-      //   }else{
-      //     this.ctx.body = {
-      //       code:0
-      //     }
-      //   }
-      //   this.ctx.body = {
-      //     code:0
-      //   }
-      // });
-      // this.ctx.body = {
-      //   code:0
-      // }
-    } catch (error) {
-      // todo
-      this.ctx.logger.info(error);
-      this.ctx.body = {
-        code:1
       }
     }
   }
@@ -236,7 +257,7 @@ class LegoIndexController extends Controller {
     }
   }
 
-  async _replaceJsTemplate(dir, legoConfig) {
+  async _replaceJsTemplate(dir, legoConfig , comConfig) {
     this.ctx.logger.info(`读取模板并替换LEGOCONFIG关键字`);
     let templateJs;
     try {
@@ -249,6 +270,7 @@ class LegoIndexController extends Controller {
       }
     }
     let replaceData = templateJs.toString().replace("LEGOCONFIG", legoConfig);
+        replaceData = replaceData.replace('COMFLEX_COMPONENTS' , comConfig);
     let writeRet = fs.writeFileSync(`${dir}/${this.config.legoConfigV2.actJs}`, replaceData, 'utf-8');
 
     if (!writeRet) {
@@ -264,6 +286,127 @@ class LegoIndexController extends Controller {
       }
     }
   }
+
+    /**
+   * 根据package.json安装npm依赖
+   * @param {*} installPath 
+   */
+  async _installNpmPackages(installPath) {
+    this.ctx.logger.info(`在${installPath}执行依赖安装`)
+    this.ctx.logger.info(`---${installPath}---`)
+      // 判断package.json是否存在
+    if (!fs.pathExistsSync(`${installPath}/package.json`)) {
+      return {
+        code: INSTALL_FILE_NOT_EXIST,
+        msg: 'package.json文件不存在'
+      }
+    }
+    let installOptions = {
+      cwd: installPath
+    };
+    let command = process.platform === 'win32' ? 'npm.cmd' : 'npm';
+    let install = spawnSync(command, ['install', '--registry=http://npm.jyblife.com'], installOptions);
+    if (install.status == 0) {
+      this.ctx.logger.info(`在${installPath}安装依赖成功`);
+      return {
+        code: 0
+      };
+    } else {
+      this.ctx.logger.error(`在${installPath}安装依赖失败${install.stderr.toString()}`);
+      return {
+        code: INSTALL_FAILED,
+        msg: '安装依赖失败'
+      };
+    }
+  }
+
+    /**
+   * 提交GIT仓库
+   * @param {*} monthDir  当前月份目录
+   * @param {*} folder    活动目录
+   * @param {*} actName   活动名
+   */
+  async _submitGit(monthDir, folder, actName) {
+    let name = this.ctx.session.userName || 'system-async',
+        targetDir = `${this.config.legoConfigV2.LegoActPath}/development/${monthDir}/${folder}`;
+    return new Promise((resolve, reject) => {
+      simpleGit(this.config.legoConfigV2.LegoActPath).add(['development/' + monthDir + '/'+ folder , 
+      `release/act/${monthDir}/${folder}`], (err, res) => {
+        if (err) {
+          return reject(err);
+        } else {
+          this.ctx.logger.info(targetDir + '添加git仓库成功');
+        }
+      }).pull('origin', this.config.legoConfigV2.branchName, (err, res) => {
+        if (err) {
+          return reject(err);
+        } else {
+          this.ctx.logger.info(targetDir + ' pull成功');
+        }
+      }).commit(`feature:${name}修改活动${actName}，目录为${folder}`, (err, res) => {
+        if (err) {
+          return reject(err);
+        } else {
+          this.ctx.logger.info(targetDir + '提交git仓库成功');
+        }
+      }).push('origin', this.config.legoConfigV2.branchName, (err, res) => {
+        if (err) {
+          return reject(err);
+        } else {
+          this.ctx.logger.info(targetDir + ' push成功');
+        }
+      }).log((err, res) => {
+        this.ctx.logger.info(err);
+        this.ctx.logger.info(res);
+        if(err) {
+          return reject(err); 
+        } else {
+          return resolve(res.all[0].hash, res.all[1].hash);
+        }
+      });
+    })
+  }
+  /**
+   * 创建发布任务单
+   * @param {*} commitId      本次提交的hash
+   * @param {*} preCommitId   上次提交的hash
+   * @param {object}  rawBody http请求的参数对象
+   */
+  async _createPublishTask(commitId, preCommitId, rawBody) {
+    this.ctx.logger.info('创建发布单'+ commitId);
+    this.ctx.logger.info('创建发布单'+ JSON.stringify(rawBody));
+    // 根据flag判断发布目标环境
+    //let project_level = publishMap[rawBody.publishflag] || publishMap.sit
+    let project_level = [4];
+    let releaseData = {
+      project_name: "h5_web.actpage", 
+      project_level: JSON.stringify(project_level), 
+      title: `${rawBody.pageTitle}_${rawBody.pageId}_${rawBody.dateFolder}`,
+      commit_id: commitId,
+      pre_commit_id: preCommitId || commitId,
+      branch: this.config.legoConfigV2.branchName,
+      email: this.ctx.session.userEmail,
+      file_transmission_mode: 2,
+      file_list: ["release/act/" + rawBody.dateFolder + "/" + rawBody.pageMenu]
+    };
+    try {
+      // 调用发布系统接口创建发布单
+      let releaseRet = await this.ctx.helper.get(this.config.envConfig.RELEASE_PATH + '?' + qs.stringify(releaseData));
+      this.ctx.logger.info('发布结果：'+ JSON.stringify(releaseRet));
+      if(releaseRet.code == 0) {
+        if (rawBody.publishflag == 'prepublish') {
+          let deleteRet = await this.app.redis.del(`lego_manage_previewLock_${rawBody.pageid}`);
+        }
+        return '';
+      } else {
+        return CREATE_RELEASETASK_FAILED;
+      }
+    } catch(e) {
+      this.ctx.logger.error('创建发布单失败 ' + e.message);
+      return CREATE_RELEASETASK_FAILED;
+    }
+  }
+
 
 }
 

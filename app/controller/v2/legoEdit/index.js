@@ -104,8 +104,8 @@ class LegoEditController extends Controller {
           user: this.ctx.session.userAccount
         });
         this.rewritePackage(`${this.config.legoConfigV2.LegoActPath}/development/${dateFolder}/${pageMenu}/`);
-        // fs.copySync(`${this.config.legoConfigV2.LegoManagerPath}/legoTemplate`,
-        //  `${this.config.legoConfigV2.LegoActPath}/development/${dateFolder}/${pageMenu}/`);
+        fs.copySync(`${this.config.legoConfigV2.LegoManagerPath}/legoTemplate`,
+         `${this.config.legoConfigV2.LegoActPath}/development/${dateFolder}/${pageMenu}/`);
 
         this.ctx.body = {
           code: ret ? 0 : INSERT_DATABASE_FAILD,

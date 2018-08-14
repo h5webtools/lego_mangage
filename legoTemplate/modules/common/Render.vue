@@ -1,6 +1,15 @@
 <template>
-  <c-render-com v-model="pageData">
-  </c-render-com>
+   <div class="iphone-container" >
+            <c-render-com 
+                :item="itemChild"
+                :key="indexChild" 
+                :itemIndex="indexChild" 
+                v-for="(itemChild, indexChild) in pageData"
+                element="div" 
+                class="draggableDesign" 
+                >
+            </c-render-com>
+        </div>
 </template>
 
 <script>

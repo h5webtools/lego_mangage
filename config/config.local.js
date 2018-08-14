@@ -120,7 +120,7 @@ module.exports = appInfo => {
     // path: '/data/www/lego/h5_lego_actpage/release/act/',
     path: '/Users/zhaoshali/work/www/lego/build_static',
     LegoManagerPath:'/Users/zhaoshali/work/git/lego_manage',
-    LegoActPath:'/Users/zhaoshali/work/www/lego/lego_act',
+    LegoActPath:'/Users/zhaoshali/work/www/lego/h5_lego_actpage',
     templateJs: 'index.tjs',
     jfetconfig:'jfet_config.tjs',
     previewTem: 'confirm_publish.tjs',
@@ -129,7 +129,7 @@ module.exports = appInfo => {
     jfetJs:'jfet.config.js',
     hbs:'index.hbs',
     minifyJs: false,
-    branchName: 'lego_dev'
+    branchName: 'lego_dev_new'
   }
 
   config.envConfig = {
