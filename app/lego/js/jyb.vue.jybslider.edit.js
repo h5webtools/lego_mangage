@@ -26,7 +26,7 @@ define(function (require, exports, module) {
       "sliderArr": [],
       "npmversion": "",
       "npmversionArr": [],
-      "npmname": "@lego/commontag"
+      "npmname": "@lego/jybslider"
     },
     watch: ['data.styleKey', "data.sliderArr"]
   });
