@@ -1,6 +1,6 @@
 define(function (require, exports, module) {
 
-  var vueComponent = require("./jyb.vue.commontag");
+  var vueComponent = require("./jyb.vue.jybslider");
   var Factory = require('./jyb.vue.edit.factory');
   var defaultTplEdit = '/public/template/new/jybslider/edit.html';
 
@@ -13,7 +13,7 @@ define(function (require, exports, module) {
   var _Class = Factory.getClass({
     vueComponent: vueComponent,
     defaultTplEdit: defaultTplEdit,
-    type: 'commontag',
+    type: 'jybslider',
     data: {
       styleKey: '',
       "_itemList": [],
