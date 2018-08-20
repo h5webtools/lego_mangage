@@ -13,11 +13,7 @@
                 "run",
                 "debug",
                 "--",
-<<<<<<< HEAD
-                "--inspect-brk"
-=======
                 "--inspect"
->>>>>>> develop
             ],
             "console": "integratedTerminal",
             "restart": true,

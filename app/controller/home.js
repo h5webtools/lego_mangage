@@ -13,8 +13,6 @@ class HomeController extends Controller {
     const operateUser = this.ctx.session.passportJyb.operateUser;
     
     const menu = await this.ctx.passportGetMenu(); 
-<<<<<<< HEAD
-=======
 
     /* const menu = [
       {
@@ -109,7 +107,6 @@ class HomeController extends Controller {
     //     }
     //   ]
     // });
->>>>>>> develop
     
     // 自定义修改需要加入的路由
     if (this.app.config.env == "sit" || this.app.config.env == "local") {

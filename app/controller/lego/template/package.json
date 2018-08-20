@@ -8,10 +8,6 @@
   "dependencies": {
     "@jyb/lib-bimta": "^1.1.4",
     "@jyb/lib-tracker": "^1.0.3",
-<<<<<<< HEAD
-    "@jyb/common-sass": "^1.0.2"
-=======
     "@lego/timecutdown": "^1.0.2"
->>>>>>> develop
   }
 }

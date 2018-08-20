@@ -10,7 +10,6 @@
 
 ### 文档
 
-<<<<<<< HEAD
 - [开发规范](http://wikipad.jyb.com/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/%E5%90%8E%E5%8F%B0%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F)
 - [egg 文档][egg]
 - [jfet 文档](http://doc.fe.jyb.com/book/workflow/index.html)
@@ -88,7 +87,6 @@ $ npm stop
     }
  }
  ```
-=======
 ```shell
 // 构建，进入/app/web，执行
 npm run build:test
@@ -98,4 +96,3 @@ sh build.sh
 npm run stop
 npm run start:dev
 ```
->>>>>>> develop

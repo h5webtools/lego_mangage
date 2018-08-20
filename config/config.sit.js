@@ -16,7 +16,7 @@ module.exports = appInfo => {
   }
 
   config.static = {
-    dir: [path.join(appInfo.baseDir, 'app/public'), path.join(appInfo.baseDir, 'app/lego')]
+    dir: [path.join(appInfo.baseDir, 'public'), path.join(appInfo.baseDir, 'lego'), path.join(appInfo.baseDir, 'legoV2') ]
   }
 
   config.mysql = {
@@ -144,6 +144,22 @@ module.exports = appInfo => {
     actJs: 'index.js',
     minifyJs: true,
     branchName: 'lego_sit'
+  }
+
+  config.legoConfigV2 = {
+    // path: '/data/www/lego/h5_lego_actpage/release/act/',
+    path: '/Users/zhaoshali/work/www/lego/build_static',
+    LegoManagerPath:'/Users/zhaoshali/work/git/lego_manage',
+    LegoActPath:'/Users/zhaoshali/work/www/lego/h5_lego_actpage',
+    templateJs: 'index.tjs',
+    jfetconfig:'jfet_config.tjs',
+    previewTem: 'confirm_publish.tjs',
+    hbsTjs: 'hbs.tjs',
+    actJs: 'index.js',
+    jfetJs:'jfet.config.js',
+    hbs:'index.hbs',
+    minifyJs: false,
+    branchName: 'lego_dev_new'
   }
 
   config.envConfig = {
