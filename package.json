@@ -12,7 +12,8 @@
     "egg-scripts": "^2.5.0",
     "egg-session-redis": "^1.0.0",
     "egg-view-nunjucks": "^2.1.6",
-    "simple-git": "^1.91.0",
+    "querystring": "^0.2.0",
+    "simple-git": "^1.96.0",
     "uglify-js": "^3.3.9",
     "uglifyjs-webpack-plugin": "^1.2.2",
     "webpack": "^3.10.0"
@@ -36,7 +37,7 @@
     "build:web": "NODE_ENV=production jfet build",
     "start": "NODE_ENV=production egg-scripts start --port=7002 --daemon --title=egg-server-lego --env=prod",
     "stop": "egg-scripts stop --title=egg-server-lego",
-    "dev": "egg-bin dev",
+    "dev": "egg-bin dev --port=7002",
     "debug": "egg-bin debug --port=7002",
     "start:dev": "egg-scripts start --port=7002 --daemon --title=egg-server-lego --env=dev",
     "sit": "egg-scripts start --port=7002 --daemon --title=egg-server-lego --env=sit",

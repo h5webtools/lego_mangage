@@ -10,8 +10,16 @@ module.exports = app => {
   // const version = config.legoConfigV2.version  
   const version = 'v2'
   const routerPrefix = '/' + version
-  app.router.get(routerPrefix +  '/lego', controller[version].lego.home.index);
-  app.router.get(routerPrefix +  '/lego/pageEdit', controller[version].lego.home.index);
-  // 获取乐高主题色配置
-  app.router.post(routerPrefix +  '/lego/getLegoThemeColor', controller[version].lego.index.getLegoThemeColor);
+  // app.router.get(routerPrefix , controller[version].lego.home.index);
+  app.router.redirect(routerPrefix, routerPrefix +  '/legoEdit', 302);
+  // 打包
+  app.router.post(routerPrefix +  '/publishSit', controller[version].lego.index.publishSit);
+
+  // 获取npm包
+  app.router.post(routerPrefix +  '/getPackageVersions', controller[version].lego.npm.getPackageVersions);
+
+  // 更新npm包
+  app.router.post(routerPrefix +  '/updatePackageVersion', controller[version].lego.npm.updatePackageVersion);
+  
+
 };

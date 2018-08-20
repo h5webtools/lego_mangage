@@ -23,3 +23,11 @@ export function getLegoThemeColor(data) {
     data
   });
 }
+
+export function legoPackage(data) {
+  return service({
+    url: '/lego/legoPackage',
+    method: 'post',
+    data
+  });
+}

@@ -63,7 +63,7 @@ module.exports = appInfo => {
       'hook': {
         async logoutCallbackbefore(ctx) {
           const {path} = ctx.request;
-          const rules = [/^\/$/, /\/login/, /\/login\/loginOut/]
+          const rules = [/^\/$/, /\/login/, /\/login\/loginOut/, /^\/v2$/, /^\/v2\/legoEdit$/]
           
           const state = rules.find(rule => {
             if(rule.test(path)) {

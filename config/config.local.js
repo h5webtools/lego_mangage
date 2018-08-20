@@ -11,7 +11,7 @@ module.exports = appInfo => {
   };
 
   config.static = {
-    dir: path.join(appInfo.baseDir, 'public')
+    dir: [path.join(appInfo.baseDir, 'public'), path.join(appInfo.baseDir, 'legoV2') ]
   }
 
   config.mysql = {
@@ -107,12 +107,29 @@ module.exports = appInfo => {
 
   config.legoConfig = {
     // path: '/data/www/lego/h5_lego_actpage/release/act/',
-    path: 'D:/lego',
+    path: '/Users/zhaoshali/work/www/lego/build_static',
     templateJs: 'index_dev.tjs',
     previewTem: 'confirm_publish.tjs',
     actJs: 'index.js',
     minifyJs: false,
     branchName: 'lego_dev'
+  }
+
+
+  config.legoConfigV2 = {
+    // path: '/data/www/lego/h5_lego_actpage/release/act/',
+    path: '/Users/zhaoshali/work/www/lego/build_static',
+    LegoManagerPath:'/Users/zhaoshali/work/git/lego_manage',
+    LegoActPath:'/Users/zhaoshali/work/www/lego/h5_lego_actpage',
+    templateJs: 'index.tjs',
+    jfetconfig:'jfet_config.tjs',
+    previewTem: 'confirm_publish.tjs',
+    hbsTjs: 'hbs.tjs',
+    actJs: 'index.js',
+    jfetJs:'jfet.config.js',
+    hbs:'index.hbs',
+    minifyJs: false,
+    branchName: 'lego_dev_new'
   }
 
   config.envConfig = {
@@ -137,10 +154,10 @@ module.exports = appInfo => {
   
   config.viewJyb = { // 默认配置，可以自己设置覆盖
     devServer: {
-      enable: true, // 是否开启构建服务
+      enable: false, // 是否开启构建服务
       command: 'jfet build -w', // 执行命令
       env: {}, // 环境变量
-      timeout: 60 * 1000, // 启动超时时间
+      timeout: 60 * 1000, // 启动超时时间ß
       port: 35729, // livereload端口
       watchPath: path.join(appInfo.baseDir, './public/**/*'), // 监听目录，必须为绝对路径
     },

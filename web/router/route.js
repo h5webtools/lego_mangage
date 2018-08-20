@@ -18,7 +18,7 @@ const legoComponentStyles = () => import(/* webpackChunkName: "legoComponentStyl
 const entryList = () => import(/* webpackChunkName: "entryList" */ '../pages/entry/config/configApp.vue');
 const entryActList = () => import(/* webpackChunkName: "entryActList" */ '../pages/entry/list/entryActList.vue');
 
-const legoPageEdit = () => import(/* webpackChunkName: "legoPageEdit" */ '../pages/pageEdit/index.vue');
+
 
 const routes = [
     {
@@ -31,13 +31,6 @@ const routes = [
         { path: 'welcome', name:'welcome',title:'欢迎页', component: welcome }
       ]
     }, 
-    {
-      path: '/pageEdit',
-      hidden: true,
-      name: 'legoPageEdit',
-      title: '搭建页面',
-      component: legoPageEdit
-    },
     {
       path: '/ConfigTreeLego/:tpl_id/:pageid/:comid/:act_id',
       name: 'ConfigTreeLego',

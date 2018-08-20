@@ -12,4 +12,3 @@ run/
 *.un~
 npm-debug.log
 yarn-error.log
-public/

@@ -24,10 +24,10 @@ exports.sessionRedis = {
   package: 'egg-session-redis',
 };
 
-// exports.viewJyb = {
-//   enable: true,
-//   package: '@jyb/egg-view-jyb',
-// };
+exports.viewJyb = {
+  enable: true,
+  package: '@jyb/egg-view-jyb',
+};
 
 exports.passportJyb = {
   enable: true,

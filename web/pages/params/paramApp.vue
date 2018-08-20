@@ -335,7 +335,6 @@ export default {
         this.listLoading = false;
         if (jsonData.code == 0) {
           // 为每个元素都添加show_type字段
-          debugger;
           this.tableData = jsonData.data.data.map((item) => {
             if (item.param) {
               item.param = item.param.map((param) => {

@@ -47,7 +47,7 @@ class HomeController extends Controller {
         return roleMap[role].indexOf(Number(ur)) != -1
       })
     }
-    await this.ctx.render('legoEditV2/edit', {
+    await this.ctx.render('legoEditV2/edit.html', {
       keywords: '加油宝,乐高,编辑页面',
       description: '加油宝,乐高,编辑页面',
       title: '乐高管理系统',
