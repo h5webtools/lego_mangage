@@ -284,7 +284,7 @@
 
 <template class="showTemplate">
     <jybcoupon uid="jybcoupon" v-bind:params="data" inline-template>
-    <div class="mod-c-coupon">
+    <div class="mod-c-coupon" v-bind:style="{backgroundColor:params.couponBg}">
         <template v-if="true">
             <div class="mod-c-coupon__item" v-for="(item,index) in data.couponList" :style="{backgroundColor:item.bgcolor}">
                 <div class="c-coupon__item__desc">

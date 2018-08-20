@@ -80,6 +80,11 @@
               <strong></strong>结束时间：</label>
             <input type="text" placeholder="2018/07/09 00:00:00" v-model="obj.data.endTime">
           </div>
+          <div class="form-group">
+              <label><strong></strong>背景色：</label>
+              <input type="color" v-model="obj.data.couponBg">
+              <input type="text" class="colorFrameInput" v-model="obj.data.couponBg" value="">
+          </div>
           <div class="form-group" >
               <label><strong>*</strong>倒计时类型：</label>
               <label style="width:80px;"><input  style="width:16px;height:16px; " type="radio" value="0" v-model="obj.data.cuttimetype">无倒计时</label>
