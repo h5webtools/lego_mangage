@@ -34,6 +34,7 @@ const COPY_ACT_PAGE_FAILED = 710014;  // 拷贝新页面失败
 const RELATE_PAGE_ACT_FAILED = 810010;  // 关联页面和活动号失败
 const PAGE_ID_NOT_EXIST = 810011;       // 活动页面不存在
 
+
 const PAGE_TYPE_COMMON = 1;
 const PAGE_TYPE_SHARE = 2;
 const PAGE_TYPE_PAY = 3;

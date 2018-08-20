@@ -6,7 +6,7 @@
   "scripts": {
     "mock": "concurrently --raw --kill-others \"npm run dev:mock\" \"npm run serve\"",
     "dev": "concurrently --raw --kill-others \"npm run dev:watch\" \"npm run serve\"",
-    "serve": "cross-env SERVER_ENV=local jfet server -l -s",
+    "serve": "cross-env SERVER_ENV=local jfet server -l -s --port 7003",
     "serve:build": "cross-env SERVER_ENV=build jfet server -s -c ../../release",
     "dev:watch": "cross-env BUILD_ENV=local jfet build -w",
     "dev:mock": "cross-env BUILD_ENV=mock jfet build -w",
@@ -23,6 +23,7 @@
   "author": "kardel.chen@jyblife.com",
   "license": "ISC",
   "dependencies": {
+<<<<<<< HEAD:web/package.json
     "@jyb/jfet-server": "^1.3.7",
     "@jyb/lib-event-emit": "^0.2.8",
     "@jyb/lib-extend": "^0.1.9",
@@ -30,6 +31,9 @@
     "@jyb/lib-util": "^0.1.17",
     "@lego/lego_component_basic": "0.0.18-beta",
     "@lego/lego_component_demo": "0.0.3-beta",
+=======
+    "@jyb/vue-common-menu": "0.0.2",
+>>>>>>> develop:app/web/package.json
     "axios": "^0.15.3",
     "clipboard": "^1.7.1",
     "element-ui": "^2.0.11",

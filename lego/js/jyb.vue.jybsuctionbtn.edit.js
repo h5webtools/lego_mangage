@@ -21,7 +21,10 @@ define(function (require, exports, module) {
       "fontcolor": '',
       "outterbgcolor": "",
       "outterwidth": "",
-      "eventid":""
+      "eventid":"",
+      "npmversion": "",
+      "npmversionArr": [],
+      "npmname": "@lego/commontag"
     },
     watch: ['data.styleKey', "data.btndes", "data.tourl", "data.backgroundcolor", "data.fontcolor"]
   });

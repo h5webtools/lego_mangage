@@ -90,7 +90,7 @@
                 <el-dropdown-item>
                   <router-link :to="{name:'actEdit', params: {act_id:props.row.act_id, status:props.row.status}}">编辑活动</router-link>
                 </el-dropdown-item>
-                <el-dropdown-item divided v-if="props.row.is_lego == 0 || (props.row.is_lego == 1 && isAdmin)">
+                <el-dropdown-item divided>
                   <router-link :to="{name:'chainEdit', params: {act_id:props.row.act_id, status:props.row.status,is_draft:1}}">规则配置</router-link>
                 </el-dropdown-item>
                 <el-dropdown-item v-if="deploy" divided>

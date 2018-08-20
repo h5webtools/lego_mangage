@@ -25,6 +25,9 @@ define(function (require, exports, module) {
   var jybfigure = require("./jyb.vue.jybfigure.edit");
   var jybimgmap = require("./jyb.vue.jybimgmap.edit");
   var jybfloating = require("./jyb.vue.jybfloating.edit");
+  var jybcoupon = require("./jyb.vue.jybcoupon.edit");
+  var jybslider = require("./jyb.vue.jybslider.edit");
+  
   // var jybsignin = require("./jyb.vue.jybsignin.edit");
   // var jybtasks = require("./jyb.vue.jybtasks.edit");
 
@@ -63,7 +66,9 @@ define(function (require, exports, module) {
     'jybpay': jybpay,
     'jybfigure': jybfigure,
     'jybimgmap': jybimgmap,
-    'jybfloating': jybfloating
+    'jybfloating': jybfloating,
+    'jybcoupon':jybcoupon,
+    'jybslider':jybslider
   };
 
   exports.ckeckIsLogin = function () {

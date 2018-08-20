@@ -10,7 +10,8 @@ const paramsList = () => import(/* webpackChunkName: "paramsList" */ '../pages/p
 const actChainConfig = () => import(/* webpackChunkName: "actChainConfig" */ '../pages/chain/chainApp.vue');
 const templateConfigTree = () => import(/* webpackChunkName: "templateConfigTree" */ '../pages/template/chaintpl/chainApp.vue');
 const templateList = () => import(/* webpackChunkName: "templateList" */ '../pages/template/list/listApp.vue');
-const systemSync = () => import(/* webpackChunkName: "systemSync" */ '../pages/system/sync/listApp.vue');
+const systemSync = () => import(/* webpackChunkName: "systemSync" */ '../pages/system/sync/listApp.vue');//同步配置
+const systemMQ = () => import(/* webpackChunkName: "systemMQ" */ '../pages/system/setMQ/listApp.vue');//同步配置
 const ConfigTreeLego = () => import(/* webpackChunkName: "ConfigTreeLego" */ '../pages/template/chaintpllego/chainApp.vue');
 const legoComponents = () => import(/* webpackChunkName: "legoComponents" */ '../pages/lego/components/listApp.vue');
 const legoPages = () => import(/* webpackChunkName: "legoPages" */ '../pages/lego/pages/listApp.vue');
@@ -30,13 +31,13 @@ const routes = [
       children: [
         { path: 'welcome', name:'welcome',title:'欢迎页', component: welcome }
       ]
-    }, 
+    },
     {
       path: '/ConfigTreeLego/:tpl_id/:pageid/:comid/:act_id',
       name: 'ConfigTreeLego',
       component: ConfigTreeLego,
       title: '乐高模板'
-    }, 
+    },
     {
       path: '/act',
       name: 'act',
@@ -132,7 +133,13 @@ const routes = [
           name: 'systemSync',
           title: '同步配置',
           component: systemSync
-        }
+        },
+        {
+          path: '/system/setMQ',
+          name: 'systemMQ',
+          title: 'MQ配置',
+          component: systemMQ
+        },
       ]
     },
     {
@@ -156,9 +163,9 @@ const routes = [
       ]
     }
   ];
-  
+
   addMetaTitle(routes);
-  
+
   function addMetaTitle(arr) {
     if (Array.isArray(arr)) {
       arr.forEach((a) => {

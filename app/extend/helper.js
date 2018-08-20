@@ -57,7 +57,7 @@ module.exports = {
       ctx.logger.info('target Ip: ' + target.env.ip);
       const requestParam = await ctx.helper.extendParam({
         service: target.env.jmf,
-        params: JSON.stringify(param)
+        params: JSON.stringify(param || [])
       });
       ctx.logger.info('request param: ' + JSON.stringify(requestParam));
       const result = await ctx.curl(target.env.ip + '?ts=' + (+new Date()), {

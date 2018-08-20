@@ -1,0 +1,107 @@
+<style>
+.jybwx_banner_slider__container1 {
+   position: relative;
+   width: 100%;
+   height: 3.86rem;
+
+  
+ }
+
+.jybwx_banner_slider__container1 img{
+    width:100%;
+    height:3.86rem;
+}
+.jybwx_banner_slider__container1 .wrap-item{
+    display: inline-block;
+}
+ .jybwx_banner_slider__container1 .wrap-item:nth-child(1) {
+     width:7.5rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.jybwx_banner_slider__container1 .wrap-item:nth-child(2) {
+    
+    width:7.5rem;
+    position: absolute;
+    top: 0;
+    left: 100%;
+}
+.jybwx_banner_slider__container1 .wrap-item:nth-child(3) {
+    
+    width:7.5rem;
+    position: absolute;
+    top: 0;
+    left: 200%;
+}
+.jybwx_banner_slider__container1 .wrap-item:nth-child(4) {
+    
+    width:7.5rem;
+    position: absolute;
+    top: 0;
+    left:300%;
+}
+.jybwx_banner_slider__container1 .wrap-item:nth-child(5) {
+    
+    width:7.5rem;
+    position: absolute;
+    top: 0;
+    left: 400%
+}
+.jybwx_banner_slider__container1 .wrap-item:nth-child(6) {
+    
+    width:7.5rem;
+    position: absolute;
+    top: 0;
+    left: 500%
+}
+.jybwx_banner_slider__container1 .wrap-item:nth-child(7) {
+    
+    width:7.5rem;
+    position: absolute;
+    top: 0;
+    left: 600%
+}
+
+.jybwx_banner_slider__container1 .wrap-item:nth-child(8) {
+    
+    width:7.5rem;
+    position: absolute;
+    top: 0;
+    left: 700%
+}
+</style>
+
+<template class="showTemplate">
+
+    <jybslider uid="jybslider" v-bind:params="data" inline-template>
+        <div id="jybwx_banner_slider__container" class="jybwx_banner_slider__container1 container">  
+            <template v-if="true">
+                <a class="wrap-item" v-bind:data-stat-id="item.mtaid" v-for="item in params.sliderArr" :href="item.url">
+                    <img :src="item.imgSrc">
+                </a> 
+            </template>
+        </div>
+    </jybslider>
+
+</template>
+<!-- 下面的属性控制MPM中编辑界面 -->
+
+<script class="forMPMExt">
+    var com_ext = {}
+
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+    var com_extend = [{
+
+    }]
+
+</script>
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {
+       
+    };
+
+</script>

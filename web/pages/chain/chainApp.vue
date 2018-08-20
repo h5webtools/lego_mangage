@@ -14,6 +14,16 @@
             </el-option-group>
           </el-select>
         </el-form-item>
+        <el-form-item label="MQ配置列表">
+          <el-select style="width: 300px;" multiple filterable v-model="mqData.event_id" placeholder="请选择MQ配置">
+            <el-option
+              v-for="item in mqList"
+              :key="item.event_id"
+              :label="item.event_name"
+              :value="item.event_id">
+            </el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="showChainTpl">
             <i class="glyphicon glyphicon-export"></i>导出配置</el-button>
@@ -86,29 +96,33 @@
 
     <!-- 展示树的json格式数据 -->
     <el-dialog title="配置树" :visible.sync="chainsTplVisible">
-      <el-row>
-        <el-col :span="24">
-          <pre class="grid-content bg-purple-dark" :id="'chainsTplConfig'" v-html="configTplHTML">
+      <div>
+        <el-row>
+          <el-col :span="24">
+            <pre class="grid-content bg-purple-dark chainsTplConfig"  v-html="configTplHTML">
             </pre>
-        </el-col>
-      </el-row>
-      <div slot-scope="footer" class="dialog-footer">
-        <el-button @click="cancleChainsTpl">取 消</el-button>
-        <el-button type="primary" @click="confirmChainsTpl">确 定</el-button>
+          </el-col>
+        </el-row>
+      </div>
+      <div slot="footer" class="dialog-footer">
+        <el-button size='small' @click="cancleChainsTpl">取 消</el-button>
+        <el-button size='small' type="primary" @click="confirmChainsTpl">确 定</el-button>
       </div>
     </el-dialog>
     <!-- 展示树的json格式数据 -->
 
     <!-- 展示树的json格式数据 -->
     <el-dialog title="配置树" :visible.sync="chainsImportTplVisible">
-      <el-form :model="chainsTplData">
-        <el-form-item>
-          <el-input :spellcheck="false" v-model="chainsTplData.configData" auto-complete="off" type="textarea" :autosize="{ minRows: 20}"></el-input>
-        </el-form-item>
-      </el-form>
-      <div slot-scope="footer" class="dialog-footer">
-        <el-button @click="cancleImportChainsTpl">取 消</el-button>
-        <el-button type="primary" @click="confirmImportChainsTpl">确 定</el-button>
+      <div>
+        <el-form :model="chainsTplData">
+          <el-form-item>
+            <el-input :spellcheck="false" v-model="chainsTplData.configData" auto-complete="off" type="textarea" :autosize="{ minRows: 20}"></el-input>
+          </el-form-item>
+        </el-form>
+      </div>
+      <div slot="footer" class="dialog-footer">
+        <el-button size='small' @click="cancleImportChainsTpl">取 消</el-button>
+        <el-button size='small' type="primary" @click="confirmImportChainsTpl">确 定</el-button>
       </div>
     </el-dialog>
     <!-- 展示树的json格式数据 -->
@@ -116,6 +130,7 @@
 </template>
 <script>
 import * as chainQuery from "api/api_act_chain";
+import * as mqQuery from "api/api_system_mqSet";
 import * as util from "assets/js/util";
 import clipBoard from "clipboard";
 import treeNode from './treeNode.vue';
@@ -156,6 +171,11 @@ export default {
       path: process.env.BASE_API,
       chainLoading: false,
       cmdList: [],
+      mqList: [],
+      mqData: {
+        event_id: []
+      },
+      mqDataCopy: [],
       chainConfig: {},
       tempChainConfig: {},
       ruleActionList: {},
@@ -222,7 +242,7 @@ export default {
     }
   },
   created() {
-    this.getActCmdList().getChainConfig().getRuleAction();
+    this.getActCmdList().getChainConfig().getRuleAction().getMqList();
   },
   filters: {
     getRequired: function(obj) {
@@ -245,6 +265,7 @@ export default {
       chainQuery.saveCmdChains({ //saveCmdChains
         cmd: this.cmdData.cmd,
         act_id: this.act_id,
+        event_id: this.mqData.event_id,
         chains: data
       }).then(json => {
         this.chainLoading = false;
@@ -394,12 +415,24 @@ export default {
         this.$confirm('确定要切换命令字？当前编辑内容尚未保存，切换后无法恢复！', '提示').then(() => {
           this.cmdData.lastCmd = cmd;
           this.cmdData.configData = this.chainConfig[cmd] || [];
+          this.mqData.event_id = [];
+          this.mqDataCopy.forEach((item) => {
+            if(item.cmd == this.cmdData.cmd){
+              this.mqData.event_id.push(item.event_id);
+            }
+          });
         }).catch(() => {
           this.cmdData.cmd = this.cmdData.lastCmd;
         })
       } else {
         this.cmdData.lastCmd = cmd;
         this.cmdData.configData = this.chainConfig[cmd] || [];
+        this.mqData.event_id = [];
+        this.mqDataCopy.forEach((item) => {
+          if(item.cmd == this.cmdData.cmd){
+            this.mqData.event_id.push(item.event_id);
+          }
+        });
       }
     },
     /**
@@ -622,6 +655,29 @@ export default {
           this.$message.error(json.msg);
         }
       })
+      return this;
+    },
+    getMqList() {//mq配置列表
+      mqQuery.GetEvent({status: '1' }).then(json => {
+        if (json.code == 0) {
+          this.mqList = json.data.data;
+          mqQuery.GetActEvent({ act_id: this.act_id}).then(json => {
+            if (json.code == 0) {
+              this.mqDataCopy = json.data.data;
+              console.log(this.mqDataCopy);
+              this.mqDataCopy.forEach((item) => {
+                if(item.cmd == this.cmdData.cmd){
+                  this.mqData.event_id.push(item.event_id);
+                }
+              });
+            } else {
+              this.$message.error(json.msg);
+            }
+          });
+        } else {
+          this.$message.error(json.msg);
+        }
+      });
       return this;
     },
     getChainConfig() {
@@ -883,7 +939,6 @@ export default {
 
       this.importChainFlag = false;
       this.chainsTplData.configData = this.tempChainConfig;
-
       this.configTplHTML = this.syntaxHighlight(JSON.parse(this.tempChainConfig));
 
       this.chainsTplVisible = true;
@@ -900,7 +955,7 @@ export default {
       this.chainsImportTplVisible = false;
     },
     confirmChainsTpl() {//确定
-
+      var me = this;
       this.copyToClipboard(this.tempChainConfig);
       this.importChainFlag = false;
       this.$message("复制数据模板成功!");
@@ -928,17 +983,17 @@ export default {
       }
       json = json.replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>');
       return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
-        var cls = 'number';
+        var cls = 'number-type';
         if (/^"/.test(match)) {
           if (/:$/.test(match)) {
-            cls = 'key';
+            cls = 'key-type';
           } else {
-            cls = 'string';
+            cls = 'string-type';
           }
         } else if (/true|false/.test(match)) {
-          cls = 'boolean';
+          cls = 'boolean-type';
         } else if (/null/.test(match)) {
-          cls = 'null';
+          cls = 'null-type';
         }
         return '<span class="' + cls + '">' + match + '</span>';
       });
@@ -961,7 +1016,7 @@ export default {
   }
 }
 
-#chainsTplConfig {
+.chainsTplConfig {
   outline: 1px solid #ccc;
   padding: 5px;
   margin: 5px;
@@ -969,23 +1024,23 @@ export default {
   overflow-y: scroll;
 }
 
-.string {
+.string-type {
   color: green;
 }
 
-.number {
+.number-type {
   color: darkorange;
 }
 
-.boolean {
+.boolean-type {
   color: blue;
 }
 
-.null {
+.null-type {
   color: magenta;
 }
 
-.key {
+.key-type {
   color: red;
 }
 </style>

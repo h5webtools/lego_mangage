@@ -121,7 +121,12 @@ define(function (require, exports, module) {
             comConfig += "jybtasks:require('@lego/jybtasks'), \n "
         } else if (_type == 'jybsignin' && comConfig.indexOf(".jybsignin") == -1) {
             comConfig += "jybsignin:require('@lego/jybsignin'), \n "
-        }  
+        }  else if (_type == 'jybcoupon' && comConfig.indexOf(".jybcoupon") == -1) {
+            comConfig += "jybcoupon:require('@lego/jybcoupon'), \n "
+        }  else if (_type == 'jybslider' && comConfig.indexOf(".jybslider") == -1) {
+          comConfig += "jybslider:require('@lego/jybslider'), \n "
+      }  
+
         //获取自定义代码 
         if (_name == 'customcode') {
           customCodeSource += _data.data.code + "\n";

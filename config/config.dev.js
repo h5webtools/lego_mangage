@@ -47,7 +47,25 @@ module.exports = appInfo => {
     "version": "1.0.0", //使用URL中的version值
     "method": "invoke"
   }
-
+  //乐高微服务
+  config.actLegoConfig = {
+    GetActivityDraftConfig: [{
+      ip: 'http://172.16.1.35:12053',
+      jmf: 'com.jyblife.complex.h5.act_console.GetActivityDraftConfig'
+    }],
+    GetEvent: [{
+      ip: 'http://172.16.1.35:12053',
+      jmf: 'com.jyblife.complex.h5.act_console.GetEvent'
+    }],
+    AddOrUpdateEvent: [{
+      ip: 'http://172.16.1.35:12053',
+      jmf: 'com.jyblife.complex.h5.act_console.AddOrUpdateEvent'
+    }],
+    GetActEvent: [{
+      ip: 'http://172.16.1.35:12053',
+      jmf: 'com.jyblife.complex.h5.act_console.GetActEvent'
+    }]
+  }
   config.actEntryConfig = {
     userGroupList: [{
       ip: 'http://172.16.1.35:12053',
@@ -90,7 +108,6 @@ module.exports = appInfo => {
       jmf: 'com.jyblife.complex.h5.act_console.GetIconEntranceDetail'
     }]
   }
-
   config.redis = {
     client: {
       port: 6379,          // Redis port
@@ -108,6 +125,7 @@ module.exports = appInfo => {
   config.legoConfig = {
     path: '/data/www/h5_dev/canye/h5_lego_actpage/release/act/',
     templateJs: 'index_dev.tjs',
+    previewTem: 'confirm_publish.tjs',
     actJs: 'index.js',
     minifyJs: false,
     branchName: 'lego_dev'
@@ -116,7 +134,8 @@ module.exports = appInfo => {
   config.envConfig = {
     BASE_API: 'http://172.16.1.8:9014/hanyi/manage',
     RELEASE_PATH: 'http://r.jtjr.com/task/interface',
-    CDN_PREFIX: 'https://cdnsit.jyblife.com/act/'
+    CDN_PREFIX: 'https://cdnsit.jyblife.com/act/',
+    previewHost:'http://127.0.0.1:7001'
   }
 
   config.userRole = {
