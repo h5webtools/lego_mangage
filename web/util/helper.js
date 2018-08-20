@@ -281,7 +281,7 @@ export function hex2RGB(color) {
 
 // widget 相关
 export function formatWidget(widgetList, componentGroupV2) {
-  debugger
+  
   let formatWidget = [];
   const self = this;
 
