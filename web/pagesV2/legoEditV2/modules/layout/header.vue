@@ -336,7 +336,7 @@ export default {
 
             let registerComponentListKey = Object.keys(registerComponentList);
 
-            this.page_content = JSON.parse(_data.page_content);
+            this.page_content = JSON.parse(_data.page_content || "[]");
 
             this.loadComponent.sum = registerComponentListKey.length;
             
