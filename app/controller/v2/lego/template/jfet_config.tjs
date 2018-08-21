@@ -6,7 +6,7 @@ module.exports = {
   build(abc, context) {
     // ../../../release/act/20180800/lego_page_5
     //const publicDir = path.resolve(__dirname, '../../../release/' , '/act/20180800/lego_page_5/');
-    const rmDir = path.resolve(__dirname, '../../../release/', '{{outputPath}}');
+    const rmDir = path.resolve(__dirname, '../../../', '{{outputPath}}');
     const publicDir = path.resolve(__dirname, 'public');
     context.setConfig({
         setOutput: {
