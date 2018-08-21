@@ -131,7 +131,7 @@ class LegoIndexController extends Controller {
     this.ctx.logger.info('执行依赖安装')
     if (templateRet[0].code == 0) {
       try {
-        var output = execSync('jfet build', {
+        var output = execSync('../../../node_modules/.bin/jfet build', {
           cwd:`${this.config.legoConfigV2.LegoActPath}/development/${raw.dateFolder}/${raw.pageMenu}/`
         }).toString();
   
