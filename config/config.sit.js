@@ -19,6 +19,7 @@ module.exports = appInfo => {
     dir: [path.join(appInfo.baseDir, 'public'), path.join(appInfo.baseDir, 'lego'), path.join(appInfo.baseDir, 'legoV2') ]
   }
 
+
   config.mysql = {
     clients: {
       dbMain: {

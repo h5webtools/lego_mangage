@@ -16,7 +16,7 @@ module.exports = appInfo => {
   }
 
   config.static = {
-    dir: [path.join(appInfo.baseDir, 'app/public'), path.join(appInfo.baseDir, 'app/lego')]
+    dir: [path.join(appInfo.baseDir, 'app/public'), path.join(appInfo.baseDir, 'app/lego'), path.join(appInfo.baseDir, 'app/legoV2')]
   }
 
   config.mysql = {
