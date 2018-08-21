@@ -119,7 +119,7 @@ class LegoIndexController extends Controller {
         ,pageContent , comConfig);
 
     this._replaceJfetConfig(`${this.config.legoConfigV2.LegoActPath}/development/${raw.dateFolder}/${raw.pageMenu}/`,
-    `/release/act/${raw.dateFolder}/${raw.pageMenu}/`);
+    `release/act/${raw.dateFolder}/${raw.pageMenu}`);
 
     this._replacePagenameConfig(`${this.config.legoConfigV2.LegoActPath}/development/${raw.dateFolder}/${raw.pageMenu}/pages/index/`,raw.pageTitle);
 
