@@ -29,9 +29,9 @@ module.exports = app => {
   //系统设置相关路由
   require('./route/system')(app);
   // 乐高npm包管理相关路由
-  // require('./route/lego/npm')(app);
-  // // 乐高活动页面相关接口
-  // require('./route/lego/index')(app);
+  require('./route/lego/npm')(app);
+  // 乐高活动页面相关接口
+  require('./route/lego/index')(app);
   // app入口相关
   require('./route/entry/index')(app);
 

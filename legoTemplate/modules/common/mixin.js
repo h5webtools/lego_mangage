@@ -1,15 +1,21 @@
 import {setUuid} from '../../util/helper'
 import { mapGetters } from 'vuex';
 
+/**
+ * 必须区分直接点中组件是levelindex是真实索引； 拖拽到目标位置的索引的children索引
+ */
 export default {
-    model: {
-        prop: "listData"
-    },
     props: {
-        listData: {
+/*         currentListData: {
             type: Array,
             default: () => {
                 return [];
+            }
+        }, */
+        item: {
+            type: Object,
+            default: () => {
+                return {};
             }
         },
         // 树的层级
@@ -21,88 +27,38 @@ export default {
         levelIndex: {
             type: String,
             default: "0"
+        },
+        itemIndex: {
+            type: Number,
+            // default: 0
+        },
+        childrenLength: {
+            type: Number
         }
     },
     computed: {
         ...mapGetters({
-          currentThemeStyle: 'editor/currentThemeStyle'
+            currentThemeStyle: 'editor/currentThemeStyle'
         })
-      },
+    },
     data() {
         return {
-            currentListData: this.listData,
-            style: {
-                // "min-height": "80px",
-                // background: "red",
-                // margin: "10px"
-            },
-            style2: {
-                // "min-height": "50px",
-                // background: "yellow",
-                // border: "1px dotted black"
-            },
-            dragOptions: {
-                animation: 50,
-                group: {
-                    name: "formDesign"
-                },
-                ghostClass: "ghost",
-                handle: '.draggableDesignItem',
-                chosenClass: "sortable-chosen",  // Class name for the chosen item
-                dragClass: "sortable-drag",
-            }
+            dragOptions: {}
         };
     },
     watch: {
-        listData(newVal, oldVal) {
-            this.currentListData = JSON.parse(JSON.stringify(newVal));
-        },
-/*      currentListData(newVal, oldVal) {
-        } */
+
+        currentListData: {
+            handler(newVal, oldVal) {
+               // this.currentListData = newVal
+            },
+            deep: true//对象内部的属性监听，也叫深度监听
+
+        }
     },
     created: function () {
     },
     methods: {
-        onChoose(item, event) {
-            // TODO 深层的例如button 点击还未阻止
-            event.stopPropagation();
-            event.preventDefault();
-            const self = this;
-            setTimeout(function () {
-                console.log(item, 'chooseitem')
-                console.log(item[event.oldIndex])
-                // self.currentChoosedItem = item[event.oldIndex];
-                self.$store.dispatch('editor/setCurrentComponent', item[event.oldIndex]);
-            }, 50);
-        },
-        onAdd(item, event) {
-            setUuid(item[event.newIndex], event.newIndex, this.level, this.levelIndex, item, this.currentThemeStyle)
-            this.updatePage(item)
-        },
-        onEnd(item, event) {
-        },
-        onRemove(item = [], event) {
-            this.updatePage(item)
-        },
-        onSort(item, event) {
-            // 拖拽进来一个元素后也会触发一次
-            this.updatePage(item)
-        },
-        onMove(dragContext) {
-            if (dragContext.draggedContext.element.extendProps.isLocked === true) {
-                return false;
-            }
-        },
-        /**
-         * 
-         * @param {*} item 
-         * @param {*} validateRegister 是否要验证改组件是否注册
-         */
-        updatePage(item, validateRegister) {
-            this.$store.dispatch("editor/updatePage", {
-                levelIndex: this.levelIndex,
-                data: item
-            });
-        }
+
     }
 }

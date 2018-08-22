@@ -103,7 +103,7 @@ class LegoIndexController extends Controller {
   }
 
   async publishSit() { // 乐高打包
-    this.ctx.logger.info(this.config.legoConfigV2.path);
+    //this.ctx.logger.info(this.config.legoConfigV2.path);
     let raw = this.ctx.request.rawBody;
     let pageContent = raw.pageContent,
         comConfig = raw.comConfig;
