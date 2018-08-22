@@ -240,7 +240,7 @@ class LegoIndexController extends Controller {
         msg: '读取js模板文件失败'
       }
     }
-    let replaceData = templateJs.toString().replace("{{outputPath}}", outputPath);
+    let replaceData = templateJs.toString().replace(/{{outputPath}}/g, outputPath);
     let writeRet = fs.writeFileSync(`${dir}/${this.config.legoConfigV2.jfetJs}`, replaceData, 'utf-8');
 
     if (!writeRet) {
