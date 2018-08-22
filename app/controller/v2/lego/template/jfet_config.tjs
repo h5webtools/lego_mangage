@@ -11,7 +11,7 @@ module.exports = {
     context.setConfig({
         setOutput: {
           path: publicDir,
-          publicPath: '/'+'{{outputPath}}'
+          publicPath: '/'+'{{outputPath}}'+'/'
         },
         entryPoint:{
           index:path.resolve(__dirname,  './pages/index/index.js')
