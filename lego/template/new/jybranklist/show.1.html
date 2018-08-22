@@ -180,7 +180,7 @@
                                             <template v-for="(itemin,indexin) in data.rankKeyArr" >
                                                 <td v-bind:style="{width:(params.tableContentArr[indexin].tabListWidth)+'%'}"  v-if="itemin == 'rank'">{{data.myRankList.myRank}}</td>
                                                 <td v-bind:style="{width:(params.tableContentArr[indexin].tabListWidth)+'%'}"  v-if="itemin == 'tel'">{{'我'}}</td>
-                                                <td v-bind:style="{width:(params.tableContentArr[indexin].tabListWidth)+'%'}"  v-if="itemin == 'score'">{{params.fnObj.getFigure(data.myRankList.score)}}</td>
+                                                <td v-bind:style="{width:(params.tableContentArr[indexin].tabListWidth)+'%'}"  v-if="itemin == 'score'">{{data.myRankList.score/100}}</td>
                                                 <td v-bind:style="{width:(params.tableContentArr[indexin].tabListWidth)+'%'}"  v-if="itemin == 'extra'">{{data.myRankList.extra}}</td>
                                             </template>
                                         </tr>
