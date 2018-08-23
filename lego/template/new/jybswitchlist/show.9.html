@@ -39,20 +39,37 @@
         <div class="lego-jybswitchlist-show9" >
           <div class="tab-wrap ui-p-fixed">
             <div class="tab-box">
-              <a href="javascript:;"
-                class="tab-item"
-                :data-stat-id="item.eventid || ''" v-bind:style="{width:(100/params.tabs.length)+'%' ,
-                        color:params.selectedcontentColor,
-                        borderBottom:'1px solid '+ params.selectedbgcolor,
-                        backgroundColor:params.selectedbgcolor}" 
-                        :tab="index"
-                @click="toggleTabs(index)"
-                v-for="(item,index) in params.tabs"
-                :tab="index"
-                :class="index == data.tabIndex ? 'tab-item_active' : '' "
-                :title="item.tabTitle">
-                {{item.tabTitle}}
-              </a>
+              <template v-if="true" v-for="(item,index) in params.tabs">
+                  <a href="javascript:;"
+                  class="tab-item"  v-if="index == data.tabIndex"
+                  :data-stat-id="item.eventid || ''" v-bind:style="{width:(100/params.tabs.length)+'%' ,
+                  color:params.selectedcontentColor,
+                  borderBottom:'1px solid '+ params.selectedbgcolor,
+                  backgroundColor:params.selectedbgcolor}" 
+                          :tab="index"
+                  @click="toggleTabs(index)"
+                  :tab="index"
+                  :class="index == data.tabIndex ? 'tab-item_active' : '' "
+                  :title="item.tabTitle">
+                  {{item.tabTitle}}
+                </a>
+
+                <a href="javascript:;"
+                  class="tab-item"  v-else=""
+                  :data-stat-id="item.eventid || ''" v-bind:style="{width:(100/params.tabs.length)+'%' ,
+                  color:params.contentColor,
+                  borderBottom:'1px solid '+ params.selectedbgcolor,
+                  backgroundColor:params.bgcolor}" 
+                          :tab="index"
+                  @click="toggleTabs(index)"
+                  :tab="index"
+                  :class="index == data.tabIndex ? 'tab-item_active' : '' "
+                  :title="item.tabTitle">
+                  {{item.tabTitle}}
+                </a>
+              </template>
+
+              
             </div>
           </div>
         </div>
