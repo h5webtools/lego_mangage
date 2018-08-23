@@ -1185,7 +1185,7 @@ class LegoController extends Controller {
         } else {
           this.ctx.logger.info(targetDir + ' pull成功');
         }
-      }).commit(`#0000 feature:${name}修改活动${actName}，目录为${folder}`, (err, res) => {
+      }).commit(`#0000  feature:${name}修改活动${actName}，目录为${folder}`, (err, res) => {
         if (err) {
           return reject(err);
         } else {
