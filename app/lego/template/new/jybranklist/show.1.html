@@ -165,7 +165,7 @@
                                         <template v-for="(itemin,indexin) in data.rankKeyArr">
                                             <td v-if="itemin == 'rank'">{{index+1}}</td>
                                             <td v-if="itemin == 'tel'">{{item.tel}}</td>
-                                            <td v-if="itemin == 'score'">{{item.score}}</td>
+                                            <td v-if="itemin == 'score'">{{strAmount(item.score)}}</td>
                                             <td v-if="itemin == 'extra'">{{item.extra}}</td>
                                         </template>
                                     </tr>
@@ -180,7 +180,7 @@
                                             <template v-for="(itemin,indexin) in data.rankKeyArr" >
                                                 <td v-bind:style="{width:(params.tableContentArr[indexin].tabListWidth)+'%'}"  v-if="itemin == 'rank'">{{data.myRankList.myRank}}</td>
                                                 <td v-bind:style="{width:(params.tableContentArr[indexin].tabListWidth)+'%'}"  v-if="itemin == 'tel'">{{'我'}}</td>
-                                                <td v-bind:style="{width:(params.tableContentArr[indexin].tabListWidth)+'%'}"  v-if="itemin == 'score'">{{data.myRankList.score/100}}</td>
+                                                <td v-bind:style="{width:(params.tableContentArr[indexin].tabListWidth)+'%'}"  v-if="itemin == 'score'">{{strAmount(data.myRankList.score/100)}}</td>
                                                 <td v-bind:style="{width:(params.tableContentArr[indexin].tabListWidth)+'%'}"  v-if="itemin == 'extra'">{{data.myRankList.extra}}</td>
                                             </template>
                                         </tr>
