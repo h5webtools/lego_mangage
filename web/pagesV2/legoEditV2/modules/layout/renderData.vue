@@ -2,12 +2,12 @@
         <div class="iphone-container"  v-draggable >
             <c-h5-draggable-multi 
                 :item="itemChild"
+                :renderShowType ="renderShowType"
                 :key="indexChild" 
                 :itemIndex="indexChild"
                 :level="  level + 1 " 
                 :levelIndex="levelIndex + '-' + indexChild"  
                 v-for="(itemChild, indexChild) in pageData"
-                element="div" 
                 class="draggableDesign" 
                 >
             </c-h5-draggable-multi>
@@ -25,7 +25,8 @@ export default {
     return {
       level: 0,
       levelIndex: "0",
-      draggable: true
+      draggable: true,
+      renderShowType: 'drag'
     };
   },
   computed: {
