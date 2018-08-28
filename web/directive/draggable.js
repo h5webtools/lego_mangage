@@ -192,14 +192,15 @@ function handleDrop(e, ctx) {
     // 先管clone widget 直接add的
 
     const itemIndex = getItemIndex(e, this, ctx, dragType)
-
+    
     if (dragType === 'add') {
       setUuid(
         item,
         itemIndex,
-        this.level,
-        this.levelIndex,
-        ctx.$store.getters['editor/currentThemeStyle']
+        ctx.level,
+        ctx.levelIndex,
+        ctx.$store.getters['editor/currentThemeStyle'],
+        item
       );
     }
     
