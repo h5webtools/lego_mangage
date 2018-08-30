@@ -26,6 +26,7 @@ define(function (require, exports, module) {
           enableTransX : true,
           fun: function(index) {
              var navBar = $(".mod_slider_nav__nav_bar__index");
+             console.log(index)
              navBar.each(function($index , dom){
                 var $dom = $(dom);
                 if($index == index-1){
