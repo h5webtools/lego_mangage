@@ -106,11 +106,9 @@
         <div style="position:relative">
             <div id="jybwx_banner_slider__container" class="jybwx_banner_slider__container1 container">  
                 <template v-if="true">
-                    <div>
-                        <a class="wrap-item" v-bind:data-stat-id="item.mtaid" v-for="item in params.sliderArr" :href="item.url">
-                            <img :src="item.imgSrc">
-                        </a> 
-                    </div>
+                    <a class="wrap-item" v-bind:data-stat-id="item.mtaid" v-for="item in params.sliderArr" :href="item.url">
+                        <img :src="item.imgSrc">
+                    </a> 
                     
                 </template>
             </div>
