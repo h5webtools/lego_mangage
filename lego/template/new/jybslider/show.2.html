@@ -70,18 +70,58 @@
     top: 0;
     left: 700%
 }
+
+.mod_slider_nav {
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    bottom: 5px;
+    pointer-events: none;
+    z-index: 5;
+}
+.mod_slider_nav .nav_bar {
+    position: absolute;
+    width: 7.5rem;
+    bottom: .1rem;
+}
+.mod_slider_nav .nav_bar b.on {
+    background-color: #fff2ef;
+}
+.mod_slider_nav .nav_bar b {
+    display: inline-block;
+    /* vertical-align: middle; */
+    width: 0.24rem;
+    height: 0.04rem;
+    border:1px solid #fff2ef;
+    border-radius: 0.04rem;
+    margin: 0 0.04rem;
+   
+}
 </style>
 
 <template class="showTemplate">
 
     <jybslider uid="jybslider" v-bind:params="data" inline-template>
-        <div id="jybwx_banner_slider__container" class="jybwx_banner_slider__container1 container">  
-            <template v-if="true">
-                <a class="wrap-item" v-bind:data-stat-id="item.mtaid" v-for="item in params.sliderArr" :href="item.url">
-                    <img :src="item.imgSrc">
-                </a> 
-            </template>
+        <div style="position:relative">
+            <div id="jybwx_banner_slider__container" class="jybwx_banner_slider__container1 container">  
+                <template v-if="true">
+                    <div>
+                        <a class="wrap-item" v-bind:data-stat-id="item.mtaid" v-for="item in params.sliderArr" :href="item.url">
+                            <img :src="item.imgSrc">
+                        </a> 
+                    </div>
+                    
+                </template>
+            </div>
+
+            <div class="mod_slider_nav">    
+                <div class="nav_bar">       
+                    <b :no="index" class="mod_slider_nav__nav_bar__index" v-for="(item,index) in params.sliderArr"></b> 
+                </div>   
+            </div>
         </div>
+        
     </jybslider>
 
 </template>

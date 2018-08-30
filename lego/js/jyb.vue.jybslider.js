@@ -25,7 +25,15 @@ define(function (require, exports, module) {
           autoTime:2000,
           enableTransX : true,
           fun: function(index) {
-             
+             var navBar = $(".mod_slider_nav__nav_bar__index");
+             navBar.each(function($index , dom){
+                var $dom = $(dom);
+                if($index == index-1){
+                    $dom.addClass('on')
+                }else{
+                    $dom.removeClass('on')
+                }
+             })
           }
       });
   }
