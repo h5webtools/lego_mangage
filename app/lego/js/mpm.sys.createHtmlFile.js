@@ -131,7 +131,12 @@ define(function (require, exports, module) {
         if (_name == 'customcode') {
           customCodeSource += _data.data.code + "\n";
         }
+
       }
+      //是否引入分享模块
+      var _shareModule = "shareConfig:require('@lego/jybshare')";
+      (templateIndex == 2) ? (comConfig += _shareModule) : "";
+      
       comConfig += "};";
     } else {
       for (var key in mpmData) {
@@ -164,7 +169,7 @@ define(function (require, exports, module) {
           customCodeSource += _data.data.code + "\n";
         }
         //是否引入分享模块
-        var _shareModule = "shareConfig:require('../../modules/" + devFolder + "mobile/component/share'), \n ";
+        var _shareModule = "shareConfig:require('@lego/jybshare')";
         (templateIndex == 2 && pageInfo.share_desc && pageInfo.share_title) ? (comConfig += _shareModule) : "";
       }
       comConfig += "};";

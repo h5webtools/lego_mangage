@@ -33,7 +33,7 @@
 
   {{{pageConfig}}};
   {{{extendJS}}};
-
+  {{{shareInfo}}}
   if (window.mpmPageExtraData && window.mpmPageExtraData.expireTime) {//处理过期跳转
     if (Date.now() - new Date(window.mpmPageExtraData.expireTime) >= 0) {
       var pathName = location.pathname;
