@@ -1,7 +1,7 @@
 <style>
 .jybwx_banner_slider__container1 {
    position: relative;
-   width: 100%;
+   width: 7.5rem;
    height: 3.86rem;
 
   
@@ -14,9 +14,9 @@
 .jybwx_banner_slider__container1 .wrap-item{
     display: inline-block;
 }
- .jybwx_banner_slider__container1 .wrap-item:nth-child(1) {
-     width:7.5rem;
-    position: absolute;
+ .jybwx_banner_slider__container1 .wrap-item {
+    width:7.5rem;
+    position: relative;
     top: 0;
     left: 0;
 }
@@ -103,7 +103,7 @@
 <template class="showTemplate">
 
     <jybslider uid="jybslider" v-bind:params="data" inline-template>
-        <div style="position:relative">
+        <div style="position:relative;overflow:hidden">
             <div id="jybwx_banner_slider__container" class="jybwx_banner_slider__container1 container">  
                 <template v-if="true">
                     <a class="wrap-item" v-bind:data-stat-id="item.mtaid" v-for="item in params.sliderArr" :href="item.url">
