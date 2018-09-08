@@ -133,7 +133,7 @@ define(function (require, exports, module) {
             this.showProperty = true;
           }
         },
-        addBuynowItem: function () {
+        addBuynowItem: function () { 
           this.obj.data.buynowList.push({
             title:'',
             buyTime:'',
