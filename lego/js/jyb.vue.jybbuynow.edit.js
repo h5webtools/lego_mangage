@@ -47,7 +47,7 @@ define(function (require, exports, module) {
     var pageInfo = moduleBasicInfo.showMePageInfo();
     var folderSet = moduleBasicInfo.showMeFolderName();
 
-    var path = pageInfo.datefolder + "/" + folderSet.sub + "/";
+    var path = pageInfo.datefolder + "/" + folderSet.sub + "/"; 
 
     moduleDataCenter.getnodeversions("@lego/jybbuynow", path, function (json) {
       if(json.code == 0){
