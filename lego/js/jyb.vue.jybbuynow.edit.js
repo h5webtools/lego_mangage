@@ -49,7 +49,7 @@ define(function (require, exports, module) {
 
     var path = pageInfo.datefolder + "/" + folderSet.sub + "/";
 
-    moduleDataCenter.getnodeversions("@lego/commontag", path, function (json) {
+    moduleDataCenter.getnodeversions("@lego/jybbuynow", path, function (json) {
       if(json.code == 0){
         var _data = json.data.version_list;
         that.obj.data.npmversionArr = _data;
@@ -156,7 +156,7 @@ define(function (require, exports, module) {
           var pageInfo = moduleBasicInfo.showMePageInfo();
           var folderSet = moduleBasicInfo.showMeFolderName();
           var path = pageInfo.datefolder + "/" + folderSet.sub + "/";
-          moduleDataCenter.updataversion(this.obj.data.npmversion, '@lego/commontag', path, function () {
+          moduleDataCenter.updataversion(this.obj.data.npmversion, '@lego/jybbuynow', path, function () {
             
           });
         }
