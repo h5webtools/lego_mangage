@@ -125,7 +125,9 @@ define(function (require, exports, module) {
             comConfig += "jybcoupon:require('@lego/jybcoupon'), \n "
         }  else if (_type == 'jybslider' && comConfig.indexOf(".jybslider") == -1) {
           comConfig += "jybslider:require('@lego/jybslider'), \n "
-      }  
+        }  else if (_type == 'jybbuynow' && comConfig.indexOf(".jybbuynow") == -1) {
+          comConfig += "jybbuynow:require('@lego/jybbuynow'), \n "
+        }  
 
         //获取自定义代码 
         if (_name == 'customcode') {
