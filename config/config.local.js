@@ -16,7 +16,7 @@ module.exports = appInfo => {
   }
 
   config.static = {
-    dir: [path.join(appInfo.baseDir, 'app/public'), path.join(appInfo.baseDir, 'app/lego')]
+    dir: [path.join(appInfo.baseDir, 'public'), path.join(appInfo.baseDir, 'lego'), path.join(appInfo.baseDir, 'legoV2') ]
   }
 
   config.mysql = {
@@ -132,6 +132,24 @@ module.exports = appInfo => {
     branchName: 'lego_dev'
   }
 
+  config.legoConfigV2 = {
+    // /Users/zsl/zhaoshali/work/www/lego/
+    // path: '/data/www/lego/h5_lego_actpage/release/act/',
+    path: '/Users/zsl/zhaoshali/work/www/lego/build_static',
+    LegoManagerPath:'/Users/zsl/zhaoshali/work/git/lego_manage',
+    LegoActPath:'/Users/zsl/zhaoshali/work/www/lego/h5_lego_actpage',
+    templateJs: 'index.tjs',
+    jfetconfig:'jfet_config.tjs',
+    previewTem: 'confirm_publish.tjs',
+    hbsTjs: 'hbs.tjs',
+    actJs: 'index.js',
+    jfetJs:'jfet.config.js',
+    hbs:'index.hbs',
+    minifyJs: false,
+    branchName: 'lego_dev_new'
+  }
+
+
   config.envConfig = {
     BASE_API: 'http://172.16.1.8:9014/hanyi/manage',
     RELEASE_PATH: 'http://r.jtjr.com/task/interface',
@@ -145,6 +163,19 @@ module.exports = appInfo => {
     tester: [85],
     dev: []
   }
+
+  config.viewJyb = { // 默认配置，可以自己设置覆盖
+    devServer: {
+      enable: false, // 是否开启构建服务
+      command: 'jfet build -w', // 执行命令
+      env: {}, // 环境变量
+      timeout: 60 * 1000, // 启动超时时间
+      port: 35729, // livereload端口
+      watchPath: path.join(appInfo.baseDir, './public/**/*'), // 监听目录，必须为绝对路径
+    },
+    viewStateKey: '__VIEW_STATE__', // view状态名称，会挂载在window下
+    manifest: path.join(appInfo.baseDir, 'public/manifest.json') // manifest.json路径，必须为绝对路径
+  },
 
   config.passportJyb = {
     'menu_code': 'lego_manage',

@@ -34,4 +34,7 @@ module.exports = app => {
   require('./route/lego/index')(app);
   // app入口相关
   require('./route/entry/index')(app);
+
+  // v2 
+  require('./route/v2')(app);
 };

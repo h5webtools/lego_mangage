@@ -1185,7 +1185,7 @@ class LegoController extends Controller {
         } else {
           this.ctx.logger.info(targetDir + ' pull成功');
         }
-      }).commit(`feature:${name}修改活动${actName}，目录为${folder}`, (err, res) => {
+      }).commit(`#00000 feature:${name}修改活动${actName}，目录为${folder}`, (err, res) => {
         if (err) {
           return reject(err);
         } else {
@@ -1242,6 +1242,25 @@ class LegoController extends Controller {
     } catch(e) {
       this.ctx.logger.error('创建发布单失败 ' + e.message);
       return CREATE_RELEASETASK_FAILED;
+    }
+  }
+
+  async getLegoThemeColor() {
+    this.ctx.logger.info('获取乐高颜色主题配置');
+    try {
+      let themeList = await this.service.lego.legoService.queryThemeList();
+      this.ctx.body = {
+        code: 0,
+        data: {
+          theme_list: themeList
+        }
+      }
+    } catch(e) {
+      this.ctx.logger.info('获取乐高颜色主题配置失败'+ e.message);
+      this.ctx.body = {
+        code: QUERY_DATABASE_FAILED,
+        msg: e.message
+      }
     }
   }
 }

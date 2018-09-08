@@ -7,7 +7,7 @@ module.exports = appInfo => {
 
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_lego_';
-  
+
   // session配置，服务端保存在redis中
   config.session = {
     key: 'LEGO_SESS',
@@ -50,7 +50,7 @@ module.exports = appInfo => {
 
   // add your config here
   // config.middleware = ['requestParam', 'userAuth'];
-  config.middleware = ['requestParam'];
+  config.middleware = ['requestParam','errorHandler'];
 
   config.passportJyb = {
     clients: {
@@ -63,7 +63,7 @@ module.exports = appInfo => {
       'hook': {
         async logoutCallbackbefore(ctx) {
           const {path} = ctx.request;
-          const rules = [/^\/$/, /\/login/, /\/login\/loginOut/]
+          const rules = [/^\/$/, /\/login/, /\/login\/loginOut/, /^\/v2$/, /^\/v2\/legoEdit$/]
           
           const state = rules.find(rule => {
             if(rule.test(path)) {
@@ -87,6 +87,18 @@ module.exports = appInfo => {
     }
   }
 
+  config.viewJyb = { // 默认配置，可以自己设置覆盖
+    devServer: {
+      enable: false, // 是否开启构建服务
+      command: 'jfet build -w', // 执行命令
+      env: {}, // 环境变量
+      timeout: 60 * 1000, // 启动超时时间
+      port: 35729, // livereload端口
+      watchPath: path.join(appInfo.baseDir, './public/**/*'), // 监听目录，必须为绝对路径
+    },
+    viewStateKey: '__VIEW_STATE__', // view状态名称，会挂载在window下
+    manifest: path.join(appInfo.baseDir, 'public/manifest.json') // manifest.json路径，必须为绝对路径
+  }
 
   return config;
 };

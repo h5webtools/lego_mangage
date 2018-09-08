@@ -16,7 +16,7 @@ module.exports = appInfo => {
   }
 
   config.static = {
-    dir: [path.join(appInfo.baseDir, 'app/public'), path.join(appInfo.baseDir, 'app/lego')]
+    dir: [path.join(appInfo.baseDir, 'app/public'), path.join(appInfo.baseDir, 'app/lego'), path.join(appInfo.baseDir, 'app/legoV2')]
   }
 
   config.mysql = {
@@ -150,6 +150,6 @@ module.exports = appInfo => {
     'client_id': 'lego_manage',        
     'secret_key': 'fc0b088d18053c320a1733c2b8021e21',      
   };
-  
+
   return config;
 };

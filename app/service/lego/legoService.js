@@ -244,6 +244,12 @@ class LegoService extends Service {
         edit_by='${data.user}' WHERE id='${data.id}' AND component_id='${data.component_id}'`);
     return updateRet;
   }
+
+  async queryThemeList() {
+    let queryList = await this.app.mysql.get('dbLego').query(`select t_id, t_type, t_color, t_grident, create_time
+        from t_theme t order by t.create_time desc`);
+        return queryList;
+  }
 }
 
 module.exports = LegoService;

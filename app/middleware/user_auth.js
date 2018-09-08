@@ -1,18 +1,25 @@
+/**
+ * 用户登录验证
+ */
 
-module.exports = options => {
-  return async function userAuth(ctx, next) {
-    const userId = ctx.session.userid;
-    const userName = ctx.session.userName;
-    let body = ctx.body;
-    ctx.logger.info('查看是否更新代码');
-    if (ctx.request.url.indexOf('login') !== -1 || ctx.request.url.indexOf('syncCallback') !== -1 || ctx.request.url.indexOf('previewLock') !== -1) {
-      await next();
-    } else {
-      if(!userId || !userName){
-        ctx.redirect('/login');
-      }else{
-        await next();
-      }
+module.exports = (options) => {
+  const defaultOptions = {
+    ignore: '',
+    loginUrl: '/auth/login'
+  };
+
+  return async function (ctx, next) {
+    const opts = Object.assign({}, defaultOptions, options);
+
+    // 跳过/auth，以及opts.ignore中匹配的路径
+    if (/^\/auth/.test(ctx.path) || (opts.ignore && opts.ignore.test(ctx.path))) {
+      return await next();
     }
-  }
-}
+
+    if (!ctx.session.userinfo) {
+      ctx.redirect(`${opts.loginUrl}?redirect_url=${encodeURIComponent(ctx.href)}`);
+    } else {
+      await next();
+    }
+  };
+};
