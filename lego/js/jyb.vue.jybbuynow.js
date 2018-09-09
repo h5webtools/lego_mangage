@@ -110,7 +110,7 @@ define(function (require, exports, module) {
                         }
                     }
                     if(this.params.buynowList && this.params.buynowList.length > 0){
-                        this.data.nowBuyItem = this.params.buynowList && this.params.buynowList[0];
+                        this.data.nowBuyItem = this.params.buynowList && this.params.buynowList[0];  
                     }
                     //this.data.nowBuyItem = this.params.buynowList && this.params.buynowList[0];
                     //debugger;
