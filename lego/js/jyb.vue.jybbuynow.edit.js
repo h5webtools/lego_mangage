@@ -166,7 +166,7 @@ define(function (require, exports, module) {
             DateInputLib($("#editbox_" + that.obj.uid).find(".selecttime[settime!='1']"), {
               chosendate: today,
               //开始年份
-              startdate: today.getFullYear(),
+              startdate: today.getFullYear(), 
               //结束年份
               enddate: today.getFullYear() + 3,
               //时间格式
