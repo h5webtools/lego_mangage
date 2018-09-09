@@ -2,6 +2,7 @@ define(function (require, exports, module) {
   var vueComponent = require("./jyb.vue.jybbuynow");
   var Factory = require('./jyb.vue.edit.factory');
   var defaultTplEdit = '/public/template/new/jybbuynow/edit.html';
+  var DateInputLib = require('./mpm.sys.calendar').mpmDateInputLib;
 
   /* npm管理 */
   var moduleBasicInfo = "";
@@ -132,8 +133,27 @@ define(function (require, exports, module) {
             this.showStyle = false;
             this.showProperty = true;
           }
+          var today = new Date();
+            DateInputLib($("#editbox_" + that.obj.uid).find(".selecttime[settime!='1']"), {
+              chosendate: today,
+              //开始年份
+              startdate: today.getFullYear(),
+              //结束年份
+              enddate: today.getFullYear() + 3,
+              //时间格式
+              timeFormat: 'hh:ii:ss', //hh:ii:ss
+              hasTime: true,
+              x: 0,
+              y: -240,
+              //选择完成后的回调事件
+              callback: function (datepicker) {
+                that.obj.data.buynowList[datepicker.getAttribute('index')] = datepicker.value;
+                console.log('选定日期', datepicker.value);
+              }
+          })
         },
         addBuynowItem: function () { 
+          var that = this;
           this.obj.data.buynowList.push({
             title:'',
             buyTime:'',
@@ -142,7 +162,24 @@ define(function (require, exports, module) {
           });
 
           this.$nextTick(function () {
-
+            var today = new Date();
+            DateInputLib($("#editbox_" + that.obj.uid).find(".selecttime[settime!='1']"), {
+              chosendate: today,
+              //开始年份
+              startdate: today.getFullYear(),
+              //结束年份
+              enddate: today.getFullYear() + 3,
+              //时间格式
+              timeFormat: 'hh:ii:ss', //hh:ii:ss
+              hasTime: true,
+              x: 0,
+              y: -240,
+              //选择完成后的回调事件
+              callback: function (datepicker) {
+                that.obj.data.buynowList[datepicker.getAttribute('index')] = datepicker.value;
+                console.log('选定日期', datepicker.value);
+              }
+              })
           });
         },
         deleteBuynowItem: function (index) {
