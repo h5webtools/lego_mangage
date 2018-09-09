@@ -147,7 +147,7 @@ define(function (require, exports, module) {
               y: -240,
               //选择完成后的回调事件
               callback: function (datepicker) {
-                that.obj.data.buynowList[datepicker.getAttribute('index')] = datepicker.value;
+                that.obj.data.buynowList[datepicker.getAttribute('index')].buyTime = datepicker.value;
                 console.log('选定日期', datepicker.value);
               }
           })
@@ -176,7 +176,7 @@ define(function (require, exports, module) {
               y: -240,
               //选择完成后的回调事件
               callback: function (datepicker) {
-                that.obj.data.buynowList[datepicker.getAttribute('index')] = datepicker.value;
+                that.obj.data.buynowList[datepicker.getAttribute('index')].buyTime = datepicker.value;
                 console.log('选定日期', datepicker.value);
               }
               })

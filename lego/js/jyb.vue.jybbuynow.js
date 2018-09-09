@@ -50,7 +50,7 @@ define(function (require, exports, module) {
                         showMore: false,
                         itemList:[],
                         isShow:true,
-                        nowBuyItem:{},
+                        nowBuyItem:{bgcolor:''},
                         times: {
                             miniSec: "02",
                             sec: "02",
@@ -109,8 +109,11 @@ define(function (require, exports, module) {
                             }
                         }
                     }
-
-                    this.data.nowBuyItem = this.params.buynowList[0];
+                    if(this.params.buynowList && this.params.buynowList.length > 0){
+                        this.data.nowBuyItem = this.params.buynowList && this.params.buynowList[0];
+                    }
+                    //this.data.nowBuyItem = this.params.buynowList && this.params.buynowList[0];
+                    //debugger;
                     var me = this;
                     // data.data.product_detail_list.forEach(function(item , index){
                     //     var _skuId = item.free_prd_id;
