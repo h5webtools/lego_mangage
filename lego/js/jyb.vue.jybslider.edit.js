@@ -3,6 +3,8 @@ define(function (require, exports, module) {
   var vueComponent = require("./jyb.vue.jybslider");
   var Factory = require('./jyb.vue.edit.factory');
   var defaultTplEdit = '/public/template/new/jybslider/edit.html';
+  var DateInputLib = require('./mpm.sys.calendar').mpmDateInputLib;
+
 
   /* npm管理 */
   var moduleBasicInfo = "";
@@ -96,8 +98,35 @@ define(function (require, exports, module) {
             this.showStyle = false;
             this.showProperty = true;
           }
+          /* 过滤 */
+          var filterRes =that.obj.data.sliderArr.filter(function(item){
+            var _flagBegin = new Date() > new Date(item.beginTime),
+                _flagEnd = new Date() < new Date(item.endTime);
+            return _flagBegin && _flagEnd;
+          });
+          console.log('过滤结果',filterRes)
+          /* 过滤 */
           this.$nextTick(function () {
-
+            var today = new Date();
+            DateInputLib($("#editbox_" + that.obj.uid).find(".selecttime[settime!='1']"), {
+              chosendate: today,
+              //开始年份
+              startdate: today.getFullYear(),
+              //结束年份
+              enddate: today.getFullYear() + 3,
+              //时间格式
+              timeFormat: 'hh:ii:ss', //hh:ii:ss
+              hasTime: true,
+              x: 0,
+              y: -240,
+              //选择完成后的回调事件
+              callback: function (datepicker) {
+                var _index = datepicker.getAttribute('index'),
+                    _value = datepicker.getAttribute('item');
+                that.obj.data.sliderArr[_index][_value] = datepicker.value;
+                console.log('选定日期', datepicker.value);
+              }
+          })
 
           })
         },
@@ -107,11 +136,33 @@ define(function (require, exports, module) {
           this.obj.data.sliderArr.push({
             imgSrc: '', //
             url: '',
+            beginTime:'',
+            endTime:'',
             mtaid:''
           });
 
           this.$nextTick(function () {
-
+            var today = new Date();
+            DateInputLib($("#editbox_" + that.obj.uid).find(".selecttime[settime!='1']"), {
+              chosendate: today,
+              //开始年份
+              startdate: today.getFullYear(), 
+              //结束年份
+              enddate: today.getFullYear() + 3,
+              //时间格式
+              timeFormat: 'hh:ii:ss', //hh:ii:ss
+              hasTime: true,
+              x: 0,
+              y: -240,
+              //选择完成后的回调事件
+              callback: function (datepicker) {
+                var _index = datepicker.getAttribute('index'),
+                    _value = datepicker.getAttribute('item');
+                that.obj.data.sliderArr[_index][_value] = datepicker.value;
+                //that.obj.data.buynowList[datepicker.getAttribute('index')].buyTime = datepicker.value;
+                console.log('选定日期', datepicker.value);
+              }
+              })
           });
         },
         deleteSliderItem: function (index) {

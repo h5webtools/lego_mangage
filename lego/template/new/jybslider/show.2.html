@@ -103,19 +103,18 @@
 <template class="showTemplate">
 
     <jybslider uid="jybslider" v-bind:params="data" inline-template>
-        <div style="position:relative;overflow:hidden">
-            <div id="jybwx_banner_slider__container" class="jybwx_banner_slider__container1 container">  
+        <div style="position:relative;overflow:hidden" >  
+            <div id="jybwx_banner_slider__container" class="jybwx_banner_slider__container1 container" v-if="data.sliderItems.length > 0">  
                 <template v-if="true">
-                    <a class="wrap-item" v-bind:data-stat-id="item.mtaid" v-for="item in params.sliderArr" :href="item.url">
+                    <a class="wrap-item" v-bind:data-stat-id="item.mtaid" v-for="item in data.sliderItems" :href="item.url">
                         <img :src="item.imgSrc">
                     </a> 
-                    
                 </template>
             </div>
 
             <div class="mod_slider_nav">    
                 <div class="nav_bar">       
-                    <b :no="index" class="mod_slider_nav__nav_bar__index" v-for="(item,index) in params.sliderArr"></b> 
+                    <b :no="index" class="mod_slider_nav__nav_bar__index" v-for="(item,index) in data.sliderItems"></b> 
                 </div>   
             </div>
         </div>
