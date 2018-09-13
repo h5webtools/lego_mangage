@@ -26,7 +26,6 @@ define(function (require, exports, module) {
           enableTransX : true,
           fun: function(index) {
              var navBar = $(".mod_slider_nav__nav_bar__index");
-             console.log(index)
              navBar.each(function($index , dom){
                 var $dom = $(dom);
                 if($index == index-1){
@@ -49,6 +48,7 @@ define(function (require, exports, module) {
                   data: {
                       didFinish: false,
                       didTrigger: false,
+                      sliderItems:[],
                       userid: '',
                       token: ''
                   }
@@ -58,14 +58,27 @@ define(function (require, exports, module) {
           mounted: function () {
               showLoopScroll();
           },
-          created: function () {
+          created: function () { // 顾虑出当前时间内有效的 以及 没设置时间的
               var me = this;
-              this.params.sliderArr.forEach(function (item) {
-                  if (!item.url) {
-                  item.url = "javascript:;";
-                  }
-                 
+              var filterRes =this.params.sliderArr.filter(function(item){
+                var _flagBegin = "",_flagEnd;
+                if(item.beginTime && item.endTime){
+                    _flagBegin = new Date() > new Date(item.beginTime),
+                    _flagEnd = new Date() < new Date(item.endTime);
+                }else{
+                    _flagBegin = true;
+                    _flagEnd = true;
+                }
+                return _flagBegin && _flagEnd;
               });
+              console.log('过滤结果',filterRes)
+              this.data.sliderItems = filterRes;
+            //   this.params.sliderArr.forEach(function (item) {
+            //       if (!item.url) {
+            //         //item.url = "javascript:;";
+            //       }
+                 
+            //   });
           },
           methods: {
               addKeyValue: function (url, key, value) {
