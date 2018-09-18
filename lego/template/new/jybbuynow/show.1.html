@@ -11,12 +11,14 @@
   width: 100%;
   position: relative;
   font-size: 0.32rem;
+  color:#272A34;
 }
 
 .mod-c-buynow .mod-c-buynow__head .mod-c-buynow__head__left {
   position: absolute;
   top: 0.24rem;
   left: 0.2rem;
+  color:#272A34;
 }
 
 .mod-c-buynow .mod-c-buynow__head .mod-c-buynow__head__right {
@@ -24,6 +26,7 @@
   top: 0.34rem;
   right: 0.16rem;
   font-size: 0.24rem;
+  color:#272A34;
 }
 
 .mod-c-buynow .mod-c-buynow__head .mod-c-buynow__head__right .mod-c-buynow__head__right__time {
@@ -35,6 +38,7 @@
   text-align: center;
   line-height: 0.32rem;
   border-radius: 0.05rem;
+  font-weight:bold;
 }
 
 .mod-c-buynow .mod-c-buynow__head .c-buynow__head__logo {
@@ -52,13 +56,13 @@
 .mod-c-buynow .mod-c-buynow__body {
   position: relative;
     background-color: #fff;
-    width: 7.28rem;
+    width: 7.18rem;
     margin: 0 auto;
 }
 
 .mod-c-buynow .mod-c-buynow__body img {
-  width: 2.16rem;
-  height: 2.16rem;
+  width: 1.71rem;
+  height: 1.66rem;
   margin-left: 0.24rem;
   margin-top: 0.4rem;
   margin-bottom: 0.4rem;
@@ -66,7 +70,7 @@
 
 .mod-c-buynow .mod-c-buynow__body .mod-c-buynow__body__right {
   position: absolute;
-  width: 4.22rem;
+  width: 4.58rem;
   top: 0.4rem;
   right: 0.32rem;
 }
@@ -76,12 +80,23 @@
   color: #272A34;
   letter-spacing: 0;
   line-height: 0.34rem;
+  display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
 }
 
 .mod-c-buynow .mod-c-buynow__body .mod-c-buynow__body__right .mod-c-buynow__body__right__vic-title {
   font-size: 0.24rem;
   color: #9C9C9C;
   padding-top: 0.08rem;
+  display: -webkit-box;
+  overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
 }
 
 .mod-c-buynow .mod-c-buynow__body .mod-c-buynow__body__right .seckill_items_reserve_bar {
@@ -119,7 +134,7 @@
 
 .mod-c-buynow .mod-c-buynow__body .mod-c-buynow__body__right .mod-c-buynow__body__right__price {
   position: absolute;
-  top: 1.6rem;
+  top: 1.4rem;
 }
 
 .mod-c-buynow .mod-c-buynow__body .mod-c-buynow__body__right .mod-c-buynow__body__right__price .real_price {
@@ -144,9 +159,9 @@
   color: #fff;
   text-align: center;
   border-radius: 0.04rem;
-  right: 0.2rem;
+  right: 0rem;
   position: absolute;
-  top: 1.6rem;
+  top: 1.3rem;
 }
 .mod-c-buynow .mod-c-buynow__body{
       font-size:0px;
@@ -189,7 +204,7 @@
           <span>{{item.stocks}}%已抢</span>
         </div>
          <div class="mod-c-buynow__body__right__price">
-          <span class="real_price">¥ {{item.show_price}}</span>
+          <span class="real_price">¥{{item.show_price}}</span>
           <del>¥{{item.origin_price}}</del>
         </div>
         <div class="buy-btn">赶紧抢</div>
