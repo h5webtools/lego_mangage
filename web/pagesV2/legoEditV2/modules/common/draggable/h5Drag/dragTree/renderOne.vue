@@ -2,7 +2,7 @@
     <div 
       v-draggable
       :uuid="levelIndex + '-' + itemIndex" 
-      :class="[{'dragItem_current': item.extendProps &&item.extendProps.isCurrent}, item.extendProps.isFolded ? 'packup' : 'unfold', item.draggable ? 'isDraggable' : '']" 
+      :class="[{'dragItem_current': item.extendProps &&item.extendProps.isCurrent}, item.extendProps && item.extendProps.isFolded ? 'packup' : 'unfold', item.draggable ? 'isDraggable' : '']" 
       class="dragItem tree-collapse"
       v-if="item.is_register === true || typeof item.is_register  === 'undefined' ">
 
@@ -21,7 +21,7 @@
                <i class="el-icon-delete" @click.stop.prevent="removeItem"></i>
 <!-- <el-button plain icon="el-icon-delete">搜索</el-button> -->
                 <el-button
-                  :class="item.extendProps.isLocked ? 'locked' : 'unLocked'"
+                  :class="item.extendProps && item.extendProps.isLocked ? 'locked' : 'unLocked'"
                   type="text"
                   size="mini"
                   @click.stop.prevent="lock(item)">
