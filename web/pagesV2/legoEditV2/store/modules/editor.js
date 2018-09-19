@@ -208,13 +208,16 @@ const mutations = {
   setCurrentComponent(state, result) {
     // item 是JSONpagedata 后的子元素
     const {item, levelIndex, itemIndex, level, type} = result;
+    // 存储页面时候特殊处理current
     if(type) {
+      // 先去除current状态存储数据
       if(type === 'removeCurrent') {
         if(state.currentComponent.extendProps) {
           state.currentComponent.extendProps.isCurrent = false;
         }
       }
 
+      // 恢复当前的饿current
       if(type === 'restoreCurrent') {
         if(state.currentComponent.extendProps) {
           state.currentComponent.extendProps.isCurrent = true;
@@ -253,6 +256,9 @@ const mutations = {
 
     oldPageDataChildren.splice(oldLastItemIndex, 1)
 
+    debugger
+    // 根据情况清空 currentComponent
+
   },
 
   sortItem(state, result) {
@@ -278,7 +284,19 @@ const mutations = {
     if (state.currentComponent.model[key]) {
       state.currentComponent.model[key].value = value;
       state.currentComponent.props[key] = value;
+      /* if(Object.prototype.toString.call(value) === '[object Object]' || Object.prototype.toString.call(value) === '[object Array]') {
+        let realVal = Object.assign(state.currentComponent.props[key], value)
+        state.currentComponent.model[key].value = realVal;
+        state.currentComponent.props[key] = realVal;
+        // Vue.set(state.currentComponent.model[key], 'value', realVal)
+        // Vue.set(state.currentComponent.props, key, realVal)
+      } else {
+        state.currentComponent.model[key].value = value;
+        state.currentComponent.props[key] = value;
+      } */
+
     } else {
+      // 改变showIndex等一级数据
       state.currentComponent[key] = value
     }
   },

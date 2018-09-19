@@ -5,12 +5,11 @@ import { mapGetters } from 'vuex';
  */
 export default {
     props: {
-/*         currentListData: {
-            type: Array,
-            default: () => {
-                return [];
-            }
-        }, */
+        // 中间区域的show样式
+        renderShowType: {
+            type: String,
+            default: "show"  //  show打包, drag 拖拽
+        },
         item: {
             type: Object,
             default: () => {

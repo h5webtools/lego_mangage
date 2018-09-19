@@ -1,6 +1,6 @@
 <template>
     <el-header class="el-header-lego">
-      <el-row type="flex">
+      <el-row type="flex" style="height:100%;">
         <div class="col-logo">
           <div class="logo">
             <img :src="logoImg" alt="">

@@ -131,45 +131,53 @@ export function setPageDataItemByKey(levelIndex, obj, changeData) {
  * component_type: 1 是业务组件，需要遍历下级的uuid的组件
  */
 export function setUuid(item, index, level, levelIndex, currentThemeStyle, topItem = null) {
-
-  if(topItem) {
-    item.component_style_version_id = topItem.component_style_version_id
-  }
-
+  
   _changeOneItemThemeExtend(item, currentThemeStyle)
   _changeOneItemExtendProp(item)
-  // 
-  if (item.component_type === 0 || !item.component_type) {
-    if (!item.props.uuid) {
-      item.props.uuid = '' + levelIndex + '-' + index
-    }
-    if (!item.props.topUuid) {
-      item.props.topUuid = '' + levelIndex
-    }
-  }
-  
-  // component_type 1 是需要主动破开props放置到data
-  if (item.component_type === '1') {
-    if (!item.props.uuid) {
-      item.props.uuid = '' + levelIndex + '-' + index
-    }
-    if (!item.props.topUuid) {
-      item.props.topUuid = '' + levelIndex
-    }
 
-    if (item.props.children) {
-      item.props.children.map((child, childIndex) => {
-        setUuid(child, childIndex, level + 1, '' + levelIndex + '-' + childIndex, currentThemeStyle, item)
-      })
-      item.children = item.props.children
+  if(topItem.component_type === 0 || !topItem.component_type) {
+    // 普通组件（只有一级， topItem 和 item 一致
+    if (!item.props.uuid) {
+      item.props.uuid = '' + levelIndex + '-' + index
     }
+    if (!item.props.topUuid) {
+      item.props.topUuid = '' + levelIndex
+    }
+  } else if(topItem.component_type === '1') {
+      // 用于配置主题色， 根据component_style_version_id 找配置
+      item.component_style_version_id = topItem.component_style_version_id
+
+      if (!item.props.uuid) {
+        item.props.uuid = '' + levelIndex + '-' + index
+      }
+      
+      if (!item.props.topUuid) {
+        if(topItem.props.topUuid) {
+          item.props.topUuid = topItem.props.uuid
+        } else {
+          // 第外层topUuid
+          item.props.topUuid = '' + levelIndex
+        }
+      }
+  
+      if (item.props.children) {
+        item.props.children.map((child, childIndex) => {
+          setUuid(child, childIndex, level + 1, '' + levelIndex + '-' + childIndex, currentThemeStyle, topItem)
+        })
+        item.children = item.props.children
+      }
+
+      if(item.children) {
+        item.children.map((child, childIndex) => {
+          setUuid(child, childIndex, level + 1, '' + levelIndex + '-' + childIndex, currentThemeStyle, topItem)
+        })
+      }
   } else {
-    // 否则还需要遍历 item.children 下的themeExtend数据
-    if (item.children && item.children.length > 1) {
+     // 否则还需要遍历 item.children 下的themeExtend数据
+     if (item.children && item.children.length > 1) {
       updatePageItemThemeStyle(item.children, currentThemeStyle)
     }
   }
-
 
 }
 

@@ -86,8 +86,7 @@ export default {
   }
 
   .dragItem_current{
-    // border: 1px solid #ff0000!important;
-    outline: 1px solid #ff0000!important;
+    border: 1px solid #ff0000!important;
   }
 
   .drop-highlight {
