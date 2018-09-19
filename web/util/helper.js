@@ -131,7 +131,7 @@ export function setPageDataItemByKey(levelIndex, obj, changeData) {
  * component_type: 1 是业务组件，需要遍历下级的uuid的组件
  */
 export function setUuid(item, index, level, levelIndex, currentThemeStyle, topItem = null) {
-
+  
   _changeOneItemThemeExtend(item, currentThemeStyle)
   _changeOneItemExtendProp(item)
 
@@ -165,6 +165,12 @@ export function setUuid(item, index, level, levelIndex, currentThemeStyle, topIt
           setUuid(child, childIndex, level + 1, '' + levelIndex + '-' + childIndex, currentThemeStyle, topItem)
         })
         item.children = item.props.children
+      }
+
+      if(item.children) {
+        item.children.map((child, childIndex) => {
+          setUuid(child, childIndex, level + 1, '' + levelIndex + '-' + childIndex, currentThemeStyle, topItem)
+        })
       }
   } else {
      // 否则还需要遍历 item.children 下的themeExtend数据

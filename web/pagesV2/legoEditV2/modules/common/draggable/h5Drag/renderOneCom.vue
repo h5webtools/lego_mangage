@@ -6,7 +6,6 @@
         :is="item.tag_name" 
         :key="levelIndex + '-' + itemIndex "  
         v-bind="item.props" 
-        :uuid="levelIndex + '-' + itemIndex" 
         :class="{'dragItem_current': item.extendProps &&item.extendProps.isCurrent, 'isDraggable': item.draggable}" 
         class="dragItem"
         v-if="item.is_register === true || typeof item.is_register  === 'undefined' ">
