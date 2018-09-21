@@ -478,8 +478,8 @@ export default {
 
     .col-user {
       margin-right: 20px;
-      width: 80px;
-      flex: 0 0 80px;
+      width: 120px;
+      flex: 0 0 120px;
     }
   }
 }
