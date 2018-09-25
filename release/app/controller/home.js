@@ -108,6 +108,10 @@ class HomeController extends Controller {
     if (this.ctx.session.passportJyb) {
 
       const portUserId = this.ctx.session.passportJyb.user_id;
+      const operateUser = await this.ctx.service.portal.user.findByPortalUserId(portUserId);
+      this.ctx.logger.info(operateUser,'--------------------------->operateUser');
+
+    
     
       const menu = await this.ctx.passportGetMenu('', '', 3, portUserId); 
       // 自定义修改需要加入的路由
@@ -144,10 +148,10 @@ class HomeController extends Controller {
     
 
       if(!this.ctx.session.userid) {
-        this.ctx.session.userid = this.ctx.session.passportJyb.user_id;
-        this.ctx.session.userName = this.ctx.session.passportJyb.name;
-        this.ctx.session.userAccount = this.ctx.session.passportJyb.userAccount;
-        this.ctx.session.userEmail = this.ctx.session.passportJyb.email;
+        this.ctx.session.userid = operateUser.user_id;
+        this.ctx.session.userName = operateUser.user_name;
+        this.ctx.session.userAccount = operateUser.user_account;
+        this.ctx.session.userEmail = operateUser.mail;
       }
 
       if(!this.ctx.session.roles) {
@@ -162,10 +166,10 @@ class HomeController extends Controller {
       let roleMap = this.config.userRole,
           userRoles = this.ctx.session.roles || [],
           userInfo = {
-            userid: this.ctx.session.passportJyb.user_id,
-            userName: this.ctx.session.passportJyb.name,
-            userAccount: this.ctx.session.passportJyb.userAccount,
-            email: this.ctx.session.passportJyb.email
+            userid: operateUser.user_id,
+            userName: operateUser.user_name,
+            userAccount: operateUser.user_account,
+            email: operateUser.mail
           };
       
       // 遍历角色
