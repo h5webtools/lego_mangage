@@ -1,0 +1,71 @@
+
+const path = require('path');
+const fse = require('fs-extra');
+
+module.exports = {
+  build(abc, context) {
+    // ../../../release/act/20180800/lego_page_5
+    //const publicDir = path.resolve(__dirname, '../../../' , '/act/20180800/lego_page_5/');
+    const rmDir = path.resolve(__dirname, '../../../release/', '{{outputPath}}');
+    const publicDir = path.resolve(__dirname, 'public');
+    context.setConfig({
+        setOutput: {
+          path: publicDir,
+          publicPath: '/'+'{{outputPath}}'+'/'
+        },
+        entryPoint:{
+          index:path.resolve(__dirname,  './pages/index/index.js')
+        },
+        sass:{
+          includePaths:[path.join(__dirname, '../../../node_modules')]
+        },
+        assemble: {
+          layouts: path.join(__dirname, 'pages/layouts/*.hbs'),
+          partials: path.join(__dirname, 'pages/partials/*.hbs'),
+          pages: path.join(__dirname, 'pages/**/index.hbs'),
+          mapPath: path.join(__dirname, 'public/manifest.json'),
+          renameFunc(file) {
+            const arrPath = path.dirname(file.key).split(path.sep);
+  
+            file.dirname = publicDir;
+            file.filename = arrPath.pop();
+            file.extname = '.html';
+            return publicDir;
+          }
+        }
+    });
+    
+
+     // 构建前
+     context.on('before', () => {
+       fse.emptyDirSync(publicDir);
+     });
+     // 生成打包配置
+     context.on('created', (packConfig) => {
+      console.log('created-----');
+     });
+     // 构建后
+     context.on('after', () => {
+      console.log('after-----');
+      fse.emptyDirSync(rmDir);
+      fse.copySync(publicDir , rmDir);
+      console.log('success');
+     });
+     // 错误
+     context.on('error', (e) => {});
+  },
+  server(abc, context) {
+    context.setConfig({
+      port: 3009,
+      opnPath: '/',
+      livereload: {
+        init: {
+          port: 3010
+        },
+        watch: path.join(__dirname, './public/**/*')
+      }
+    });
+  }
+};
+
+

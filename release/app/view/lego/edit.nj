@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>{{title}}</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="format-detection" content="telephone=no,email=no" />
+  <meta name="keywords" content="加油宝,乐高,活动配置" />
+  <link href="/public/css/new/home.css" rel="stylesheet" type="text/css">
+  <link href="/public/css/jqcalendar.css" rel="stylesheet" type="text/css">
+  <link href="/public/css/new/edit.css" rel="stylesheet" type="text/css">
+  <link href="/public/css/new/edit.template.1.css" rel="stylesheet" type="text/css">
+  <link href="/public/css/new/component.css" rel="stylesheet" type="text/css">
+  <style>
+    .colorFrameInput {
+      margin-left: 12px;
+    }
+    
+    .form-radio {
+      font-size: 14px;
+    }
+    
+    .mod-iframe-container {
+      padding: 0px;
+      background-color: #f1f0f0;
+      max-width: 1500px;
+      border-radius: 0px;
+    }
+    
+    .iframe-close {
+      position: fixed;
+      left: 1270px;
+      top: 10px;
+    }
+    
+    iframe {
+      width: 1300px;
+      height: 700px;
+    }
+    
+    .popupSet {
+      display: blodk;
+    }
+    
+    .rightOperation a.btn.bi {
+      background-image: url(./image/icon_bi.png);
+    }
+    
+    .rightOperation a.btn.bi.done {
+      background-image: url(./image/icon_bi_cur.png);
+    }
+    
+    .form-group .must:before {
+      content: '*';
+      color: red;
+    }
+    
+    .form-ninegrid {
+      margin-left: 70px !important;
+    }
+  </style>
+  <script>
+    (function(w, r) {
+      w['waObjectName'] = r;
+      w[r] = w[r] || function() {
+        for (var i = 0; i < arguments.length; i++) {
+          // 拷贝数据对象
+          if (typeof arguments[i] === 'object') {
+            arguments[i] = JSON.parse(JSON.stringify(arguments[i]));
+          }
+        }
+        (w[r].q = w[r].q || []).push(arguments);
+      };
+      w[r].l = 1 * new Date();
+    })(window, 'wa');
+  </script>
+  <script type="text/javascript">
+    window.MPM_EDIT = true; //vue一些组件，在MPM中会做特殊处理，例如数据不缓存
+    window._componentConfig = [];
+    //线上页面会用到，这里列举出了全部的线上可用全局参数，线上页面会把前置数据拉取完再初始化页面，这里先把数据写死
+    window.pageConfig = {};
+
+    window.trace = function(count) {
+      var caller = arguments.callee.caller;
+      var i = 0;
+      count = count || 10;
+      while (caller && i < count) {
+        caller = caller.caller;
+        i++;
+      }
+    }
+    window.onerror = function(err) {
+      console.error(arguments);
+      window.trace(100);
+    }
+  </script>
+</head>
+
+<body class="mpmedit_body">
+  <script type="text/javascript">
+    (function() {
+      var arr = navigator.userAgent.match(/chrome\/(\d+)/i);
+      if (!arr || arr.length == 2 && arr[1] < 60) {
+        document.write('<div class="popupSet"><p style="text-align:center;font-size:20px;width:100%;">' + (arr ? '您当前浏览器版本过低，将导致部分内容无法编辑，请先升级浏览器，升级完重启浏览器后再打开此页面进行编辑' : '您当前浏览器不是chrome，可能部分内容无法编辑，请先安装chrome浏览器,然后用chrome打开此页面进行编辑') + '!<br><a style="font-size:25px;font-weight:bold;color:red" href="http://rj.baidu.com/soft/detail/14744.html?ald">' + (arr ? ' 点此进行升级!' : ' 点此进行下载！') + '</a></p></div>');
+        return;
+      }
+    })();
+  </script>
+  <!-- iframe -->
+  <div id="divComponentIframe" class="popupSet" style="display:none">
+    <div class="publishConfigBody mod-iframe-container" id="divIframe">
+      <div class="iframe-close" id="iframe-close">
+        <img src="http://images.jyblife.com/lego/close.png" />
+      </div>
+      <iframe src=""></iframe>
+    </div>
+  </div>
+  <!-- iframe -->
+  <div id="divComponentEdit" class="popupSet" style="display:none;">
+    <!-- 弹窗设置 开始 -->
+    <div class="publishConfigBody" id="divBasicInfoSet">
+      <form class="form-horizontal">
+        <div class="formArea">
+          <h3 class="formAreaHeader">基本设置</h3>
+          <div class="form-group">
+            <label class="must">页面模板：</label>
+            <select id="selectPageType">
+              <option value="1">通用模板</option>
+              <option value="2">可分享模板</option>
+              <option value="3" >支付模板</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="must">活动名称：</label>
+            <input type="text" name="" id="inputPageName" placeholder="最少3个字符">
+            <!--<em class="inputTips">最少3个字符</em>-->
+          </div>
+          <div class="form-group" style="display:none">
+            <label class="must">页面路径：</label>
+            <select id="selectPagePath">
+              <option value="act">act</option>
+            </select>
+            <em class="inputTips">*注意：保存后不可更改</em>
+          </div>
+          <div class="form-group">
+            <label class="must">目录名称：</label>
+            <input type="text" name="" id="inputPageMenu" placeholder="如:starbucks0510">
+            <em class="inputTips">*只能使用字母，数字，下划线，注意：保存后不可更改</em>
+          </div>
+          <div class="form-group" style="display:none">
+            <label>老链接迁移：</label>
+            <input type="text" name="" size="40" id="inputOldPageMenu" placeholder="如:201701/gaodehuafei/pay.html">
+            <em class="inputTips">*日期+目录名+文件名称</em>
+          </div>
+        </div>
+        <!-- 过期时间设置 -->
+        <div class="formArea">
+          <h3 class="formAreaHeader">过期设置</h3>
+          <div class="form-group">
+            <label class="must">过期时间：</label>
+            <input type="text" value="" id="expireTime" class="time" readonly placeholder="页面过期时间">
+          </div>
+          <div class="form-group">
+            <label>过期跳转：</label>
+            <input type="text" value="" class="url" id="expireUrl" style="width:450px" placeholder="页面过期跳转链接">
+          </div>
+        </div>
+        <!-- 过期时间设置 -->
+        <!-- 其他设置 -->
+        <div class="formArea">
+          <h3 class="formAreaHeader">其他设置</h3>
+          <div class="form-group">
+            <label>背景色：</label>
+            <input type="text" value="" id="bgColor" placeholder="#ffffff">
+          </div>
+          <div class="form-group" style="display:none">
+            <label>背景色渐变：</label>
+            <input type="text" value="" id="bgColorTo" placeholder="#ffffff">
+          </div>
+          <div class="form-group">
+            <label>上报ID：</label>
+            <input type="text" value="" id="pvEventid" placeholder="比如:30000.1.1">
+          </div>
+        </div>
+        <!-- 其他设置 -->
+        <!-- 分享设置 -->
+        <div class="formArea">
+          <h3 class="formAreaHeader" id="shareInfoControl">分享设置(仅选择分享模板才可使用，其他模板无效)</h3>
+          <div id="divShareInfoSet">
+            <div class="form-group">
+              <label >分享图片：</label>
+              <input type="text" name="" id="textShareImgUrl">
+            </div>
+            <div class="form-group">
+              <label >分享标题：</label>
+              <input type="text" name="" id="textShareTitle">
+            </div>
+            <div class="form-group">
+              <label class="control-label">分享描述：</label>
+              <input type="text" name="" id="textShareDesc">
+            </div>
+          </div>
+        </div>
+        <!-- 分享设置 -->
+
+        <div class="text-center btnGroupFooter">
+          <button class="jc-btn btn-primary" type="button" id="basicInfoSaveBtn">保存</button>
+          <button class="jc-btn btn-default" type="button" id="basicInfoCancelBtn">取消</button>
+        </div>
+
+      </form>
+    </div>
+    <!-- 弹窗设置 开始 -->
+    <!--E 页面路径，名称等基本设置-->
+
+    <!--S 分享标题、描述、图片-->
+    <div class="setting share">
+      <div class="textCenter">
+        <input type="button" value="保存" id="shareInfoSaveBtn">
+        <input type="button" value="取消" id="shareInfoCancelBtn">
+      </div>
+    </div>
+    <!--E 分享标题、描述、图片-->
+
+    <!--S 背景色等设置-->
+    <div class="publishConfigBody" id="divOtherExtraSet">
+      <form class="form-horizontal">
+        <div class="formArea">
+          <h3 class="formAreaHeader">其他</h3>
+          <div class="form-group">
+            <label>背景色：</label>
+            <input type="color" class="color">
+            <input type="text" value="" class="color" style="width:66px" placeholder="#ffffff">
+          </div>
+          <div class="form-group" style="display:none">
+            <label>背景色渐变：</label>
+            <input type="color" class="colorto">
+            <input type="text" value="" class="colorto" style="width:66px" placeholder="#ffffff">
+          </div>
+        </div>
+
+        <!--S 背景色等设置-->
+        <div class="text-center btnGroupFooter">
+          <button class="jc-btn btn-primary" type="button" id="otherExtraSaveBtn">保存</button>
+          <button class="jc-btn btn-default" type="button" id="otherExtraCancelBtn">取消</button>
+        </div>
+      </form>
+    </div>
+    <div class="setting" id="divNameSet" style="text-align: center;min-width: 300px;width: 300px;">
+      <dl>
+        <dt id="divNameSetTitle">模块名称设置</dt>
+      </dl>
+      <dl>
+        <dt>模块名称</dt>
+        <dd>
+          <input type="text" value="" class="url" style="width:140px" id="divSetNewName">
+        </dd>
+      </dl>
+      <div class="textCenter">
+        <input type="button" value="确定" id="divNameSetSaveBtn">
+        <input type="button" value="取消" id="divNameSetCancelBtn">
+      </div>
+    </div>
+  </div>
+  <div class="homeTopHead editTopHead">
+    <a href="javascript:void(0)" class="sysName" style="color:#fff;font-weight:normal">加油宝活动配置平台</a>
+    <a href="/lego/homePage?act_id={{actId}}" target="_blank" style="color:#fff">新增活动</a>
+  </div>
+  <!--顶部菜单-->
+  <div class="topMenu" id="divTopMenu">
+    <a href="javascript:;" id="basicInfoBtn"><img src="/public/image/icon_infoedit.png"><span>基本信息</span></a>
+    <a href="javascript:;" id="otherExtraBtn" style="display:none"><img src="/public/image/icon_other.png"><span>其他</span></a>
+    <a href="javascript:;" id="savePageBtn"><img src="/public/image/icon_save.png"><span>保存页面</span></a>
+    <a href="javascript:;" class="previews" id="previewBtn"><img class="previews" src="/public/image/icon_view.png"><span class="previews">集成</span></a>
+    {% if lockPreview %}
+      {% if env == "prod" or env == "uat" %}
+        <a href="javascript:;" class="prepublishHtmls isPreview" id="previewHtml"><img class="prepublishHtmls" src="/public/image/icon_view.png"><span class="prepublishHtmls">预览</span></a>
+      {% else %}
+        <a href="javascript:;" class="prepublishSitHtmls isPreview" id="previewSitHtml"><img class="prepublishSitHtmls" src="/public/image/icon_view.png"><span class="prepublishSitHtmls">预览</span></a>
+      {% endif %}
+    {% else %}
+    <a href="javascript:;" class="prepublishs  isPreview" id="prePublishBtn"><img class="prepublishs" src="/public/image/icon_checkpub.png"><span class="prepublishs">预发布&线上</span></a>
+    {% endif %}
+    {% if lock %}
+    <a href="javascript:;" class="prepublishs" id="releaseLock"><img src="/public/image/icon_other.png"><span class="prepublishs">释放锁</span></a>
+    {% endif %}
+  </div>
+  <!--顶部菜单-->
+  <!--左侧组件区-->
+  <div id="divLeftComList" class="leftComList">
+    <template v-if="true">
+      <div v-for="itemparent in list" class="group open">
+        <div class="groupName"><span v-text="itemparent.des"></span>
+          <a href="javascript:;"></a>
+        </div>
+        <div class="list">
+          <div v-for="item in itemparent.val" class="com" draggable="true" :mid="item.path_key" :componentkey="item.id" :title="item.tb_desc">
+            <div class="comIcon">
+              <img :mid="item.path_key" :componentkey="item.id" :title="item.tb_desc" :src="item.tb_thumb">
+            </div>
+            <span class="comName" v-text="item.tb_name"></span>
+          </div>
+        </div>
+      </div>
+    </template>
+  </div>
+  <!--左侧组件区-->
+  <!--组件配置区-->
+  <div class="divComponentSetPanelOuter">
+    <div class="divComponentSetPanel" id="divComponentSetPanel">
+      <!--各组件设置面板放进这里-->
+    </div>
+  </div>
+  <!--组件配置区-->
+  <!--右侧结构图-->
+  <div class="rightOperation" id="divOperation">
+    <div id="divOperationItemList"></div>
+  </div>
+  <!--右侧结构图-->
+  <!--实时预览区-->
+  <div id="wrapper">
+    <div class="editPage" id="divEditingPage" style="overflow-x: hidden;padding:0 2px;">
+      <div class="emptyTip">从左侧拖动组件到此</div>
+    </div>
+  </div>
+  <div class="markLineIphone6">iphone6首屏高度</div>
+  <!--实时预览区-->
+  <!-- 选择子组件浮层 -->
+  <div id="popListBox" class="modal" v-show="showFlag" style="display:none;">
+    <div class="modal-dialog component-dialog">
+      <div class="modal-body">
+        <div v-for="itemparent in list" class="component-group">
+          <h3>{{itemparent.des}}</h3>
+          <ul>
+            <li @click="select(item)" v-for="item in itemparent.val" :mid="item.path_key" :componentkey="item.id" :title="item.tb_desc">
+              <div>
+                <img :mid="item.path_key" :componentkey="item.id" :title="item.tb_desc" :src="item.tb_thumb">
+              </div>
+              <p>{{item.tb_name}}</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="jc-btn" @click="hide">取消</button>
+      </div>
+    </div>
+  </div>
+  <!-- E选择子组件浮层 -->
+
+  <script type="text/javascript">
+   window.ACT_DETAIL = {{ actDetail | safe }};
+   window.USER_INFOR = {{ userInfo | safe }};
+  </script>
+
+  <script type="text/javascript" src="/public/js/lib/sea.js"></script>
+  <script type="text/javascript" src="/public/js/lib/seajs-text.js"></script>
+  <script>
+    var version='0.0.1';
+    seajs.config({
+      alias: {
+        'jquery': 'jquery',
+        '$': 'jquery',
+        'mustache': 'mustache',
+        'jquery.cookie': 'jquery.cookie',
+        'vuefe': 'vuefe'
+      },
+      map: [
+        [ /(.*?)jyb.vue(.*?)(\.js)$/i,"$1jyb.vue$2.js?v="+"201809010" ],
+        [ /(.*?)mpm.sys(.*?)(\.js)$/i,"$1mpm.sys$2.js?v="+"201809010" ]
+  	  ]
+    });
+  </script>
+  <script type="text/javascript">
+    seajs.use('/public/js/mpm.sys.edit.js?v=20180910', function(m) {
+      m.init()
+    });
+  </script>
+</body>
+
+</html>

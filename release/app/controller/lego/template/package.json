@@ -1,0 +1,13 @@
+{
+  "name": "",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "lego",
+  "license": "ISC",
+  "dependencies": {
+    "@jyb/lib-bimta": "^1.1.4",
+    "@jyb/lib-tracker": "^1.0.3",
+    "@lego/timecutdown": "^1.0.2"
+  }
+}
