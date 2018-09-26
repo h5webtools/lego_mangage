@@ -34,5 +34,5 @@ cd "$releasedir"
 
 # tar
 echo "create release.tar.gz"
-tar -zcvf ./release.tar.gz ./release
-# scp -r ./ root@172.16.1.8:/data/www/h5_dev/canye/lego
+# tar -zcvf ./release.tar.gz ./release
+scp -r ./ root@172.16.1.8:/data/www/h5_dev/canye/lego

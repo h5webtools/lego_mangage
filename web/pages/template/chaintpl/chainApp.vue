@@ -546,7 +546,6 @@ export default {
       });
     },
     showEditDialog(data) {
-
       if (data.data.id) {
         let saveData = this.treeData[data.data.id].tagData;
         this.dialogData.lock = data.lock;
@@ -568,12 +567,14 @@ export default {
       }
       this.dialogData.lockRule = data.lockRule || false;
       this.paramEditVisible = true;
+      console.log(this.dialogData,'--------------this.dialogData.params')
     },
     generateParam() {
       let obj = {}, params = this.dialogData.paramDesc.params;
+      console.log(params,'--------------params')
       for (let key in params) {
         let defaultValue = params[key].p_value;
-        this.$set(params[key], 'is_show', 1);
+        // this.$set(params[key], 'is_show', 1);
         if(defaultValue instanceof Array) {
           obj[key] = '';
         } else if(defaultValue instanceof Object) {
