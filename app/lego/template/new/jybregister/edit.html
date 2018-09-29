@@ -59,7 +59,7 @@
     </div>
 
     <div v-show="showProperty" class="editArea">
-      <form class="form-horizontal" v-if="obj.data.isShowNpmVersions">
+      <form class="form-horizontal" v-if="true">
         <div class="coupon-group">
           <div class="form-group">
             <label>
@@ -175,6 +175,12 @@
             <input type="text" class="colorFrameInput" v-model="obj.data.identycodecolor" value="" size="10">
           </div>
           <div class="form-group">
+            <label>
+              <strong></strong>验证码背景：</label>
+            <input type="color" v-model="obj.data.identybgcolor">
+            <input type="text" class="colorFrameInput" v-model="obj.data.identybgcolor" value="" size="10">
+          </div>
+          <div class="form-group">
               <label><strong></strong>获取验证码ID：</label>
               <input type="text" placeholder="比如：30000.1.2" v-model="obj.data.eventid_code"> 
           </div>
@@ -189,6 +195,16 @@
           <div class="form-group">
               <label><strong></strong>返回兑换上报ID：</label>
               <input type="text" placeholder="比如：30000.1.2" v-model="obj.data.eventid_back"> 
+          </div>
+          <div class="form-radio" style="margin-left:85px;">
+            <form>是否展示查看红包:
+              <label>
+                <input name="isshowcoupon" style="width:16px;height:16px;" type="radio" value="0" v-model="obj.data.isshowcoupon">展示
+              </label>
+              <label>
+                <input name="isshowcoupon" style="width:16px;height:16px" type="radio" value="1" v-model="obj.data.isshowcoupon">不展示
+              </label>
+            </form>
           </div>
         </div>
 

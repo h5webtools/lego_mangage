@@ -1,0 +1,145 @@
+<style>
+.jybwx_banner_slider__container1 {
+   position: relative;
+   width: 7.5rem;
+   height: 3.86rem;
+
+  
+ }
+
+.jybwx_banner_slider__container1 img{
+    width:100%;
+    height:3.86rem;
+}
+.jybwx_banner_slider__container1 .wrap-item{
+    display: inline-block;
+}
+ .jybwx_banner_slider__container1 .wrap-item {
+    width:7.5rem;
+    position: relative;
+    top: 0;
+    left: 0;
+}
+.jybwx_banner_slider__container1 .wrap-item:nth-child(2) {
+    
+    width:7.5rem;
+    position: absolute;
+    top: 0;
+    left: 100%;
+}
+.jybwx_banner_slider__container1 .wrap-item:nth-child(3) {
+    
+    width:7.5rem;
+    position: absolute;
+    top: 0;
+    left: 200%;
+}
+.jybwx_banner_slider__container1 .wrap-item:nth-child(4) {
+    
+    width:7.5rem;
+    position: absolute;
+    top: 0;
+    left:300%;
+}
+.jybwx_banner_slider__container1 .wrap-item:nth-child(5) {
+    
+    width:7.5rem;
+    position: absolute;
+    top: 0;
+    left: 400%
+}
+.jybwx_banner_slider__container1 .wrap-item:nth-child(6) {
+    
+    width:7.5rem;
+    position: absolute;
+    top: 0;
+    left: 500%
+}
+.jybwx_banner_slider__container1 .wrap-item:nth-child(7) {
+    
+    width:7.5rem;
+    position: absolute;
+    top: 0;
+    left: 600%
+}
+
+.jybwx_banner_slider__container1 .wrap-item:nth-child(8) {
+    
+    width:7.5rem;
+    position: absolute;
+    top: 0;
+    left: 700%
+}
+
+.mod_slider_nav {
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    bottom: 5px;
+    pointer-events: none;
+    z-index: 5;
+}
+.mod_slider_nav .nav_bar {
+    position: absolute;
+    width: 7.5rem;
+    bottom: .1rem;
+}
+.mod_slider_nav .nav_bar b.on {
+    background-color: #fff2ef;
+}
+.mod_slider_nav .nav_bar b {
+    display: inline-block;
+    /* vertical-align: middle; */
+    width: 0.24rem;
+    height: 0.04rem;
+    border:1px solid #fff2ef;
+    border-radius: 0.04rem;
+    margin: 0 0.04rem;
+   
+}
+</style>
+
+<template class="showTemplate">
+
+   <jybslider uid="jybslider" v-bind:params="data" inline-template>
+        <div style="position:relative;">
+            <div style="position:relative;overflow:hidden" >  
+                <div id="jybwx_banner_slider__container" class="jybwx_banner_slider__container1 container" v-if="data.sliderItems.length > 0">  
+                    <template v-if="true">
+                        <a class="wrap-item" v-bind:data-stat-id="item.mtaid" v-for="item in data.sliderItems" :href="item.url">
+                            <img :src="item.imgSrc">
+                        </a> 
+                    </template>
+                </div>
+            </div>
+
+            <div class="mod_slider_nav">    
+                <div class="nav_bar">       
+                    <b :no="index" class="mod_slider_nav__nav_bar__index" v-for="(item,index) in data.sliderItems"></b> 
+                </div>   
+            </div>
+        </div>
+    </jybslider>
+
+</template>
+<!-- 下面的属性控制MPM中编辑界面 -->
+
+<script class="forMPMExt">
+    var com_ext = {}
+
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+    var com_extend = [{
+
+    }]
+
+</script>
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {
+       
+    };
+
+</script>

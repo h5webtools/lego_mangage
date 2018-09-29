@@ -52,6 +52,18 @@ module.exports = appInfo => {
     GetActivityDraftConfig: [{
       ip: 'http://172.16.1.35:12053',
       jmf: 'com.jyblife.complex.h5.act_console.GetActivityDraftConfig'
+    }],
+    GetEvent: [{
+      ip: 'http://172.16.1.35:12053',
+      jmf: 'com.jyblife.complex.h5.act_console.GetEvent'
+    }],
+    AddOrUpdateEvent: [{
+      ip: 'http://172.16.1.35:12053',
+      jmf: 'com.jyblife.complex.h5.act_console.AddOrUpdateEvent'
+    }],
+    GetActEvent: [{
+      ip: 'http://172.16.1.35:12053',
+      jmf: 'com.jyblife.complex.h5.act_console.GetActEvent'
     }]
   }
   config.actEntryConfig = {
@@ -112,7 +124,7 @@ module.exports = appInfo => {
 
   config.legoConfig = {
     // path: '/data/www/lego/h5_lego_actpage/release/act/',
-    path: 'D:/lego',
+    path: '/Users/zhaoshali/work/lego',
     templateJs: 'index_dev.tjs',
     previewTem: 'confirm_publish.tjs',
     actJs: 'index.js',

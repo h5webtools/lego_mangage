@@ -30,6 +30,8 @@ define(function (require, exports, module) {
       "btndowninsetcolor": "",
       "inputnamecolor": "",
       "inputdescolor": "",
+      "identybgcolor":"",
+      "isshowcoupon":"0",
       "buttondes": "",
       "activeid": "",
       "tipsdesc1": "",
@@ -41,6 +43,7 @@ define(function (require, exports, module) {
       "submitflag": false,
       "checoutkurl": "",
       "cmdid": "",
+      "checkoutPricesColor":"",
       "areaActId": "",//归属地
       "areaJumpUrl": "",//归属地
       "checkoutPrices": "",

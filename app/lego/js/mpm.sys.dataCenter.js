@@ -7,7 +7,7 @@ define(function(require, exports, module) {
         //alert(json.msg);
       }
     }).fail(function() {
-      alert('网络错误');
+      //alert('网络错误');
     })
   }
 

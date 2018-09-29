@@ -121,12 +121,24 @@ define(function (require, exports, module) {
             comConfig += "jybtasks:require('@lego/jybtasks'), \n "
         } else if (_type == 'jybsignin' && comConfig.indexOf(".jybsignin") == -1) {
             comConfig += "jybsignin:require('@lego/jybsignin'), \n "
+        }  else if (_type == 'jybcoupon' && comConfig.indexOf(".jybcoupon") == -1) {
+            comConfig += "jybcoupon:require('@lego/jybcoupon'), \n "
+        }  else if (_type == 'jybslider' && comConfig.indexOf(".jybslider") == -1) {
+          comConfig += "jybslider:require('@lego/jybslider'), \n "
+        }  else if (_type == 'jybbuynow' && comConfig.indexOf(".jybbuynow") == -1) {
+          comConfig += "jybbuynow:require('@lego/jybbuynow'), \n "
         }  
+
         //获取自定义代码 
         if (_name == 'customcode') {
           customCodeSource += _data.data.code + "\n";
         }
+
       }
+      //是否引入分享模块
+      var _shareModule = "shareConfig:require('@lego/jybshare')";
+      (templateIndex == 2) ? (comConfig += _shareModule) : "";
+      
       comConfig += "};";
     } else {
       for (var key in mpmData) {
@@ -159,7 +171,7 @@ define(function (require, exports, module) {
           customCodeSource += _data.data.code + "\n";
         }
         //是否引入分享模块
-        var _shareModule = "shareConfig:require('../../modules/" + devFolder + "mobile/component/share'), \n ";
+        var _shareModule = "shareConfig:require('@lego/jybshare')";
         (templateIndex == 2 && pageInfo.share_desc && pageInfo.share_title) ? (comConfig += _shareModule) : "";
       }
       comConfig += "};";

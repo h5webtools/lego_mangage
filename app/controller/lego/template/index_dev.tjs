@@ -2,8 +2,10 @@ pagebegin
 
 import tracker from '@jyb/lib-tracker';
 import Bimta from '@jyb/lib-bimta';
+import timecutdown from '@lego/timecutdown';
 
 //注册
+
 for (var componentname in vuecomponents) {
     if (vuecomponents.hasOwnProperty(componentname) && componentname != "shareConfig") {
         vuecomponents[componentname].register();

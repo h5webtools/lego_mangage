@@ -59,7 +59,7 @@
 
 
       <div v-show="!showStyle" class="editArea">
-        <form class="form-horizontal" v-if="obj.data.isShowNpmVersions">
+        <form class="form-horizontal" v-if="true">
           <div class="coupon-group">
             <div class="form-group">
               <label>
@@ -110,6 +110,10 @@
               <input name="tablist" style="width:16px;height:16px" type="radio" value="anchorlist" v-model="obj.data.tabType">
               锚点
             </label>
+            <label style="width:50px;">
+              <input name="tablist" style="width:16px;height:16px" type="radio" value="hreflist" v-model="obj.data.tabType">
+              跳转
+            </label>
           </div>
         </form>
         <table>
@@ -118,7 +122,8 @@
               <th>序号</th>
               <th>Tab名称</th>
               <th>统计ID</th>
-              <th>锚点</th>
+              <th v-if="obj.data.tabType == 'anchorlist'">锚点</th>
+              <th v-if="obj.data.tabType == 'hreflist'">跳转</th>
               <th>&nbsp;</th>
               <th>&</th>
               <th>其他操作</th>
@@ -134,8 +139,11 @@
               <td>
                 <input type="text" v-model.trim="item.eventid" style="width:120px;" placeholder="比如：30000.1.2" />
               </td>
-              <td>
+              <td v-if="obj.data.tabType == 'anchorlist'">
                 <input type="text" v-model.trim="item.anchorUid" style="width:120px;" placeholder="com_1004" />
+              </td>
+              <td v-if="obj.data.tabType == 'hreflist'">
+                <input type="text" v-model.trim="item.anchorUrl" style="width:120px;" placeholder="跳转地址" />
               </td>
               <td>&nbsp;</td>
               <td>&nbsp;</td>
