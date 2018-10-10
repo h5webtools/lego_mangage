@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>错误信息</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="format-detection" content="telephone=no,email=no" />
+  <meta name="keywords" content="{{keywords}}" />
+  <meta name="description" content="{{description}}" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .error-wrap {
+      position: absolute;
+      top: 50%;
+      width: 70%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      overflow: hidden;
+      font-size: 0;
+    }
+    .error-img {
+      position: relative;
+      display: inline-block;
+      width: 50%;
+      overflow: hidden;
+      vertical-align: middle;
+      text-align: right;
+      padding-right: 20px;
+      box-sizing: border-box;
+    }
+    .error-text {
+      position: relative;
+      display: inline-block;
+      vertical-align: middle;
+      width: 50%;
+      overflow: hidden;
+    }
+    .error-title {
+      font-size: 18px;
+      font-weight: bold;
+      line-height: 40px;
+      color: #333;
+    }
+    .error-submsg {
+      font-size: 20px;
+      line-height: 24px;
+      color: #1482f0;
+      margin-bottom: 20px;
+    }
+    .error-desc {
+      color: #999;
+      font-size: 14px;
+    }
+    .return-button {
+      display: inline-block;
+      width: 110px;
+      height: 36px;
+      background: #1482f0;
+      border-radius: 100px;
+      text-align: center;
+      color: #ffffff;
+      font-size: 14px;
+      line-height: 36px;
+      cursor: pointer;
+      margin-top: 20px;
+      text-decoration: none;
+      margin-right: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="error-wrap">
+    <div class="error-img">
+      <img src="/public/assets/images/permission.gif"/>
+    </div>
+    <div class="error-text">
+      <h3 class="error-title">特朗普说这个页面你不能进</h3>
+      <h4 class="error-submsg">因为{{errMsg}}</h4>
+      {% if desc %}
+        <p class="error-desc">{{desc}}</p>
+      {% endif %}
+
+      {% if redirect and buttonText %}
+      <a href="{{redirect}}" class="return-button">{{buttonText}}</a>
+      {% endif %}
+      <a href="/#/welcome" class="return-button">返回首页</a>
+    </div>
+  </div>
+</body>
+</html>

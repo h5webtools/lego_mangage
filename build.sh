@@ -7,10 +7,7 @@ releasedir="$workdir/release"
 webdir="$workdir/web"
 
 echo "build"
-cd "$webdir"
-npm run build
 
-cd ".."
 
 # clear release dir
 echo "clear $releasedir"
@@ -33,8 +30,9 @@ cp -v "$workdir/app.js" "$releasedir/app.js"
 
 # release
 # echo "entering $releasedir"
-# cd "$releasedir"
+cd "$releasedir"
 
 # tar
 echo "create release.tar.gz"
 tar -zcvf ./release.tar.gz ./release
+# scp -r ./ root@172.16.1.8:/data/www/h5_dev/canye/lego

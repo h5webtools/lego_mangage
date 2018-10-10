@@ -538,12 +538,15 @@ export default {
     },
     generateParam() {
       let obj = {}, params = this.dialogData.paramDesc.params;
+      let paramsLength = this.dialogData.params.length;
+      let paramsVal = this.dialogData.params.slice(paramsLength - 1,  paramsLength); // 新增一组参数时，获取上一组参数赋值给新增参数
       for (let key in params) {
         let defaultValue = params[key].p_value;
         if(defaultValue instanceof Array) {
-          obj[key] = '';
+          // obj[key] = '';
+          obj[key] = paramsVal[0][key];
         } else if(defaultValue instanceof Object) {
-          obj[key] = defaultValue.value;
+          obj[key] = defaultValue.value || paramsVal[0][key];
         } else {
           obj[key] = defaultValue;
         }

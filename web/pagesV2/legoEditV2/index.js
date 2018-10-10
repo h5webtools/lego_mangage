@@ -21,12 +21,12 @@ import cH5DraggableMulti from './modules/common/draggable/h5Drag/renderOne.vue'
 
 import cH5DraggableMultiTree from './modules/common/draggable/h5Drag/dragTree/renderOne.vue'
 
-import legoComponentBasic from '@lego/lego_component_basic/page/show'
-import legoEditProp from '@lego/lego_component_basic/page/edit/components/editorProps';
+// import legoComponentBasic from '@lego/lego_component_basic/page/show'
+// import legoEditProp from '@lego/lego_component_basic/page/edit/components/editorProps';
 
-// import  legoComponentBasic  from '@lego/lego_component_basic/public/js/index.js'
+import  legoComponentBasic  from '@lego/lego_component_basic/public/js/index.js'
 
-// import  legoEditProp from '@lego/lego_component_basic/public/js/editorProps.js';
+import  legoEditProp from '@lego/lego_component_basic/public/js/editorProps.js';
 
 // console.log(legoComponentBasic , '基础组件','开始入口')
 
