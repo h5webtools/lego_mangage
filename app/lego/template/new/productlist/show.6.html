@@ -1,0 +1,154 @@
+<style>
+	.list {
+		display: -webkit-box;
+		-webkit-box-pack: center;
+		-webkit-box-align: center;
+	}
+	.prd-list {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 6.7rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+ ul ,h2, li{
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+ }
+ .prd-list li:nth-child(odd) {
+    margin-right: .18rem;
+}
+.prd-item {
+    float: left;
+    position: relative;
+    background: #fff;
+    border-radius: 3px;
+    margin: 0 0 9px;
+    width: 3.26rem;
+    height: 225.5px;
+}
+.ui-fl-l {
+    float: left;
+}
+.prd-item img {
+    display: block;
+    width: 100px;
+    height: 100px;
+    font-size: 0;
+    margin: 0 auto;
+    margin-top: 16px;
+}
+img {
+    vertical-align: top;
+}
+img {
+    border: 0;
+}
+.prd-item h2 {
+    font-size: 12px;
+    padding: 12px .24rem 0 .2rem;
+    width: 2.86rem;
+    line-height: 1.4;
+    color: #262626;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    font-weight: 400;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+h1, h2, h3 {
+    font-weight: 400;
+}
+.prd-item .item-price {
+    position: absolute;
+    bottom: 46.5px;
+    font-size: 12px;
+    color: #999;
+    padding: 0 .24rem 0 .2rem;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+/* .prd-item .item-btn {
+    background-color: #ff6478 !important;
+    color: #ffe0e3 !important;
+} */
+.prd-item .item-btn {
+    position: absolute;
+    bottom: -1px;
+    display: block;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    background-color: #fd0;
+    font-size: 15px;
+    text-align: center;
+    text-decoration: none;
+    color: #2c3082;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+.ui-fl-r {
+    float: right;
+}
+.prd-item span {
+    color: #f60;
+}
+</style>
+
+<template class="showTemplate">
+	<productlist uid="productlist" v-bind:params="data" inline-template>
+        <div class="list" z-component="list">
+            <ul class="prd-list clearfix">
+                <template v-if="true">
+                    <li class="prd-item ui-fl-l" v-on:click="toBuy(item.free_prd_id)" v-bind:data-stat-id="params.eventid || ''"  :prdid="item.free_prd_id" v-for="item in data.paramList"> 
+                        <img :src="item.image_url" :alt="item.prd_name"> 
+                        <h2>{{item.prd_name}}</h2>
+                        
+                        <template v-if="params.showType == '1'">
+                            <p class="item-price">存入<span>￥{{item.min_pur_amount}}</span>起</p>     
+                            <div class="item-btn" v-bind:data-stat-id="params.eventid || ''"  
+                            v-bind:data-stat-para="JSON.stringify({pageActId:params.pageActId,'pageId':params.pageId,
+                            'comDesc':params.comDesc , 'itemTitle':item.prd_name,'freeId':item.free_prd_id})"
+                            v-bind:style="{backgroundColor:params.buyBtnBg,color:params.buyColor}"
+                            >立即白拿</div>
+                        </template>
+                        <template v-else>
+                            <div class="item-price">折扣价
+                                <div class="ui-fl-r"><span>{{item .show_price}}</span>元</div>
+                            </div>  
+                            <div class="item-btn" v-bind:data-stat-id="params.eventid || ''"
+                            v-bind:data-stat-para="JSON.stringify({'pageActId':params.pageActId,'pageId':params.pageId,
+                            'comDesc':params.comDesc , 'itemTitle':item.prd_name,'freeId':item.free_prd_id})"
+                            v-bind:style="{backgroundColor:params.buyBtnBg,color:params.buyColor}"
+                            >立即购买</div>
+                        </template>
+                    </li>
+                </template>
+            </ul>
+        </div>
+	</productlist>
+</template>
+<!-- 下面的属性控制MPM中编辑界面 -->
+
+<script class="forMPMExt">
+	var com_ext = {}
+
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+	var com_extend = [{
+
+	}]
+
+</script>
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+	var com_js = {
+	};
+
+</script>
