@@ -68,15 +68,23 @@ h1, h2, h3 {
     bottom: 46.5px;
     font-size: 12px;
     color: #999;
-    padding: 0 .24rem 0 .2rem;
+    //padding: 0 .24rem 0 .2rem;
+    padding: 0 0 0 0.2rem;
     width: 100%;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
-/* .prd-item .item-btn {
-    background-color: #ff6478 !important;
-    color: #ffe0e3 !important;
-} */
+.f-30 {
+    font-size: 15px;
+}
+.f-20 {
+    font-size: 12px;
+    transform:scale(0.833);
+    line-height: 22px;
+}
+.item-price .color-cccccc{
+    color: #cccccc;
+}
 .prd-item .item-btn {
     position: absolute;
     bottom: -1px;
@@ -84,8 +92,9 @@ h1, h2, h3 {
     width: 100%;
     height: 40px;
     line-height: 40px;
-    background-color: #fd0;
+    background-color: #f85333;
     font-size: 15px;
+    color: #ffffff;
     text-align: center;
     text-decoration: none;
     color: #2c3082;
@@ -118,8 +127,10 @@ h1, h2, h3 {
                             >立即白拿</div>
                         </template>
                         <template v-else>
-                            <div class="item-price">折扣价
-                                <div class="ui-fl-r"><span>{{item .show_price}}</span>元</div>
+                            <div class="item-price">
+                            <span class="f-30 comm-color">¥{{item.show_price}}</span>&nbsp;
+                            <del class="ui-fl-r f-20 color-999" v-if="item.show_price != item.origin_price">原价￥{{item.origin_price}}</del> 
+
                             </div>  
                             <div class="item-btn" v-bind:data-stat-id="params.eventid || ''"
                             v-bind:data-stat-para="JSON.stringify({'pageActId':params.pageActId,'pageId':params.pageId,
