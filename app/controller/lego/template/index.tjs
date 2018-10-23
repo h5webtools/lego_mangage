@@ -22,7 +22,7 @@ window.GLOBALEVENTEMIT || (window.GLOBALEVENTEMIT = eventEmit);
 const libDetect = require('@jyb/lib-detect');
 
 const detect = libDetect();
-window.GLOBALDETECT || （window.GLOBALDETECT = detect）
+window.GLOBALDETECT || (window.GLOBALDETECT = detect);
 
 var $$ = {
     componentConfig: window._componentConfig,
