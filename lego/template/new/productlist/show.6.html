@@ -68,14 +68,15 @@ h1, h2, h3 {
     bottom: 46.5px;
     font-size: 12px;
     color: #999;
-    //padding: 0 .24rem 0 .2rem;
     padding: 0 0 0 0.2rem;
     width: 100%;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
 .item-price .f-30 {
+    display: inline-block;
     font-size: 15px;
+    line-height: 22px;
 }
 .item-price .f-20 {
     font-size: 12px;
@@ -97,7 +98,6 @@ h1, h2, h3 {
     color: #ffffff;
     text-align: center;
     text-decoration: none;
-    color: #2c3082;
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
 }
@@ -128,7 +128,7 @@ h1, h2, h3 {
                         </template>
                         <template v-else>
                             <div class="item-price">
-                            <span class="f-30 comm-color">¥{{item.show_price}}</span>&nbsp;
+                            <span class="f-30 comm-color">¥{{item.show_price}}</span>
                             <del class="ui-fl-r f-20 color-999" v-if="item.show_price != item.origin_price">原价￥{{item.origin_price}}</del> 
 
                             </div>  
