@@ -369,13 +369,13 @@
         'vuefe': 'vuefe'
       },
       map: [
-        [ /(.*?)jyb.vue(.*?)(\.js)$/i,"$1jyb.vue$2.js?v="+"201809270101" ],
-        [ /(.*?)mpm.sys(.*?)(\.js)$/i,"$1mpm.sys$2.js?v="+"2018092701" ]
+        [ /(.*?)jyb.vue(.*?)(\.js)$/i,"$1jyb.vue$2.js?v="+"2018102401" ],
+        [ /(.*?)mpm.sys(.*?)(\.js)$/i,"$1mpm.sys$2.js?v="+"2018102401" ]
   	  ]
     });
   </script>
   <script type="text/javascript">
-    seajs.use('/public/js/mpm.sys.edit.js?v=2018092701', function(m) {
+    seajs.use('/public/js/mpm.sys.edit.js?v=2018102401', function(m) {
       m.init()
     });
   </script>
