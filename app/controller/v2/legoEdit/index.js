@@ -11,24 +11,28 @@ const INSERT_DATABASE_FAILD = 720011; // 插入数据库失败
 
 class LegoEditController extends Controller {
   async index() {
-    // const userId = this.ctx.session.userid;
+    // const user_id = this.ctx.session.user_id;
     // const userName = this.ctx.session.userName;
-    // if (!userId || !userName) {
+    // if (!user_id || !userName) {
     //   this.ctx.redirect("/login");
     //   return;
     // }
-    const operateUser = this.ctx.session.passportJyb.operateUser;
-    
+    console.log('--+++', JSON.stringify(this.ctx.session));
+    //const operateUser = this.ctx.session.passportJyb.operateUser;
 
-    if(!this.ctx.session.userid) {
-      this.ctx.session.userid = operateUser.userId;
-      this.ctx.session.userName = operateUser.userName;
-      this.ctx.session.userAccount = operateUser.userAccount;
+    const portUserId = this.ctx.session.passportJyb.user_id;
+    const operateUser = await this.ctx.service.portal.user.findByPortalUserId(portUserId);
+    this.ctx.logger.info(operateUser,'--------------------------->operateUser');
+
+    if(!this.ctx.session.user_id) {
+      this.ctx.session.userId = operateUser.user_id;
+      this.ctx.session.userName = operateUser.user_name;
+      this.ctx.session.userAccount = operateUser.user_account;
       this.ctx.session.userEmail = operateUser.email;
     }
 
     if(!this.ctx.session.roles) {
-      const roleList = await this.service.login.loginService.findRole(operateUser.userId);
+      const roleList = await this.service.login.loginService.findRole(operateUser.user_id);
       if(roleList) {
         this.ctx.session.roles = roleList.map(role => {
           return role.role_id;
@@ -39,7 +43,7 @@ class LegoEditController extends Controller {
     let roleMap = this.config.userRole,
         userRoles = this.ctx.session.roles || [],
         userInfo = {
-          userid: operateUser.userId,
+          user_id: operateUser.user_id,
           userName: operateUser.userName,
           userAccount: operateUser.userAccount,
           email: operateUser.email
