@@ -130,6 +130,15 @@ class LegoPageController extends Controller {
       act_id
     });
   }
+  async debugPage() {
+    await this.ctx.render('lego/debug', {
+      userInfo: JSON.stringify({
+        userid: this.ctx.session.userid,
+        userName: this.ctx.session.userName,
+        userAccount: this.ctx.session.userAccount
+      })
+    });
+  }
 }
 
 module.exports = LegoPageController;
