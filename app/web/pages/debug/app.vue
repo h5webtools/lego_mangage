@@ -20,12 +20,14 @@
     <div class="debug-main">
       <el-row :gutter="20">
         <el-col :span="10">
-          <iframe id="js-preview" class="preview" src="https://cdn.jyblife.com/act/20181000/bnxjd/index.html" frameborder="0"></iframe>
+          <div id="js-preview"></div>
         </el-col>
         <el-col :span="14">
           <ace-editor
+            class="debug-editor"
             editorId="codeString"
             height="300px"
+            :variable="editorVar"
             :content="codeString"
             lang="javascript"
             @change="handleEditorChange($event)"
@@ -37,7 +39,10 @@
   </div>
 </template>
 <script>
+import Postmate from 'postmate';
 import AceEditor from '@/components/ace-editor.vue';
+
+let childAPI = null;
 
 export default {
   components: {
@@ -45,8 +50,13 @@ export default {
   },
   data() {
     return {
+      editorVar: {
+        'CANYE': {
+          des: 'hahaha'
+        }
+      },
       userInfo: window.userInfo || {},
-      codeString: ''
+      codeString: '(function() {\n  // do something\n})();'
     };
   },
   methods: {
@@ -54,15 +64,17 @@ export default {
       this.codeString = val;
     },
     handleSave(e) {
-      console.log(this.codeString);
+      if (this.childAPI) {
+        this.childAPI.call('evalFunc', this.codeString);
+      }
     }
   },
   mounted() {
-    const jsPreview = document.getElementById('js-preview');
-
-    jsPreview.addEventListener('load', () => {
-      // jsPreview.contentWindow.document.body.innerHTML = 123;
+    const handshake = new Postmate({
+      container: document.getElementById('js-preview'),
+      url: 'http://172.16.5.59:8887/demo/demo1.html'
     });
+    handshake.then(child => this.childAPI = child);
   }
 }
 </script>
@@ -99,10 +111,16 @@ export default {
   }
 }
 
-.preview {
-  width: 375px;
-  height: 667px;
+.debug-editor {
   border: 1px solid #ccc;
+}
+
+#js-preview {
+  iframe {
+    width: 375px;
+    height: 667px;
+    border: 1px solid #ccc;
+  }
 }
 
 .editor-box {

@@ -13,6 +13,10 @@ export default {
       type: String,
       default: ''
     },
+    variable: {
+      type: Object,
+      default: () => {}
+    },
     lang: {
       type: String,
       default: 'text'
@@ -33,6 +37,7 @@ export default {
   data() {
     return {
       editor: null,
+      langTools: null,
       beforeContent: ''
     }
   },
@@ -43,14 +48,42 @@ export default {
       }
     }
   },
+  methods: {
+    setCompleter(list) {
+      list = list || {};
+      var vlist = [];
+      for (var i in list) {
+        vlist.push({
+          caption: i,
+          value: i,
+          meta: list[i].des
+        });
+      }
+      var completer = {
+        getCompletions(editor, session, pos, prefix, callback) {
+          if (prefix.length === 0) {
+            return callback(null, []);
+          }
+          callback(null, vlist);
+        }
+      };
+      this.langTools.setCompleters([completer, this.langTools.keyWordCompleter]);
+    }
+  },
   beforeDestroy: function() {
     this.editor.destroy();
     this.editor.container.remove();
   },
   mounted () {
-		this.editor = window.ace.edit(this.editorId);
-    this.editor.setValue(this.content, 1);
+    this.editor = window.ace.edit(this.editorId);
+    this.langTools = ace.require('ace/ext/language_tools');
+    this.editor.setOptions({
+      enableLiveAutocompletion: true
+    });
 
+    this.setCompleter(this.variable);
+
+    this.editor.setValue(this.content, 1);
     this.editor.getSession().setMode(`ace/mode/${this.lang}`);
     this.editor.setTheme(`ace/theme/${this.theme}`);
 
