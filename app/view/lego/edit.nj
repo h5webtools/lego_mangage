@@ -14,6 +14,8 @@
   <link href="/public/css/new/edit.css" rel="stylesheet" type="text/css">
   <link href="/public/css/new/edit.template.1.css" rel="stylesheet" type="text/css">
   <link href="/public/css/new/component.css" rel="stylesheet" type="text/css">
+
+  {{ helper.requireStatic("css/debug.vue.css") }}
   <style>
     .colorFrameInput {
       margin-left: 12px;
@@ -351,11 +353,17 @@
   </div>
   <!-- E选择子组件浮层 -->
 
+  <!-- 自定义代码调试编辑器 -->
+  <div id="js-debug-editor"></div>
+
   <script type="text/javascript">
    window.ACT_DETAIL = {{ actDetail | safe }};
    window.USER_INFOR = {{ userInfo | safe }};
   </script>
 
+  <script src="/public/assets/ace/ace.js"></script>
+  <script src="/public/assets/ace/ext-language_tools.js"></script>
+  {{ helper.requireStatic("js/debug.js") }}
   <script type="text/javascript" src="/public/js/lib/sea.js"></script>
   <script type="text/javascript" src="/public/js/lib/seajs-text.js"></script>
   <script>
@@ -377,6 +385,8 @@
   <script type="text/javascript">
     seajs.use('/public/js/mpm.sys.edit.js?v=2018102401', function(m) {
       m.init()
+      // 初始化自定义代码调试编辑器
+      window.__debugEditor__.install('#js-debug-editor', window.Vue);
     });
   </script>
 </body>
