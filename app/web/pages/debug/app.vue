@@ -6,12 +6,20 @@
       <div class="debug-editor-box">
         <ace-editor
           class="debug-editor"
-          editorId="codeString"
+          editorId="codeStyleString"
+          height="300px"
+          :content="codeStyleString"
+          lang="css"
+          @change="handleEditorStyleChange($event)"
+        ></ace-editor>
+        <ace-editor
+          class="debug-editor"
+          editorId="codeScriptString"
           height="300px"
           :variable="editorVar"
-          :content="codeString"
+          :content="codeScriptString"
           lang="javascript"
-          @change="handleEditorChange($event)"
+          @change="handleEditorScriptChange($event)"
         ></ace-editor>
         <div class="ui-ta-r">
           <a class="btn-save" href="javascript:;" @click="handleDebug">调试</a>
@@ -38,23 +46,30 @@ export default {
         }
       },
       userInfo: window.userInfo || {},
-      codeString: '(function() {\n  // do something\n})();'
+      codeStyleString: '/* css */\n',
+      codeScriptString: '(function() {\n  // do something\n})();'
     };
   },
   methods: {
-    handleEditorChange(val) {
-      this.codeString = val;
+    handleEditorScriptChange(val) {
+      this.codeScriptString = val;
+    },
+    handleEditorStyleChange(val) {
+      this.codeStyleString = val;
     },
     handleClose() {
       this.visible = false;
     },
     handleDebug(e) {
       if (this.childAPI) {
-        this.childAPI.call('evalFunc', this.codeString);
+        this.childAPI.call('evalFunc', this.codeScriptString);
       }
     },
     handleSave() {
-      this.$emit('save', this.codeString);
+      this.$emit('save', {
+        style: this.codeStyleString,
+        script: this.codeScriptString
+      });
       this.visible = false;
     }
   },

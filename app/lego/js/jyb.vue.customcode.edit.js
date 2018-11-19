@@ -71,11 +71,27 @@ define(function (require, exports, module) {
         showEditDebug: function() {
           // 显示调试编辑器
           window.debugEditor.show({
-            codeString: this.obj.data.code
+            codeStyleString: this.getStyleContent(),
+            codeScriptString: this.getScriptContent()
           });
-          window.debugEditor.on('save', (codeString) => {
-            this.obj.data.code = codeString;
+          window.debugEditor.on('save', (code) => {
+            this.obj.data.code = [
+              '<style>\n' + code.style + '\n</style>\n',
+              '<script>\n' + code.script + '\n</script>\n'
+            ].join('\n');
           });
+        },
+        getStyleContent() {
+          var code = this.obj.data.code;
+          var startTag = '<style>';
+          var endTag = '</style>';
+          return code.substring(code.indexOf(startTag) + startTag.length, code.indexOf(endTag)).trim();
+        },
+        getScriptContent() {
+          var code = this.obj.data.code;
+          var startTag = '<script>';
+          var endTag = '</script>';
+          return code.substring(code.indexOf(startTag) + startTag.length, code.indexOf(endTag)).trim();
         }
       }
     });
