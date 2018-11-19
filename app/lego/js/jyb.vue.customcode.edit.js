@@ -34,6 +34,51 @@ define(function (require, exports, module) {
     return html;
   };
 
+  _Class.prototype._appendEditDom = function () {
+    var that = this;
+    var config = this.config;
+    var styleObj = this._getStyle();
+    var editDom = $('#editbox_' + this.obj.uid).append($(that.tplEdit))[0];
+
+    //编辑
+    this.domEdit = new Vue({
+      el: editDom,
+      data: {
+        obj: that.obj,
+        arrStyle: that.arrStyle,
+        showStyle: true,
+        showProperty: false,
+        oldObj: {
+          data: {}
+        }
+      },
+      created: function () {
+        // `this` 指向 vm 实例
+        Object.assign(this.oldObj.data, this.obj.data);
+      },
+      methods: {
+        show: function (index) {
+          if (index == 0) {
+            this.showStyle = true;
+            this.showProperty = false;
+          } else {
+            this.showStyle = false;
+            this.showProperty = true;
+          }
+        },
+        selectNpmVersion: function () { /* npm管理 */
+        },
+        showEditDebug: function() {
+          console.log(123);
+        }
+      }
+    });
+
+    $(that.domEdit.$el).attr('id', 'editbox_' + that.obj.uid);
+
+
+  };
+
   //和线上展示的页面数据结构对应起来 window._componentConfig[]
   _Class.prototype.getData = function () {
     var obj = this.getMPMData();
