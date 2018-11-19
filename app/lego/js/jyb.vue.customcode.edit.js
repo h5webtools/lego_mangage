@@ -69,7 +69,13 @@ define(function (require, exports, module) {
         selectNpmVersion: function () { /* npm管理 */
         },
         showEditDebug: function() {
-          console.log(123);
+          // 显示调试编辑器
+          window.debugEditor.show({
+            codeString: this.obj.data.code
+          });
+          window.debugEditor.on('save', (codeString) => {
+            this.obj.data.code = codeString;
+          });
         }
       }
     });
