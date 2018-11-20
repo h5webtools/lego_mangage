@@ -66,6 +66,20 @@ define(function (require, exports, module) {
           console.log(rankKeyArr);
           return rankKeyArr;
         },
+        strAmount: function (str) {
+          var result="", 
+          index = 0,  
+          len = str.length,  
+          i = len-1,  
+          arr = str.split("");  
+          str = str + "";
+          while(len-index>0){  
+              len>=index&&len-index!==len && arr.splice(len-index,0,",");  
+              index+=3;  
+              i-=4;  
+          };  
+          return arr.join("")
+        },
         loadData: function () {
           var me = this;
           if (this.data.didFinish) return; //已经加载完成了

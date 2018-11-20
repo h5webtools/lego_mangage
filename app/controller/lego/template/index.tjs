@@ -12,6 +12,18 @@ for (var componentname in vuecomponents) {
 }
 
 
+const GLOBALTIPS = require('@lego/tips');
+window.GLOBALTIPS || (window.GLOBALTIPS = GLOBALTIPS);
+
+var EventEmit = require('@jyb/lib-event-emit');
+var eventEmit = new EventEmit();
+window.GLOBALEVENTEMIT || (window.GLOBALEVENTEMIT = eventEmit);
+
+const libDetect = require('@jyb/lib-detect');
+
+const detect = libDetect();
+window.GLOBALDETECT || (window.GLOBALDETECT = detect);
+
 var $$ = {
     componentConfig: window._componentConfig,
     componentData: {}
