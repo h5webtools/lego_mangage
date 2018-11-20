@@ -196,6 +196,19 @@
               <label><strong></strong>返回兑换上报ID：</label>
               <input type="text" placeholder="比如：30000.1.2" v-model="obj.data.eventid_back"> 
           </div>
+          <div class="form-group" v-if="obj.data.jumptypeval==3">
+              <label><strong></strong>spuId：</label>
+              <input type="text" placeholder="立即下单使用" v-model="obj.data.spuId"> 
+          </div>
+          <div class="form-group" v-if="obj.data.jumptypeval==3">
+              <label><strong></strong>skuId：</label>
+              <input type="text" placeholder="立即下单使用" v-model="obj.data.skuId"> 
+          </div>
+          <div class="form-group" v-if="obj.data.jumptypeval==3">
+              <label><strong></strong>extra：</label>
+              <input type="text" placeholder="如使用请找开发" v-model="obj.data.extra"> 
+          </div>
+
           <div class="form-radio" style="margin-left:85px;">
             <form>是否展示查看红包:
               <label>
@@ -244,6 +257,17 @@
               <strong></strong>跳转地址：</label>
             <input type="text" placeholder="归属地查跳转地址" v-model="obj.data.areaJumpUrl">
           </div>
+          <div class="form-group">
+            <label>
+              <strong></strong>弹框标题：</label>
+            <input type="text" placeholder="感谢您对加油宝的支持" v-model="obj.data.title">
+          </div>
+          <div class="form-group">
+            <label>
+              <strong></strong>弹框图片：</label>
+            <input type="text" placeholder="https://images.jyblife.com/tuiguang/huafei/couponbg.png" v-model="obj.data.couponImg">
+          </div>
+          
           <br><br>
           <div class="form-radio" style="margin-left:85px;">
             <form>跳转类型：
@@ -256,8 +280,12 @@
               <label>
                 <input name="jumptype" style="width:16px;height:16px" type="radio" value="2" v-model="obj.data.jumptypeval">红包页
               </label>
+              <label>
+                <input name="jumptype" style="width:16px;height:16px" type="radio" value="3" v-model="obj.data.jumptypeval">直接下单
+              </label>
             </form>
           </div>
+
         </div>
       </form>
 
