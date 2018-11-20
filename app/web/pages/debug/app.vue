@@ -62,8 +62,8 @@ export default {
     },
     handleDebug(e) {
       if (this.childAPI) {
-        this.childAPI.call('injectStyle', this.codeStyleString);
-        this.childAPI.call('evalFunc', this.codeScriptString);
+        this.childAPI.call('injectStyle', { code: this.codeStyleString });
+        this.childAPI.call('evalFunc', { code: this.codeScriptString });
       }
     },
     handleSave() {
