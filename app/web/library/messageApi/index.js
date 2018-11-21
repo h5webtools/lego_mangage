@@ -49,6 +49,9 @@ MessageAPI.prototype.appendToBody = function(element, remove) {
 MessageAPI.prototype.createPostmateModel = function() {
   var that = this;
   this.handshake = new Postmate.Model({
+    refresh: function() {
+      window.location.reload();
+    },
     injectStyle: function(payload) {
       var style = document.createElement('style');
       style.innerHTML = payload.code;

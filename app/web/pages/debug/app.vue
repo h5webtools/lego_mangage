@@ -45,10 +45,19 @@ export default {
           des: 'hahaha'
         }
       },
+      frameUrl: 'http://172.16.5.59:8887/demo1.html',
       userInfo: window.userInfo || {},
       codeStyleString: '/* css */\n',
       codeScriptString: '(function() {\n  // do something\n})();'
     };
+  },
+  watch: {
+    visible(newVal) {
+      if (newVal && this.childAPI) {
+        this.childAPI.destroy();
+        this.createPostmate();
+      }
+    }
   },
   methods: {
     handleEditorScriptChange(val) {
@@ -72,17 +81,20 @@ export default {
         script: this.codeScriptString
       });
       this.visible = false;
+    },
+    createPostmate() {
+      const $preview = document.getElementById('js-preview');
+      if ($preview) {
+        const handshake = new Postmate({
+          container: $preview,
+          url: this.frameUrl
+        });
+        handshake.then(child => this.childAPI = child);
+      }
     }
   },
   mounted() {
-    const $preview = document.getElementById('js-preview');
-    if ($preview) {
-      const handshake = new Postmate({
-        container: $preview,
-        url: 'http://172.16.5.59:8887/demo1.html'
-      });
-      handshake.then(child => this.childAPI = child);
-    }
+    this.createPostmate();
   }
 }
 </script>

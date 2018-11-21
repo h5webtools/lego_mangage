@@ -72,7 +72,8 @@ define(function (require, exports, module) {
           // 显示调试编辑器
           window.debugEditor.show({
             codeStyleString: this.getStyleContent(),
-            codeScriptString: this.getScriptContent()
+            codeScriptString: this.getScriptContent(),
+            frameUrl: 'http://172.16.5.59:8887/demo2.html'
           });
           window.debugEditor.on('save', (code) => {
             this.obj.data.code = [
