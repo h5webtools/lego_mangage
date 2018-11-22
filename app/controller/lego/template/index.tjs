@@ -24,6 +24,18 @@ const libDetect = require('@jyb/lib-detect');
 const detect = libDetect();
 window.GLOBALDETECT || (window.GLOBALDETECT = detect);
 
+const legoShowDialog = require('@lego/show-dialog');
+window.GLOBALSHOWDIALOG || (window.GLOBALSHOWDIALOG = legoShowDialog);
+
+const legoUtil = require('@lego/util');
+window.GLOBALUTIL || (window.GLOBALUTIL = legoUtil);
+
+const legoRequest = require('@lego/request');
+window.GLOBALREQUEST || (window.GLOBALREQUEST = legoRequest);
+
+const legoBuydirect = require('@lego/jybbuydirect');
+window.GLOBALBUTDIRECT || (window.GLOBALBUTDIRECT = legoBuydirect);
+
 var $$ = {
     componentConfig: window._componentConfig,
     componentData: {}
