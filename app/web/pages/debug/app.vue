@@ -22,6 +22,7 @@
           @change="handleEditorScriptChange($event)"
         ></ace-editor>
         <div class="ui-ta-r">
+          <a class="btn-save" href="javascript:;" @click="handleLoadPage">重新加载页面</a>
           <a class="btn-save" href="javascript:;" @click="handleDebug">调试</a>
           <a class="btn-save" href="javascript:;" @click="handleSave">保存</a>
         </div>
@@ -45,7 +46,7 @@ export default {
           des: 'hahaha'
         }
       },
-      frameUrl: 'http://172.16.5.59:8887/demo1.html',
+      frameUrl: '',
       userInfo: window.userInfo || {},
       codeStyleString: '/* css */\n',
       codeScriptString: '(function() {\n  // do something\n})();'
@@ -53,13 +54,28 @@ export default {
   },
   watch: {
     visible(newVal) {
-      if (newVal && this.childAPI) {
-        this.childAPI.destroy();
-        this.createPostmate();
+      if (newVal) {
+        this.frameReload();
       }
     }
   },
   methods: {
+    frameReload() {
+      if (this.childAPI) {
+        this.childAPI.destroy();
+        this.childAPI = null;
+        this.createPostmate();
+      } else {
+        this.createPostmate();
+      }
+    },
+    handleLoadPage() {
+      if (window.LegoEditor && window.LegoEditor.preview && typeof window.LegoEditor.preview.saveAndCreatePage === 'function') {
+        window.LegoEditor.preview.saveAndCreatePage(() => {
+          this.frameReload();
+        }, 'debug');
+      }
+    },
     handleEditorScriptChange(val) {
       this.codeScriptString = val;
     },
@@ -82,14 +98,22 @@ export default {
       });
       this.visible = false;
     },
+    removeChild(el) {
+      if (el.children && el.children.length > 0) {
+        [].slice.call(el.children, 0).forEach(item => el.removeChild(item));
+      }
+    },
     createPostmate() {
       const $preview = document.getElementById('js-preview');
-      if ($preview) {
+      if ($preview && this.frameUrl) {
+        this.removeChild($preview);
         const handshake = new Postmate({
           container: $preview,
           url: this.frameUrl
         });
-        handshake.then(child => this.childAPI = child);
+        handshake.then(child => {
+          this.childAPI = child;
+        });
       }
     }
   },

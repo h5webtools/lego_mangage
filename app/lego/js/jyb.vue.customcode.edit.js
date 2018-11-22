@@ -3,7 +3,10 @@ define(function (require, exports, module) {
   var vueComponent = require("./jyb.vue.commontag");
   var Factory = require('./jyb.vue.edit.factory');
   var defaultTplEdit = '/public/template/new/customcode/edit.html';
-
+  var moduleDataCenter = require('./mpm.sys.dataCenter');
+  var commonUtil = require('./common.util');
+  // 页面ID
+  var pageID = commonUtil.getUrlQuery('page_id');
   var _Class = Factory.getClass({
     vueComponent: vueComponent,
     defaultTplEdit: defaultTplEdit,
@@ -69,11 +72,28 @@ define(function (require, exports, module) {
         selectNpmVersion: function () { /* npm管理 */
         },
         showEditDebug: function() {
+          var that = this;
+          moduleDataCenter.getPageBasicInfo(pageID, function (json) {
+            if (json.code != 0) {
+              commonUtil.alert('页面数据获取失败');
+              return;
+            }
+            if (json.data && json.data.page_content) {
+              that.showEditDebugPanel();
+            } else {
+              window.LegoEditor.preview.saveAndCreatePage(function() {
+                that.showEditDebugPanel();
+              }, 'debug');
+            }
+          });
+        },
+        showEditDebugPanel: function() {
           // 显示调试编辑器
           window.debugEditor.show({
             codeStyleString: this.getStyleContent(),
             codeScriptString: this.getScriptContent(),
-            frameUrl: 'http://172.16.5.59:8887/demo2.html'
+            // 这里引入mpm.sys.preview模块有循环依赖问题，先这样处理了
+            frameUrl: window.LegoEditor.preview.getPreviewURL()
           });
           window.debugEditor.on('save', (code) => {
             this.obj.data.code = [
