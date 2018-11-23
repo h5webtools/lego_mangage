@@ -2,20 +2,24 @@
   <div v-show="visible" class="debug-wrap">
     <div @click="handleClose" class="close-btn"></div>
     <div class="debug-main">
-      <div id="js-preview"></div>
+      <div class="preview-wrapper">
+        <div id="js-preview" class="preview-box"></div>
+      </div>
       <div class="debug-editor-box">
+        <h6 class="debug-editor__title">样式代码：</h6>
         <ace-editor
           class="debug-editor"
           editorId="codeStyleString"
-          height="300px"
+          height="280px"
           :content="codeStyleString"
           lang="css"
           @change="handleEditorStyleChange($event)"
         ></ace-editor>
+        <h6 class="debug-editor__title">脚本代码：</h6>
         <ace-editor
           class="debug-editor"
           editorId="codeScriptString"
-          height="300px"
+          height="280px"
           :variable="editorVar"
           :content="codeScriptString"
           lang="javascript"
@@ -127,6 +131,28 @@ export default {
   text-align: right
 }
 
+.preview-wrapper {
+  position: relative;
+  width: 330px;
+  height: 645px;
+  margin: 0 50px 0 26px;
+  background: url(./img/iphonex_bg.png) no-repeat center 0;
+  background-size: 100%;
+}
+
+.preview-box {
+  position: absolute;
+  top: 63px;
+  left: 21px;
+  right: 23px;
+  bottom: 22px;
+  overflow: hidden;
+  border-radius: 0 0 35px 35px;
+  border: 1px solid #edf0f4;
+  border-top: none;
+  background-color: #edf0f4;
+}
+
 .debug-wrap {
   position: fixed;
   top: 0;
@@ -153,13 +179,19 @@ export default {
 
 .debug-editor-box {
   width: 600px;
+  padding-top: 4px;
+}
+
+.debug-editor__title {
+  margin-bottom: 4px;
+  font-size: 14px;
 }
 
 #js-preview {
   iframe {
-    width: 375px;
-    height: 667px;
-    border: 1px solid #ccc;
+    width: 100%;
+    height: 100%;
+    border: 0;
   }
 }
 
