@@ -44,19 +44,15 @@
 </style>
 
 <template class="showTemplate">
-<div>
-  <template v-if="true">
-    <commontag uid="commontag" v-bind:params="data" inline-template>
-      <div class="mod-c-section-rule ui-mb-26" v-bind:style="{background:params.rulesOutterBgColor}">
-        <h6 v-bind:style="{color: params.rulesTitleColor}" class="title">{{params.rulesTitle}}</h6>
-        <i class="down-arrow anim-scale"></i>
-        <div class="rule-content" v-bind:style="{background:params.rulesBgColor, color:params.rulesContentColor}">
-          <div class="f-24" v-html="params.rulesContentHtml"></div>
-        </div>
+  <commontag uid="commontag" v-bind:params="data" inline-template>
+    <div class="mod-c-section-rule ui-mb-26" v-bind:style="{background:params.rulesOutterBgColor}">
+      <h6 v-bind:style="{color: params.rulesTitleColor}" class="title">{{params.rulesTitle}}</h6>
+      <i class="down-arrow anim-scale"></i>
+      <div class="rule-content" v-bind:style="{background:params.rulesBgColor, color:params.rulesContentColor}">
+        <div class="f-24" v-html="params.rulesContentHtml"></div>
       </div>
-    </commontag>
-  </template>
-</div>
+    </div>
+  </commontag>
 </template>
 <!-- 下面的属性控制MPM中编辑界面 -->
 
