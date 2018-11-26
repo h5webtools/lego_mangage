@@ -102,7 +102,7 @@
 
             <!-- 文案描述 -->
             <br><br><br><strong style="font-size:16px;">设置规则</strong><br><br><br>
-            <div v-if="showRichEditor" class="wangeditor-topactrule"></div>
+            <div v-if="showRichEditor" ref="wangeditor" style="padding-bottom: 20px;" class="wangeditor"></div>
             <template v-else>
             <form class="form-horizontal">
                 <div class="coupon-group" v-for="(item,index) in obj.data.rulesContent">

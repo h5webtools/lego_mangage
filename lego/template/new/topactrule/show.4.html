@@ -64,6 +64,9 @@
         overflow-y: scroll;
         -webkit-overflow-scrolling: touch;
         position: relative;
+
+        overflow: hidden;
+        word-break: break-word;
     }
 
     .lego-topactrule-show1 .ui-mb-20 {
@@ -110,6 +113,19 @@
         padding: 0;
         vertical-align: baseline
         }
+
+    .rule-content > * {
+        margin-bottom: 15px;
+    }
+
+    .rule-content ul {
+        list-style-type: disc;
+    }
+
+    .rule-content ol {
+        list-style-type: decimal;
+    }
+
 </style>
 
 <template class="showTemplate">
