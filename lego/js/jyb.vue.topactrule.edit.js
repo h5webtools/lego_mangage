@@ -60,7 +60,6 @@ define(function (require, exports, module) {
         showRichEditor: false,
         editorDependency: {
           url: 'https://unpkg.com/wangeditor/release/wangEditor.min.js',
-          load: false,
         },
 
         editor: null,
@@ -82,14 +81,10 @@ define(function (require, exports, module) {
       },
       mounted: function () {
         if (this.useRichTextEditor) {
-          if (!this.editorDependency.load) {
-            loadExternalScript(this.editorDependency.url, function () {
-              this.editorDependency.load = true;
-              this.handleWangEditorLoad();
-            }.bind(this));
-          }
-
           this.showRichEditor = true;
+          loadExternalScript(this.editorDependency.url, function () {
+            this.handleWangEditorLoad();
+          }.bind(this));
         }
       },
       events: {},
@@ -99,23 +94,18 @@ define(function (require, exports, module) {
         'obj.data.styleKey': {
           handler: function (val, oldVal) {
             var that = this;
+            if (that.useRichTextEditor) {
+              that.showRichEditor = true;
               if (that.useRichTextEditor) {
                 that.showRichEditor = true;
-                window.EDITOR_EXTERNAL_SCRIPT = window.EDITOR_EXTERNAL_SCRIPT || {}
-                if (!window.EDITOR_EXTERNAL_SCRIPT[that.editorDependency.url]) {
-                  loadExternalScript(that.editorDependency.url, function () {
-                    window.EDITOR_EXTERNAL_SCRIPT[that.editorDependency.url] = true;
-                    that.handleWangEditorLoad();
-                  });
-                } else {
-                  that.$nextTick(function () {
-                    that.handleWangEditorLoad();
-                  });
-                }
+                loadExternalScript(that.editorDependency.url, function () {
+                  that.handleWangEditorLoad();
+                });
               } else {
                 that.destroyEditor();
                 that.showRichEditor = false;
               }
+            }
           },
           deep: false
         }
@@ -248,8 +238,16 @@ define(function (require, exports, module) {
   };
 
   function loadExternalScript(url, callback) {
+    window.EXTERNAL_SCRIPT = window.EXTERNAL_SCRIPT || {}
+    if (window.EXTERNAL_SCRIPT[url]) {
+      return setTimeout(function () {
+        callback && callback();
+      })
+    }
+
     var script = document.createElement('script');
     script.onload = function () {
+      window.EXTERNAL_SCRIPT[url] = true;
       callback && callback();
     }
 
