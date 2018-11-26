@@ -37,11 +37,8 @@
 <script>
 import Postmate from 'postmate';
 import AceEditor from '@/components/ace-editor.vue';
-import { getObjectFunction, getProcessFunc } from './helper';
-
-// 这里后面改成模块引入
-const legoUtil = window.LegoUtil || {};
-const legoEditor = window.LegoEditor || {};
+import { getObjectFunction, getProcessFunc, getComponentProps } from './helper';
+import legoUtil from '@jyb/lego-util';
 
 export default {
   components: {
@@ -84,6 +81,13 @@ export default {
             value: item.uid,
             desc: `组件${item.name}，ID为${item.uid}`
           }
+          // 组件属性
+          getComponentProps(item).forEach((prop) => {
+            editorVar[`${prop.name}.${prop.propName}`] = {
+              value: prop.propName,
+              desc: `${prop.type}类型`
+            };
+          });
         });
       }
       this.editorVar = editorVar;
@@ -98,6 +102,7 @@ export default {
       }
     },
     handleLoadPage() {
+      const legoEditor = window.LegoEditor || {};
       if (legoEditor.preview && typeof legoEditor.preview.saveAndCreatePage === 'function') {
         legoEditor.preview.saveAndCreatePage(() => {
           this.frameReload();
