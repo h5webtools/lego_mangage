@@ -1,6 +1,6 @@
 {
   "name": "lego_manage",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "乐高管理系统",
   "private": true,
   "dependencies": {
