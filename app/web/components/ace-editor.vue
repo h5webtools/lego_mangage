@@ -42,10 +42,13 @@ export default {
     }
   },
   watch: {
-    'content' (value) {
-    	if (this.beforeContent !== value) {
-      	this.editor.setValue(value, 1);
+    content(newVal) {
+    	if (this.beforeContent !== newVal) {
+      	this.editor.setValue(newVal, 1);
       }
+    },
+    variable(newVal) {
+      this.setCompleter(newVal);
     }
   },
   methods: {
@@ -55,8 +58,8 @@ export default {
       for (var i in list) {
         vlist.push({
           caption: i,
-          value: i,
-          meta: list[i].des
+          value: list[i].value || i,
+          meta: list[i].desc
         });
       }
       var completer = {

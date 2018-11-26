@@ -37,6 +37,11 @@
 <script>
 import Postmate from 'postmate';
 import AceEditor from '@/components/ace-editor.vue';
+import { getObjectFunction, getProcessFunc } from './helper';
+
+// 这里后面改成模块引入
+const legoUtil = window.LegoUtil || {};
+const legoEditor = window.LegoEditor || {};
 
 export default {
   components: {
@@ -45,11 +50,7 @@ export default {
   data() {
     return {
       visible: false,
-      editorVar: {
-        'CANYE': {
-          des: 'hahaha'
-        }
-      },
+      editorVar: {}, // 编辑器智能提示变量
       frameUrl: '',
       userInfo: window.userInfo || {},
       codeStyleString: '/* css */\n',
@@ -64,6 +65,29 @@ export default {
     }
   },
   methods: {
+    initVariable(componentConfig) {
+      const variable = [];
+      const editorVar = {};
+      // 通用方法和属性
+      getObjectFunction(legoUtil, variable);
+      variable.forEach((v) => {
+        const processFunc = getProcessFunc(v.type);
+        editorVar[processFunc.getKey(v)] = {
+          value: processFunc.getValue(v),
+          desc: processFunc.getLabel(v)
+        }
+      });
+      // 组件数据
+      if (Array.isArray(componentConfig)) {
+        componentConfig.forEach((item) => {
+          editorVar[item.uid] = {
+            value: item.uid,
+            desc: `组件${item.name}，ID为${item.uid}`
+          }
+        });
+      }
+      this.editorVar = editorVar;
+    },
     frameReload() {
       if (this.childAPI) {
         this.childAPI.destroy();
@@ -74,8 +98,8 @@ export default {
       }
     },
     handleLoadPage() {
-      if (window.LegoEditor && window.LegoEditor.preview && typeof window.LegoEditor.preview.saveAndCreatePage === 'function') {
-        window.LegoEditor.preview.saveAndCreatePage(() => {
+      if (legoEditor.preview && typeof legoEditor.preview.saveAndCreatePage === 'function') {
+        legoEditor.preview.saveAndCreatePage(() => {
           this.frameReload();
         }, 'debug');
       }
@@ -115,10 +139,19 @@ export default {
           container: $preview,
           url: this.frameUrl
         });
-        handshake.then(child => {
+        handshake.then((child) => {
           this.childAPI = child;
+          this.listenEvent();
         });
       }
+    },
+    listenEvent() {
+      this.childAPI.on('get-component-config', (data) => {
+        try {
+          const json = JSON.parse(data);
+          this.initVariable(json);
+        } catch (e) {}
+      });
     }
   },
   mounted() {

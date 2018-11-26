@@ -18,6 +18,7 @@ function MessageAPI() {
 
 MessageAPI.prototype.init = function() {
   this.createPostmateModel();
+  this.emitEvent();
 };
 
 MessageAPI.prototype.removeElement = function(parent, child) {
@@ -62,6 +63,14 @@ MessageAPI.prototype.createPostmateModel = function() {
       script.innerHTML = that.wrapperScriptCode(payload.code);
       that.appendToBody(script, true);
     }
+  });
+};
+
+MessageAPI.prototype.emitEvent = function() {
+  if (!this.handshake) return;
+  this.handshake.then((parent) => {
+    // 把组件配置数据发送给父窗口
+    parent.emit('get-component-config', JSON.stringify(window._componentConfig));
   });
 };
 
