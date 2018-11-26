@@ -198,7 +198,7 @@ define(function (require, exports, module) {
         },
         handleWangEditorLoad() {
           var E = window.wangEditor;
-          this.editor = new E('.wangeditor-topactrule');
+          this.editor = new E(this.$refs.wangeditor);
           this.editor.customConfig.menus = [
               'head',  // 标题
               'bold',  // 粗体
