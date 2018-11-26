@@ -13,16 +13,41 @@ const CSS_REGEX = /\.css(\?.*)?$/;
 const JS_REGEX = /\.js(\?.*)?$/;
 
 function wrapperCSS(uri) {
+  if (!uri) return '';
   return `<link rel="stylesheet" href="${uri}">`;
 }
 
 function wrapperJS(uri) {
+  if (!uri) return '';
   return `<script src="${uri}"></script>`;
 }
 
 
 
 module.exports = {
+  wrapperCSS,
+  wrapperJS,
+  getResourceUrl(name) {
+    return manifest[name] || '';
+  },
+  injectContentToHead(html, content) {
+    const pos = html.indexOf('</head>');
+    if (pos >= 0) {
+      html = html.substring(0, pos) + content + html.substring(pos);
+    } else {
+      html = content + html;
+    }
+    return html;
+  },
+  injectContentToBody(html, content) {
+    const pos = html.indexOf('</body>');
+    if (pos >= 0) {
+      html = html.substring(0, pos) + content + html.substring(pos);
+    } else {
+      html = html + content;
+    }
+    return html;
+  },
   /**
    * 引入js和css
    * @param {String} filename

@@ -163,6 +163,15 @@ class LegoController extends Controller {
       _content = _content.replace("{{[previewJS]}}", '');
       _content = _content.replace(new RegExp('{{{previewRoot}}}','g'), '');
     }
+
+    // 如果是debug
+    if (_publishflag === 'debug') {
+      // 给页面注入messageAPI，用于调试通信
+      _content = this.ctx.helper.injectContentToBody(
+        _content,
+        this.ctx.helper.wrapperJS(this.ctx.origin + this.ctx.helper.getResourceUrl('js/messageApi.js'))
+      );
+    }
   
     let actPageRet = fs.writeFileSync(`${actFolder}/${_fileName}`, _content, 'utf-8');//要删除
 
@@ -1103,6 +1112,7 @@ class LegoController extends Controller {
               loader: 'babel-loader',
               options: {
                 presets: ['env']
+                // presets: [require.resolve('babel-preset-env')]
               }
             }
           }

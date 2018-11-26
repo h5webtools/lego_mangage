@@ -38,6 +38,8 @@ module.exports = app => {
   app.router.get('/lego/editPage', app.controller.legoPage.index.editPage);
   // 乐高配置页面主页
   app.router.get('/lego/homePage', app.controller.legoPage.index.homePage);
+  // 乐高调试页面
+  app.router.get('/lego/debug', app.controller.legoPage.index.debugPage);
   // 同步文件回调
   app.router.post('/lego/syncCallback', app.controller.lego.index.syncResultCallback);
   // 预览

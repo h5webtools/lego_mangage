@@ -68,6 +68,34 @@ define(function (require, exports, module) {
     }
   }
 
+  function getPreviewURL() {
+    var folderSet = moduleBasicInfo.showMePageInfo();
+    var _oldPagePath = folderSet.oldPageMenu,
+      _fileName = "index.html",
+      _path = folderSet.path;
+    try {
+      if (_oldPagePath) {
+        var pathArr = _oldPagePath.split("/"),
+          colName1 = pathArr[0],
+          colName2 = pathArr[1],
+          fileName = pathArr[2];
+
+        console.log(_oldPagePath, colName1, colName2, fileName);
+
+        folderSet.datefolder = colName1;
+        _path = colName2;
+        _fileName = fileName || "index.html";
+      }
+    } catch (e) {
+
+    }
+
+    var previewHtmlURL = "https://preview.jyblife.com/act/" + folderSet.datefolder + "/" + _path + "/" + _fileName + "?act_id=" + moduleUtil.getUrlQuery('act_id') + "&visit=copy";
+    var previewSitHtmlURL = "http://previewsit.jyblife.com/act/" + folderSet.datefolder + "/" + _path + "/" + _fileName + "?act_id=" + moduleUtil.getUrlQuery('act_id') ;
+    // 集成环境，虽然这样判断不严谨，不过先这样吧
+    return (window.location.origin.indexOf('sit') > -1) ? previewSitHtmlURL : previewHtmlURL;
+  }
+
   function writeFile(e) {
     var _target = $(e.target);
     _target.hasClass("previews") ? publishSta = "preview" : "";
@@ -75,9 +103,13 @@ define(function (require, exports, module) {
     _target.hasClass("publishs") ? publishSta = "publish" : "";
     _target.hasClass("prepublishHtmls") ? publishSta = "previewHtml" : "";//预览页面
     _target.hasClass("prepublishSitHtmls") ? publishSta = "previewSitHtml" : "";//集成环境预览页面
+    saveAndCreatePage(createCB, publishSta);
+  }
+
+  function saveAndCreatePage(callback, pubFlag) {
     mpmStructureModule.savePageData(function (json) {
       if (json.code == 0) {
-        moduleCreateFile.createFile(createCB, publishSta);
+        moduleCreateFile.createFile(callback, pubFlag);
       } else {
         moduleUtil.alert('生成文件失败(savePageData)');
       }
@@ -90,6 +122,12 @@ define(function (require, exports, module) {
     prePublishBtn.on("click", writeFile);
     previewHtml.on("click", writeFile);
     previewSitHtml.on("click", writeFile);
+  };
+  
+  // 挂载到全局上面去
+  window.LegoEditor.preview = {
+    getPreviewURL: getPreviewURL,
+    saveAndCreatePage: saveAndCreatePage
   };
 });
 
