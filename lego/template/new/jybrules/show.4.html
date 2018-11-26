@@ -1,0 +1,78 @@
+<style>
+.ui-mb-26 {
+  margin-bottom: .26rem;
+}
+
+.mod-c-section-rule {
+
+}
+
+.mod-c-section-rule .title {
+  margin-bottom: .04rem;
+  text-align: center;
+  font-size: .24rem;
+  font-weight: 700;
+}
+
+.mod-c-section-rule .down-arrow {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: .22rem;
+  width: .26rem;
+  height: .23rem;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAYCAMAAADTXB33AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABTVBMVEWcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrmcfrkAAABVUgxoAAAAbXRSTlMABEPv8VhZoP1sbf4/+H+AQvKTAQKUQTTrpAWlKOK0CrXhHtfDEBHEFczQGNHLDb7bISLcO+bnTQiwr+U6+14Dnl/8SHCNjHH2g3eFlxuY8DHopwapJuC4C7nf1cYSxxPJ0xka1MgMu96sq5qG4pFosQAAAAFiS0dEbiIPURcAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAAHdElNRQfiARERNhdVttSWAAABTUlEQVQoz22SaT8CURTGbwthJmRQElGWiLK1WMZElsRQxpCSrIW63/+t5xjza70v7nn+z5k5c87cy5jFwnoscq02e193pt9uszIH5wODnZkhgXMHE52c8+H2zAgsp8jYqAtiTGomxidguCZJuj2QU14z450GetwG+GYAs34D/HOAeZ/5YCAIXFgkubQMGQw0y4dWYKyGGQuvQayHWnuKRGFtbG5tI0Qj/+ZOLJ5ASO7CjMWw7SWBifj+AY0sHwKUFP9bKQVwdEwjp2XOhROgdEqZMxrwHD9DTuPdDJwLqp2V5SzFSxgZ+goT7ZBXVEdVqfI18EY0OsnlAbeaAdodIJ8zW9fvgQ8FkoVHyKLeHEstwXgqM1Z+hiiprSNXXmC9vr1/IHxW2o+oWoP5VcRWq3YerPZtjPyjdV8HpU6ZutLrEkkNQWhIrPfS9Vb6BUZXWPfOlj9aAAAAAElFTkSuQmCC);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.mod-c-section-rule .rule-content {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 6.7rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: .3rem;
+  border-radius: .16rem;
+  font-size: 0;
+}
+
+.f-24 {
+  font-size: .24rem;
+}
+
+</style>
+
+<template class="showTemplate">
+  <commontag uid="commontag" v-bind:params="data" inline-template>
+    <div class="mod-c-section-rule ui-mb-26" v-bind:style="{background:params.rulesOutterBgColor}">
+      <h6 v-bind:style="{color: params.rulesTitleColor}" class="title">{{params.rulesTitle}}</h6>
+      <i class="down-arrow anim-scale"></i>
+      <div class="rule-content" v-bind:style="{background:params.rulesBgColor, color:params.rulesContentColor}">
+        <div class="f-24" v-html="params.rulesContentHtml"></div>
+      </div>
+    </div>
+  </commontag>
+</template>
+<!-- 下面的属性控制MPM中编辑界面 -->
+
+<script class="forMPMExt">
+  var com_ext = {}
+
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+  var com_extend = [{
+
+  }]
+
+</script>
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+  var com_js = {
+    getRuleList: function (rulesList) {
+      return rulesList;
+    }
+  };
+
+</script>

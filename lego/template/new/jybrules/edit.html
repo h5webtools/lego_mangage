@@ -21,7 +21,7 @@
                     </div>
                     <div class="form-group" v-if="item.type == 'input'">
                         <label style="float: left;padding-right:14px;"><strong>*</strong>{{item.name}}：</label>
-                        <input type="text" :class="item.class" :name="obj.uid+'_'+item.nick" v-model="obj.data.extend[item.nick]" :placeholder="item.placeholder" 
+                        <input type="text" :class="item.class" :name="obj.uid+'_'+item.nick" v-model="obj.data.extend[item.nick]" :placeholder="item.placeholder"
                         flag="extendtime"  :nick="item.nick">
                     </div>
                 </form>
@@ -46,7 +46,7 @@
                 </dd>
             </dl>
 
-          
+
         </div>
 
         <div v-show="showProperty" class="editArea">
@@ -64,16 +64,26 @@
                 <div class="coupon-group" >
                     <div class="form-group">
                         <label><strong>*</strong>规则标题：</label>
-                        <input type="text" v-model="obj.data.rulesTitle"> 
+                        <input type="text" v-model="obj.data.rulesTitle">
+                    </div>
+                    <div class="form-group">
+                        <label><strong></strong>标题颜色：</label>
+                        <input type="color" v-model="obj.data.rulesTitleColor">
+                        <input type="text" class="colorFrameInput" v-model="obj.data.rulesTitleColor" value="" >
+                    </div>
+                    <div class="form-group">
+                        <label><strong></strong>外背景色：</label>
+                        <input type="color" v-model="obj.data.rulesOutterBgColor">
+                        <input type="text" class="colorFrameInput" v-model="obj.data.rulesOutterBgColor" value="" >
                     </div>
                     <div class="form-group">
                         <label><strong></strong>背景色：</label>
-                        <input type="color" v-model="obj.data.rulesBgColor"> 
+                        <input type="color" v-model="obj.data.rulesBgColor">
                         <input type="text" class="colorFrameInput" v-model="obj.data.rulesBgColor" value="" >
                     </div>
                     <div class="form-group">
                         <label><strong></strong>内容颜色：</label>
-                        <input type="color" v-model="obj.data.rulesContentColor"> 
+                        <input type="color" v-model="obj.data.rulesContentColor">
                         <input type="text"  class="colorFrameInput" v-model="obj.data.rulesContentColor"  value="" >
                     </div>
                     <div class="form-group" >
@@ -81,30 +91,35 @@
                       <button type="button" @click="loadActRule" class="jc-btn btn-primary">加载活动规则</button>
                     </div>
                 </div>
-                
+
             </form>
-          
+
             <!-- 文案描述 -->
             <br><br><br><strong style="font-size:16px;">设置规则</strong><br><br><br>
-            <form class="form-horizontal">
-                <div class="coupon-group" v-for="(item,index) in obj.data.rulesContent">
-                    <h4>规则{{index + 1}}</h4>
-                    <button type="button" class="jc-btn btn-primary delBtn" @click="deleteRulespoint(index)">删除</button>
-                    <div class="form-group">
-                        <label><strong>*</strong>规则标题：</label>
-                        <input type="text" v-model="item.rulesTitle" size="40">
+            <div v-if="showRichEditor" class="wangeditor"></div>
+            <template v-else>
+                <form v-show="!showRichEditor" class="form-horizontal">
+                    <div class="coupon-group" v-for="(item,index) in obj.data.rulesContent">
+                        <h4>规则{{index + 1}}</h4>
+                        <button type="button" class="jc-btn btn-primary delBtn" @click="deleteRulespoint(index)">删除</button>
+                        <div class="form-group">
+                            <label><strong>*</strong>规则标题：</label>
+                            <input type="text" v-model="item.rulesTitle" size="40">
+                        </div>
+                        <div class="form-group">
+                            <label><strong>*</strong>规则描述：</label>
+                            <textarea col="3" v-model="item.rulesDes" placeholder="换行的话用$$$隔开"></textarea>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label><strong>*</strong>规则描述：</label>
-                        <textarea col="3" v-model="item.rulesDes" placeholder="换行的话用$$$隔开"></textarea>
-                    </div>
+                </form>
+                <div class="text-right">
+                    <button type="button" class="jc-btn btn-primary" @click="addRulespoint()">增加规则</button>
                 </div>
-            </form>
-            <div class="text-right">
-                <button type="button" class="jc-btn btn-primary" @click="addRulespoint()">增加规则</button>
-            </div>
-            
+            </template>
+
         </div>
 
     </div>
-</div> 
+</div>
+
+
