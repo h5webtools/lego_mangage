@@ -550,7 +550,28 @@ var config = {
 
     fontNames: ['宋体', '微软雅黑', 'Arial', 'Tahoma', 'Verdana'],
 
-    colors: ['#000000', '#eeece0', '#1c487f', '#4d80bf', '#c24f4a', '#8baa4a', '#7b5ba1', '#46acc8', '#f9963b', '#ffffff'],
+    colors: [
+      '#000000',
+      '#eeece0',
+      '#1c487f',
+      '#4d80bf',
+      '#c24f4a',
+      '#8baa4a',
+      '#7b5ba1',
+      '#46acc8',
+      '#f9963b',
+      '#ffffff',
+      '#ff6e34',
+      '#FF3030',
+      '#0183ff',
+      '#5CCB0A',
+      '#F5F5F5',
+      '#E6E6E6',
+      '#ccc',
+      '#666',
+      '#333',
+      '#999'
+    ],
 
     lineHeights: [ '1.0', '1.2', '1.5', '1.8', '2.0', '2.5', '3.0'],
 
@@ -917,7 +938,21 @@ function DropList(menu, opt) {
         if ($elem) {
             $li.append($elem);
             $list.append($li);
-            $li.on('click', function (e) {
+            if (item.type == 'input') {
+              $elem.on('focus', function (e) {
+                editor.selection.saveRange();
+              });
+
+              $elem.on('change', function (e) {
+                onClick(e.target.value);
+
+                // 隐藏
+                _this.hideTimeoutId = setTimeout(function () {
+                    _this.hide();
+                }, 0);
+              })
+            } else {
+              $li.on('click', function (e) {
                 onClick(value);
 
                 // 隐藏
@@ -925,6 +960,7 @@ function DropList(menu, opt) {
                     _this.hide();
                 }, 0);
             });
+            }
         }
     });
 
@@ -1836,14 +1872,20 @@ function ForeColor(editor) {
     // 当前是否 active 状态
     this._active = false;
 
+    const colorOptions = colors.map(function (color) {
+      return { $elem: $('<i style="color:' + color + ';" class="w-e-icon-pencil2"></i>'), value: color };
+    });
+
+    colorOptions.push({
+      type: 'input',
+      $elem: $('<input style="width:100%;" type="input" />'),
+    });
     // 初始化 droplist
     this.droplist = new DropList(this, {
         width: 120,
         $title: $('<p>文字颜色</p>'),
         type: 'inline-block', // droplist 内容以 block 形式展示
-        list: colors.map(function (color) {
-            return { $elem: $('<i style="color:' + color + ';" class="w-e-icon-pencil2"></i>'), value: color };
-        }),
+        list: colorOptions,
         onClick: function onClick(value) {
             // 注意 this 是指向当前的 ForeColor 对象
             _this._command(value);
@@ -1880,14 +1922,20 @@ function BackColor(editor) {
     // 当前是否 active 状态
     this._active = false;
 
+    const colorOptions = colors.map(function (color) {
+      return { $elem: $('<i style="color:' + color + ';" class="w-e-icon-pencil2"></i>'), value: color };
+    });
+
+    colorOptions.push({
+      type: 'input',
+      $elem: $('<input style="width:100%;" type="input" />'),
+    });
     // 初始化 droplist
     this.droplist = new DropList(this, {
         width: 120,
         $title: $('<p>背景色</p>'),
         type: 'inline-block', // droplist 内容以 block 形式展示
-        list: colors.map(function (color) {
-            return { $elem: $('<i style="color:' + color + ';" class="w-e-icon-paint-brush"></i>'), value: color };
-        }),
+        list: colorOptions,
         onClick: function onClick(value) {
             // 注意 this 是指向当前的 BackColor 对象
             _this._command(value);
