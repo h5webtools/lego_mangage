@@ -156,21 +156,19 @@ class LegoController extends Controller {
     
     if (_publishflag == 'previewHtml' || _publishflag == 'previewSitHtml') {
       _content = _content.replace("{{[previewJS]}}", replacePreviewData);
-      
+      _content = _content.replace(new RegExp('{{{previewRoot}}}','g'), 'https://cdn.jyblife.com');
+    } else if (_publishflag === 'debug') { // 如果是debug
+      _content = _content.replace("{{[previewJS]}}", '');
       _content = _content.replace(new RegExp('{{{previewRoot}}}','g'), 'https://cdn.jyblife.com');
 
-    } else {
-      _content = _content.replace("{{[previewJS]}}", '');
-      _content = _content.replace(new RegExp('{{{previewRoot}}}','g'), '');
-    }
-
-    // 如果是debug
-    if (_publishflag === 'debug') {
       // 给页面注入messageAPI，用于调试通信
       _content = this.ctx.helper.injectContentToBody(
         _content,
-        this.ctx.helper.wrapperJS(this.ctx.origin + this.ctx.helper.getResourceUrl('js/messageApi.js'))
+        this.ctx.helper.wrapperJS(this.config.staticResource.messageApi)
       );
+    } else {
+      _content = _content.replace("{{[previewJS]}}", '');
+      _content = _content.replace(new RegExp('{{{previewRoot}}}','g'), '');
     }
   
     let actPageRet = fs.writeFileSync(`${actFolder}/${_fileName}`, _content, 'utf-8');//要删除

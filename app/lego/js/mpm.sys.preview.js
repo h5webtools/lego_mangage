@@ -91,7 +91,7 @@ define(function (require, exports, module) {
     }
 
     var previewHtmlURL = "https://preview.jyblife.com/act/" + folderSet.datefolder + "/" + _path + "/" + _fileName + "?act_id=" + moduleUtil.getUrlQuery('act_id') + "&visit=copy";
-    var previewSitHtmlURL = "http://previewsit.jyblife.com/act/" + folderSet.datefolder + "/" + _path + "/" + _fileName + "?act_id=" + moduleUtil.getUrlQuery('act_id') ;
+    var previewSitHtmlURL = "https://previewsit.jyblife.com/act/" + folderSet.datefolder + "/" + _path + "/" + _fileName + "?act_id=" + moduleUtil.getUrlQuery('act_id') ;
     // 集成环境，虽然这样判断不严谨，不过先这样吧
     return (window.location.origin.indexOf('sit') > -1) ? previewSitHtmlURL : previewHtmlURL;
   }
