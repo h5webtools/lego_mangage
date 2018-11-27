@@ -51,14 +51,16 @@
 }
 
 .rules > * {
-  margin-bottom: 15px;
+  margin-bottom: 0px;
 }
 
 .rules ul {
+  padding-left: 20px;
   list-style-type: disc;
 }
 
 .rules ol {
+  padding-left: 20px;
   list-style-type: decimal;
 }
 
@@ -67,8 +69,10 @@
 <template class="showTemplate">
   <commontag uid="commontag" v-bind:params="data" inline-template>
     <div class="mod-c-section-rule ui-pb-26 ui-pt-26" v-bind:style="{background:params.rulesOutterBgColor}">
-      <h6 v-bind:style="{color: params.rulesTitleColor}" class="title">{{params.rulesTitle}}</h6>
-      <i class="down-arrow anim-scale"></i>
+      <template v-if="params.rulesTitle">
+        <h6 v-bind:style="{color: params.rulesTitleColor}" class="title">{{params.rulesTitle}}</h6>
+        <i class="down-arrow anim-scale"></i>
+      </template>
       <div class="rule-content" v-bind:style="{background:params.rulesBgColor, color:params.rulesContentColor}">
         <div class="f-24 rules" v-html="params.rulesContentHtml"></div>
       </div>

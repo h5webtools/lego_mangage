@@ -3,6 +3,7 @@ define(function (require, exports, module) {
   var vueComponent = require("./jyb.vue.commontag");
   var Factory = require('./jyb.vue.edit.factory');
   var defaultTplEdit = '/public/template/new/jybrules/edit.html';
+  var wangEditor = require('./lib/wangeditor');
 
   /* npm管理 */
   var moduleBasicInfo = "";
@@ -59,9 +60,6 @@ define(function (require, exports, module) {
           data: {}
         },
         showRichEditor: false,
-        editorDependency: {
-          url: 'https://unpkg.com/wangeditor/release/wangEditor.min.js',
-        },
 
         editor: null,
       },
@@ -83,9 +81,9 @@ define(function (require, exports, module) {
       mounted: function () {
         if (this.useRichTextEditor) {
           this.showRichEditor = true;
-          loadExternalScript(this.editorDependency.url, function () {
-            this.handleWangEditorLoad();
-          }.bind(this));
+          this.$nextTick(function () {
+            this.initWangEditor();
+          });
         }
       },
       events: {},
@@ -96,8 +94,8 @@ define(function (require, exports, module) {
             var that = this;
             if (that.useRichTextEditor) {
               that.showRichEditor = true;
-              loadExternalScript(that.editorDependency.url, function () {
-                that.handleWangEditorLoad();
+              this.$nextTick(function () {
+                this.initWangEditor();
               });
             } else {
               that.destroyEditor();
@@ -188,8 +186,9 @@ define(function (require, exports, module) {
             console.log("update ok ");
           });
         },
-        handleWangEditorLoad() {
-          var E = window.wangEditor;
+        initWangEditor() {
+          var E = wangEditor || window.wangEditor;
+
           this.editor = new E(this.$refs.wangeditor);
           this.editor.customConfig.menus = [
               'head',  // 标题
@@ -206,6 +205,7 @@ define(function (require, exports, module) {
               'justify',  // 对齐方式
               'quote',  // 引用
               'table',  // 表格
+              'lineHeight', // 行高
           ];
 
           this.editor.customConfig.onchange = function (html) {
