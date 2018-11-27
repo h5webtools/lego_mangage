@@ -1945,9 +1945,24 @@ LineHeight.prototype = {
   _command: function _command(value) {
       var editor = this.editor;
       var $selectionElem = editor.selection.getSelectionContainerElem();
-      $selectionElem.css('line-height', value + '');
+      if (!$selectionElem) {
+        return;
+      }
+
+      var $textElem = editor.$textElem;
+      if ($textElem.isContain($selectionElem)) {
+      }
+
+      if ($selectionElem.attr('contenteditable')){
+        $selectionElem.children().css('line-height', value + '');
+      }
+      else if ($selectionElem.parentUntil('[contenteditable=false]')) {
+        $selectionElem.css('line-height', value + '');
+      } else {
+        console.log('选择内容不在编辑区内');
+      }
+
       editor.change && editor.change();
-      // editor.cmd.do('lineHeight', value);
   }
 }
 
