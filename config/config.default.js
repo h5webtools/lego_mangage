@@ -74,5 +74,9 @@ module.exports = appInfo => {
     manifest: path.join(appInfo.baseDir, 'public/manifest.json') // manifest.json路径，必须为绝对路径
   }
 
+  config.staticResource = {
+    messageApi: 'https://cdn.jyblife.com/static/js/lib/lego-code-editor-message-api/1.0.0/index.js'
+  };
+
   return config;
 };
