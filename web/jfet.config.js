@@ -9,7 +9,7 @@ module.exports = {
   build(abc, context) {
     const publicDir = path.join(__dirname, '../public');
     context.setConfig({
-      scanEntry: { pattern: path.join(__dirname, '{pages,pagesV2,library}/**/index.js') },
+      scanEntry: { pattern: path.join(__dirname, '{pages,pagesV2}/**/index.js') },
       setOutput: {
         path: publicDir,
         publicPath: '/public/'
