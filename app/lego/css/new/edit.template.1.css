@@ -958,3 +958,10 @@ br+.inputTips{
   list-style-type: decimal;
 }
 
+.wangeditor p {
+  background: none;
+  padding: 0;
+  line-height: normal;
+  margin: 0;
+}
+

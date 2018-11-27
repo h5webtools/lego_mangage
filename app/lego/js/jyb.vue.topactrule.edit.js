@@ -5,6 +5,7 @@ define(function (require, exports, module) {
   var defaultTplEdit = '/public/template/new/topactrule/edit.html';
   var moduleDataCenter = require('./mpm.sys.dataCenter');
   var moduleBasicInfo = "";
+  var wangEditor = require('./lib/wangeditor');
 
 
   var _Class = Factory.getClass({
@@ -58,9 +59,6 @@ define(function (require, exports, module) {
           data: {}
         },
         showRichEditor: false,
-        editorDependency: {
-          url: 'https://unpkg.com/wangeditor/release/wangEditor.min.js',
-        },
 
         editor: null,
       },
@@ -82,9 +80,9 @@ define(function (require, exports, module) {
       mounted: function () {
         if (this.useRichTextEditor) {
           this.showRichEditor = true;
-          loadExternalScript(this.editorDependency.url, function () {
-            this.handleWangEditorLoad();
-          }.bind(this));
+          this.$nextTick(function () {
+            this.initWangEditor();
+          })
         }
       },
       events: {},
@@ -98,8 +96,8 @@ define(function (require, exports, module) {
               that.showRichEditor = true;
               if (that.useRichTextEditor) {
                 that.showRichEditor = true;
-                loadExternalScript(that.editorDependency.url, function () {
-                  that.handleWangEditorLoad();
+                this.$nextTick(function () {
+                  this.initWangEditor();
                 });
               } else {
                 that.destroyEditor();
@@ -196,7 +194,7 @@ define(function (require, exports, module) {
           }
           !!tipsFlag && alert('活动规则加载成功');
         },
-        handleWangEditorLoad() {
+        initWangEditor() {
           var E = window.wangEditor;
           this.editor = new E(this.$refs.wangeditor);
           this.editor.customConfig.menus = [
@@ -214,6 +212,7 @@ define(function (require, exports, module) {
               'justify',  // 对齐方式
               'quote',  // 引用
               'table',  // 表格
+              'lineHeight', // 行高
           ];
 
           this.editor.customConfig.onchange = function (html) {
