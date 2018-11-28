@@ -100,7 +100,7 @@ a:visited {
 address, blockquote, dl, fieldset, figure, ol, p, pre, ul{
   margin: 0 0 15px 0;
 }
-/* 
+/*
 textarea {
   width: 100%;
 } */
@@ -253,10 +253,10 @@ td.flowRadioTd input{
  /* color: #fff;*/
 }
 
-.editArea table.innerTable tr td:first-child{  
+.editArea table.innerTable tr td:first-child{
   width: 30%;
 }
-.editArea table.innerTable tr td::nth-child(2){  
+.editArea table.innerTable tr td::nth-child(2){
   width: 25%;
 }
 .editArea table.innerTable tr td:not(:first-child){
@@ -843,7 +843,7 @@ br+.inputTips{
   width: 54px;
   height: 18px;
   display: block;
- 
+
   line-height: 18px;
   background-color: #e7e6e6;
   z-index: 200;
@@ -949,3 +949,19 @@ br+.inputTips{
   display: inline-block;
   margin-top: 2px;
 }
+
+.wangeditor ul {
+  list-style-type: disc;
+}
+
+.wangeditor ol {
+  list-style-type: decimal;
+}
+
+.wangeditor p {
+  background: none;
+  padding: 0;
+  line-height: normal;
+  margin: 0;
+}
+

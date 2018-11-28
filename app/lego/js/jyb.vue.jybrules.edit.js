@@ -3,6 +3,7 @@ define(function (require, exports, module) {
   var vueComponent = require("./jyb.vue.commontag");
   var Factory = require('./jyb.vue.edit.factory');
   var defaultTplEdit = '/public/template/new/jybrules/edit.html';
+  var wangEditor = require('./lib/wangeditor');
 
   /* npm管理 */
   var moduleBasicInfo = "";
@@ -25,7 +26,9 @@ define(function (require, exports, module) {
       "isShowNpmVersions": USER_INFOR.isAdmin,
       "showMore": false,
       "rulesTitle": '',
+      "rulesTitleColor": '',
       "rulesContent": [],
+      "rulesOutterBgColor": "",
       "rulesBgColor": "",
       "rulesContentColor": "",
       "npmversion": "",
@@ -34,7 +37,7 @@ define(function (require, exports, module) {
       "npmname": "@lego/commontag",
       "showTipsFlag": false
     },
-    watch: ['data.showTipsFlag', 'data.styleKey', "data.rulesTitle", "data.rulesBgColor", "data.rulesContent", "data.rulesContentColor"]
+    watch: ['data.showTipsFlag', 'data.styleKey', "data.rulesTitle", "data.rulesBgColor", "data.rulesContent", "data.rulesContentColor", "data.rulesOutterBgColor", "data.rulesTitleColor"]
   });
 
 
@@ -55,6 +58,19 @@ define(function (require, exports, module) {
         showProperty: false,
         oldObj: {
           data: {}
+        },
+        showRichEditor: false,
+
+        editor: null,
+      },
+      computed: {
+        useRichTextEditor() {
+          var that = this;
+          var style = this.arrStyle.find(function(i) {
+            return i.id == that.obj.data.styleKey;
+          });
+
+          return style.tpl_url.indexOf('show.4.html') > -1;
         }
       },
       created: function () {
@@ -62,14 +78,29 @@ define(function (require, exports, module) {
         Object.assign(this.oldObj.data, this.obj.data);
         //this.loadActRule(false);
       },
+      mounted: function () {
+        if (this.useRichTextEditor) {
+          this.showRichEditor = true;
+          this.$nextTick(function () {
+            this.initWangEditor();
+          });
+        }
+      },
       events: {},
       watch: {
 
         'obj.data.styleKey': {
           handler: function (val, oldVal) {
-            this.$nextTick(function () {
-
-            })
+            var that = this;
+            if (that.useRichTextEditor) {
+              that.showRichEditor = true;
+              this.$nextTick(function () {
+                this.initWangEditor();
+              });
+            } else {
+              that.destroyEditor();
+              that.showRichEditor = false;
+            }
           },
           deep: false
         }
@@ -133,6 +164,9 @@ define(function (require, exports, module) {
           }
           var htmlEncode = actDetail.rule_description.replace("{{begin_time}}" , actDetail.effect_time).replace("{{end_time}}" , actDetail.expire_time);
           this.obj.data.rulesContentHtml = htmlEncode;
+          if (this.editor) {
+            this.editor.txt.html(htmlEncode);
+          }
           !!tipsFlag && alert('活动规则加载成功');
         },
         selectNpmVersion: function () { /* npm管理 */
@@ -151,8 +185,43 @@ define(function (require, exports, module) {
           moduleDataCenter.updataversion(this.obj.data.npmversion, '@lego/commontag', path, function () {
             console.log("update ok ");
           });
-        }
+        },
+        initWangEditor() {
+          var E = wangEditor || window.wangEditor;
 
+          this.editor = new E(this.$refs.wangeditor);
+          this.editor.customConfig.menus = [
+              'head',  // 标题
+              'bold',  // 粗体
+              'fontSize',  // 字号
+              'fontName',  // 字体
+              'italic',  // 斜体
+              'underline',  // 下划线
+              'strikeThrough',  // 删除线
+              'foreColor',  // 文字颜色
+              'backColor',  // 背景颜色
+              'link',  // 插入链接
+              'list',  // 列表
+              'justify',  // 对齐方式
+              'quote',  // 引用
+              'table',  // 表格
+              'lineHeight', // 行高
+          ];
+
+          this.editor.customConfig.onchange = function (html) {
+            that.obj.data.rulesContentHtml = html;
+          };
+
+          this.editor.create();
+          this.editor.txt.html(this.obj.data.rulesContentHtml);
+        },
+        destroyEditor() {
+          if (this.editor) {
+            this.editor.$textContainerElem.remove();
+            this.editor.$toolbarElem.remove();
+            this.editor = null;
+          }
+        }
       }
     });
 
@@ -161,6 +230,27 @@ define(function (require, exports, module) {
 
   };
 
+  function loadExternalScript(url, callback) {
+    window.EXTERNAL_SCRIPT = window.EXTERNAL_SCRIPT || {}
+    if (window.EXTERNAL_SCRIPT[url]) {
+      return setTimeout(function () {
+        callback && callback();
+      })
+    }
+
+    var script = document.createElement('script');
+    script.onload = function () {
+      window.EXTERNAL_SCRIPT[url] = true;
+      callback && callback();
+    }
+
+    script.onerror = function () {
+      console.error('load script failed', url);
+    }
+
+    document.body.appendChild(script);
+    script.src = url;
+  }
 
   exports.getComponent = function (config, callback) {
     var component = new _Class(config, callback);

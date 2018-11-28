@@ -1,0 +1,178 @@
+<style>
+    .lego-topactrule-show1 .mod-fixed-rule {
+        position: absolute;
+        top: 0;
+        top: constant(safe-area-inset-top);
+        top: env(safe-area-inset-top);
+        right: .52rem;
+        width: 1.2rem;
+        height: .52rem;
+        line-height: .52rem;
+        text-align: center;
+        border-bottom-right-radius: .06rem;
+        border-bottom-left-radius: .06rem;
+        font-size: .2rem;
+        color: #fff;
+        background: #2c3185;
+        z-index: 1000
+    }
+
+    .lego-topactrule-show1 .ui-mb-20 {
+        margin-bottom: .2rem;
+    }
+
+    .lego-topactrule-show1 .mod-dialog {
+        position: absolute;
+        left: 50%;
+        top: 1.44rem;
+        -webkit-transform: translateX(-50%);
+        transform: translateX(-50%);
+        width: 6rem;
+        z-index: 8888;
+        overflow: hidden;
+        font-size: .36rem;
+        border-radius: 3px;
+    }
+
+    .lego-topactrule-show1 .mod-dialog .dialog-content {
+        box-sizing: border-box;
+        overflow: hidden;
+        background-color: #fff;
+    }
+
+    .lego-topactrule-show1 .mod-act-rule {
+        padding: .4rem;
+    }
+
+    .lego-topactrule-show1 .ui-text-strong {
+        font-weight: 700;
+    }
+
+    .lego-topactrule-show1 .ui-ta-c {
+        text-align: center;
+    }
+
+    .lego-topactrule-show1 .mod-act-rule .rule-content {
+        text-align: left;
+        width: 5.2rem;
+        box-sizing: border-box;
+        background: #fff;
+        color: #262626;
+        line-height: 1.4;
+        font-size: .26rem;
+        height: 5.87rem;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+        position: relative;
+
+        overflow: hidden;
+        word-break: break-word;
+    }
+
+    .lego-topactrule-show1 .ui-mb-20 {
+        margin-bottom: .2rem;
+    }
+
+    .lego-topactrule-show1 .ui-mb-20 {
+        margin-bottom: .2rem;
+    }
+
+    .lego-topactrule-show1 .mod-act-rule .rule-content::-webkit-scrollbar {
+        display: none
+    }
+
+    .lego-topactrule-show1 .mod-btn {
+        margin-top: .39rem;
+        width: 100%;
+        height: 1rem;
+        line-height: 1rem;
+        text-align: center;
+        background: #2c3185;
+        color: #fff;
+        font-size: .34rem;
+    }
+
+    .lego-topactrule-show1 .overlay {
+        background-color: #000;
+        filter: alpha(opacity=60);
+        opacity: .6;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        position: fixed;
+        z-index: 1024;
+        -webkit-backface-visibility: hidden;
+    }
+
+    .lego-topactrule-show1 .dialogWrapper {
+        display: none;
+    }
+    .lego-topactrule-show1 dl , .lego-topactrule-show1 dt , .lego-topactrule-show1 dd   {
+        margin: 0;
+        padding: 0;
+        vertical-align: baseline
+        }
+
+    .rule-content > * {
+        margin-bottom: 0;
+    }
+
+    .rule-content ul {
+        padding-left: 20px;
+        list-style-type: disc;
+    }
+
+    .rule-content ol {
+        padding-left: 20px;
+        list-style-type: decimal;
+    }
+
+</style>
+
+<template class="showTemplate">
+
+    <commontag uid="commontag" v-bind:params="data" inline-template>
+        <div class="lego-topactrule-show1">
+            <template v-if="true">
+                <div class="mod-fixed-rule f-20" v-bind:data-stat-id="params.eventid || ''" v-on:click="showRulesDialog" v-bind:style='{background: params.rulesBgColor, color: params.rulesContentColor}'>{{params.rulesTitle || '活动规则'}}</div>
+                <div id="dialog-wrapper" v-bind:class="{ dialogWrapper: params.isShowDialog }">
+                    <div class="overlay"></div>
+                    <div class="mod-dialog ui-mb-20">
+                        <div class="dialog-content ui-ov-h">
+                            <div class="mod-act-rule">
+                                <p class="ui-ta-c ui-text-strong ui-pb-10" style="font-size: .38rem;">{{params.rulesTitle}}</p>
+                                <div class="rule-content" v-html="params.rulesContentHtml">
+                                </div>
+                                <div class="mod-btn ui-mt-20" v-bind:style='{background: params.rulesBgColor, color: params.rulesContentColor}' v-on:click="hideRulesDialog">确定</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+            <div>
+    </commontag>
+
+</template>
+<!-- 下面的属性控制MPM中编辑界面 -->
+
+<script class="forMPMExt">
+    var com_ext = {}
+
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+    var com_extend = [{
+
+    }]
+
+</script>
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {
+        getRuleList: function (rulesList) {
+            return rulesList ? rulesList.split("$$$") : "";
+        }
+    };
+
+</script>
