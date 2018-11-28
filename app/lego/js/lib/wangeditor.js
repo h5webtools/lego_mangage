@@ -1878,7 +1878,7 @@ function ForeColor(editor) {
 
     colorOptions.push({
       type: 'input',
-      $elem: $('<input style="width:100%;" type="input" />'),
+      $elem: $('<input style="width:100%;" type="input" placeholder="颜色值，如#ffffff" />'),
     });
     // 初始化 droplist
     this.droplist = new DropList(this, {
@@ -1928,7 +1928,7 @@ function BackColor(editor) {
 
     colorOptions.push({
       type: 'input',
-      $elem: $('<input style="width:100%;" type="input" />'),
+      $elem: $('<input style="width:100%;" type="input" placeholder="颜色值，如#ffffff" />'),
     });
     // 初始化 droplist
     this.droplist = new DropList(this, {
