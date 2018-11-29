@@ -20,46 +20,46 @@
     .colorFrameInput {
       margin-left: 12px;
     }
-    
+
     .form-radio {
       font-size: 14px;
     }
-    
+
     .mod-iframe-container {
       padding: 0px;
       background-color: #f1f0f0;
       max-width: 1500px;
       border-radius: 0px;
     }
-    
+
     .iframe-close {
       position: fixed;
       left: 1270px;
       top: 10px;
     }
-    
+
     iframe {
       width: 1300px;
       height: 700px;
     }
-    
+
     .popupSet {
       display: blodk;
     }
-    
+
     .rightOperation a.btn.bi {
       background-image: url(./image/icon_bi.png);
     }
-    
+
     .rightOperation a.btn.bi.done {
       background-image: url(./image/icon_bi_cur.png);
     }
-    
+
     .form-group .must:before {
       content: '*';
       color: red;
     }
-    
+
     .form-ninegrid {
       margin-left: 70px !important;
     }
@@ -377,13 +377,13 @@
         'vuefe': 'vuefe'
       },
       map: [
-        [ /(.*?)jyb.vue(.*?)(\.js)$/i,"$1jyb.vue$2.js?v="+"20181127" ],
-        [ /(.*?)mpm.sys(.*?)(\.js)$/i,"$1mpm.sys$2.js?v="+"20181127" ]
+        [ /(.*?)jyb.vue(.*?)(\.js)$/i,"$1jyb.vue$2.js?v="+"20181129" ],
+        [ /(.*?)mpm.sys(.*?)(\.js)$/i,"$1mpm.sys$2.js?v="+"20181129" ]
   	  ]
     });
   </script>
   <script type="text/javascript">
-    seajs.use('/public/js/mpm.sys.edit.js?v=20181127', function(m) {
+    seajs.use('/public/js/mpm.sys.edit.js?v=20181129', function(m) {
       m.init()
       // 初始化自定义代码调试编辑器
       window.debugEditor = window.__debugEditor__.install('#js-debug-editor', window.Vue);
