@@ -24,7 +24,7 @@
           lang="css"
           @change="handleEditorStyleChange($event)"
         ></ace-editor>
-        <h6 class="debug-editor__title">脚本代码：</h6>
+        <h6 class="debug-editor__title">脚本代码（只支持es5语法）：</h6>
         <ace-editor
           class="debug-editor"
           editorId="codeScriptString"

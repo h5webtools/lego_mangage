@@ -88,7 +88,7 @@ module.exports = appInfo => {
   }
 
   config.staticResource = {
-    messageApi: 'https://cdn.jyblife.com/static/js/lib/lego-code-editor-message-api/1.0.0/index.js'
+    messageApi: 'https://cdn.jyblife.com/static/js/lib/lego-code-editor-message-api/1.0.1/index.js'
   };
 
   return config;
