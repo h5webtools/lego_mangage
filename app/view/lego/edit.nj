@@ -386,7 +386,7 @@
     seajs.use('/public/js/mpm.sys.edit.js?v=20181129', function(m) {
       m.init()
       // 初始化自定义代码调试编辑器
-      // window.debugEditor = window.__debugEditor__.install('#js-debug-editor', window.Vue);
+      window.debugEditor = window.__debugEditor__.install('#js-debug-editor', window.Vue);
     });
   </script>
 </body>
