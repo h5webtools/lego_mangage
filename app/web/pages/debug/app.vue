@@ -6,11 +6,20 @@
         <div id="js-preview" class="preview-box"></div>
       </div>
       <div class="debug-editor-box">
+        <h6 class="debug-editor__title">html代码：</h6>
+        <ace-editor
+          class="debug-editor"
+          editorId="codeHtmlString"
+          height="180px"
+          :content="codeHtmlString"
+          lang="html"
+          @change="handleEditorHtmlChange($event)"
+        ></ace-editor>
         <h6 class="debug-editor__title">样式代码：</h6>
         <ace-editor
           class="debug-editor"
           editorId="codeStyleString"
-          height="280px"
+          height="180px"
           :content="codeStyleString"
           lang="css"
           @change="handleEditorStyleChange($event)"
@@ -19,7 +28,7 @@
         <ace-editor
           class="debug-editor"
           editorId="codeScriptString"
-          height="280px"
+          height="180px"
           :variable="editorVar"
           :content="codeScriptString"
           lang="javascript"
@@ -27,6 +36,7 @@
         ></ace-editor>
         <div class="ui-ta-r">
           <a class="btn-save" href="javascript:;" @click="handleLoadPage">重新加载页面</a>
+          <a class="btn-save" href="javascript:;" @click="handleRefresh">刷新页面</a>
           <a class="btn-save" href="javascript:;" @click="handleDebug">调试</a>
           <a class="btn-save" href="javascript:;" @click="handleSave">保存</a>
         </div>
@@ -50,6 +60,7 @@ export default {
       editorVar: {}, // 编辑器智能提示变量
       frameUrl: '',
       userInfo: window.userInfo || {},
+      codeHtmlString: '',
       codeStyleString: '/* css */\n',
       codeScriptString: '(function() {\n  // do something\n})();'
     };
@@ -57,11 +68,20 @@ export default {
   watch: {
     visible(newVal) {
       if (newVal) {
+        this.setDefaultCodeValue();
         this.frameReload();
       }
     }
   },
   methods: {
+    setDefaultCodeValue() {
+      if (!this.codeStyleString) {
+        this.codeStyleString = '/* css */\n';
+      }
+      if (!this.codeScriptString) {
+        this.codeScriptString = '(function() {\n  // do something\n})();';
+      }
+    },
     initVariable(componentConfig) {
       const variable = [];
       const editorVar = {};
@@ -109,6 +129,9 @@ export default {
         }, 'debug');
       }
     },
+    handleEditorHtmlChange(val) {
+      this.codeHtmlString = val;
+    },
     handleEditorScriptChange(val) {
       this.codeScriptString = val;
     },
@@ -121,13 +144,20 @@ export default {
     handleDebug(e) {
       if (this.childAPI) {
         this.childAPI.call('injectStyle', { code: this.codeStyleString });
+        this.childAPI.call('injectString', { content: this.codeHtmlString });
         this.childAPI.call('evalFunc', { code: this.codeScriptString });
+      }
+    },
+    handleRefresh() {
+      if (this.childAPI) {
+        this.childAPI.call('refresh');
       }
     },
     handleSave() {
       this.$emit('save', {
-        style: this.codeStyleString,
-        script: this.codeScriptString
+        html: this.codeHtmlString || '',
+        style: this.codeStyleString || '',
+        script: this.codeScriptString || ''
       });
       this.visible = false;
     },
