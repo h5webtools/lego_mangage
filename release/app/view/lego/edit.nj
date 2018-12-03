@@ -337,7 +337,7 @@
           <ul>
             <li @click="select(item)" v-for="item in itemparent.val" :mid="item.path_key" :componentkey="item.id" :title="item.tb_desc">
               <div>
-                <img :mid="item.path_key" :componentkey="item.id" :title="item.tb_desc" :src="item.tb_thumb">
+                <img style="width:0.8rem;height: 0.7rem;" :mid="item.path_key" :componentkey="item.id" :title="item.tb_desc" :src="item.tb_thumb">
               </div>
               <p>{{item.tb_name}}</p>
             </li>

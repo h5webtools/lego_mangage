@@ -1,0 +1,138 @@
+<div class="editBox">
+  <div class="editBox_2">
+    <h3>{{obj.componentName}} {{obj.uid}}</h3>
+    <p>
+      新闻组件
+    </p>
+
+    <ul class="tab_hd">
+      <li v-bind:class="{ 'on': showStyle }" v-on:click="show(0)">
+        <a href="javascript:;" title="设置样式">设置样式</a>
+      </li>
+      <li v-bind:class="{ 'on': showProperty }" v-on:click="show(1)">
+        <a href="javascript:;" title="设置数据">设置数据</a>
+      </li>
+    </ul>
+
+    <div v-show="showStyle" class="styleBox">
+      <div class="editArea">
+        <form class="form-horizontal" v-for="item in obj.com_extend">
+          <div class="form-group" v-if="item.type == 'radio'">
+            <label>{{item.name}}：</label>
+            <div>
+              <label v-for="item2 in item.data">
+                <input type="radio" :name="obj.uid+'_'+item.nick" :value="item2.value" v-model="obj.data.extend[item.nick]"> {{item2.name}}</label>
+            </div>
+          </div>
+          <div class="form-group" v-if="item.type == 'input'">
+            <label style="float: left;padding-right:14px;">
+              <strong>*</strong>{{item.name}}：</label>
+            <input type="text" :class="item.class" :name="obj.uid+'_'+item.nick" v-model="obj.data.extend[item.nick]" :placeholder="item.placeholder"
+              flag="extendtime" :nick="item.nick">
+          </div>
+        </form>
+      </div>
+      <br>
+      <br>
+      <dl>
+        <dt>样式</dt>
+        <dd>
+          <ul>
+            <li v-for="item in arrStyle" v-if="item.priority != 10000">
+              <div style="display:none;">
+                {{item.com_desc}}
+                <input type="radio" :name="obj.uid" :id="obj.uid+'_'+item.id" :value="item.id" v-model="obj.data.styleKey">
+                <br/>
+              </div>
+              <label :class="item.id == obj.data.styleKey ? 'on' : ''" :for="obj.uid+'_'+item.id">
+                <img :src="item.image" alt="">
+              </label>
+              <div class="styleDesc">
+                {{item.com_desc}}
+              </div>
+            </li>
+          </ul>
+        </dd>
+      </dl>
+    </div>
+
+    <div v-show="showProperty" class="editArea">
+      <!-- 文案描述 -->
+      <br>
+      <br>
+      <br>
+      <strong style="font-size:16px;">编辑新闻</strong>
+      <br>
+      <br>
+      <br>
+      <form class="form-horizontal">
+        <div class="form-group">
+          <label><strong></strong>背景色：</label>
+          <input type="color" v-model="obj.data.backgroundcolor">
+          <input type="text"  class="colorFrameInput" v-model="obj.data.backgroundcolor"  value="" size="10">  
+        </div>
+        <div class="form-group">
+          <label><strong></strong>标题字体颜色：</label>
+          <input type="color" v-model="obj.data.titleColor">
+          <input type="text"  class="colorFrameInput" v-model="obj.data.titleColor"  value="" size="10">  
+        </div>
+        <div class="form-group">
+          <label><strong></strong>副标题字体颜色：</label>
+          <input type="color" v-model="obj.data.contentColor">
+          <input type="text"  class="colorFrameInput" v-model="obj.data.contentColor"  value="" size="10">  
+        </div>
+        <!--配置各条新闻数据-->
+        <div class="coupon-group" v-for="(item,index) in obj.data.newsList" @click="addHighlight(index)" :class="index == obj.data.tabIndex ? 'coupon-group-on' : '' "
+          style="overflow:hidden;">
+          <h4>新闻{{index + 1}}</h4>
+          <button type="button" class="jc-btn btn-primary delBtn" @click="deleteNews(index)">删除</button>
+          <div style="margin-top:30px">
+            <div class="form-group">
+              <label>
+                <strong>*</strong>图片位置：</label>
+                <input type="radio" id="imgAreaLeft" value="1" v-model="item.imgArea">
+                <label for="imgAreaLeft" style="text-align: left; width:40px;">左边</label>
+                <input type="radio" id="imgAreaRight" value="2" v-model="item.imgArea">
+                <label for="imgAreaRight" style="text-align: left; width:40px;">右边</label>
+            </div>
+            <div class="form-group">
+              <label>
+                <strong>*</strong>新闻标题：</label>
+              <input type="text" v-model="item.title">
+            </div>
+            <div class="form-group">
+              <label>
+                <strong>*</strong>新闻内容：</label>
+              <input type="text" v-model="item.content">
+            </div>
+            <div class="form-group">
+              <label>
+                <strong>*</strong>新闻图片：</label>
+              <input type="text" v-model="item.imgLink">
+            </div>
+            <div class="form-group">
+              <label>
+                <strong>*</strong>可见用户群：</label>
+              <input type="text" v-model="item.usergroup" placeholder="用英文逗号隔开">
+            </div>
+            <div class="form-group">
+              <label>
+                <strong>*</strong>新闻链接：</label>
+              <input type="text" v-model="item.href">
+            </div>
+            <div class="form-group">
+              <label>
+                <strong>*</strong>上报ID：</label>
+              <input type="text" v-model="item.eventid">
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="text-right">
+        <button type="button" class="jc-btn btn-primary" @click="addNews()">添加新闻</button>
+      </div>
+
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,85 @@
+<style>
+.newslist-show-1 {
+    width: 7.5rem;
+}
+.newslist-show-1 .mod-news-list {
+    width: 100%;
+}
+.newslist-show-1 .mod-news-list .new-list-item {
+    display: block;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: .26rem .26rem .26rem .36rem;
+    -webkit-box-shadow: inset 0 -1px 0 0 #E6E8EA;
+    box-shadow: inset 0 -1px 0 0 #E6E8EA;
+    height: 2.32rem;
+    overflow: hidden;
+}
+.newslist-show-1 .mod-news-list .new-list-item .list-left {
+    width: 4.04rem;
+    float: left;
+}
+.newslist-show-1 .mod-news-list .new-list-item .list-left .list-title {
+    font-size: .32rem;
+    margin-top: .14rem;
+    color: #3D3F48;
+    line-height: .45rem;
+    height: .9rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+.newslist-show-1 .mod-news-list .new-list-item .list-left .list-desc {
+    width: 3.6rem;
+    margin-top: .1rem;
+    line-height: .33rem;
+    height: .66rem;
+    font-size: .24rem;
+    color: #9397AA;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+.newslist-show-1 .mod-news-list .new-list-item .list-right {
+    width: 2.4rem;
+    height: 1.8rem;
+    float: right;
+}
+</style>
+
+<template class="showTemplate">
+    <jybnews uid="jybnews" v-bind:params="data" inline-template>
+        <div class="newslist-show-1">
+            <div class="mod-news-list" :style="{backgroundColor:params.backgroundcolor}">
+              <div v-show="!isShow(item.usergroup)" class="new-list-item" v-bind:link="item.href" v-for="(item, index) in params.newsList" :key="index" v-bind:data-stat-id="item.eventid || ''" >
+                <div class="list-left" :style="{float:item.imgArea == 1 ? 'left' : 'right'}">
+                  <div class="list-title" :style="{color:params.titleColor}">{{item.title}}</div>
+                  <div class="list-desc" :style="{color:params.contentColor}">{{item.content}}</div>
+                </div>
+                <div class="list-right" :style="{float:item.imgArea == 1 ? 'right' : 'left'}">
+                  <img :src="item.imgLink" alt="" width="100%">
+                </div>
+              </div>
+            </div>
+          </div>
+    </jybnews>
+</template>
+<!-- 下面的属性控制编辑界面 -->
+<script class="forMPMExt">
+    var com_ext = {}
+
+</script>
+<!-- 下面的属性控制编辑界面 -->
+<script class="forMPMExtend">
+    var com_extend = []
+
+</script>
+
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {};
+
+</script>

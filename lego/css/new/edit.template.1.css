@@ -922,6 +922,10 @@ br+.inputTips{
   .component-dialog ul li>div{
     margin-bottom: 10px;
   }
+  .component-dialog ul li>div img{
+    width: 0.8rem;
+    height: 0.7rem;
+  }
   .component-dialog h3 {
     font-size: 16px;
     margin: 0;
