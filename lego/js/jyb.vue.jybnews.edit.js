@@ -26,7 +26,7 @@ define(function (require, exports, module) {
       "newsList": [],
       "npmversion": "",
       "npmversionArr": [],
-      "npmname": "@lego/jybexchange",
+      "npmname": "@lego/jybnews",
       "tplid": '', //模板ID 
       'comTplId': '',//组件ID
     },
@@ -53,7 +53,7 @@ define(function (require, exports, module) {
     this.obj.data.isShowNpmVersions = USER_INFOR.isAdmin;
     moduleDataCenter.getnodeversions('@lego/jybnews', path, function (json) {
       if(json.code == 0){
-        var _data = json.data.groups;
+        var _data = json.data.version_list;
         that.obj.data.groupList = _data;
         if (!that.obj.data.npmversion) {
           that.obj.data.npmversion = _data[_data.length - 1].version;
@@ -116,6 +116,19 @@ define(function (require, exports, module) {
         }
       },
       methods: {
+        selectNpmVersion: function () { /* npm管理 */
+          require.async('./mpm.sys.basicInfo', function (module) {
+            moduleBasicInfo = module;
+          });
+          var pageInfo = moduleBasicInfo.showMePageInfo();
+          var folderSet = moduleBasicInfo.showMeFolderName();
+
+          var path = pageInfo.datefolder + "/" + folderSet.sub + "/";
+
+          moduleDataCenter.updataversion(this.obj.data.npmversion, '@lego/jybnews', path, function () {
+            console.log("update ok ");
+          });
+        },
         show: function (index) {
           if (index == 0) {
             this.showStyle = true;

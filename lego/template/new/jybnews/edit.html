@@ -58,6 +58,17 @@
 
     <div v-show="showProperty" class="editArea">
       <!-- 文案描述 -->
+      <form class="form-horizontal" v-if="true">
+        <div class="coupon-group">
+            <div class="form-group">
+              <label>
+                <strong></strong>版本号：</label>
+              <select name="action" @change="selectNpmVersion" v-model="obj.data.npmversion">
+                <option :value="item.version" v-for="item in obj.data.npmversionArr">{{item.desc}}</option>
+              </select>
+            </div>
+          </div>
+        </form>
       <br>
       <br>
       <br>
