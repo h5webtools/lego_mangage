@@ -8,7 +8,8 @@ define(function (require, exports, module) {
           data: {
             didTrigger: false,
             didFinish: false,
-            tabIndex: 0
+            tabIndex: 0,
+            groupList: []
           }
         };
       },
@@ -26,12 +27,11 @@ define(function (require, exports, module) {
               "groups": [
                 "ords_equal_0",
                 "test",
-                "test1"
               ],
               "timestamp": 1543313059
             }
           }
-          this.params.groupList = json.data.groups;
+          this.data.groupList = json.data.groups;
           this.$nextTick(function () {
 
           });
@@ -44,7 +44,7 @@ define(function (require, exports, module) {
             return false;
           }
           var list = groups.split(',');
-          var newList = this.params.groupList.filter(function (v) { return list.indexOf(v) > -1 })
+          var newList = this.data.groupList.filter(function (v) { return list.indexOf(v) > -1 })
           if (newList.length > 0) {
             return false;
           }
