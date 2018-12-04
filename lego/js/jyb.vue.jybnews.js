@@ -25,7 +25,8 @@ define(function (require, exports, module) {
             "data": {
               "groups": [
                 "ords_equal_0",
-                "test"
+                "test",
+                "test1"
               ],
               "timestamp": 1543313059
             }
