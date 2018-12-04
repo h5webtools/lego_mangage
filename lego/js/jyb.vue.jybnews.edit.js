@@ -4,6 +4,11 @@ define(function (require, exports, module) {
   var Factory = require('./jyb.vue.edit.factory');
   var defaultTplEdit = '/public/template/new/jybnews/edit.html';
 
+  /* npm管理 */
+  var moduleBasicInfo = "";
+  var moduleDataCenter = "";
+  /* npm管理 */
+
   var _Class = Factory.getClass({
     vueComponent: vueComponent,
     defaultTplEdit: defaultTplEdit,
@@ -18,10 +23,60 @@ define(function (require, exports, module) {
       "titleColor": '',//标题字体颜色
       "contentColor": '',//副标题颜色
       "groupList": [],
-      "newsList": []
+      "newsList": [],
+      "npmversion": "",
+      "npmversionArr": [],
+      "npmname": "@lego/jybexchange",
+      "tplid": '', //模板ID 
+      'comTplId': '',//组件ID
     },
     watch: ['data.styleKey', "desfontsize", "backgroundcolor", "titleColor", "contentColor", "groupList", "newsList"]
   });
+  _Class.prototype.showCB = function () {
+    var that = this;
+    var config = this.config;
+    var styleObj = this._getStyle();
+
+    /* 模板 */
+    require.async('./mpm.sys.dataCenter', function (module) {
+      moduleDataCenter = module;
+    });
+    require.async('./mpm.sys.basicInfo', function (module) {
+      moduleBasicInfo = module;
+    });
+
+    var pageInfo = moduleBasicInfo.showMePageInfo();
+    var folderSet = moduleBasicInfo.showMeFolderName();
+
+    var path = pageInfo.datefolder + '/' + folderSet.sub + '/';
+
+    this.obj.data.isShowNpmVersions = USER_INFOR.isAdmin;
+    moduleDataCenter.getnodeversions('@lego/jybnews', path, function (json) {
+      if(json.code == 0){
+        var _data = json.data.groups;
+        that.obj.data.groupList = _data;
+        if (!that.obj.data.npmversion) {
+          that.obj.data.npmversion = _data[_data.length - 1].version;
+        }
+      }
+    });
+
+    moduleDataCenter.getTplList( that.obj.data.comTplId || '3', function (json) { // 由组件ID获取对应组件的所有模板
+      if (json.code == 0) {
+        that.obj.data.tplList = json.data.data;
+      }
+    });
+
+    /* 模板 */
+
+    this.extendObj(styleObj.com_extend);
+    this.obj.data.fnObj = window.vueFnObj['fn_' + this.obj.data.styleKey];
+    this.domStyle = this.addCssByStyle(styleObj.com_css);
+
+    this._showRightList();
+    this._appendShowDom();
+    this._appendEditDom();
+  };
 
   //编辑功能
   _Class.prototype._appendEditDom = function () {
