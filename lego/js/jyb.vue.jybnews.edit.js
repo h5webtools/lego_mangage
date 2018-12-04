@@ -55,9 +55,10 @@ define(function (require, exports, module) {
       if(json.code == 0){
         var _data = json.data.groups;
         that.obj.data.groupList = _data;
-        if (!that.obj.data.npmversion) {
-          that.obj.data.npmversion = _data[_data.length - 1].version;
-        }
+        console.log(111,_data);
+        // if (!that.obj.data.npmversion) {
+        //   that.obj.data.npmversion = _data[_data.length - 1].version;
+        // }
       }
     });
 
