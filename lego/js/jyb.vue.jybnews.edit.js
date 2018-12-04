@@ -53,7 +53,7 @@ define(function (require, exports, module) {
     this.obj.data.isShowNpmVersions = USER_INFOR.isAdmin;
     moduleDataCenter.getnodeversions('@lego/jybnews', path, function (json) {
       if(json.code == 0){
-        var _data = json.data.groups;
+        var _data = json.data.version_list;
         that.obj.data.groupList = _data;
         console.log(111,_data);
         // if (!that.obj.data.npmversion) {
@@ -117,6 +117,19 @@ define(function (require, exports, module) {
         }
       },
       methods: {
+        selectNpmVersion: function () { /* npm管理 */
+          require.async('./mpm.sys.basicInfo', function (module) {
+            moduleBasicInfo = module;
+          });
+          var pageInfo = moduleBasicInfo.showMePageInfo();
+          var folderSet = moduleBasicInfo.showMeFolderName();
+
+          var path = pageInfo.datefolder + "/" + folderSet.sub + "/";
+
+          moduleDataCenter.updataversion(this.obj.data.npmversion, '@lego/jybnews', path, function () {
+            console.log("update ok ");
+          });
+        },
         show: function (index) {
           if (index == 0) {
             this.showStyle = true;
