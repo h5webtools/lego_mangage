@@ -27,7 +27,7 @@ define(function (require, exports, module) {
       },
       methods: {
 
-        refreshCode: function (){
+        refreshCode: function (){ 
 
         },
         msgCode: function (){
