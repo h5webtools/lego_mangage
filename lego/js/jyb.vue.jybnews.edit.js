@@ -54,11 +54,10 @@ define(function (require, exports, module) {
     moduleDataCenter.getnodeversions('@lego/jybnews', path, function (json) {
       if(json.code == 0){
         var _data = json.data.version_list;
-        that.obj.data.groupList = _data;
-        console.log(111,_data);
-        // if (!that.obj.data.npmversion) {
-        //   that.obj.data.npmversion = _data[_data.length - 1].version;
-        // }
+        that.obj.data.npmversionArr = _data;
+        if (!that.obj.data.npmversion) {
+          that.obj.data.npmversion = _data[_data.length - 1].version;
+        }
       }
     });
 
