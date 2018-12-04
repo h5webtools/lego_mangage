@@ -27,22 +27,22 @@ define(function (require, exports, module) {
       },
       methods: {
 
-        refreshCode: {
+        refreshCode: function (){
 
         },
-        msgCode: {
+        msgCode: function (){
 
         },
-        telinput: {
+        telinput: function (){
 
         },
-        submit: {
+        submit: function (){
 
         },
-        checkoutcoupons: {
+        checkoutcoupons: function (){
 
         },
-        switchflag: {
+        switchflag: function (){
 
         }
 
