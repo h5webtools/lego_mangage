@@ -26,7 +26,7 @@ define(function (require, exports, module) {
       "newsList": [],
       "npmversion": "",
       "npmversionArr": [],
-      "npmname": "@lego/jybexchange",
+      "npmname": "@lego/jybnews",
       "tplid": '', //模板ID 
       'comTplId': '',//组件ID
     },
