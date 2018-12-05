@@ -4,7 +4,7 @@ let manifest = null;
 const errCode = require('../constant/errCode');
 
 try {
-  manifest = require('../public/manifest.json');
+  manifest = require('../../public/manifest.json');
 } catch (e) {
   manifest = {};
 }

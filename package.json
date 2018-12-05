@@ -1,51 +1,45 @@
 {
-  "name": "lego",
-  "version": "1.0.2",
-  "description": "乐高配置系统",
+  "name": "lego_manage",
+  "version": "2.0.0",
+  "description": "乐高管理系统",
   "private": true,
   "dependencies": {
-    "@node/egg-passport-jyb": "^0.1.47",
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.3",
-    "babel-preset-env": "^1.6.1",
-    "egg": "^2.0.0",
+    "@jyb/egg-view-jyb": "^1.0.2",
+    "@node/egg-guide-login": "^0.0.12",
+    "@node/egg-passport-jyb": "^0.1.72",
+    "egg": "^2.2.1",
     "egg-mysql": "^3.0.0",
-    "egg-redis": "^1.0.2",
-    "egg-scripts": "^2.1.0",
+    "egg-redis": "^2.0.0",
+    "egg-scripts": "^2.5.0",
     "egg-session-redis": "^1.0.0",
-    "egg-view": "^2.0.0",
-    "egg-view-nunjucks": "^2.1.4",
-    "fs-extra": "^5.0.0",
-    "jsonfile": "^4.0.0",
-    "make-dir": "^1.2.0",
-    "md5": "^2.2.1",
+    "egg-view-nunjucks": "^2.1.6",
     "querystring": "^0.2.0",
-    "simple-git": "^1.91.0",
+    "simple-git": "^1.96.0",
     "uglify-js": "^3.3.9",
     "uglifyjs-webpack-plugin": "^1.2.2",
-    "universalify": "^0.1.1",
     "webpack": "^3.10.0"
   },
   "devDependencies": {
+    "@jyb/eslint-config-jyb": "^1.0.1",
     "autod": "^3.0.1",
     "autod-egg": "^1.0.0",
-    "babel-cli": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
     "egg-bin": "^4.3.5",
     "egg-ci": "^1.8.0",
-    "egg-mock": "^3.13.0",
-    "eslint": "^4.11.0",
-    "eslint-config-egg": "^5.1.0",
-    "webstorm-disable-index": "^1.2.0"
+    "egg-mock": "^3.14.0",
+    "eslint": "^4.11.0"
   },
   "engines": {
     "node": ">=8.9.0"
   },
   "scripts": {
+    "build": "sh build.sh",
+    "build:web": "NODE_ENV=production jfet build",
     "start": "NODE_ENV=production egg-scripts start --port=7002 --daemon --title=egg-server-lego --env=prod",
     "stop": "egg-scripts stop --title=egg-server-lego",
-    "dev": "egg-bin dev",
-    "debug": "egg-bin debug",
+    "dev": "egg-bin dev --port=7002",
+    "debug": "egg-bin debug --port=7002",
     "start:dev": "egg-scripts start --port=7002 --daemon --title=egg-server-lego --env=dev",
     "sit": "egg-scripts start --port=7002 --daemon --title=egg-server-lego --env=sit",
     "uat": "NODE_ENV=production egg-scripts start --port=7002 --daemon --title=egg-server-lego --env=uat",
@@ -62,6 +56,9 @@
   "repository": {
     "type": "git",
     "url": ""
+  },
+  "jfetOptions": {
+    "configFilePath": "web"
   },
   "author": "kardel.chen@jyblife.com",
   "license": "MIT"

@@ -1,0 +1,16 @@
+{% extends "../layout/layout.html" %}
+
+{% block head %}
+  {{ helper.assets.getStyle("css/legoEditV2.css") | safe }}
+  {{ helper.assets.getStyle("css/legoEditV2.vue.css") | safe }}
+{% endblock %}
+
+{% block body %}
+  <script>
+    var userInfo = {{ userInfo | safe }};
+    var currentEnv = '{{ env }}';
+  </script>
+  {{ helper.assets.getViewState() | safe }}
+  <div id="app"></div>
+  {{ helper.assets.getScript("js/legoEditV2.js") | safe }}
+{% endblock %}

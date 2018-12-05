@@ -1252,6 +1252,25 @@ class LegoController extends Controller {
       return CREATE_RELEASETASK_FAILED;
     }
   }
+
+  async getLegoThemeColor() {
+    this.ctx.logger.info('获取乐高颜色主题配置');
+    try {
+      let themeList = await this.service.lego.legoService.queryThemeList();
+      this.ctx.body = {
+        code: 0,
+        data: {
+          theme_list: themeList
+        }
+      }
+    } catch(e) {
+      this.ctx.logger.info('获取乐高颜色主题配置失败'+ e.message);
+      this.ctx.body = {
+        code: QUERY_DATABASE_FAILED,
+        msg: e.message
+      }
+    }
+  }
 }
 
 module.exports = LegoController;

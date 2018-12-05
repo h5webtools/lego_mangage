@@ -1,0 +1,21 @@
+@function rem ($num) {
+    @return $num/100 * 1rem;
+}
+
+@mixin full-bg($uri) {
+  background-image: url($uri);
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+@mixin placeholderColor($color) {
+	::-moz-placeholder {
+		color: $color;
+	}
+	::-webkit-input-placeholder {
+		color: $color;
+	}
+	:-ms-input-placeholder {
+		color: $color;
+	}
+}
