@@ -143,7 +143,7 @@ define(function (require, exports, module) {
           })
         },
         addNews: function () {
-          this.obj.data.newsList.push({
+          this.obj.data.newsList.unshift({
             title: '',
             content: '', //
             imgLink: '', //

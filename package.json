@@ -5,7 +5,7 @@
   "private": true,
   "dependencies": {
     "@jyb/egg-view-jyb": "^1.0.2",
-    "@node/egg-guide-login": "^0.0.11",
+    "@node/egg-guide-login": "^0.0.12",
     "@node/egg-passport-jyb": "^0.1.72",
     "egg": "^2.2.1",
     "egg-mysql": "^3.0.0",
