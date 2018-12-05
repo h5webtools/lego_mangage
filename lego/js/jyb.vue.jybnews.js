@@ -36,7 +36,7 @@ define(function (require, exports, module) {
 
           });
         },
-        isShow(groups) {
+        isShow: function(groups) {
           if (window.MPM_EDIT) {
             return false;
           }
@@ -49,6 +49,9 @@ define(function (require, exports, module) {
             return false;
           }
           return true;
+        },
+        gotoLink: function(link) {
+          // location.href = link;
         }
       }
     };

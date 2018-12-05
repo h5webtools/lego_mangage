@@ -54,7 +54,7 @@
     <jybnews uid="jybnews" v-bind:params="data" inline-template>
         <div class="newslist-show-1">
             <div class="mod-news-list" :style="{backgroundColor:params.backgroundcolor}">
-              <div v-show="!isShow(item.usergroup)" class="new-list-item" v-bind:link="item.href" v-for="(item, index) in params.newsList" :key="index" v-bind:data-stat-id="item.eventid || ''" >
+              <div v-show="!isShow(item.usergroup)" class="new-list-item" v-bind:link="item.href" v-for="(item, index) in params.newsList" :key="index" v-bind:data-stat-id="item.eventid || ''" @click="gotoLink(item.href)">
                 <div class="list-left" :style="{float:item.imgArea == 1 ? 'left' : 'right'}">
                   <div class="list-title" :style="{color:params.titleColor}">{{item.title}}</div>
                   <div class="list-desc" :style="{color:params.contentColor}">{{item.content}}</div>

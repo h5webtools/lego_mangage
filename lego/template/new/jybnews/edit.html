@@ -92,6 +92,13 @@
           <input type="color" v-model="obj.data.contentColor">
           <input type="text"  class="colorFrameInput" v-model="obj.data.contentColor"  value="" size="10">  
         </div>
+        <br>
+        <div class="text-right">
+          <button type="button" class="jc-btn btn-primary" @click="addNews()">添加新闻</button>
+        </div>
+        <br>
+        <br>
+        <br>
         <!--配置各条新闻数据-->
         <div class="coupon-group" v-for="(item,index) in obj.data.newsList" @click="addHighlight(index)" :class="index == obj.data.tabIndex ? 'coupon-group-on' : '' "
           style="overflow:hidden;">
@@ -139,9 +146,6 @@
           </div>
         </div>
       </form>
-      <div class="text-right">
-        <button type="button" class="jc-btn btn-primary" @click="addNews()">添加新闻</button>
-      </div>
 
     </div>
 
