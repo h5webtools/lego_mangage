@@ -218,7 +218,7 @@
           <span class="real_price">¥{{item.show_price}}</span>
           <del v-if="item.show_price != item.origin_price">¥{{item.origin_price}}</del>
         </div>
-        <div class="buy-btn" :style="{color:data.nowBuyItem.btncolor}">赶紧抢</div>
+        <div class="buy-btn" :style="{color:data.nowBuyItem.btncolor,backgroundColor:data.nowBuyItem.btnbg}">赶紧抢</div>
       </div>
     </div>
   </div>

@@ -24,12 +24,11 @@ define(function (require, exports, module) {
       "isShowNpmVersions": USER_INFOR.isAdmin,
       "showMore": false,
       "npmversion": "",
-      "btncolor":'',
       "npmversionArr": [],
       "npmname": "@lego/jybbuynow",
       "buynowList": []
     },
-    watch: ['data.styleKey', "data.buynowList","data.btncolor"]
+    watch: ['data.styleKey', "data.buynowList"]
   });
 
   _Class.prototype.showCB = function () {
@@ -159,6 +158,8 @@ define(function (require, exports, module) {
             title:'',
             buyTime:'',
             bgcolor:'',
+            btncolor:'',
+            btnbg:'',
             skuId:''
           });
 
