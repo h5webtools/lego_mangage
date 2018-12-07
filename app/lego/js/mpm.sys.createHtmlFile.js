@@ -87,7 +87,11 @@ define(function (require, exports, module) {
       comConfig = "var vuecomponents = { \n ";
     var devFlag = moduleUtil.getUrlQuery('mdev');
     var devFolder = devFlag ? "dev/" : "";
+    // 自定义代码
     var customCodeSource = "";
+    var customScriptCodeSource = "";
+    var customStyleCodeSource = "";
+
     if (moduleUtil.getUrlQuery("page_id") == 19 || moduleUtil.getUrlQuery("page_id") > 236) {
       for (var key in mpmData) {
         var _data = mpmData[key],
@@ -133,7 +137,15 @@ define(function (require, exports, module) {
 
         //获取自定义代码 
         if (_name == 'customcode') {
-          customCodeSource += _data.data.code + "\n";
+          if (_data.data.code) {
+            customCodeSource += _data.data.code + "\n";
+          }
+          if (_data.data.scriptCode) {
+            customScriptCodeSource += _data.data.scriptCode + "\n";
+          }
+          if (_data.data.styleCode) {
+            customStyleCodeSource += _data.data.styleCode + "\n";
+          }
         }
 
       }
@@ -172,7 +184,15 @@ define(function (require, exports, module) {
         }
         //获取自定义代码 
         if (_name == 'customcode') {
-          customCodeSource += _data.data.code + "\n";
+          if (_data.data.code) {
+            customCodeSource += _data.data.code + "\n";
+          }
+          if (_data.data.scriptCode) {
+            customScriptCodeSource += _data.data.scriptCode + "\n";
+          }
+          if (_data.data.styleCode) {
+            customStyleCodeSource += _data.data.styleCode + "\n";
+          }
         }
         //是否引入分享模块
         var _shareModule = "shareConfig:require('@lego/jybshare')";
@@ -181,8 +201,8 @@ define(function (require, exports, module) {
       comConfig += "};";
     }
 
-    html = html.replace('{{{customStyleCode}}}', "<!--custom template--> \n" + getStyleCode(customCodeSource) + "<!--custom template-->");
-    html = html.replace('{{{customcode}}}', "<!--custom template--> \n" + getScriptCode(customCodeSource) + "<!--custom template-->");
+    html = html.replace('{{{customStyleCode}}}', "<!--custom template--> \n" + wrapperStyle(customStyleCodeSource) + "<!--custom template-->");
+    html = html.replace('{{{customcode}}}', "<!--custom template--> \n" + customCodeSource + "\n" + wrapperScript(customScriptCodeSource) + "<!--custom template-->");
 
     moduleDataCenter.packageAct({
       folder: folder.sub,
@@ -210,31 +230,13 @@ define(function (require, exports, module) {
     getTemplatePageContent(pageInfo.type, onSourceHTML);
   };
 
-  function getStyleCode(str) {
+  function wrapperStyle(str) {
     if (!str) return '';
-    var startTag = '<style>';
-    var endTag = '</style>';
-    var subStr = subString(str, startTag, endTag);
-    if (subStr) return startTag + subStr + endTag;
-    return '';
+    return '<style>' + str + '</style>';
   }
 
-  function getScriptCode(str) {
+  function wrapperScript(str) {
     if (!str) return '';
-    var startTag = '<script>';
-    var endTag = '</script>';
-    var subStr = subString(str, startTag, endTag);
-    if (subStr) return startTag + subStr + endTag;
-    return '';
-  }
-
-  function subString(str, startTag, endTag) {
-    var startPos = str.indexOf(startTag);
-    var endPos = str.indexOf(endTag);
-
-    if (startPos > -1 && endPos > -1) {
-      return str.substring(startPos + startTag.length, endPos).trim();
-    }
-    return '';
+    return '<script>' + str + '</script>';
   }
 });
