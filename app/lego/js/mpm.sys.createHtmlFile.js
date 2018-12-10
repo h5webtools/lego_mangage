@@ -58,6 +58,11 @@ define(function (require, exports, module) {
     var folder = moduleBasicInfo.showMeFolderName();
     var inputPageName = moduleBasicInfo.showMeInputPageName();
     var sincludeFile = moduleUtil.component.getSincludeUrl();
+    var globalConfig = {
+      actId:moduleUtil.getUrlQuery('act_id'),
+      pageId: moduleUtil.getUrlQuery('page_id')
+    }
+    var globalConfigStr = 'window.globalConfig = ' + JSON.stringify(globalConfig, null, '    ') + ';';
 
     var pagetype = $("#selectPageType").val();
 
@@ -65,6 +70,7 @@ define(function (require, exports, module) {
     html = html.replace('{mpmPageContent}', '[mpmPageContent]').replace('{{[mpmPageContent]}}', mpmPageContent);
 
     html = html.replace('{pageConfig}', '[pageConfig]').replace('{{[pageConfig]}}', pageConfig);//window.pageConfig
+    html = html.replace('{globalConfig}', '[globalConfig]').replace('{{[globalConfig]}}', globalConfigStr);//window.globalConfig
 
     html = html.replace('{extendJS}', '[extendJS]');//.replace('{{[extendJS]}}', extendJS);
 
