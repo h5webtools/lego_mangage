@@ -41,12 +41,24 @@
                         </div>
                         </div>
                     </form>
-            <form class="form-horizontal">
+            <div class="form-horizontal">
                 <div class="form-group">
-                    <label>自定义代码：</label>
+                    <label>自定义html代码：</label>
                     <textarea  v-model="obj.data.code"></textarea>
                 </div>
-            </form>
+                <div class="form-group">
+                    <label>自定义js代码：</label>
+                    <textarea  v-model="obj.data.scriptCode"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>自定义css代码：</label>
+                    <textarea  v-model="obj.data.styleCode"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>操作：</label>
+                    <button @click="showEditDebug" class="jc-btn btn-primary">编辑调试</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

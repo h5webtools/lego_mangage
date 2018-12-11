@@ -273,3 +273,9 @@ export function setCookie(name, value, expires, path, domain, secure) {
   expires ? exp.setTime(exp.getTime() + expires * 24 * 3600 * 1000) : "";
   document.cookie = name + '=' + escape(value) + (expires ? ';expires=' + exp.toGMTString() : '') + (path ? ';path=' + path : '') + (domain ? ';domain=' + domain : '') + (secure ? ';secure' : '');
 }
+
+export const hasOwn = Object.prototype.hasOwnProperty;
+
+export function hasOwnProp(obj, k) {
+  return hasOwn.call(obj, k);
+}

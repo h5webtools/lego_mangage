@@ -87,7 +87,11 @@ define(function (require, exports, module) {
       comConfig = "var vuecomponents = { \n ";
     var devFlag = moduleUtil.getUrlQuery('mdev');
     var devFolder = devFlag ? "dev/" : "";
-    var customCodeSource = "<!--custom template--> \n";
+    // 自定义代码
+    var customCodeSource = "";
+    var customScriptCodeSource = "";
+    var customStyleCodeSource = "";
+
     if (moduleUtil.getUrlQuery("page_id") == 19 || moduleUtil.getUrlQuery("page_id") > 236) {
       for (var key in mpmData) {
         var _data = mpmData[key],
@@ -127,11 +131,21 @@ define(function (require, exports, module) {
           comConfig += "jybslider:require('@lego/jybslider'), \n "
         }  else if (_type == 'jybbuynow' && comConfig.indexOf(".jybbuynow") == -1) {
           comConfig += "jybbuynow:require('@lego/jybbuynow'), \n "
+        }  else if (_type == 'jybnews' && comConfig.indexOf(".jybnews") == -1) {
+          comConfig += "jybnews:require('@lego/jybnews'), \n "
         }  
 
         //获取自定义代码 
         if (_name == 'customcode') {
-          customCodeSource += _data.data.code + "\n";
+          if (_data.data.code) {
+            customCodeSource += _data.data.code + "\n";
+          }
+          if (_data.data.scriptCode) {
+            customScriptCodeSource += _data.data.scriptCode + "\n";
+          }
+          if (_data.data.styleCode) {
+            customStyleCodeSource += _data.data.styleCode + "\n";
+          }
         }
 
       }
@@ -165,10 +179,20 @@ define(function (require, exports, module) {
           comConfig += "jybexchange:require('../../../actconfig/" + devFolder + "modules/mobile/vuecomponent/jyb.vue.jybexchange'), \n "
         } else if (_type == 'jybpay' && comConfig.indexOf(".jybpay") == -1) {
           comConfig += "jybpay:require('../../../actconfig/" + devFolder + "modules/mobile/vuecomponent/jyb.vue.jybpay'), \n "
+        } else if (_type == 'jybnews' && comConfig.indexOf(".jybnews") == -1) {
+          comConfig += "jybnews:require('../../../actconfig/" + devFolder + "modules/mobile/vuecomponent/jyb.vue.jybnews'), \n "
         }
         //获取自定义代码 
         if (_name == 'customcode') {
-          customCodeSource += _data.data.code + "\n";
+          if (_data.data.code) {
+            customCodeSource += _data.data.code + "\n";
+          }
+          if (_data.data.scriptCode) {
+            customScriptCodeSource += _data.data.scriptCode + "\n";
+          }
+          if (_data.data.styleCode) {
+            customStyleCodeSource += _data.data.styleCode + "\n";
+          }
         }
         //是否引入分享模块
         var _shareModule = "shareConfig:require('@lego/jybshare')";
@@ -177,7 +201,8 @@ define(function (require, exports, module) {
       comConfig += "};";
     }
 
-    html = html.replace('{{{customcode}}}', customCodeSource + "<!--custom template-->");
+    html = html.replace('{{{customStyleCode}}}', "<!--custom template--> \n" + wrapperStyle(customStyleCodeSource) + "<!--custom template-->");
+    html = html.replace('{{{customcode}}}', "<!--custom template--> \n" + customCodeSource + "\n" + wrapperScript(customScriptCodeSource) + "<!--custom template-->");
 
     moduleDataCenter.packageAct({
       folder: folder.sub,
@@ -204,4 +229,14 @@ define(function (require, exports, module) {
     //修复发布两次bug
     getTemplatePageContent(pageInfo.type, onSourceHTML);
   };
+
+  function wrapperStyle(str) {
+    if (!str) return '';
+    return '<style>' + str + '</style>';
+  }
+
+  function wrapperScript(str) {
+    if (!str) return '';
+    return '<script>' + str + '</script>';
+  }
 });

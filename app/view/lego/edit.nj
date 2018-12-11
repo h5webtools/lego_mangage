@@ -14,50 +14,52 @@
   <link href="/public/css/new/edit.css" rel="stylesheet" type="text/css">
   <link href="/public/css/new/edit.template.1.css" rel="stylesheet" type="text/css">
   <link href="/public/css/new/component.css" rel="stylesheet" type="text/css">
+
+  {{ helper.requireStatic("css/debug.vue.css") }}
   <style>
     .colorFrameInput {
       margin-left: 12px;
     }
-    
+
     .form-radio {
       font-size: 14px;
     }
-    
+
     .mod-iframe-container {
       padding: 0px;
       background-color: #f1f0f0;
       max-width: 1500px;
       border-radius: 0px;
     }
-    
+
     .iframe-close {
       position: fixed;
       left: 1270px;
       top: 10px;
     }
-    
+
     iframe {
       width: 1300px;
       height: 700px;
     }
-    
+
     .popupSet {
       display: blodk;
     }
-    
+
     .rightOperation a.btn.bi {
       background-image: url(./image/icon_bi.png);
     }
-    
+
     .rightOperation a.btn.bi.done {
       background-image: url(./image/icon_bi_cur.png);
     }
-    
+
     .form-group .must:before {
       content: '*';
       color: red;
     }
-    
+
     .form-ninegrid {
       margin-left: 70px !important;
     }
@@ -351,11 +353,17 @@
   </div>
   <!-- E选择子组件浮层 -->
 
+  <!-- 自定义代码调试编辑器 -->
+  <div id="js-debug-editor"></div>
+
   <script type="text/javascript">
    window.ACT_DETAIL = {{ actDetail | safe }};
    window.USER_INFOR = {{ userInfo | safe }};
   </script>
 
+  <script src="/public/assets/ace/ace.js"></script>
+  <script src="/public/assets/ace/ext-language_tools.js"></script>
+  {{ helper.requireStatic("js/debug.js") }}
   <script type="text/javascript" src="/public/js/lib/sea.js"></script>
   <script type="text/javascript" src="/public/js/lib/seajs-text.js"></script>
   <script>
@@ -369,14 +377,16 @@
         'vuefe': 'vuefe'
       },
       map: [
-        [ /(.*?)jyb.vue(.*?)(\.js)$/i,"$1jyb.vue$2.js?v="+"201809270101" ],
-        [ /(.*?)mpm.sys(.*?)(\.js)$/i,"$1mpm.sys$2.js?v="+"2018092701" ]
+        [ /(.*?)jyb.vue(.*?)(\.js)$/i,"$1jyb.vue$2.js?v="+"20181207" ],
+        [ /(.*?)mpm.sys(.*?)(\.js)$/i,"$1mpm.sys$2.js?v="+"20181207" ]
   	  ]
     });
   </script>
   <script type="text/javascript">
-    seajs.use('/public/js/mpm.sys.edit.js?v=2018092701', function(m) {
+    seajs.use('/public/js/mpm.sys.edit.js?v=20181207', function(m) {
       m.init()
+      // 初始化自定义代码调试编辑器
+      window.debugEditor = window.__debugEditor__.install('#js-debug-editor', window.Vue);
     });
   </script>
 </body>

@@ -1,6 +1,8 @@
 define(function (require, exports, module) {
   var $ = require('zepto');
   require('vuefe');
+  // 定义一个全局入口，用来挂载一些常用公用方法
+  window.LegoEditor = {};
 
   var moduleUtil = require('./mpm.sys.util');
 

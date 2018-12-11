@@ -28,6 +28,7 @@ define(function (require, exports, module) {
   var jybcoupon = require("./jyb.vue.jybcoupon.edit");
   var jybslider = require("./jyb.vue.jybslider.edit");
   var jybbuynow = require("./jyb.vue.jybbuynow.edit");
+  var jybnews = require("./jyb.vue.jybnews.edit");
 
   
   // var jybsignin = require("./jyb.vue.jybsignin.edit");
@@ -71,7 +72,8 @@ define(function (require, exports, module) {
     'jybfloating': jybfloating,
     'jybcoupon':jybcoupon,
     'jybslider':jybslider,
-    'jybbuynow':jybbuynow
+    'jybbuynow':jybbuynow,
+    'jybnews': jybnews
   };
 
   exports.ckeckIsLogin = function () {
