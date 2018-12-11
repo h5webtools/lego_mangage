@@ -58,6 +58,11 @@ define(function (require, exports, module) {
     var folder = moduleBasicInfo.showMeFolderName();
     var inputPageName = moduleBasicInfo.showMeInputPageName();
     var sincludeFile = moduleUtil.component.getSincludeUrl();
+    var globalConfig = {
+      actId:moduleUtil.getUrlQuery('act_id'),
+      pageId: moduleUtil.getUrlQuery('page_id')
+    }
+    var globalConfigStr = 'window.globalConfig = ' + JSON.stringify(globalConfig, null, '    ') + ';';
 
     var pagetype = $("#selectPageType").val();
 
@@ -65,6 +70,7 @@ define(function (require, exports, module) {
     html = html.replace('{mpmPageContent}', '[mpmPageContent]').replace('{{[mpmPageContent]}}', mpmPageContent);
 
     html = html.replace('{pageConfig}', '[pageConfig]').replace('{{[pageConfig]}}', pageConfig);//window.pageConfig
+    html = html.replace('{globalConfig}', '[globalConfig]').replace('{{[globalConfig]}}', globalConfigStr);//window.globalConfig
 
     html = html.replace('{extendJS}', '[extendJS]');//.replace('{{[extendJS]}}', extendJS);
 
@@ -127,8 +133,6 @@ define(function (require, exports, module) {
           comConfig += "jybslider:require('@lego/jybslider'), \n "
         }  else if (_type == 'jybbuynow' && comConfig.indexOf(".jybbuynow") == -1) {
           comConfig += "jybbuynow:require('@lego/jybbuynow'), \n "
-        }  else if (_type == 'jybnews' && comConfig.indexOf(".jybnews") == -1) {
-          comConfig += "jybnews:require('@lego/jybnews'), \n "
         }  
 
         //获取自定义代码 
@@ -167,8 +171,6 @@ define(function (require, exports, module) {
           comConfig += "jybexchange:require('../../../actconfig/" + devFolder + "modules/mobile/vuecomponent/jyb.vue.jybexchange'), \n "
         } else if (_type == 'jybpay' && comConfig.indexOf(".jybpay") == -1) {
           comConfig += "jybpay:require('../../../actconfig/" + devFolder + "modules/mobile/vuecomponent/jyb.vue.jybpay'), \n "
-        } else if (_type == 'jybnews' && comConfig.indexOf(".jybnews") == -1) {
-          comConfig += "jybnews:require('../../../actconfig/" + devFolder + "modules/mobile/vuecomponent/jyb.vue.jybnews'), \n "
         }
         //获取自定义代码 
         if (_name == 'customcode') {

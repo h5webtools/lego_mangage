@@ -1,0 +1,156 @@
+<style>
+     .lego-jybswitchlist-show11 .tab-nav {
+        text-align: center;
+        display: -webkit-box;
+        -webkit-box-pack: center;
+        -webkit-box-align: center;
+        -webkit-box-pack: justify;
+        overflow: hidden;
+    }
+
+    .lego-jybswitchlist-show11 .color-content {
+        color: #cf7e13;
+        box-shadow:0px 1px 10px #cf7e13;
+    }
+
+    .lego-jybswitchlist-show11 .f-32 {
+        font-size: .32rem;
+    }
+
+    .lego-jybswitchlist-show11 .tab-nav .box-wrap:nth-child(1),
+    .lego-jybswitchlist-show11 .tab-nav .box-wrap:nth-child(2),
+    .lego-jybswitchlist-show11 .tab-nav .box-wrap:nth-child(3) {
+        width: 33.33%;
+    }
+
+    .lego-jybswitchlist-show11 .tab-nav .box-wrap {
+        height: 1.3rem;
+        box-sizing: border-box;
+        /* padding-top: .25rem; */
+        background: linear-gradient(to bottom, #fee9ce, #f0d4af);
+    }
+
+    .lego-jybswitchlist-show11 .tab-nav .box-wrap {
+        position: relative;
+        display: block;
+    }
+
+    .lego-jybswitchlist-show11 p {
+        margin: 0;
+        padding: 0;
+        font-size: 100%;
+        margin-top:0.08rem;
+        font-size: 0.4rem;
+    }
+
+
+    .lego-jybswitchlist-show11 .f-22 {
+        font-size: .22rem;
+    }
+    .lego-jybswitchlist-show11 .tab-nav .box-wrap.active .color-red {
+        color: #cf7e13;
+    }
+
+    .lego-jybswitchlist-show11 .f-22 {
+        font-size: .22rem;
+    }
+    .lego-jybswitchlist-show11 .ui-mt-10 {
+        margin-top: .1rem;
+    }
+
+    .lego-jybswitchlist-show11 .ui-mt-10 {
+        margin-top: .1rem;
+    }
+    .lego-jybswitchlist-show11 .tab-nav .box-wrap.active {
+        background: #fff7ee;
+        color: #cf7e13;
+        border-bottom: none;
+        opacity: 1;
+    }
+
+    .lego-jybswitchlist-show11 .tab-desc{
+      font-size: 0.18rem;
+      width: 2rem;
+      margin: 0 auto;
+      line-height: 0.28rem;
+      color: #cf7e13;
+    }
+
+    .lego-jybswitchlist-show11 .tab-desc-notbuy{
+      font-size: 0.22rem;
+      width: 2rem;
+      margin: 0 auto;
+      line-height: 0.48rem;
+      color: #cf7e13;
+    }
+</style>
+
+
+<!-- 一行最多5个 -->
+<template class="showTemplate">
+    <jybswitchlist uid="switchlist" v-bind:params="data" inline-template>
+        <div class="lego-jybswitchlist-show11" >
+            <div class="tab-nav color-content" v-bind:style="{paddingLeft:params.LRPadding+'rem',paddingRight:params.LRPadding+'rem'}">
+                <template v-if="true" v-for="(item,index) in params.tabs">
+                    <div v-if="index == data.tabIndex" @click="toggleTabs(index)" :data-stat-id="item.eventid || ''" v-bind:style="{width:(100/params.tabs.length)+'%' ,
+                        color:params.selectedcontentColor,
+                        borderBottom:'1px solid '+ params.selectedbgcolor,
+                        backgroundColor:params.selectedbgcolor}" 
+                        :tab="index"
+                        class="box-wrap active">
+                        <p><span>{{item.tabTitle}}</span></p>
+                        <div class="tab-desc">{{item.tabVicTitle}}</div>
+                    </div>
+                    <div v-else @click="toggleTabs(index)" :data-stat-id="item.eventid || ''" v-bind:style="{width:(100/params.tabs.length)+'%' ,
+                    color:params.contentColor,
+                    borderBottom:'1px solid '+ params.selectedbgcolor,
+                    backgroundColor:params.bgcolor}" 
+                    :tab="index"
+                    class="box-wrap">
+                    <p><span>{{item.tabTitle}}</span></p>
+                    <div class="tab-desc">{{item.tabVicTitle}}</div>
+                </div>
+                </template>
+
+            </div>
+        </div>
+    </jybswitchlist>
+
+    <div class="childBox">
+    </div>
+
+</template>
+
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExt">
+    var com_ext = {}
+
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+    var com_extend = []
+
+</script>
+<!-- <script class="forMPMExtend">
+    var com_extend =  [{
+            "name": "导航位置",
+            "nick": "position",
+            "type": "radio",
+            "data": [
+                {
+                    "name": "不吸顶",
+                    "value": "0"
+                },
+                {
+                    "name": "滚动吸顶",
+                    "value": "1"
+                }
+            ]
+        }]
+</script> -->
+
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {};
+
+</script>
