@@ -43,7 +43,7 @@ define(function (require, exports, module) {
         "reward_days": ""
       }]
     },
-    watch: ['data.styleKey', "data.progressBarBgColor", "data.progressBgColor", "data.padding", "data.actid","data.queryCmd" ,"data.signCmd", "data.backgroundImage", "data.btnBackColor", "data.rewardList"]
+    watch: ['data.styleKey', "data.progressBarBgColor", "data.progressBgColor", "data.paddingRem", "data.actid","data.queryCmd" ,"data.signCmd", "data.backgroundImage", "data.btnBackColor", "data.rewardList"]
   });
 
   _Class.prototype._appendEditDom = function () {
@@ -69,7 +69,8 @@ define(function (require, exports, module) {
       },
       watch: {
         'obj.data.padding': function(val) {
-          this.obi.data.paddingRem = val/100 + 'rem';
+          this.obj.data.paddingRem = val/100;
+          console.log(this.obj.data.paddingRem)
         }
       },
       events: {},
