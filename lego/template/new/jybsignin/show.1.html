@@ -142,7 +142,7 @@
                     <div class="signin-info__count">已累计签到{{data.signInSum}}天 </div>
                     <div class="signin-info__desc">每日签到领惊喜</div>
                 </div>
-                <div class="mod-signin-btn" :style="{'background-color': params.btnBackColor}" :class="{'mod-signin-btn--disabled': data.todaySigned == 1}">
+                <div class="mod-signin-btn" :style="{'background-color': params.btnBackColor}" :class="{'mod-signin-btn--disabled': data.isSignIn == 1}">
                     <span v-if="data.todaySigned == 0">立即签到</span>
                     <span v-else>已签到</span>
                 </div>
