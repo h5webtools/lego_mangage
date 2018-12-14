@@ -63,7 +63,6 @@
                 <div class="form-group">
                     <label><strong></strong>活动号：</label>
                     <input type="text" name="" v-model.lazy="obj.data.actid" placeholder="" > 
-
                 </div>
                 <div class="form-group">
                     <label><strong></strong>查询命令字：</label>
@@ -77,7 +76,57 @@
                     <label><strong></strong>上报ID：</label>
                     <input type="text" placeholder="比如：30000.1.2" v-model="obj.data.eventid"> 
                 </div>
+                <div class="form-group">
+                    <label><strong></strong>背景图：</label>
+                    <input type="text" placeholder="图片服务器地址" v-model="obj.data.backgroundImage"> 
+                </div>
+                <div class="form-group">
+                    <label><strong></strong>左右边距：</label>
+                    <input type="text" placeholder="请输入左右边距px" v-model="obj.data.padding"> 
+                    <span>默认30px(30px在750屏幕)</span>
+                </div>
+                <div class="form-group">
+                    <label><strong></strong>签到按钮背景色：</label>
+                    <input type="text" placeholder="输入带#号色值" v-model="obj.data.btnBackColor" maxlength="7">
+                </div>
+                <div class="form-group">
+                    <label><strong></strong>进度条背景色：</label>
+                    <input type="text" placeholder="输入带#号色值" v-model="obj.data.progressBarBgColor" maxlength="7">
+                </div>
+                <div class="form-group">
+                    <label><strong></strong>进展背景色：</label>
+                    <input type="text" placeholder="输入带#号色值" v-model="obj.data.progressBgColor" maxlength="7">
+                </div>
+                <div class="form-group">
+                    <label><strong></strong>总的签到天数：</label>
+                    <input type="text" placeholder="输入数字" v-model="obj.data.totalSignInDays">
+                    <span>用于签到进度条定位</span>
+                </div>
             </form>
+            <div><button class="jc-btn btn-primary" @click="addSignReward()">增加签到奖励</button></div>
+            <div class="coupon-group" v-for="(item,index) in obj.data.rewardList" style="overflow:hidden;">
+                <h4>奖励{{index + 1}}</h4>
+                <button type="button" class="jc-btn btn-primary delBtn" @click="deleteReward(index)">删除</button>
+                <div style="margin-top:30px">
+                    <div class="form-group">
+                        <label><strong>&nbsp;</strong>奖励图片：</label>
+                        <input type="text" placeholder="输入图片服务器地址" v-model="item.reward_image">
+                        <span>图片规格大小不超过100*60</span>
+                    </div>
+                    <div class="form-group">
+                        <label><strong>*</strong>奖励名称：</label>
+                        <input type="text" placeholder="奖励名称" v-model="item.reward_desc">
+                    </div>
+                    <div class="form-group">
+                        <label><strong>&nbsp;</strong>文字颜色：</label>
+                        <input type="text" placeholder="输入带#号色值" maxlength="7" v-model="item.desc_color">
+                    </div>
+                    <div class="form-group">
+                        <label><strong>*</strong>获奖天数：</label>
+                        <input type="text" placeholder="输入天数" v-model="item.reward_days">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
