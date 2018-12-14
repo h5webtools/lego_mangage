@@ -63,7 +63,7 @@
     -webkit-box-flex: 1;
     width: 25%;
     text-align: center;
-    height: 83%;
+    height: 90%;
     position: relative;
     color: #303030;
 }
@@ -72,7 +72,13 @@
     position: absolute;
     width: 100%;
     left: 0;
-    top: .65rem;
+    top: .8rem;
+}
+
+.mod-signin-reward-box__item__reward-image {
+    max-width: 1rem;
+    position: relative;
+    top: .2rem;
 }
 
 .mod-signin-reward-box__item__days {
@@ -97,7 +103,7 @@
     -webkit-box-shadow: 0 0 4px 0px #ddd inset;
     box-shadow: 0 0 4px 0px #ddd inset;
     position: absolute;
-    top: 74%;
+    top: 77%;
     left: 10%;
     background-color: #ffffff;
 }
@@ -139,7 +145,7 @@
             <!-- <div class="c-signin__btn" v-if="!data.isSignIn" v-on:click="toSignin" v-bind:data-stat-id="params.eventid || ''"> </div> -->
             <div class="mod-signin-reward-box">
                 <div class="mod-signin-reward-box__item" v-for="(reward, index) in params.rewardList">
-                    <img v-if="reward.reward_image" :src="reward.reward_image"/>
+                    <img v-if="reward.reward_image" class="mod-signin-reward-box__item__reward-image" :src="reward.reward_image"/>
                     <p class="f-16 mod-signin-reward-box__item__reward-name" :style="{color: reward.desc_color}">{{reward.reward_desc}}</p>
                     <div class="f-24 mod-signin-reward-box__item__days">{{reward.reward_days}}</div>
                 </div>
