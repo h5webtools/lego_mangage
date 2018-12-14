@@ -136,16 +136,15 @@
 <template class="showTemplate">
     <jybsignin uid="jybsignin" v-bind:params="data" inline-template="">
         <div class="mod-c-signin" :style="{'padding-left': params.paddingRem+'rem', 'padding-right': params.paddingRem+'rem'}">
-            <img class="c-signin__bg" :src="params.backgroundImage" alt="签到">
+            <img class="c-signin__bg" :src="params.backgroundImage">
             <div class="c-signin__info">
                 <div class="signin-info__count">已累计签到{{data.signInSum}}天 </div>
                 <div class="signin-info__desc">每日签到领惊喜</div>
             </div>
-            <div class="mod-signin-btn" :style="{'background-color': params.btnBackColor}" :class="{'mod-signin-btn--disabled': data.todaySigned}">
+            <div class="mod-signin-btn" :style="{'background-color': params.btnBackColor}" :class="{'mod-signin-btn--disabled': data.todaySigned == 1}">
                 <span v-if="data.todaySigned == 0">立即签到</span>
                 <span v-else>已签到</span>
             </div>
-            <!-- <div class="c-signin__btn" v-if="!data.isSignIn" v-on:click="toSignin" v-bind:data-stat-id="params.eventid || ''"> </div> -->
             <div class="mod-signin-reward-box">
                 <div class="mod-signin-reward-box__item" v-for="(reward, index) in params.rewardList">
                     <img v-if="reward.reward_image" class="mod-signin-reward-box__item__reward-image" :src="reward.reward_image"/>
