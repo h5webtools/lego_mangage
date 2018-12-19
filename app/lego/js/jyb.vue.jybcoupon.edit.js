@@ -28,7 +28,7 @@ define(function (require, exports, module) {
       "couponList":[],
       "endTime":'',
       "cuttimetype":0,
-      "tplid": '', //模板ID 
+      "tplid": '', //模板ID
       'comTplId': '',//组件ID
     },
     watch: ['data.styleKey', "data.headmapsrc"]
@@ -98,6 +98,41 @@ define(function (require, exports, module) {
         Object.assign(this.oldObj.data, this.obj.data);
       },
       events: {},
+      computed: {
+        currentStyle() {
+          var that = this;
+          return this.arrStyle.find(function(i) {
+            return i.id == that.obj.data.styleKey;
+          });
+        },
+        extraProps() {
+          if (!this.currentStyle) {
+            return {};
+          }
+
+          if (this.currentStyle.tpl_url.indexOf('show.4.html') > -1) {
+            return {
+              desc1Color: true,
+              desc2Color: true,
+              desc3Color: true,
+              btnColor: true,
+              btndescColor: true,
+              leftBgcolor: true,
+              msgColor: true,
+            }
+          }
+
+          if (this.currentStyle.tpl_url.indexOf('show.3.html') > -1) {
+            return {
+              desc1Color: true,
+              desc2Color: true,
+              btndescColor: true,
+            };
+          }
+
+          return {};
+        }
+      },
       watch: {
         'obj.data.styleKey': {
           handler: function (val, oldVal) {
@@ -108,6 +143,9 @@ define(function (require, exports, module) {
         }
       },
       methods: {
+        checkShowProp: function (propName) {
+          return this.extraProps[propName];
+        },
         change: function () { //点击保存
           for (var i = 0; i < that.__config.watch.length; i++) {
             var arr = that.__config.watch[i].split('.');
@@ -140,12 +178,16 @@ define(function (require, exports, module) {
         addExchangeItem: function () {
           this.obj.data.couponList.push({
             "desc1":'',
+            "desc1Color": '',
             'desc2':'',
+            "desc2Color": '',
             'desc3':'',
+            "desc3Color": '',
             'drawTime':'',
             'bgcolor':'',
             "awardhref":'',
             "btndesc":'立即抢购',
+            "btndescColor": '',
             "awarddes1":'',
             "awarddes2":'',
             "status":2
@@ -167,7 +209,7 @@ define(function (require, exports, module) {
           var folderSet = moduleBasicInfo.showMeFolderName();
           var path = pageInfo.datefolder + "/" + folderSet.sub + "/";
           moduleDataCenter.updataversion(this.obj.data.npmversion, '@lego/jybcoupon', path, function () {
-            
+
           });
         }
       }
