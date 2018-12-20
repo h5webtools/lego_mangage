@@ -27,7 +27,7 @@ define(function (require, exports, module) {
     } else if (type == 2) {
       file = 'vue_share';
     } else if (type == 3) {
-      file = 'vue_pay';
+      file = 'vue_pc';
     } else {
       moduleUtil.alert('获取模板文件出错,请检查页面基本信息');
       return;
