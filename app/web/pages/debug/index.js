@@ -1,5 +1,6 @@
 
 import App from './app.vue';
+import './index.scss';
 
 window.__debugEditor__ = {
   install(el, Vue) {

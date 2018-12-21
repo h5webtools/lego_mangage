@@ -2,6 +2,7 @@ pagebegin
 
 import tracker from '@jyb/lib-tracker';
 import Bimta from '@jyb/lib-bimta';
+import legoUtils from '@jyb/lego-util';
 import timecutdown from '@lego/timecutdown';
 
 //注册
@@ -12,6 +13,8 @@ for (var componentname in vuecomponents) {
     };
 }
 
+// 暴露通用库出去
+window.LegoUtil = legoUtils;
 
 var $$ = {
     componentConfig: window._componentConfig,

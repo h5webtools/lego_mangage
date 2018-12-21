@@ -15,6 +15,7 @@
   <link href="/public/css/new/edit.template.1.css" rel="stylesheet" type="text/css">
   <link href="/public/css/new/component.css" rel="stylesheet" type="text/css">
 
+  {{ helper.requireStatic("css/debug.css") }}
   {{ helper.requireStatic("css/debug.vue.css") }}
   <style>
     .colorFrameInput {
