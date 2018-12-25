@@ -8,6 +8,7 @@ define(function (require, exports, module) {
   var moduleDataCenter = "";
   /* npm管理 */
 
+  exports.getComponent = function (config, callback) {
   var _Class = Factory.getClass({
     vueComponent: vueComponent,
     defaultTplEdit: defaultTplEdit,
@@ -217,7 +218,6 @@ define(function (require, exports, module) {
     $(that.domEdit.$el).attr('id', 'editbox_' + that.obj.uid);
   };
 
-  exports.getComponent = function (config, callback) {
     var component = new _Class(config, callback);
     if (!component.config.obj.data.headmapsrc) {
       component.config.obj.data.headmapsrc = "https://cdn.jyblife.com/static/style/act/publish/img/txauto0804/banner_txvideo.png";
