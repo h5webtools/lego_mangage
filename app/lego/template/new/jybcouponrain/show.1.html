@@ -1,0 +1,227 @@
+<style>
+.jybcouponrain-show-1 {
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+}
+.jybcouponrain-show-1 .bg-box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: yellow;
+    background-size: 100% 100%;
+}
+.jybcouponrain-show-1 .content-box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 20;
+}
+.jybcouponrain-show-1 .mod-bg-top {
+    width: 100%;
+    height: 1.93rem;
+    background-size: 100% 100%;
+    position: absolute;
+    top: 0;
+    left: 0.6%;
+    z-index: 88;
+}
+.jybcouponrain-show-1 .mod-bg-bottom {
+    width: 100%;
+    height: 2.51rem;
+    background-size: 100% 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 88;
+}
+.jybcouponrain-show-1 .mod-count-down {
+    font-size: .22rem;
+    position: absolute;
+    right: .3rem;
+    top: 2rem;
+}
+.jybcouponrain-show-1 .mod-coupon-box {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    overflow-y: hidden;
+    padding: 0;
+}
+.jybcouponrain-show-1 .mod-coupon-box li {
+  position: absolute;
+  -webkit-animation: all 3s linear;
+          animation: all 3s linear;
+  top: -100px;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+.jybcouponrain-show-1 .mod-coupon-box .li-move {
+  -webkit-animation: animation_move 5s linear 1 forwards;
+          animation: animation_move 5s linear 1 forwards;
+}
+.jybcouponrain-show-1 .mod-coupon-box li a {
+  display: block;
+}
+.jybcouponrain-show-1 .mod-coupon-box li .coupon-front {
+  font-size: .44rem;
+  color: #010101;
+  position: absolute;
+  left: 40%;
+  top: -.1rem;
+  opacity: 1;
+  -webkit-transition: all 0.8s ease-out;
+  -o-transition: all 0.8s ease-out;
+  transition: all 0.8s ease-out;
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+  visibility: hidden;
+}
+.jybcouponrain-show-1 .mod-coupon-box li .coupon-checked {
+  font-size: .44rem;
+  display: block;
+  opacity: 0;
+  -webkit-transform: translate3d(0, -1.2rem, 0);
+          transform: translate3d(0, -1.2rem, 0);
+  visibility: visible;
+}
+.jybcouponrain-show-1 .mod-coupon-box li .coupon-none {
+  font-size: .44rem;
+  display: block;
+  opacity: 0;
+  visibility: visible;
+  -webkit-transform: translate3d(0, -1.2rem, 0);
+          transform: translate3d(0, -1.2rem, 0);
+}
+
+.coupon-dialog-wrap {
+  width: 7.02rem;
+  height: 9.3rem;
+  z-index: 2000;
+}
+
+.coupon-dialog-wrap .mod-coupon-body {
+  width: 7.02rem;
+  height: 6.7rem;
+  position: relative;
+  background-size: 100% 100%;
+  padding-top: 1px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.coupon-dialog-wrap .mod-coupon-btn-continue {
+  width: 3.62rem;
+  height: .96rem;
+  line-height: .96rem;
+  text-align: center;
+  font-size: .3rem;
+  font-weight: bold;
+  background-size: 100% 100%;
+  margin: .2rem auto .1rem;
+  border-radius: .1rem;
+}
+
+.coupon-dialog-wrap .mod-coupon-btn-continue span {
+  font-size: .24rem;
+}
+
+.coupon-dialog-wrap .mod-coupon-btn-back {
+  width: 3.62rem;
+  height: .96rem;
+  background-size: 100% 100%;
+  margin: 0 auto;
+}
+
+.coupon-dialog-wrap .coupon-content {
+  width: 100%;
+  text-align: center;
+  max-height: 2.4rem;
+  font-size: .26rem;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+  color: #fffbf0;
+  text-align: center;
+  overflow: auto;
+}
+
+.coupon-dialog-wrap .mod-number {
+  font-size: .21rem;
+  color: #eb7d07;
+  text-align: center;
+  line-height: .28rem;
+  margin-bottom: .25rem;
+}
+
+@-webkit-keyframes animation_move {
+  0% {
+    top: 0;
+  }
+
+  100% {
+    top: 120vh;
+  }
+}
+
+@keyframes animation_move {
+  0% {
+    top: 0;
+  }
+
+  100% {
+    top: 120vh;
+  }
+}
+</style>
+
+<template class="showTemplate">
+    <jybcouponrain uid="jybcouponrain" v-bind:params="data" inline-template>
+        <div class="jybcouponrain-show-1">
+            <div class="bg-box" :style="{'background-image': 'url('+ params.bgImg +')', 'background-color': params.backgroundcolor}"></div>
+            <div class="content-box">
+              <div class="mod-game-shadow" id="gameShadow">
+                <div class="ready-go" id="readyGo"></div>
+              </div>
+              <div class="mod-bg-top" :style="{'background-image': 'url('+ params.bgTop +')', 'height': params.bgTopHeight}"></div>
+              <div class="mod-bg-bottom" :style="{'background-image': 'url('+ params.bgBottom +')', 'height': params.bgBottomHeight}"></div>
+              <div class="mod-count-down" :style="{'font-size': params.durationFs/100+'rem', 'color': params.durationColor, 'top': params.durationTop/100+'rem', 'right':params.durationRight/100+'rem', 'left':params.durationLeft/100+'rem', 'bottom':params.durationBottom/100+'rem'}"> 
+                <p>剩余时间</p> 
+                <p>00:<span class="count-down-60">{{params.duration}}</span> </p> 
+              </div>
+              <ul class="mod-coupon-box" id="red_packet">
+               <li v-for="(item,index) in params.couponList" :key="index" @click='openCoupon(index,item)' :class="{'disabled':item.disabled}" class="li-move" :style="{'left': item.left, 'animationDuration': params.durTime+'s', 'webkitAnimationDuration': params.durTime+'s'}" @webkitAnimationEnd="removeDom">
+                  <span class="coupon-front" :class="item.class" v-if="item.flag==1">+1</span>
+                  <span class="coupon-front" :class="item.class" v-else>x</span>
+                  <a href='javascript:;'><img :style="{'width':item.width, 'transform': 'rotate('+ item.rot +')'}" :src='item.img'></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+    </jybcouponrain>
+</template>
+<!-- 下面的属性控制编辑界面 -->
+<script class="forMPMExt">
+    var com_ext = {}
+
+</script>
+<!-- 下面的属性控制编辑界面 -->
+<script class="forMPMExtend">
+    var com_extend = []
+
+</script>
+
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {};
+
+</script>
