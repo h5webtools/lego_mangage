@@ -2,7 +2,7 @@ define(function (require, exports, module) {
 
   var vueComponent = require("./jyb.vue.commontag");
   var Factory = require('./jyb.vue.edit.factory');
-  var defaultTplEdit = '/public/template/new/couponresult/edit.html';
+  var defaultTplEdit = '/public/template/new/jybtitle/edit.html';
 
   /* npm管理 */
   var moduleBasicInfo = "";

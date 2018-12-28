@@ -30,6 +30,7 @@ define(function (require, exports, module) {
       "showType": "1",
       "showNum": 1000,
       "isShowAll": 0,
+      "listBg":'', //列表背景色
       "jumpUrl": "", 
       "eventid": "",
       "buyBtnBg":"",
@@ -43,7 +44,7 @@ define(function (require, exports, module) {
       "pageId":getUrlQuery('page_id'),
       "comDesc":''
     },
-    watch: ['data.styleKey', 'data.showType']
+    watch: ['data.styleKey', 'data.showType','data.listBg']
   });
 
   //编辑功能

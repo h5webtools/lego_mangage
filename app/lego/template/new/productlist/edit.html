@@ -38,20 +38,22 @@
                 <dt>样式</dt>
                 <dd>
                     <ul>
-                        <li v-for="item in arrStyle">
-                            <div style="display:none;">
-                                {{item.com_desc}}
-                                <input type="radio" :name="obj.uid" :id="obj.uid+'_'+item.id" :value="item.id"
-                                    v-model="obj.data.styleKey">
-                                <br/>
-                            </div>
-                            <label :class="item.id == obj.data.styleKey ? 'on' : ''" :for="obj.uid+'_'+item.id">
-                                <img :src="item.image" alt="">
-                            </label>
-                            <div class="styleDesc">
-                                {{item.com_desc}}
-                            </div>
-                        </li>
+                        <template v-for="item in arrStyle"  v-if="item.priority != 10000">
+                            <li >
+                                <div style="display:none;">
+                                    {{item.com_desc}}
+                                    <input type="radio" :name="obj.uid" :id="obj.uid+'_'+item.id" :value="item.id"
+                                        v-model="obj.data.styleKey">
+                                    <br/>
+                                </div>
+                                <label :class="item.id == obj.data.styleKey ? 'on' : ''" :for="obj.uid+'_'+item.id" >
+                                    <img :src="item.image" alt="">
+                                </label>
+                                <div class="styleDesc">
+                                    {{item.com_desc}}
+                                </div>
+                            </li>
+                        </template>
                     </ul>
                 </dd>
             </dl>
@@ -83,17 +85,7 @@
                             <strong>*</strong>命令字：</label>
                         <input type="text" placeholder="比如：41060225" v-model="obj.data.cmd">
                     </div>
-                    <div class="form-group">
-                      <label><strong></strong>购买背景色：</label>
-                      <input type="color" v-model="obj.data.buyBtnBg">
-                      <input type="text" class="colorFrameInput" v-model="obj.data.buyBtnBg" value="">
-                    </div> 
                     
-                    <div class="form-group">
-                        <label><strong></strong>购买字体色：</label>
-                        <input type="color" v-model="obj.data.buyColor">
-                        <input type="text" class="colorFrameInput" v-model="obj.data.buyColor" value="">
-                    </div>
                     <div class="form-group">
                         <label>
                             <strong>*</strong>展示个数：</label>
@@ -105,63 +97,81 @@
                         <select v-model='obj.data.showType'>
                             <option value='1'>白拿</option>
                             <option value='2'>购买</option>
-                            <option value='3'>分期</option>
+                            {# <option value='3'>分期</option> #}
                         </select>
                     </div>
+                    <template v-if="obj.data.styleKey == 52">
+                        <div class="form-group" >
+                            <label>
+                                <strong></strong>广告图片：</label>
+                            <input type="text" placeholder="图片地址" v-model="obj.data.advertUrl">
+                        </div>
+                        <div class="form-group form-radio">
+                            <label>展示全部：</label>
+                            <input name="isShowAll" v-model="obj.data.isShowAll"  style="width:16px;height:16px;" type="radio" value="0">是
+                            <input name="isShowAll" v-model="obj.data.isShowAll" style="width:16px;height:16px" type="radio" value="1">否
+                        </div>
+                        <div class="form-group" v-if="obj.data.isShowAll == 1">
+                            <label>
+                                <strong></strong>跳转地址：：</label>
+                            <input type="text" placeholder="查看全部跳转地址" v-model="obj.data.jumpUrl">
+                        </div>
+                         <div class="form-group">
+                            <label><strong>*</strong>结束日期：</label>
+                            <input type="text" v-model="obj.data.endtime" placeholder="2017/09/20 05:00:00" class="selecttime">
+                        </div>
+                    </template>
 
-                    <div class="form-group">
-                        <label>
-                            <strong></strong>广告图片：</label>
-                        <input type="text" placeholder="图片地址" v-model="obj.data.advertUrl">
-                    </div>
-
-                    <div class="form-group form-radio">
-                        <label>展示全部：</label>
-                        <input name="isShowAll" v-model="obj.data.isShowAll"  style="width:16px;height:16px;" type="radio" value="0">是
-                        <input name="isShowAll" v-model="obj.data.isShowAll" style="width:16px;height:16px" type="radio" value="1">否
-                    </div>
-
-                    <div class="form-group" v-if="obj.data.isShowAll == 1">
-                        <label>
-                            <strong></strong>跳转地址：：</label>
-                        <input type="text" placeholder="查看全部跳转地址" v-model="obj.data.jumpUrl">
-                    </div>
-
-                    <div class="form-group">
-                        <label><strong>*</strong>结束日期：</label>
-                        <input type="text" v-model="obj.data.endtime" placeholder="2017/09/20 05:00:00" class="selecttime">
-                    </div>
-
-                    <div class="form-group">
-                        <label>
+                    <div class="form-group" title="如果填写30000.1.1则每个点都是30000.1.1，如果填写300000.1
+                        则埋点则在第三位从1到N递增">
+                        <label >
                             <strong></strong>上报ID：</label>
-                        <input type="text" placeholder="比如：30000.1.2" v-model="obj.data.eventid">
+                        <input type="text" placeholder="30000.1.2或者300000.1"  v-model="obj.data.eventid">
+                    </div>
+
+                    <div class="form-group">
+                      <label><strong></strong> 区块背景色：</label>
+                      <input type="color" v-model="obj.data.listBg">
+                      <input type="text" class="colorFrameInput" v-model="obj.data.listBg" value="">
+                    </div> 
+                    <div class="form-group">
+                      <label><strong></strong>购买背景色：</label>
+                      <input type="color" v-model="obj.data.buyBtnBg">
+                      <input type="text" class="colorFrameInput" v-model="obj.data.buyBtnBg" value="">
+                    </div> 
+                    
+                    <div class="form-group">
+                        <label><strong></strong>购买字体色：</label>
+                        <input type="color" v-model="obj.data.buyColor">
+                        <input type="text" class="colorFrameInput" v-model="obj.data.buyColor" value="">
                     </div>
                 </div>
             </form>
             <form class="form-horizontal">
-                <div class="coupon-group">
-                    <div class="form-group form-radio">
-                        <label>主题头部：</label>
-                        <input name="isshowsubject" v-model="obj.data.isShowSubject"  style="width:16px;height:16px;" type="radio" value="0">展示
-                        <input name="isshowsubject" v-model="obj.data.isShowSubject" style="width:16px;height:16px" type="radio" value="1">隐藏
+                <template v-if="obj.data.styleKey == 52">
+                    <div class="coupon-group">
+                        <div class="form-group form-radio">
+                            <label>主题头部：</label>
+                            <input name="isshowsubject" v-model="obj.data.isShowSubject"  style="width:16px;height:16px;" type="radio" value="0">展示
+                            <input name="isshowsubject" v-model="obj.data.isShowSubject" style="width:16px;height:16px" type="radio" value="1">隐藏
+                        </div>
+                        <div class="form-group" v-if="obj.data.isShowSubject == 0">
+                            <label>
+                                <strong>*</strong>主题文案：</label>
+                            <input type="text" placeholder="比如：圣诞必买清单" v-model="obj.data.subjectDesc">
+                        </div>
+                        <div class="form-group form-radio" v-if="obj.data.isShowSubject == 0">
+                            <label>倒计时：</label>
+                            <input name="isShowTimer" v-model="obj.data.isShowTimer"  style="width:16px;height:16px;" type="radio" value="0">展示
+                            <input name="isShowTimer" v-model="obj.data.isShowTimer" style="width:16px;height:16px" type="radio" value="1">隐藏
+                        </div>
+                        <div class="form-group" v-if="obj.data.isShowSubject == 0 && obj.data.isShowTimer == 0">
+                            <label>
+                                <strong>*</strong>倒计时文案：</label>
+                            <input type="text" placeholder="比如：距离结束还有" v-model="obj.data.timerDesc">
+                        </div>
                     </div>
-                    <div class="form-group" v-if="obj.data.isShowSubject == 0">
-                        <label>
-                            <strong>*</strong>主题文案：</label>
-                        <input type="text" placeholder="比如：圣诞必买清单" v-model="obj.data.subjectDesc">
-                    </div>
-                    <div class="form-group form-radio" v-if="obj.data.isShowSubject == 0">
-                        <label>倒计时：</label>
-                        <input name="isShowTimer" v-model="obj.data.isShowTimer"  style="width:16px;height:16px;" type="radio" value="0">展示
-                        <input name="isShowTimer" v-model="obj.data.isShowTimer" style="width:16px;height:16px" type="radio" value="1">隐藏
-                    </div>
-                    <div class="form-group" v-if="obj.data.isShowSubject == 0 && obj.data.isShowTimer == 0">
-                        <label>
-                            <strong>*</strong>倒计时文案：</label>
-                        <input type="text" placeholder="比如：距离结束还有" v-model="obj.data.timerDesc">
-                    </div>
-                </div>
+                </template>
             </form>
         </div>
 
