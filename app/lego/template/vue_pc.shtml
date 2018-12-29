@@ -11,23 +11,25 @@
   {{{css}}}
   {{{customStyleCode}}}
   <script type="text/javascript">
-    (function (doc, win) {
+    (function(doc, win) {
       var basicWidth = window.basicWidth || 750;
       var minWidth = 320;
       var htmlElement = doc.documentElement;
-      var recalc = function () {
-        var clientWidth = htmlElement.clientWidth || (basicWidth / 2);
-        window.rootFontSize = 100 * (clientWidth / basicWidth);
-        clientWidth = clientWidth < minWidth ? minWidth : clientWidth;
-        htmlElement.style.fontSize = 100 * (clientWidth / basicWidth) + 'px';
-        var style = doc.createElement("style");
-        style.innerHTML = '.scale{-webkit-transform:scale(' + (clientWidth / 375).toFixed(1) + ');-webkit-transform-origin:center center;transform:scale(' + (clientWidth / 375).toFixed(1) + ');transform-origin: center center;}';
-        doc.head.appendChild(style);
+      var dpr = parseInt(window.devicePixelRatio || 1, 10); 
+      var recalc = function() {
+          var clientWidth = htmlElement.clientWidth || (basicWidth / 2);
+          window.rootFontSize = 100 * (clientWidth / basicWidth);
+          clientWidth = clientWidth < minWidth? minWidth : clientWidth;
+          if(clientWidth > 430) clientWidth = 430;
+          htmlElement.style.fontSize = 100 * (clientWidth / basicWidth) + 'px';
+          htmlElement.setAttribute("data-dpi", dpr);
       };
       recalc();
       if (!win.addEventListener) return;
       win.addEventListener('resize', recalc, false);
     })(document, window);
+
+
   </script>
 </head>
 <script type="text/javascript">
@@ -60,47 +62,12 @@
       }
     })();
   </script>
-  <script type="text/javascript">
-    var isInWeixin = navigator.userAgent.toLowerCase().indexOf("micromessenger") != -1;
-    function getCookie(name) {
-      //读取COOKIE
-      var reg = new RegExp("(^| )" + name + "(?:=([^;]*))?(;|$)"), val = document.cookie.match(reg);
-      return val ? (val[2] ? unescape(val[2]) : "") : null;
-    }
-    function getQuery(name, url) {
-      //参数：变量名，url为空则表从当前页面的url中取
-      var u = arguments[1] || window.location.search.replace("&amp;", "&"),
-        reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"),
-        r = u.substr(u.indexOf("\?") + 1).match(reg);
-      return r != null ? r[2] : "";
-    }
-    function setCookie(name, value, expires, path, domain, secure) {
-      //写入COOKIES
-      var exp = new Date(), expires = arguments[2] || null, path = arguments[3] || "/", domain = arguments[4] || null, secure = arguments[5] || false;
-      expires ? exp.setTime(exp.getTime() + expires * 24 * 3600 * 1000) : "";
-      document.cookie = name + '=' + escape(value) + (expires ? ';expires=' + exp.toGMTString() : '') + (path ? ';path=' + path : '') + (domain ? ';domain=' + domain : '') + (secure ? ';secure' : '');
-    }
-    if (isInWeixin) {
-      var openid = getCookie("cyb_openid"),
-        access_token = getQuery("access_token");
-      // url里有参数才从url里获取openid，参数是成对出现的，把openid写到cookie里
-      if (access_token) {
-        // 从url里获取
-        openid = getQuery("openid");
-        // openid写cookie里
-        setCookie("cyb_openid", openid, 30, "/");
-        setCookie("cyb_access_token", access_token, 30, "/");
-      } else {
-        location.href = "https://sweb.jyblife.com/base/index?cmd=42010109&type=cyb&redirect=" + encodeURIComponent(location.href.replace(/&?openid=\w+/, ''));
-      }
-    }    
-  </script>
-
   <!--$$$#include virtual="/sinclude/env.tpl"-->
 
-  <script type="text/javascript" src="/static/js/lib/jsapi.js"></script>
-  <script src="/static/js/lib/vue.min.js"></script>
-  <script src="/static/js/lib/zepto-1.2.0-all-min.js"></script>
+
+  <script type="text/javascript" src="{{{previewRoot}}}/static/js/lib/jsapi.js"></script>
+  <script src="{{{previewRoot}}}/static/js/lib/vue.min.js"></script>
+  <script src="{{{previewRoot}}}/static/js/lib/zepto-1.2.0-all-min.js"></script>
   <script src="assets/js/index.bundle.js?{{{timestamp}}}"></script>
 
   <script>
@@ -114,7 +81,9 @@
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(mta, s);
     })();
-  </script> 
+  </script>
   {{{customcode}}}
+  
+  {{{previewJS}}}
 </body>
 </html>

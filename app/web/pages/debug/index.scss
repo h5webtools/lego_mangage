@@ -1,1 +1,47 @@
-@import 'assets/sass/common.scss';
+.ui-close-btn {
+  display: block;
+  position: fixed;
+  right: 10px;
+  top: 10px;
+  width: 32px;
+  height: 32px;
+  transition: transform .25s ease-in-out;
+  z-index: 20002;
+  cursor: pointer;
+
+  &:hover {
+    transform: rotate(180deg);
+  }
+
+  &:before {
+    content: "";
+    position: absolute;
+    display: block;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 32px;
+    height: 0;
+    border-top: 1px solid rgba(0,0,0,0.5);
+    transform: rotate(45deg);
+    transform-origin: center;
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    display: block;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 32px;
+    height: 0;
+    border-top: 1px solid rgba(0,0,0,0.5);
+    transform: rotate(-45deg);
+    transform-origin: center;
+  }
+}

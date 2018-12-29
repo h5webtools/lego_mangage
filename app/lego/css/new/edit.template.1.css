@@ -897,6 +897,10 @@ br+.inputTips{
     padding: 19px;
     background-color: #fff
   }
+  .component-dialog img{
+    width: 1rem;
+    height: 1rem;;
+  }
 
   .component-dialog ul {
     overflow: hidden;

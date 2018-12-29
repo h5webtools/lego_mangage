@@ -1,5 +1,8 @@
 <template>
-  <div :id="editorId" :style="{ 'width': width, 'height': height }" ></div>
+  <div>
+    <div :id="editorId" :style="{ 'width': width, 'height': height }" ></div>
+    <div v-show="isFullScreen" @click="exitFullScreen" class="ui-close-btn"></div>
+  </div>
 </template>
 <script>
 export default {
@@ -38,7 +41,8 @@ export default {
     return {
       editor: null,
       langTools: null,
-      beforeContent: ''
+      beforeContent: '',
+      isFullScreen: false
     }
   },
   watch: {
@@ -71,6 +75,17 @@ export default {
         }
       };
       this.langTools.setCompleters([completer, this.langTools.keyWordCompleter]);
+    },
+    fullScreen(fullScreen = true) {
+      if (this.editor) {
+        this.isFullScreen = !!fullScreen;
+        this.editor.container.classList[this.isFullScreen ? 'add' : 'remove']('ui-full-screen');
+        this.editor.setAutoScrollEditorIntoView(!this.isFullScreen);
+        this.editor.resize();
+      }
+    },
+    exitFullScreen() {
+      this.fullScreen(false);
     }
   },
   beforeDestroy: function() {
@@ -97,4 +112,19 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+.ui-full-screen {
+  height: 100% !important;
+  width: 100% !important;
+  border: 0;
+  margin: 0;
+  position: fixed !important;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10000;
+}
+</style>
+
 
