@@ -27,7 +27,7 @@ define(function (require, exports, module) {
       "tabIndex": 0,
       "imgUrl": "https://cdnsit.jyblife.com/act/201710/cunguan/image/banner-a3bff324.png",
       "index": 0,
-      "imageMap": [],
+      "imageMap": '',
       "pageActId":getUrlQuery('act_id'),
       "pageId":getUrlQuery('page_id'),
       "comDesc":''
@@ -105,6 +105,7 @@ define(function (require, exports, module) {
           });
         },
         addImageMap: function () {
+          !this.obj.data.imageMap ? (this.obj.data.imageMap = []) :'';
           this.obj.data.imageMap.push({
             selected: '',
             imageMapLink: '', //
