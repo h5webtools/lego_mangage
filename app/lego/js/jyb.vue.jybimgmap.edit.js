@@ -116,6 +116,7 @@ define(function (require, exports, module) {
             top: 0,
             width: 25,
             height: 15,
+            extra:JSON.stringify({})
           });
         },
         deleteImageMap: function (index) {
