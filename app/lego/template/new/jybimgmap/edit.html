@@ -107,7 +107,7 @@
             </div>
             <div class="form-group">
               <label>
-                <strong>*</strong>上报ID：</label>
+                <strong></strong>上报ID：</label>
               <input type="text" v-model="item.eventid">
             </div>
           </div>
@@ -128,6 +128,11 @@
                 <strong>*</strong>奖品描述：</label>
               <input type="text" v-model="item.couponDesc" placeholder="请输入命令字">
             </div>
+            <div class="form-group">
+              <label>
+                <strong></strong>上报ID：</label>
+              <input type="text" v-model="item.eventid">
+            </div>
           </div>
 
           <div style="margin-top:30px" v-show="item.selected == 'buydirect'">
@@ -145,6 +150,11 @@
               <label>
                 <strong></strong>扩展字段：</label>
               <input type="text" v-model="item.extra" placeholder="如使用，请找开发">
+            </div>
+            <div class="form-group">
+              <label>
+                <strong></strong>上报ID：</label>
+              <input type="text" v-model="item.eventid">
             </div>
           </div>
         </div>
