@@ -665,6 +665,16 @@ define(function (require, exports, module) {
         }
       })
     }
+
+    function changeLazy(){
+        setInterval(function() {
+            var imgList = document.querySelectorAll('img[lazy]');  
+            imgList = Array.prototype.slice.apply(imgList);
+            imgList = imgList.filter(function(img) {
+            img.src = img.getAttribute('lazy');
+            });
+        }, 1000);
+    }
     exports.main = function () {
         divEditingPage.css('min-height', window.innerHeight - 90 > 620 ? window.innerHeight - 90 : 620);
         divLeftComList.find('img.comIcon').attr('draggable', false);
@@ -681,5 +691,7 @@ define(function (require, exports, module) {
         });
 
         releaseLock.on("click", toReleaseLock);
+
+        changeLazy();
     };
 });

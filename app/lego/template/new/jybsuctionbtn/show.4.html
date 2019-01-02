@@ -1,6 +1,10 @@
 <style>
-
-.mod-fixed-button {
+.lego-suctionbtn-show4{
+    position: relative;
+    margin-top: 0.8rem;
+    border: 1px solid;
+}
+.lego-suctionbtn-show4 .mod-fixed-button {
     height: .86rem;
     text-align: center;
     position: fixed;
@@ -14,10 +18,10 @@
     z-index: 1011;
     display: block;
 }
-.f-36 {
+.lego-suctionbtn-show4 .f-36 {
     font-size: .36rem;
 }
-a {
+.lego-suctionbtn-show4 a {
     text-decoration: none;
 }
 
@@ -26,7 +30,7 @@ a {
 
 <template class="showTemplate">
     <commontag uid="uid" v-bind:params="data" inline-template>
-        <div>
+        <div class="lego-suctionbtn-show4"> 
             <template v-if="true">
                 <a v-bind:data-stat-id="params.eventid || ''" v-bind:href="params.tourl"  class="mod-fixed-button f-36 ui-ta-c">
                     {{params.btndes}}&gt;&gt;

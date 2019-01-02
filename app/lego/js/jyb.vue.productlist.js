@@ -71,12 +71,27 @@ define(function (require, exports, module) {
               });
               return item;
             });
+            _data.length = 4;
             this.data.paramList = _data;
             console.log(this.paramList);
           } else {
             console.log("获取商品信息失败");
           }
-        }
+        },
+        getMtaId: function (mtaId, index) {
+          if(!mtaId){
+            return '';
+          }else{
+            var mtaidArr = mtaId.split('.');
+            if(mtaidArr.length == 2){
+              return mtaidArr[0] + '.' + mtaidArr[1] + '.' + (index*1+1);
+            }else if(mtaidArr.length == 3){
+              return mtaidArr[0] + '.' + mtaidArr[1] + '.' + mtaidArr[2];
+            }else{
+              return '';
+            }
+          }
+       }
       }
     });
 

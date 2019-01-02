@@ -1,0 +1,137 @@
+<style>
+    .jybdrawcard-show-1{
+        width: 7.5rem;
+        overflow: hidden;
+    }
+    .jybdrawcard-show-1 .mod-ticket-wrap {
+        width: 100%;
+        border-radius: .1rem;
+        padding: .3rem .25rem .1rem;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        font-size: 0;
+        overflow: hidden;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+    }
+    .jybdrawcard-show-1 .mod-ticket-wrap .ticket-box {
+        width: 2.23rem;
+        height: 2.83rem;
+        position: relative;
+        padding: .1rem;
+        margin-bottom: .2rem;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    .jybdrawcard-show-1 .mod-ticket-wrap .ticket-box .ticket-rotate {
+        width: 2.03rem;
+        height: 2.63rem;
+        position: absolute;
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+        -webkit-transition: -webkit-transform 1s;
+        transition: -webkit-transform 1s;
+        -o-transition: transform 1s;
+        transition: transform 1s;
+        transition: transform 1s, -webkit-transform 1s;
+    }
+    .jybdrawcard-show-1 .mod-ticket-wrap .ticket-box .ticket-rotate .ticket-front {
+        background-color: #fff;
+        font-size: .4rem;
+        background-size: 100% 100%;
+    }
+    .jybdrawcard-show-1 .mod-ticket-wrap .ticket-box .ticket-rotate .ticket-div {
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        z-index: 10;
+    }
+    .jybdrawcard-show-1 .mod-ticket-wrap .ticket-box .ticket-rotate .ticket-back {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        background-color: #fff;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-position: center center;
+        border-radius: .08rem;
+        font-size: .22rem;
+        color: #d3b98b;
+        text-align: center;
+        -webkit-transform: rotateY(180deg);
+        transform: rotateY(180deg);
+    }
+    .jybdrawcard-show-1 .lottery-num {
+        font-size: .24rem;
+        padding-left: .4rem;
+        float: left;
+    }
+    .jybdrawcard-show-1 .check-coupon {
+        font-size: .24rem;
+        float: right;
+        padding-right: .4rem;
+    }
+    .jybdrawcard-show-1 .mod-ticket-wrap .ticket-box .ticket-rotate-flipped {
+        -webkit-transform: rotateY(180deg);
+        transform: rotateY(180deg);
+    }
+    .jybdrawcard-show-1 .mod-ticket-wrap .ticket-box-active {
+        border-radius: .1rem;
+    }
+    .jybdrawcard-show-1 .mod-ticket-wrap .ticket-box .ticket-rotate .ticket-content {
+        position: absolute;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+        text-align: center;
+        width: 100%;
+    }
+</style>
+
+<template class="showTemplate">
+    <jybdrawcard uid="jybdrawcard" v-bind:params="data" inline-template>
+        <div class="jybdrawcard-show-1" :style="{background:params.backgroundcolor}">
+            <div class="mod-ticket-wrap" :style="{'padding-left':params.paddingLeft/100+'rem','padding-right':params.paddingRight/100+'rem'}">
+              <div :style="{'width':params.areaType == 2 ? '3.4rem' : '','background-color':item.activeStatus == 1 ? params.activeColor : ''}" class="ticket-box" :class="item.activeStatus == 1 ? 'ticket-box-active' : ''" v-for="(item,index) in params.rotateList" @click="rotateCard(item)" :key="index" v-bind:data-stat-id="item.eventid || ''">
+                <div :style="{'width':params.areaType == 2 ? '3.2rem' : '','height': params.cardHeight/100+'rem'}" class="ticket-rotate" :class="item.rotateStatus == 1 ? 'ticket-rotate-flipped' : ''">
+                    <div class="ticket-front ticket-div" :style="{'backgroundImage':'url('+ item.frontImg +')'}"></div>
+                    <div class="ticket-back ticket-div" :style="{'backgroundColor':item.backbgc,'backgroundImage':'url('+ item.backImg +')'}">
+                      <div class="ticket-content">
+                          <div :style="{'fontSize':item.backTitlefontSize/100+'rem','color':item.backTitleColor}">{{item.backTitleContent}}</div>
+                          <div :style="{'fontSize':item.backContentfontSize/100+'rem','color':item.backContentColor}">{{item.backContent}}</div>
+                          <div :style="{'fontSize':item.backDescfontSize/100+'rem','color':item.backDescColor}">{{item.backDesc}}</div>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div v-show="params.isShowLottery == 1" class="lottery-num" :style="{'fontSize':params.lotteryContentFont/100+'rem','color':params.lotteryContentColor,'padding-left':params.paddingLeft/100+'rem'}">{{params.lotteryContent}}{{params.lotteryNum}}次</div>
+            <a v-show="params.isShowCoupon == 1" class="check-coupon" href="jtjr://coupon" :style="{'fontSize':params.lotteryContentFont/100+'rem','color':params.lotteryContentColor,'padding-right':params.paddingRight/100+'rem'}">查看红包</a>
+          </div>
+    </jybdrawcard>
+</template>
+<!-- 下面的属性控制编辑界面 -->
+<script class="forMPMExt">
+    var com_ext = {}
+
+</script>
+<!-- 下面的属性控制编辑界面 -->
+<script class="forMPMExtend">
+    var com_extend = []
+
+</script>
+
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {};
+
+</script>

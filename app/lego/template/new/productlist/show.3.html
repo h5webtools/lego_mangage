@@ -389,7 +389,7 @@
                         <h2>{{item.prd_name}}</h2>
                         <p class="goods-banner__vic-desc">{{item.content}}</p>
                         <p class="goods-banner__prices">
-                            <del>原价 ¥{{item.origin_price}}</del> 月付 <span class="goods-prices__price">¥{{item.min_month_amount}} </span>  x{{item.time_limit}} 
+                            <del>原价 ¥{{item.origin_price}}</del> 抢购价 <span class="goods-prices__price">¥{{item.show_price}} </span> 
                         </p>
                     </div>
                     <div class="mod-goods__list">
@@ -406,7 +406,7 @@
                                     <del>原价 ¥{{item.origin_price}}</del>
                                 </p> 
                                 <p class="goods-banner__prices pd-bt-30 mt-tp-10">
-                                    月付<span class="goods-prices__price "> ¥{{item.min_month_amount}} </span>  x{{item.time_limit}} 
+                                    现价 <span class="goods-prices__price">¥{{item.show_price}} </span> 
                                 </p>
                             </li>
                         </ul>
