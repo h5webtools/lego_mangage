@@ -172,7 +172,7 @@ class LegoController extends Controller {
     }
   
     let actPageRet = fs.writeFileSync(`${actFolder}/${_fileName}`, _content, 'utf-8');//要删除
-
+    await this.updatePackageJsonDependencies(actFolder);
     // 执行依赖安装和JS模板替换
     let templateRet = await Promise.all([this._installNpmPackages(actFolder), this._replaceJsTemplate(_comConfig, actFolder,_pveventid)]);
     // 两步动作都成功
@@ -239,6 +239,29 @@ class LegoController extends Controller {
         code: CREATE_WEBPACK_ENV_FAILED,
         msg: '创建webpack执行环境失败，请重新尝试保存，仍未成功请联系开发检查'
       }
+    }
+  }
+  /**
+   * 更新页面依赖
+   * @param {String} actPath 页面路径
+   */
+  async updatePackageJsonDependencies(actPath) {
+    const actPkgPath = `${actPath}/package.json`;
+    const isExist = await fs.pathExists(actPkgPath);
+    if (isExist) {
+      const pkg = await fs.readJson(actPkgPath);
+      const dependencies = pkg.dependencies || {};
+      const templateDependencies = packageJson.dependencies || {};
+      const newDeps = {};
+
+      for (const k in templateDependencies) {
+        if (!Object.prototype.hasOwnProperty.call(dependencies, k)) {
+          dependencies[k] = templateDependencies[k];
+          newDeps[k] = templateDependencies[k];
+        }
+      }
+      await fs.writeJson(actPkgPath, Object.assign(pkg, { dependencies }));
+      this.ctx.logger.info(`更新${actPkgPath}依赖，${JSON.stringify(newDeps)}`);
     }
   }
   /**
