@@ -82,9 +82,11 @@
 <template class="showTemplate">
     <jybswitchlist uid="switchlist" v-bind:params="data" inline-template>
         <div class="lego-jybswitchlist-show2" >
-            <div class="tab-nav f-32 color-content" v-bind:style="{paddingLeft:params.LRPadding+'rem',paddingRight:params.LRPadding+'rem'}">
+            <div class="tab-nav f-32 color-content" 
+            v-bind:style="{paddingLeft:params.LRPadding+'rem',paddingRight:params.LRPadding+'rem'}">
                 <template v-if="true" v-for="(item,index) in params.tabs">
-                    <div v-if="index == data.tabIndex" @click="toggleTabs(index)" :data-stat-id="item.eventid || ''" v-bind:style="{width:(100/params.tabs.length)+'%' ,
+                    <div v-if="index == data.tabIndex" @click="toggleTabs(index)" :data-stat-id="item.eventid || ''" 
+                        :style="{width:(100/params.tabs.length)+'%' ,
                         color:params.selectedcontentColor,
                         borderBottom:'1px solid '+ params.selectedbgcolor,
                         backgroundColor:params.selectedbgcolor}" 
@@ -92,16 +94,16 @@
                         class="box-wrap active">
                         <p><span>{{item.tabTitle}}</span></p>
                     </div>
-                    <div v-else @click="toggleTabs(index)" :data-stat-id="item.eventid || ''" v-bind:style="{width:(100/params.tabs.length)+'%' ,
-                    color:params.contentColor,
-                    borderBottom:'1px solid '+ params.selectedbgcolor,
-                    backgroundColor:params.bgcolor}" 
-                    :tab="index"
-                    class="box-wrap">
-                    <p><span>{{item.tabTitle}}</span></p>
-                </div>
+                    <div v-else @click="toggleTabs(index)" :data-stat-id="item.eventid || ''" 
+                        :style="{width:(100/params.tabs.length)+'%' ,
+                        color:params.contentColor,
+                        borderBottom:'1px solid '+ params.selectedbgcolor,
+                        backgroundColor:params.bgcolor}" 
+                        :tab="index"
+                        class="box-wrap">
+                        <p><span>{{item.tabTitle}}</span></p>
+                    </div>
                 </template>
-
             </div>
         </div>
     </jybswitchlist>
