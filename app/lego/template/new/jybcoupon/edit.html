@@ -99,6 +99,8 @@
         <div class="coupon-group" v-for="(item,index) in obj.data.couponList">
             <h4>优惠券{{index + 1}}</h4>
             <button type="button" class="jc-btn btn-primary delBtn" @click="deleteExchangeItem(index)">删除</button>
+
+            <div class="coupon-group">
             <div class="form-group" style="margin-right: 100px;margin-left: 10px;">
                 <label><strong>*</strong>描述1：</label>
                 <input type="text" v-model="item.desc1" placeholder="比如：90天活动产品专享年化">
@@ -106,7 +108,7 @@
 
             <div v-if="checkShowProp('desc1Color')" class="form-group" style="margin-right: 100px;margin-left: 34px;">
               <label>
-                <strong></strong>文字颜色：</label>
+                <strong>*</strong>文字颜色：</label>
               <input type="color" v-model="item.desc1Color">
               <input type="text" class="colorFrameInput" v-model="item.desc1Color" value="">
             </div>
@@ -118,7 +120,7 @@
 
             <div v-if="checkShowProp('desc2Color')" class="form-group" style="margin-right: 100px;margin-left: 34px;">
               <label>
-                <strong></strong>文字颜色：</label>
+                <strong>*</strong>文字颜色：</label>
               <input type="color" v-model="item.desc2Color">
               <input type="text" class="colorFrameInput" v-model="item.desc2Color" value="">
             </div>
@@ -130,12 +132,13 @@
 
             <div v-if="checkShowProp('desc3Color')" class="form-group" style="margin-right: 100px;margin-left: 34px;">
               <label>
-                <strong></strong>文字颜色：</label>
+                <strong>*</strong>文字颜色：</label>
               <input type="color" v-model="item.desc3Color">
               <input type="text" class="colorFrameInput" v-model="item.desc3Color" value="">
             </div>
+            </div>
 
-
+            <div class="coupon-group">
             <div class="form-group" style="margin-right: 100px;margin-left: 34px;" v-if="obj.data.cuttimetype == 1">
                 <label><strong>*</strong>开抢时间：</label>
                 <input type="text" v-model="item.drawTime" placeholder="比如：13:00:00">
@@ -146,13 +149,13 @@
             </div>
             <div class="form-group" style="margin-right: 100px;margin-left: 34px;">
               <label>
-                <strong></strong>券面填充色：</label>
+                <strong>*</strong>券面填充色：</label>
               <input type="color" v-model="item.bgcolor">
               <input type="text" class="colorFrameInput" v-model="item.bgcolor" value="">
             </div>
             <div v-if="checkShowProp('leftBgcolor')" class="form-group" style="margin-right: 100px;margin-left: 34px;">
               <label>
-                <strong></strong>券封填充色：</label>
+                <strong>*</strong>券封填充色：</label>
               <input type="color" v-model="item.leftBgcolor">
               <input type="text" class="colorFrameInput" v-model="item.leftBgcolor" value="">
             </div>
@@ -171,7 +174,7 @@
 
             <div v-if="checkShowProp('btnColor')" class="form-group" style="margin-right: 100px;margin-left: 34px;">
                 <label>
-                  <strong></strong>按钮颜色：</label>
+                  <strong>*</strong>按钮颜色：</label>
                 <input type="color" v-model="item.btnColor">
                 <input type="text" class="colorFrameInput" v-model="item.btnColor" value="">
               </div>
@@ -182,6 +185,7 @@
               <input type="color" v-model="item.msgColor">
               <input type="text" class="colorFrameInput" v-model="item.msgColor" value="">
             </div>
+          </div>
 
             <div class="form-group" style="margin-right: 100px;margin-left: 34px;">
                 <label><strong>*</strong>弹框文案1：</label>
@@ -192,7 +196,7 @@
                 <input type="text" v-model="item.awarddes2" placeholder="比如:专享年化9.2%福利">
             </div>
             <div class="form-group" style="margin-right: 100px;margin-left: 34px;">
-                <label><strong>*</strong>弹框跳转：</label>
+                <label><strong>*</strong>弹框跳转链接：</label>
                 <input type="text" v-model="item.awardhref" placeholder="">
             </div>
             <div class="form-group" style="margin-right: 100px;margin-left: 34px;">
