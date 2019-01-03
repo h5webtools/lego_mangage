@@ -127,8 +127,8 @@
         <div class="lego-productlist-show5"> 
                 <ul class="mod-c-list">
                     <template v-if="true"> 
-                        <li v-on:click="toBuy(item.free_prd_id)" :prdid="item.free_prd_id" v-bind:data-stat-id="params.eventid || ''" v-for="item in data.paramList"> 
-                            <div class="img-wrap"> <img :src="item.image_url" :alt="item.prd_name"> </div> 
+                        <li v-on:click="toBuy(item.free_prd_id)" :prdid="item.free_prd_id" v-bind:data-stat-id="getMtaId(params.eventid,index)" v-for="(item,index) in data.paramList"> 
+                            <div class="img-wrap"> <img :lazy="item.image_url" :alt="item.prd_name"> </div> 
                             <div class="item-info ui-ml-20"> 
                                 <h2 class="f-30">{{item.prd_name}}</h2> 
                                 <h3 class="f-24 color-999 ui-mt-30 buy-count" v-if="item.sold_cnt > 0">{{item.sold_cnt || 0}}人已抢</h3>
@@ -138,7 +138,6 @@
                                     <del class="f-26 color-999" v-if="item.show_price != item.origin_price">￥{{item.origin_price}}</del> 
                                 </div> 
                                 <div  class="mod-btn f-30" v-bind:style="{backgroundColor:params.buyBtnBg,color:params.buyColor}"
-                                v-bind:data-stat-id="params.eventid || ''"
                                 v-bind:data-stat-para="JSON.stringify({'pageActId':params.pageActId,'pageId':params.pageId,
                                 'comDesc':params.comDesc , 'itemTitle':item.prd_name,'freeId':item.free_prd_id})"
                                 >去抢购</div> 

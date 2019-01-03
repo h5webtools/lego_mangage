@@ -33,7 +33,7 @@ class NpmController extends Controller {
         for(let version in npmInfo.versions) {
           versionList.push({
             version,
-            desc: npmInfo.versions[version].description,
+            desc: npmInfo.versions[version].versionDesc || npmInfo.versions[version].description,
             name: npmInfo.versions[version].name
           })
         }
@@ -45,7 +45,7 @@ class NpmController extends Controller {
         // 读取活动目录下的package.json文件
         let packageFile = JSON.parse(fs.readFileSync(`${actPath}package.json`, 'utf-8'));
         // 更新指定包的最新版本号
-        packageFile.dependencies[npmName] = '^'+latestVersion;
+        packageFile.dependencies[npmName] = latestVersion;
         // 回写package.json文件
         let writeRet = await this.writePackageFile(`${actPath}package.json`, JSON.stringify(packageFile), 1);
         if(writeRet == errCode.ACTION_SUCCESS) {
@@ -116,7 +116,7 @@ class NpmController extends Controller {
     // 读取活动目录下的package.json文件
     let packageFile = JSON.parse(fs.readFileSync(`${actFolder}/package.json`, 'utf-8'));
     this.ctx.logger.info(`更新${npmName}包版本`);
-    packageFile.dependencies[npmName] = '^'+npmVersion;
+    packageFile.dependencies[npmName] = npmVersion;
     let writeRet = await this.writePackageFile(`${actFolder}/package.json`, JSON.stringify(packageFile), 1);
     if(writeRet == errCode.ACTION_SUCCESS) {
       this.ctx.logger.info(`更新${npmName}包版本成功，准备安装包`);

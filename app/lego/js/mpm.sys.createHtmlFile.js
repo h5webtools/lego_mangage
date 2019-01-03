@@ -139,6 +139,8 @@ define(function (require, exports, module) {
           comConfig += "jybbuynow:require('@lego/jybbuynow'), \n "
         }  else if (_type == 'jybnews' && comConfig.indexOf(".jybnews") == -1) {
           comConfig += "jybnews:require('@lego/jybnews'), \n "
+        }  else if (_type == 'jybdrawcard' && comConfig.indexOf(".jybdrawcard") == -1) {
+          comConfig += "jybdrawcard:require('@lego/jybdrawcard'), \n "
         }  
 
         //获取自定义代码 
@@ -187,6 +189,8 @@ define(function (require, exports, module) {
           comConfig += "jybpay:require('../../../actconfig/" + devFolder + "modules/mobile/vuecomponent/jyb.vue.jybpay'), \n "
         } else if (_type == 'jybnews' && comConfig.indexOf(".jybnews") == -1) {
           comConfig += "jybnews:require('../../../actconfig/" + devFolder + "modules/mobile/vuecomponent/jyb.vue.jybnews'), \n "
+        } else if (_type == 'jybdrawcard' && comConfig.indexOf(".jybdrawcard") == -1) {
+          comConfig += "jybdrawcard:require('../../../actconfig/" + devFolder + "modules/mobile/vuecomponent/jyb.vue.jybdrawcard'), \n "
         }
         //获取自定义代码 
         if (_name == 'customcode') {

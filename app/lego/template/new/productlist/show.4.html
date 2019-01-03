@@ -101,7 +101,7 @@
         <div class="goods-list"
           :prdid="item.free_prd_id"
           v-on:click="toBuy(item.free_prd_id)"
-          v-bind:data-stat-id="params.eventid || ''"
+          v-bind:data-stat-id="getMtaId(params.eventid,index)"
           v-for="(item , index) in data.paramList">
           <div class="goods-img">
             <img :lazy="item.image_url">
