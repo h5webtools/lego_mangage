@@ -84,6 +84,26 @@
       <br>
       <form class="form-horizontal">
         <div class="form-group">
+          <label>
+            <strong>*</strong>领奖命令字：</label>
+          <input type="text" v-model="obj.data.cmd" placeholder="">
+        </div>
+        <div class="form-group">
+          <label>
+            <strong>*</strong>获取奖池命令字：</label>
+          <input type="text" v-model="obj.data.listCmd" placeholder="">
+        </div>
+        <div class="form-group">
+          <label>
+            <strong>*</strong>抽奖次数命令字：</label>
+          <input type="text" v-model="obj.data.numberCmd" placeholder="">
+        </div>
+        <div class="form-group">
+          <label>
+            <strong>*</strong>活动号：</label>
+          <input type="text" v-model="obj.data.actId" placeholder="">
+        </div>
+        <div class="form-group">
           <label><strong></strong>背景色：</label>
           <input type="color" v-model="obj.data.backgroundcolor">
           <input type="text"  class="colorFrameInput" v-model="obj.data.backgroundcolor"  value="" size="10">  

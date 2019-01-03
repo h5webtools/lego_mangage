@@ -19,6 +19,10 @@ define(function (require, exports, module) {
       "didFinish": false,//生成页面的时候，这里为False
       "lazyLoad": false,
       "isShowNpmVersions": USER_INFOR.isAdmin,
+      "cmd": "",//领奖命令字
+      "listCmd": "",//获取奖池命令字
+      "numberCmd": "",//抽奖次数命令字
+      "actId": "",
       "backgroundcolor": "",//背景色
       "bgImg": "", // 背景图片
       "bgTop": "", // 顶部图片
@@ -35,25 +39,25 @@ define(function (require, exports, module) {
       "dialogBtnList": [], // 弹窗按钮
       "durationFs": 22, // 倒计时字体大小
       "durationColor": "", // 倒计时字体颜色
-      "durationTop": 20, // 倒计时距离顶部距离
-      "durationBottom": "", // 倒计时距离底部距离
-      "durationLeft": "", // 倒计时距离左边距离
+      "durationTop": 200, // 倒计时距离顶部距离
+      "durationBottom": null, // 倒计时距离底部距离
+      "durationLeft": null, // 倒计时距离左边距离
       "durationRight": 30, // 倒计时距离右边距离
       "couponList": [], // 红包列表  **********用于数据操作，不做配置展示************
-      "randomList": [],
-      "couponImgList": [],
-      "timer": null,
-      "couponNum": 0, // 生成总红包数
-      "randomNum": 0, // 有奖红包数
-      "max_reward": 16, // 最多有奖红包数
-      "checkCoupon": 0, // 点中有奖红包数  *************用于数据操作，不做配置展示*****************
+      // "randomList": [],
+      // "couponImgList": [],
+      // "timer": null,
+      // "couponNum": 0, // 生成总红包数
+      // "randomNum": 0, // 有奖红包数
+      // "max_reward": 16, // 最多有奖红包数
+      // "checkCoupon": 0, // 点中有奖红包数  *************用于数据操作，不做配置展示*****************
       "npmversion": "",
       "npmversionArr": [],
       "npmname": "@lego/jybcouponrain",
       "tplid": '', //模板ID 
       'comTplId': '',//组件ID
     },
-    watch: ['data.styleKey', "desfontsize", "backgroundcolor", "bgImg", "bgTop", "bgTopHeight", "bgBottom", "bgBottomHeight", "couponImg", "duration", "durTime","maxNum", "isSeq","dialogImg", "dialogHeight","dialogBtnList","durationFs","durationColor","durationTop","durationBottom","durationLeft","durationRight"]
+    watch: ['data.styleKey', "desfontsize", "backgroundcolor", "bgImg", "bgTop", "bgTopHeight", "bgBottom", "bgBottomHeight", "couponImg", "duration", "durTime","maxNum", "isSeq","dialogImg", "dialogHeight","dialogBtnList","durationFs","durationColor","durationTop","durationBottom","durationLeft","durationRight","cmd","listCmd","numberCmd"]
   });
   _Class.prototype.showCB = function () {
     var that = this;
@@ -167,7 +171,7 @@ define(function (require, exports, module) {
         },
         addbutton: function () {
           this.obj.data.dialogBtnList.push({
-            img: 'https://images.jyblife.com/lego/newsList/back.png',
+            img: '',
             bgColor: '',//按钮背景色
             fontSize: '', // 字体大小
             fsColor: '', // 字体颜色
