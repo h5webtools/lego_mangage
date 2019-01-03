@@ -123,7 +123,8 @@ module.exports = appInfo => {
   }
 
   config.legoConfig = {
-    path: '/data/www/h5_dev/canye/h5_lego_actpage/release/act/',
+    // path: '/data/www/h5_dev/canye/h5_lego_actpage/release/act/',
+    path: 'C:/jyb/lego_develop',
     templateJs: 'index_dev.tjs',
     previewTem: 'confirm_publish.tjs',
     actJs: 'index.js',
