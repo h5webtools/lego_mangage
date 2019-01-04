@@ -114,6 +114,7 @@ define(function (require, exports, module) {
         console.log('a is: ' + this.obj);
         Object.assign(this.oldObj.data, this.obj.data);
         console.log(this.oldObj);
+        console.log(this.obj.data.rotateList);
       },
       events: {},
       watch: {
@@ -156,7 +157,13 @@ define(function (require, exports, module) {
         },
         addCard: function () {
           if (this.obj.data.rotateList.length > 0) {
-            this.obj.data.rotateList.push(this.obj.data.rotateList[0])
+            // this.obj.data.rotateList.push(this.obj.data.rotateList[0])
+            var newList = {};
+            var oldList = this.obj.data.rotateList[0];
+            for (var i in oldList) {
+              newList[i] = oldList[i];
+            }
+            this.obj.data.rotateList.push(newList);
           } else {
             this.obj.data.rotateList.push({
               frontImg: '',
@@ -176,7 +183,7 @@ define(function (require, exports, module) {
               eventid: ''
             });
           }
-          
+          console.log(this.obj.data.rotateList);
         },
         deleteCard: function (index) {
           var deleteItem = this.obj.data.rotateList.splice(index - 0, 1);
