@@ -32,7 +32,7 @@ define(function (require, exports, module) {
   var jybsignin = require("./jyb.vue.jybsignin.edit");
   var jybdrawcard = require("./jyb.vue.jybdrawcard.edit");
   var jybvideo = require("./jyb.vue.jybvideo.edit");
-  
+  var jybcouponrain = require("./jyb.vue.jybcouponrain.edit");
 
   
   // var jybsignin = require("./jyb.vue.jybsignin.edit");
@@ -80,7 +80,8 @@ define(function (require, exports, module) {
     'jybnews': jybnews,
     'jybsignin':jybsignin,
     'jybdrawcard':jybdrawcard,
-    'jybvideo':jybvideo
+    'jybvideo':jybvideo,
+    'jybcouponrain':jybcouponrain
   };
 
   exports.ckeckIsLogin = function () {
