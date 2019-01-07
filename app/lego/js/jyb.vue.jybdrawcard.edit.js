@@ -220,9 +220,9 @@ define(function (require, exports, module) {
             var json = JSON.parse(e.data);
             if (json[key]) {
               var cmds = JSON.parse(json[key]);
-                me.obj.data.cmdid = cmds[0];
-                cmds.length > 1 ? (me.obj.data.areacmdid = cmds[1]) : '';
-                me.obj.data.activeid = decodeURIComponent(_act_id);
+                me.obj.data.cmd = cmds[0];
+                cmds.length > 1 ? (me.obj.data.lotteryCmd = cmds[1]) : '';
+                me.obj.data.actId = decodeURIComponent(_act_id);
             }
           }, true);
         }
