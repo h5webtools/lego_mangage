@@ -141,7 +141,11 @@ define(function (require, exports, module) {
           comConfig += "jybnews:require('@lego/jybnews'), \n "
         }  else if (_type == 'jybdrawcard' && comConfig.indexOf(".jybdrawcard") == -1) {
           comConfig += "jybdrawcard:require('@lego/jybdrawcard'), \n "
+        }  else if (_type == 'jybvideo' && comConfig.indexOf(".jybvideo") == -1) {
+          comConfig += "jybvideo:require('@lego/jybvideo'), \n "
         }  
+
+        
 
         //获取自定义代码 
         if (_name == 'customcode') {

@@ -31,6 +31,7 @@ define(function (require, exports, module) {
   var jybnews = require("./jyb.vue.jybnews.edit");
   var jybsignin = require("./jyb.vue.jybsignin.edit");
   var jybdrawcard = require("./jyb.vue.jybdrawcard.edit");
+  var jybvideo = require("./jyb.vue.jybvideo.edit");
   
 
   
@@ -78,7 +79,8 @@ define(function (require, exports, module) {
     'jybbuynow':jybbuynow,
     'jybnews': jybnews,
     'jybsignin':jybsignin,
-    'jybdrawcard':jybdrawcard
+    'jybdrawcard':jybdrawcard,
+    'jybvideo':jybvideo
   };
 
   exports.ckeckIsLogin = function () {
