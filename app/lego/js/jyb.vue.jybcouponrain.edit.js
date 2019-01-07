@@ -54,7 +54,7 @@ define(function (require, exports, module) {
       "npmversion": "",
       "npmversionArr": [],
       "npmname": "@lego/jybcouponrain",
-      "tplid": '', //模板ID 
+      "tplid": '39', //模板ID 
       'comTplId': '',//组件ID
     },
     watch: ['data.styleKey', "desfontsize", "backgroundcolor", "bgImg", "bgTop", "bgTopHeight", "bgBottom", "bgBottomHeight", "couponImg", "duration", "durTime","maxNum", "isSeq","dialogImg", "dialogHeight","dialogBtnList","durationFs","durationColor","durationTop","durationBottom","durationLeft","durationRight","cmd","listCmd","numberCmd"]
@@ -143,6 +143,42 @@ define(function (require, exports, module) {
         }
       },
       methods: {
+        toConfigTree: function () {
+          var moduleUtil, me = this;
+          require.async('./mpm.sys.util', function (module) {
+            moduleUtil = module;
+          });
+          var divComponentIframe = $("#divComponentIframe");
+          var _pageid = moduleBasicInfo.showMePageInfo().id,
+            _tpl_id = this.obj.data.tplid,
+            _act_id = encodeURIComponent(moduleUtil.getUrlQuery('act_id')),
+            _comid = this.obj.uid.replace("com_", "");
+          if (!_tpl_id) {
+            alert("请先选择对应的模板");
+            return;
+          }
+          // /ConfigTreeLego/:tpl_id/:pageid/:comid/:act_id
+          var _url = location.origin + '/#/ConfigTreeLego/' + 
+                    _tpl_id + '/' + 
+                    _pageid + '/' + 
+                    _comid + '/' + 
+                    _act_id,
+            key = _pageid + "_" + _comid + "_" + _tpl_id + "_" + decodeURIComponent(_act_id);
+
+          divComponentIframe.find("iframe")[0].src = _url;
+          divComponentIframe.show();
+
+          window.addEventListener("message", function (e) {
+            var json = JSON.parse(e.data);
+            if (json[key]) {
+              var cmds = JSON.parse(json[key]);
+                me.obj.data.cmdid = cmds[0];
+                cmds.length > 1 ? (me.obj.data.listCmd = cmds[1]) : '';
+                cmds.length > 2 ? (me.obj.data.numberCmd = cmds[2]) : '';
+                me.obj.data.activeid = decodeURIComponent(_act_id);
+            }
+          }, true);
+        },
         selectNpmVersion: function () { /* npm管理 */
           require.async('./mpm.sys.basicInfo', function (module) {
             moduleBasicInfo = module;
