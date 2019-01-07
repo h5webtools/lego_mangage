@@ -104,6 +104,11 @@
           <input type="text" v-model="obj.data.actId" placeholder="">
         </div>
         <div class="form-group">
+          <label>
+            <strong>*</strong>配置参数：</label>
+          <button type="button" @click="toConfigTree" class="jc-btn btn-primary">去配置</button>
+        </div>
+        <div class="form-group">
           <label><strong></strong>背景色：</label>
           <input type="color" v-model="obj.data.backgroundcolor">
           <input type="text"  class="colorFrameInput" v-model="obj.data.backgroundcolor"  value="" size="10">  
