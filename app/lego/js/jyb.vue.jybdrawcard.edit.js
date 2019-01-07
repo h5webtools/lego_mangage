@@ -114,6 +114,7 @@ define(function (require, exports, module) {
         console.log('a is: ' + this.obj);
         Object.assign(this.oldObj.data, this.obj.data);
         console.log(this.oldObj);
+        console.log(this.obj.data.rotateList);
       },
       events: {},
       watch: {
@@ -156,7 +157,13 @@ define(function (require, exports, module) {
         },
         addCard: function () {
           if (this.obj.data.rotateList.length > 0) {
-            this.obj.data.rotateList.push(this.obj.data.rotateList[0])
+            // this.obj.data.rotateList.push(this.obj.data.rotateList[0])
+            var newList = {};
+            var oldList = this.obj.data.rotateList[0];
+            for (var i in oldList) {
+              newList[i] = oldList[i];
+            }
+            this.obj.data.rotateList.push(newList);
           } else {
             this.obj.data.rotateList.push({
               frontImg: '',
@@ -165,18 +172,18 @@ define(function (require, exports, module) {
               backContent: '',
               backTitleContent: '',
               backTitleColor: '',
-              backTitlefontSize: '',
+              backTitlefontSize: '24',
               backContentColor: '',
-              backContentfontSize: '',
+              backContentfontSize: '24',
               backDesc: '',
               backDescColor: '',
-              backDescfontSize: '',
+              backDescfontSize: '24',
               rotateStatus:'0',
               activeStatus: '0',
               eventid: ''
             });
           }
-          
+          console.log(this.obj.data.rotateList);
         },
         deleteCard: function (index) {
           var deleteItem = this.obj.data.rotateList.splice(index - 0, 1);
@@ -213,9 +220,9 @@ define(function (require, exports, module) {
             var json = JSON.parse(e.data);
             if (json[key]) {
               var cmds = JSON.parse(json[key]);
-                me.obj.data.cmdid = cmds[0];
-                cmds.length > 1 ? (me.obj.data.areacmdid = cmds[1]) : '';
-                me.obj.data.activeid = decodeURIComponent(_act_id);
+                me.obj.data.cmd = cmds[0];
+                cmds.length > 1 ? (me.obj.data.lotteryCmd = cmds[1]) : '';
+                me.obj.data.actId = decodeURIComponent(_act_id);
             }
           }, true);
         }

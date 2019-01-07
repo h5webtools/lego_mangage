@@ -103,7 +103,7 @@
         </div>
         <div class="form-group">
           <label>
-            <strong>*</strong>命令字：</label>
+            <strong>*</strong>抽奖命令字：</label>
           <input type="text" v-model="obj.data.cmd" placeholder="">
         </div>
         <div class="form-group">
@@ -161,7 +161,7 @@
         </div>
         <div class="form-group">
           <label>
-            <strong>*</strong>抽奖命令字：</label>
+            <strong>*</strong>抽奖次数命令字：</label>
           <input type="text" v-model="obj.data.lotteryCmd" placeholder="">
         </div>
         <div class="form-group">
@@ -179,6 +179,10 @@
         <br>
         <br>
         <!--配置各条新闻数据-->
+        <div><img src="https://images.jyblife.com/lego/newsList/drawcard.jpg?t=123" alt=""></div>
+        <br>
+        <br>
+        <br>
         <div class="coupon-group" v-for="(item,index) in obj.data.rotateList" @click="addHighlight(index)" :class="index == obj.data.tabIndex ? 'coupon-group-on' : '' "
           style="overflow:hidden;">
           <h4>第{{index + 1}}张</h4>

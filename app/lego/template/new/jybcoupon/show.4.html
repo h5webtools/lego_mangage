@@ -1,0 +1,340 @@
+<style>
+    /* 弹框公共 */
+    .overlay {
+        background-color: #000;
+        filter: alpha(opacity=60);
+        opacity: 0.6;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        position: fixed;
+        z-index: 1024;
+        -webkit-backface-visibility: hidden;
+        font-size: 0.26rem;
+        line-height: 1.2;
+        color: #333;
+    }
+
+    .mod-dialog {
+        border-radius: 3px;
+        width: 90%;
+        position: fixed;
+        top: 25%;
+        left: 50%;
+        -webkit-transform: translateX(-50%);
+        transform: translateX(-50%);
+        z-index: 8888;
+        overflow: hidden;
+        font-size: 0.36rem;
+        line-height: 1.2;
+        color: #333;
+    }
+
+    .ui-mb-20 {
+        margin-bottom: 0.2rem;
+    }
+
+    .mod-dialog .dialog-title {
+        background-color: #fff;
+        padding-top: 0.2rem;
+        padding-bottom: 0.2rem;
+        text-align: center;
+        position: relative;
+        border-bottom: 1px solid #e6e6e6;
+        color: #333;
+    }
+
+    .ui-bb-n {
+        border-bottom: none !important;
+    }
+
+    .mod-dialog .dialog-content {
+        box-sizing: border-box;
+        overflow: hidden;
+        background-color: #fff;
+    }
+
+    /* 弹框公共 */
+
+    /* 确认框 */
+
+    .comm-padding {
+        padding-left: 0.3rem;
+        padding-right: 0.3rem;
+    }
+
+    .ui-pb-60 {
+        padding-bottom: 0.6rem;
+    }
+
+    .ui-mt-90 {
+        margin-top: 0.9rem;
+    }
+
+    .ui-ta-c {
+        text-align: center;
+    }
+
+    .f-36 {
+        font-size: 0.36rem;
+    }
+
+    p {
+        margin: 0;
+        padding: 0;
+        font-size: 100%;
+    }
+
+    .f-54 {
+        font-size: 0.54rem;
+    }
+
+    .ui-mt-10 {
+        margin-top: 0.1rem;
+    }
+
+    .f-36 {
+        font-size: 0.36rem;
+    }
+
+    .ui-mt-10 {
+        margin-top: 0.1rem;
+    }
+
+    .mod-btn2 {
+        display: -webkit-box;
+        -webkit-box-pack: center;
+        -webkit-box-align: center;
+        -webkit-box-pack: justify;
+    }
+
+    .mod-btn2 div:nth-child(1) {
+        width: 45%;
+    }
+
+    .mod-btn2 .btn {
+        height: 0.86rem;
+        line-height: 0.86rem;
+        background: #FF6E34;
+        color: #fff;
+        margin-right: 5%;
+        border-radius: 0.05rem;
+    }
+
+    .mod-btn2 div {
+        -webkit-box-flex: 1;
+        position: relative;
+    }
+
+    .ui-mt-100 {
+        margin-top: 1rem;
+    }
+
+    .mod-btn2 .btn:last-child {
+        margin-right: 0;
+    }
+
+    .mod-btn2 div:nth-child(2) {
+        width: 45%;
+    }
+
+    /* 确认框 */
+
+    /* 结果框 */
+
+    .f-44 {
+        font-size: 0.44rem;
+    }
+
+    .ui-ta-c {
+        text-align: center;
+    }
+
+    .f-28 {
+        font-size: 0.28rem;
+    }
+
+    .ui-mt-10 {
+        margin-top: 0.1rem;
+    }
+
+    .mod-btn {
+        display: block;
+        background-color: #FF6E34;
+        text-align: center;
+        color: #fff;
+        position: relative;
+        border-radius: 3px;
+        height: 0.86rem;
+        line-height: 0.86rem;
+        width: 100%;
+    }
+
+    .ui-mt-100 {
+        margin-top: 1rem;
+    }
+
+    /* 结果框 */
+    .mod-c-coupon--style4.mod-c-coupon {
+      margin: 0 .42rem;
+    }
+
+    .mod-c-coupon--style4 .mod-c-coupon-item {
+      display: -webkit-box;
+      display: flex;
+
+      -webkit-box-pack: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      align-items: center;
+
+      height:2.12rem;
+      font-size: .28rem;
+      margin-bottom: .2rem;
+    }
+
+    .mod-c-coupon--style4 .mod-c-coupon-item__title {
+      font-size: .48rem;
+      font-weight: 700;
+      margin-bottom: .1rem;
+    }
+
+    .mod-c-coupon--style4 .mod-c-coupon-item__desc {
+      overflow : hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .mod-c-coupon--style4 .mod-c-coupon-item__left {
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      padding:  .4rem .18rem 0 .18rem;
+
+      text-align: center;
+      width: 2.12rem;
+      height: 2.12rem;
+      border-radius: .06rem;
+    }
+
+    .mod-c-coupon--style4 .mod-c-coupon-item__right {
+      -webkit-box-flex: 1;
+      height: 1.84rem;
+      flex: 1;
+      -webkit-box-align: center;
+      align-items: center;
+      display: -webkit-box;
+      display: flex;
+    }
+
+    .mod-c-coupon--style4 .mod-c-coupon-item__info {
+      padding-left: .24rem;
+      width: 1.8rem;
+    }
+
+    .mod-c-coupon-item__dt {
+      position: relative;
+      -webkit-box-flex: 1;
+      flex: 1;
+      padding-right: .2rem;
+      text-align: right;
+    }
+
+    .mod-c-coupon--style4 .mod-c-coupon-item__btn {
+      width: 1.98rem;
+      height: .62rem;
+      line-height: .62rem;
+      border-radius: .31rem;
+      text-align: center;
+      font-size: .36rem;
+      float: right;
+    }
+
+    .mod-c-coupon--style4 .c-coupon__item__btn-disabled {
+      color: #fff;
+      background: #b8b6d6;
+    }
+
+    .mod-c-coupon-item__btn-wrap {
+      display: -webkit-box;
+      display: flex;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: reverse;
+      flex-direction: row-reverse;
+    }
+
+    .mod-c-coupon-item__btn-wrap .mod-c-coupon-item__btn {
+      float: none;
+    }
+
+    .mod-c-coupon-item__msg {
+      position: absolute;
+      top: 110%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+  </style>
+
+  <template class="showTemplate">
+    <jybcoupon uid="jybcoupon" v-bind:params="data" inline-template>
+    <div class="mod-c-coupon mod-c-coupon--style4" v-bind:style="{backgroundColor:params.couponBg}">
+      <template v-if="true">
+        <div class="mod-c-coupon-item" v-for="(item,index) in data.couponList">
+          <div class="mod-c-coupon-item__left" :style="{backgroundColor:item.leftBgcolor}">
+            <p class="mod-c-coupon-item__title" :style="{color: item.desc1Color}">{{ item.desc1 }}</p>
+            <p class="mod-c-coupon-item__desc" :style="{color: item.desc2Color}">{{ item.desc2 }}</p>
+          </div>
+          <div class="mod-c-coupon-item__right" :style="{backgroundColor:item.bgcolor}">
+            <p class="mod-c-coupon-item__info" :style="{color: item.desc3Color}">{{ item.desc3 }}</p>
+            <div class="mod-c-coupon-item__dt">
+              <template v-if="item.drawFlag == false">
+                <template v-if="item.times.hour==0 && item.times.minute == 0 && item.times.sec == 0">
+                  <div class="mod-c-coupon-item__btn"
+                    :awardindex='index+1'
+                    v-bind:data-stat-id="item.mtabtn"
+                    :style="{color: item.btndescColor, backgroundColor: item.btnColor}"
+                    v-on:click="toDraw">{{ item.btndesc }}</div>
+                </template>
+                <template v-else>
+                  <div class="mod-c-coupon-item__btn-wrap">
+                    <div class="mod-c-coupon-item__btn c-coupon__item__btn-disabled">未开抢</div>
+                  </div>
+                  <div class="mod-c-coupon-item__msg" :style="{color: item.msgColor}" v-timecutdown="{data:item , endtime:item.drawTime , nowtime:item.nowtime}">{{item.times.hour}}:{{item.times.minute}}:{{item.times.sec}}</div>
+                </template>
+              </template>
+              <template v-else>
+                <div v-if="item.status == 2"
+                  class="mod-c-coupon-item__btn c-coupon__item__btn-disabled"
+                  :awardindex='index+1'
+                  v-bind:data-stat-id="item.mtabtn"
+                  :style="{color: item.btndescColor, backgroundColor: item.btnColor}"
+                  v-on:click="toDraw">{{ item.btndesc }}</div>
+                <div v-else-if="item.status == 1" class="mod-c-coupon-item__btn c-coupon__item__btn-disabled">已领取</div>
+                <div v-else-if="item.status == 0" class="mod-c-coupon-item__btn c-coupon__item__btn-disabled">已抢光</div>
+                <div v-else-if="item.status == 3" class="mod-c-coupon-item__btn c-coupon__item__btn-disabled">已结束</div>
+              </template>
+            </div>
+          </div>
+        </div>
+      </template>
+    </div>
+    </jybcoupon>
+  </template>
+  <!-- 下面的属性控制MPM中编辑界面 -->
+  <!-- data.state==1 是预约成功-->
+  <script class="forMPMExt">
+    var com_ext = {}
+  </script>
+  <!-- 下面的属性控制MPM中编辑界面 -->
+  <script class="forMPMExtend">
+    var com_extend = [{
+
+    }]
+  </script>
+  <!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+  <script class="forIDCExtend">
+    var com_js = {
+    }
+  </script>

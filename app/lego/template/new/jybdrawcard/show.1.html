@@ -101,7 +101,7 @@
     <jybdrawcard uid="jybdrawcard" v-bind:params="data" inline-template>
         <div class="jybdrawcard-show-1" :style="{background:params.backgroundcolor}">
             <div class="mod-ticket-wrap" :style="{'padding-left':params.paddingLeft/100+'rem','padding-right':params.paddingRight/100+'rem'}">
-              <div :style="{'width':params.areaType == 2 ? '3.4rem' : '','background-color':item.activeStatus == 1 ? params.activeColor : ''}" class="ticket-box" :class="item.activeStatus == 1 ? 'ticket-box-active' : ''" v-for="(item,index) in params.rotateList" @click="rotateCard(item)" :key="index" v-bind:data-stat-id="item.eventid || ''">
+              <div :style="{'width':params.areaType == 2 ? '3.4rem' : '','background-color':item.activeStatus == 1 ? params.activeColor : ''}" class="ticket-box" :class="item.activeStatus == 1 ? 'ticket-box-active' : ''" v-for="(item,index) in params.rotateList" @click="rotateCard(item,index)" :key="index" v-bind:data-stat-id="item.eventid || ''">
                 <div :style="{'width':params.areaType == 2 ? '3.2rem' : '','height': params.cardHeight/100+'rem'}" class="ticket-rotate" :class="item.rotateStatus == 1 ? 'ticket-rotate-flipped' : ''">
                     <div class="ticket-front ticket-div" :style="{'backgroundImage':'url('+ item.frontImg +')'}"></div>
                     <div class="ticket-back ticket-div" :style="{'backgroundColor':item.backbgc,'backgroundImage':'url('+ item.backImg +')'}">
