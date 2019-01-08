@@ -125,7 +125,7 @@
               <input type="color" v-model="item.desc2Color">
             </div>
 
-            <div class="form-group" style="margin-right: 100px;margin-left: 34px;">
+            <div v-if="checkShowProp('desc3')" class="form-group" style="margin-right: 100px;margin-left: 34px;">
               <label><strong>*</strong>描述3：</label>
               <input type="text" v-model="item.desc3" placeholder="比如：每日10点开抢，限量100张">
             </div>

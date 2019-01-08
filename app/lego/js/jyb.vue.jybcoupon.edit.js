@@ -116,6 +116,7 @@ define(function (require, exports, module) {
               desc1Color: true,
               desc2Color: true,
               desc3Color: true,
+              desc3: true,
               btnColor: true,
               btndescColor: true,
               leftBgcolor: true,
