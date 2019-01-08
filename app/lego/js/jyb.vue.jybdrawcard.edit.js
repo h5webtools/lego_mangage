@@ -39,8 +39,8 @@ define(function (require, exports, module) {
       "npmversion": "",
       "npmversionArr": [],
       "npmname": "@lego/jybdrawcard",
-      "tplid": '38', //模板ID 
-      'comTplId': '',//组件ID
+      "tplid": '', //模板ID 
+      'comTplId': '38',//组件ID
     },
     watch: ['data.styleKey', "desfontsize","cardHeight", "backgroundcolor", "rotateType", "areaType", "paddingLeft", "paddingRight", "activeColor", "rotateList", "lotteryContent", "isShowCoupon", "isShowLottery", "lotteryContentColor", "lotteryContentFont", "lotteryNum","lotteryCmd"]
   });
@@ -73,7 +73,7 @@ define(function (require, exports, module) {
       }
     });
 
-    moduleDataCenter.getTplList( that.obj.data.comTplId || '38', function (json) { // 由组件ID获取对应组件的所有模板
+    moduleDataCenter.getTplList( that.obj.data.comTplId , function (json) { // 由组件ID获取对应组件的所有模板
       if (json.code == 0) {
         that.obj.data.tplList = json.data.data;
       }

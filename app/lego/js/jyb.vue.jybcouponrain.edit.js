@@ -54,8 +54,8 @@ define(function (require, exports, module) {
       "npmversion": "",
       "npmversionArr": [],
       "npmname": "@lego/jybcouponrain",
-      "tplid": '40', //模板ID 
-      'comTplId': '',//组件ID
+      "tplid": '', //模板ID 
+      'comTplId': '40',//组件ID
     },
     watch: ['data.styleKey', "desfontsize", "backgroundcolor", "bgImg", "bgTop", "bgTopHeight", "bgBottom", "bgBottomHeight", "couponImg", "duration", "durTime","maxNum", "isSeq","dialogImg", "dialogHeight","dialogBtnList","durationFs","durationColor","durationTop","durationBottom","durationLeft","durationRight","cmd","listCmd","numberCmd"]
   });
@@ -88,7 +88,7 @@ define(function (require, exports, module) {
       }
     });
 
-    moduleDataCenter.getTplList( that.obj.data.comTplId || '3', function (json) { // 由组件ID获取对应组件的所有模板
+    moduleDataCenter.getTplList( that.obj.data.comTplId, function (json) { // 由组件ID获取对应组件的所有模板
       if (json.code == 0) {
         that.obj.data.tplList = json.data.data;
       }
