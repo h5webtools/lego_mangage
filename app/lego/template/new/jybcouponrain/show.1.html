@@ -194,7 +194,7 @@
   left: 0;
   position: fixed;
   z-index: 1024;
-  -webkit-backface-visibility: hidden;
+  /* -webkit-backface-visibility: hidden; */
 }
 
 .mod-dialog .dialog-wrap {
@@ -208,7 +208,7 @@
       -ms-transform: translateX(-50%);
           transform: translateX(-50%);
   z-index: 8888;
-  overflow: hidden;
+  /* overflow: hidden; */
   font-size: 0.36rem;
   background-color: #fff;
 }
@@ -295,8 +295,8 @@
               <div class="mod-game-shadow" id="gameShadow">
                 <div class="ready-go" id="readyGo"></div>
               </div>
-              <div class="mod-bg-top" :style="{'background-image': 'url('+ params.bgTop +')', 'height': params.bgTopHeight}"></div>
-              <div class="mod-bg-bottom" :style="{'background-image': 'url('+ params.bgBottom +')', 'height': params.bgBottomHeight}"></div>
+              <div class="mod-bg-top" :style="{'background-image': 'url('+ params.bgTop +')', 'height': params.bgTopHeight/100+'rem'}"></div>
+              <div class="mod-bg-bottom" :style="{'background-image': 'url('+ params.bgBottom +')', 'height': params.bgBottomHeight/100+'rem'}"></div>
               <div class="mod-count-down" :style="{'font-size': params.durationFs/100+'rem', 'color': params.durationColor, 'top': params.durationTop?params.durationTop/100+'rem':null, 'right':params.durationRight?params.durationRight/100+'rem':null, 'left':params.durationLeft?params.durationLeft/100+'rem':null, 'bottom':params.durationBottom?params.durationBottom/100+'rem':null}"> 
                 <p>剩余时间</p> 
                 <p>00:<span class="count-down-60">{{params.duration}}</span> </p> 
