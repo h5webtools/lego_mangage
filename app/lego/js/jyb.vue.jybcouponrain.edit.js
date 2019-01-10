@@ -26,9 +26,9 @@ define(function (require, exports, module) {
       "backgroundcolor": "",//背景色
       "bgImg": "", // 背景图片
       "bgTop": "", // 顶部图片
-      "bgTopHeight": "", // 顶部图片高度
+      "bgTopHeight": "193", // 顶部图片高度
       "bgBottom": "", // 底部图片
-      "bgBottomHeight": "", // 底部图片高度
+      "bgBottomHeight": "251", // 底部图片高度
       "couponImg": "", // 红包icon
       "duration": "20", // 倒计时时间
       "durTime": "2", // 下落时间
