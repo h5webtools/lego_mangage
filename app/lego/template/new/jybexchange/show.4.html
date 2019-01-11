@@ -1,0 +1,287 @@
+<style>
+    /* 弹框公共 */
+
+    .overlay {
+        background-color: #000;
+        filter: alpha(opacity=60);
+        opacity: 0.6;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        position: fixed;
+        z-index: 1024;
+        -webkit-backface-visibility: hidden;
+        font-size: 0.26rem;
+        line-height: 1.2;
+        color: #333;
+    }
+
+    .mod-dialog {
+        border-radius: 3px;
+        width: 90%;
+        position: fixed;
+        top: 25%;
+        left: 50%;
+        -webkit-transform: translateX(-50%);
+        transform: translateX(-50%);
+        z-index: 8888;
+        overflow: hidden;
+        font-size: 0.36rem;
+        line-height: 1.2;
+        color: #333;
+    }
+
+    .ui-mb-20 {
+        margin-bottom: 0.2rem;
+    }
+
+    .mod-dialog .dialog-title {
+        background-color: #fff;
+        padding-top: 0.2rem;
+        padding-bottom: 0.2rem;
+        text-align: center;
+        position: relative;
+        border-bottom: 1px solid #e6e6e6;
+        color: #333;
+    }
+
+    .ui-bb-n {
+        border-bottom: none !important;
+    }
+
+    .mod-dialog .dialog-content {
+        box-sizing: border-box;
+        overflow: hidden;
+        background-color: #fff;
+    }
+    /* 弹框公共 */
+    /* 确认框 */
+
+    .comm-padding {
+        padding-left: 0.3rem;
+        padding-right: 0.3rem;
+    }
+
+    .ui-pb-60 {
+        padding-bottom: 0.6rem;
+    }
+
+    .ui-mt-90 {
+        margin-top: 0.9rem;
+    }
+
+    .ui-ta-c {
+        text-align: center;
+    }
+
+    .f-36 {
+        font-size: 0.36rem;
+    }
+
+    p {
+        margin: 0;
+        padding: 0;
+        font-size: 100%;
+    }
+
+    .f-54 {
+        font-size: 0.54rem;
+    }
+
+    .ui-mt-10 {
+        margin-top: 0.1rem;
+    }
+
+    .f-36 {
+        font-size: 0.36rem;
+    }
+
+    .ui-mt-10 {
+        margin-top: 0.1rem;
+    }
+
+    .mod-btn2 {
+        display: -webkit-box;
+        -webkit-box-pack: center;
+        -webkit-box-align: center;
+        -webkit-box-pack: justify;
+    }
+
+    .mod-btn2 div:nth-child(1) {
+        width: 45%;
+    }
+
+    .mod-btn2 .btn {
+        height: 0.86rem;
+        line-height: 0.86rem;
+        background: #FF6E34;
+        color: #fff;
+        margin-right: 5%;
+        border-radius: 0.05rem;
+    }
+
+    .mod-btn2 div {
+        -webkit-box-flex: 1;
+        position: relative;
+    }
+
+    .ui-mt-100 {
+        margin-top: 1rem;
+    }
+
+    .mod-btn2 .btn:last-child {
+        margin-right: 0;
+    }
+
+    .mod-btn2 div:nth-child(2) {
+        width: 45%;
+    }
+    /* 确认框 */
+    /* 结果框 */
+
+    .f-44 {
+        font-size: 0.44rem;
+    }
+
+    .ui-ta-c {
+        text-align: center;
+    }
+
+    .f-28 {
+        font-size: 0.28rem;
+    }
+
+    .ui-mt-10 {
+        margin-top: 0.1rem;
+    }
+
+    .mod-btn {
+        display: block;
+        background-color: #FF6E34;
+        text-align: center;
+        color: #fff;
+        position: relative;
+        border-radius: 3px;
+        height: 0.86rem;
+        line-height: 0.86rem;
+        width: 100%;
+    }
+
+    .ui-mt-100 {
+        margin-top: 1rem;
+    }
+    /* 结果框 */
+    .lego-jybexchange-show4 {
+        padding: 0 .3rem;
+    }
+    .lego-jybexchange-show4 .exchange-title {
+        font-size: .2rem;
+        color: #6d6b6b;
+        text-align: center;
+    }
+    .lego-jybexchange-show4 .exchange-title .number {
+        color: #f7420a;
+    }
+    .lego-jybexchange-show4 .mod-exchange-wrap {
+        width: 100%;
+        margin-top: .35rem;
+        overflow: hidden;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap-reverse;
+        flex-wrap: wrap-reverse;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+    }
+    .lego-jybexchange-show4 .mod-exchange-wrap .exchange-box {
+        width: 2.14rem;
+        height: 2.19rem;
+        background: url(https://images.jyblife.com/lego/coupon/island_new.png);
+        background-size: 100% 100%;
+        margin-bottom: .3rem;
+    }
+    .lego-jybexchange-show4 .mod-exchange-wrap .exchange-money {
+        font-size: .21rem;
+        color: #fff;
+        text-align: center;
+        margin-top: .1rem;
+    }
+    .lego-jybexchange-show4 .mod-exchange-wrap .exchange-btn {
+        width: .5rem;
+        height: .5rem;
+        border-radius: .5rem;
+        background: #f8cf66;
+        margin: .2rem auto;
+        font-size: .28rem;
+        font-weight: bold;
+        color: #bf5e00;
+        text-align: center;
+        line-height: .5rem;
+    }
+    .lego-jybexchange-show4 .mod-exchange-wrap .exchange-desc {
+        font-size: .21rem;
+        color: #ffc3a9;
+        text-align: center;
+        margin-top: .35rem;
+    }
+    .lego-jybexchange-show4 .mod-exchange-wrap .exchange-btn-status2 {
+        background: #e1e1e1;
+        color: #757373;
+    }
+    .lego-jybexchange-show4 .mod-exchange-wrap .exchange-btn-status3 {
+        background: #e1e1e1;
+        color: #757373;
+        font-size: .22rem;
+    }
+</style>
+
+
+<template class="showTemplate">
+    <jybexchange uid="uid" v-bind:params="data" inline-template>
+        <div class="lego-jybexchange-show4" v-bind:style="{paddingLeft:params.LRpadding+'rem', paddingRight:params.LRpadding+'rem'}">
+            <template v-if="true">
+                <div class="exchange-title" v-bind:style="{background:params.bgcolor}">
+                    <p v-bind:style="{color:params.buiedcolor,fontSize:params.buiedsize+'px'}">{{params.bottomdesc}}</p>
+                    <p v-bind:style="{color:params.buiedcolor,fontSize:params.buiedsize+'px'}">{{params.buieddesc || '每人仅可兑换1个红包，您已经获得'}}<span class="number">{{data.buycount}}</span>{{params.desc3 || '个金币，加油哦～'}}</p>
+                </div>
+                <div class="mod-exchange-wrap">
+                    <div class="exchange-box" v-for="(item , index) in params.exchangeItem" :style="{'background-image': 'url('+ item.awardImg?item.awardImg:'https://images.jyblife.com/lego/coupon/island_new.png' +')'}">
+                        <div class="exchange-money">{{item.topDes}}</div>
+                        <template v-if="data.timeFlag==false">
+                            <div class="exchange-btn exchange-btn-status2" :type="params.actType" :flag="index+1">兑</div>
+                        </template>
+                        <template v-if="data.timeFlag==true">
+                            <div class="exchange-btn exchange-btn-status2" :awardindex="index" :type="params.actType" :flag="index+1" v-if="item.awardFlag == 2 && data.exchangeFlag == false">兑</div>
+                            <div class="exchange-btn" :awardindex="index"  :type="params.actType" :flag="index+1" :data-stat-id="item.eventid || ''" v-on:click="toexchange($event)" v-if="item.awardFlag == 2 && data.exchangeFlag == true">兑</div>
+                            <div class="exchange-btn exchange-btn-status3" :awardindex="index" :type="params.actType" :flag="index+1" v-if="item.awardFlag == 1">已兑</div>
+                            <div class="exchange-btn exchange-btn-status2" :awardindex="index" :type="params.actType" :flag="index+1" v-if="item.awardFlag == 0">兑</div>
+                        </template>
+                        <div class="exchange-desc">{{item.exchangeDes}}</div>
+                    </div>
+                </div>
+            </template>
+        </div>
+
+    </jybexchange>
+</template>
+
+
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExt">
+    var com_ext = {}
+
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+    var com_extend = []
+
+</script>
+
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {};
+
+</script>
