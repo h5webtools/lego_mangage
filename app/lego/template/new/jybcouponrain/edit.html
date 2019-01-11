@@ -1,0 +1,281 @@
+<div class="editBox">
+  <div class="editBox_2">
+    <h3>{{obj.componentName}} {{obj.uid}}</h3>
+    <p>
+      H红包雨组件
+    </p>
+
+    <ul class="tab_hd">
+      <li v-bind:class="{ 'on': showStyle }" v-on:click="show(0)">
+        <a href="javascript:;" title="设置样式">设置样式</a>
+      </li>
+      <li v-bind:class="{ 'on': showProperty }" v-on:click="show(1)">
+        <a href="javascript:;" title="设置数据">设置数据</a>
+      </li>
+    </ul>
+
+    <div v-show="showStyle" class="styleBox">
+      <div class="editArea">
+        <form class="form-horizontal" v-for="item in obj.com_extend">
+          <div class="form-group" v-if="item.type == 'radio'">
+            <label>{{item.name}}：</label>
+            <div>
+              <label v-for="item2 in item.data">
+                <input type="radio" :name="obj.uid+'_'+item.nick" :value="item2.value" v-model="obj.data.extend[item.nick]"> {{item2.name}}</label>
+            </div>
+          </div>
+          <div class="form-group" v-if="item.type == 'input'">
+            <label style="float: left;padding-right:14px;">
+              <strong>*</strong>{{item.name}}：</label>
+            <input type="text" :class="item.class" :name="obj.uid+'_'+item.nick" v-model="obj.data.extend[item.nick]" :placeholder="item.placeholder"
+              flag="extendtime" :nick="item.nick">
+          </div>
+        </form>
+      </div>
+      <br>
+      <br>
+      <dl>
+        <dt>样式</dt>
+        <dd>
+          <ul>
+            <li v-for="item in arrStyle" v-if="item.priority != 10000">
+              <div style="display:none;">
+                {{item.com_desc}}
+                <input type="radio" :name="obj.uid" :id="obj.uid+'_'+item.id" :value="item.id" v-model="obj.data.styleKey">
+                <br/>
+              </div>
+              <label :class="item.id == obj.data.styleKey ? 'on' : ''" :for="obj.uid+'_'+item.id">
+                <img :src="item.image" alt="">
+              </label>
+              <div class="styleDesc">
+                {{item.com_desc}}
+              </div>
+            </li>
+          </ul>
+        </dd>
+      </dl>
+    </div>
+
+    <div v-show="showProperty" class="editArea">
+      <!-- 文案描述 -->
+      <form class="form-horizontal" v-if="true">
+        <div class="coupon-group">
+            <div class="form-group">
+              <label>
+                <strong></strong>版本号：</label>
+              <select name="action" @change="selectNpmVersion" v-model="obj.data.npmversion">
+                <option :value="item.version" v-for="item in obj.data.npmversionArr">{{item.desc}}</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      <br>
+      <br>
+      <br>
+      <div>
+        <img width="25%" src="https://images.jyblife.com/lego/newsList/jietu1.png" alt="">
+        <img width="25%" src="https://images.jyblife.com/lego/newsList/jietu2.png" alt="">
+      </div>
+      <br>
+      <br>
+      <strong style="font-size:16px;">编辑组件</strong>
+      <br>
+      <br>
+      <br>
+      <form class="form-horizontal">
+        <div class="form-group">
+          <label>
+            <strong>*</strong>领奖命令字：</label>
+          <input type="text" v-model="obj.data.cmd" placeholder="">
+        </div>
+        <div class="form-group">
+          <label>
+            <strong>*</strong>获取奖池命令字：</label>
+          <input type="text" v-model="obj.data.listCmd" placeholder="">
+        </div>
+        <div class="form-group">
+          <label>
+            <strong>*</strong>抽奖次数命令字：</label>
+          <input type="text" v-model="obj.data.numberCmd" placeholder="">
+        </div>
+        <div class="form-group">
+          <label>
+            <strong>*</strong>活动号：</label>
+          <input type="text" v-model="obj.data.actId" placeholder="">
+        </div>
+        <div class="form-group">
+          <label>
+            <strong>*</strong>配置参数：</label>
+          <button type="button" @click="toConfigTree" class="jc-btn btn-primary">去配置</button>
+        </div>
+        <div class="form-group">
+          <label><strong></strong>背景色：</label>
+          <input type="color" v-model="obj.data.backgroundcolor">
+          <input type="text"  class="colorFrameInput" v-model="obj.data.backgroundcolor"  value="" size="10">  
+        </div>
+        <div class="form-group">
+          <label><strong></strong>背景图片：</label>
+          <input type="text" v-model="obj.data.bgImg"  value="">  
+        </div>
+        <div class="form-group">
+          <label><strong></strong>顶部图片：</label>
+          <input type="text" v-model="obj.data.bgTop"  value="">  
+          <span>满屏100%，不够用透明底色填充输出</span> 
+        </div>
+        <div class="form-group">
+          <label><strong></strong>顶部图片高度：</label>
+          <input type="text" v-model="obj.data.bgTopHeight"  value="" size="10">  
+        </div>
+        <div class="form-group">
+          <label><strong></strong>底部图片：</label>
+          <input type="text" v-model="obj.data.bgBottom"  value="">  
+          <span>满屏100%，不够用透明底色填充输出</span> 
+        </div>
+        <div class="form-group">
+          <label><strong></strong>底部图片高度：</label>
+          <input type="text" v-model="obj.data.bgBottomHeight"  value="" size="10">  
+        </div>
+        <div class="form-group">
+          <label><strong></strong>红包icon：</label>
+          <input type="text" v-model="obj.data.couponImg"  value="" placeholder="可配多个，用英文逗号隔开">  
+          <span>填图片链接，多个链接时用逗号隔开，配置的红包icon随机出现</span> 
+        </div>
+        <div class="form-group">
+          <label><strong></strong>倒计时时间：</label>
+          <input type="tel" v-model="obj.data.duration"  value="" size="10" placeholder="填数字，单位为秒">  
+        </div>
+        <div class="form-group">
+          <label><strong></strong>倒计时字体大小：</label>
+          <input type="tel" v-model="obj.data.durationFs"  value="" size="10" placeholder="">  
+        </div>
+        <div class="form-group">
+          <label><strong></strong>倒计时字体颜色：</label>
+          <input type="color" v-model="obj.data.durationColor">
+          <input type="tel" v-model="obj.data.durationColor"  value="" size="10" placeholder="">  
+        </div>
+        <div class="form-group">
+          <label><strong></strong>倒计时上边距：</label>
+          <input type="tel" v-model="obj.data.durationTop"  value="" size="10" placeholder="">  
+        </div>
+        <div class="form-group">
+          <label><strong></strong>倒计时下边距：</label>
+          <input type="tel" v-model="obj.data.durationBottom"  value="" size="10" placeholder="">  
+        </div>
+        <div class="form-group">
+          <label><strong></strong>倒计时左边距：</label>
+          <input type="tel" v-model="obj.data.durationLeft"  value="" size="10" placeholder="">  
+        </div>
+        <div class="form-group">
+          <label><strong></strong>倒计时右边距：</label>
+          <input type="tel" v-model="obj.data.durationRight"  value="" size="10" placeholder="">  
+        </div>
+        <div class="form-group">
+          <label><strong></strong>下落时间：</label>
+          <input type="tel" v-model="obj.data.durTime"  value="" size="10" placeholder="填数字，几秒内落下，数值越大速度越慢"> 
+          <span>填数字，几秒内落下，数值越大速度越慢</span> 
+        </div>
+        <div class="form-group">
+          <label><strong></strong>最多生成icon数：</label>
+          <input type="tel" v-model="obj.data.maxNum"  value="" size="10" placeholder="填数字，icon总数">  
+          <span>填数字，icon总数，总共落下几个红包</span> 
+        </div>
+        <div class="form-group">
+          <label><strong></strong>有奖红包：</label>
+          <input type="radio" id="isSeq1" value="1" v-model="obj.data.isSeq">
+          <label for="isSeq1" style="text-align: left; width:100px;">平均排列分布</label>
+          <input type="radio" id="isSeq2" value="2" v-model="obj.data.isSeq">
+          <label for="isSeq2" style="text-align: left; width:100px;">不平均排列分布</label>
+        </div>
+        <br>
+        <br>
+        <strong style="font-size:16px;">弹窗相关配置</strong>
+        <br>
+        <br>
+        <div class="form-group">
+          <label><strong></strong>弹窗背景图：</label>
+          <input type="tel" v-model="obj.data.dialogImg"  value="" placeholder="图片链接">  
+          <span>750设计稿下，图片宽度702px，设计以这个宽度参考</span> 
+        </div>
+        <div class="form-group">
+          <label><strong></strong>弹窗背景高度：</label>
+          <input type="tel" v-model="obj.data.dialogHeight"  value="" size="10" placeholder="">  
+        </div>
+        <strong style="font-size:16px;">弹窗未中奖且未设置阳光普照奖时文案配置</strong>
+        <div class="form-group">
+          <label><strong></strong>弹窗未中奖标题：</label>
+          <input type="tel" v-model="obj.data.dialogFailTitle"  value="" placeholder="">  
+        </div>
+        <div class="form-group">
+          <label><strong></strong>弹窗未中奖文案：</label>
+          <input type="tel" v-model="obj.data.dialogFailContent"  value="" placeholder="">  
+        </div>
+        <div class="text-right">
+          <button type="button" class="jc-btn btn-primary" @click="addbutton()">添加弹窗按钮</button>
+        </div>
+        <br>
+        <br>
+        <br>
+        <!--配置按钮-->
+        <div class="coupon-group" v-for="(item,index) in obj.data.dialogBtnList" @click="addHighlight(index)" :class="index == obj.data.tabIndex ? 'coupon-group-on' : '' "
+          style="overflow:hidden;">
+          <h4>按钮{{index + 1}}</h4>
+          <button type="button" class="jc-btn btn-primary delBtn" @click="deleteButton(index)">删除</button>
+          <div style="margin-top:30px">
+            <div class="form-group">
+              <label>
+                <strong>*</strong>背景图片：</label>
+              <input type="text" v-model="item.img">
+            </div>
+            <div class="form-group">
+              <label>
+                <strong>*</strong>按钮背景色：</label>
+                <input type="color" v-model="item.bgColor">
+              <input type="text" v-model="item.bgColor">
+            </div>
+            <div class="form-group">
+              <label>
+                <strong>*</strong>字体大小：</label>
+              <input type="text" v-model="item.fontSize">
+            </div>
+            <div class="form-group">
+              <label>
+                <strong>*</strong>字体颜色：</label>
+                <input type="color" v-model="item.fsColor">
+              <input type="text" v-model="item.fsColor">
+            </div>
+            <div class="form-group">
+              <label>
+                <strong>*</strong>按钮文案：</label>
+              <input type="text" v-model="item.content" placeholder="">
+            </div>
+            <div class="form-group">
+              <label>
+                <strong>*</strong>按钮功能：</label>
+                <input type="radio" id="btnClick1" value="reload" v-model="item.btnClick">
+                <label for="btnClick1" style="text-align: left; width:100px;">刷新</label>
+                <input type="radio" id="btnClick2" value="gotoLink" v-model="item.btnClick">
+                <label for="btnClick2" style="text-align: left; width:100px;">链接</label>
+                <input type="radio" id="btnClick3" value="close" v-model="item.btnClick">
+                <label for="btnClick3" style="text-align: left; width:100px;">关闭弹窗</label>
+            </div>
+            <div class="form-group" v-show="item.btnClick=='gotoLink'">
+              <label>
+                <strong>*</strong>跳转链接：</label>
+              <input type="text" v-model="item.link" placeholder="">
+            </div>
+            <div class="form-group">
+              <label>
+                <strong>*</strong>剩余次数：</label>
+                <input type="radio" id="flag1" value="1" v-model="item.flag">
+                <label for="flag1" style="text-align: left; width:100px;">带剩余次数</label>
+                <input type="radio" id="flag2" value="2" v-model="item.flag">
+                <label for="flag2" style="text-align: left; width:100px;">不带剩余次数</label>、
+            </div>
+          </div>
+        </div>
+      </form>
+
+    </div>
+
+  </div>
+</div>

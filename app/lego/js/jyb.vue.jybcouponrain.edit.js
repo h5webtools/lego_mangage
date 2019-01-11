@@ -1,8 +1,8 @@
 define(function (require, exports, module) {
 
-  var vueComponent = require("./jyb.vue.jybdrawcard");
+  var vueComponent = require("./jyb.vue.jybcouponrain");
   var Factory = require('./jyb.vue.edit.factory');
-  var defaultTplEdit = '/public/template/new/jybdrawcard/edit.html';
+  var defaultTplEdit = '/public/template/new/jybcouponrain/edit.html';
 
   /* npm管理 */
   var moduleBasicInfo = "";
@@ -12,37 +12,54 @@ define(function (require, exports, module) {
   var _Class = Factory.getClass({
     vueComponent: vueComponent,
     defaultTplEdit: defaultTplEdit,
-    type: 'jybdrawcard',
+    type: 'jybcouponrain',
     data: {
       styleKey: '',
       "didTrigger": false,//生成页面的时候，这里为False
       "didFinish": false,//生成页面的时候，这里为False
       "lazyLoad": false,
       "isShowNpmVersions": USER_INFOR.isAdmin,
-      "cmd": "",
+      "cmd": "",//领奖命令字
+      "listCmd": "",//获取奖池命令字
+      "numberCmd": "",//抽奖次数命令字
       "actId": "",
-      "cardHeight":"263", //牌面高度
       "backgroundcolor": "",//背景色
-      "rotateType": "1",//翻转形式
-      "areaType": "1",//排列方式
-      "paddingLeft": "",//左间距
-      "paddingRight": "",//右间距
-      "activeColor": "",//高亮颜色
-      "rotateList": [],//卡片列表
-      "lotteryContent": '剩余抽奖次数：',//抽奖次数文案
-      "isShowLottery": '1', //是否展示抽奖次数
-      "isShowCoupon": '1', // 是否展示查看红包
-      "lotteryContentColor": '',// 字体颜色
-      "lotteryContentFont": '24', // 字体大小
-      "lotteryNum": '0', // 抽奖次数
-      "lotteryCmd": '', // 抽奖命令字
+      "bgImg": "", // 背景图片
+      "bgTop": "", // 顶部图片
+      "bgTopHeight": "193", // 顶部图片高度
+      "bgBottom": "", // 底部图片
+      "bgBottomHeight": "251", // 底部图片高度
+      "couponImg": "", // 红包icon
+      "duration": "20", // 倒计时时间
+      "durTime": "2", // 下落时间
+      "maxNum": 100, // 最多生成icon数
+      "isSeq": "1", // 有奖红包
+      "dialogImg": "", // 弹窗背景图
+      "dialogHeight": "670", // 弹窗背景高度
+      "dialogFailTitle": "", // 弹窗未中奖标题
+      "dialogFailContent": "", // 弹窗未中奖文案
+      "dialogBtnList": [], // 弹窗按钮
+      "durationFs": 22, // 倒计时字体大小
+      "durationColor": "", // 倒计时字体颜色
+      "durationTop": 200, // 倒计时距离顶部距离
+      "durationBottom": null, // 倒计时距离底部距离
+      "durationLeft": null, // 倒计时距离左边距离
+      "durationRight": 30, // 倒计时距离右边距离
+      "couponList": [], // 红包列表  **********用于数据操作，不做配置展示************
+      // "randomList": [],
+      // "couponImgList": [],
+      // "timer": null,
+      // "couponNum": 0, // 生成总红包数
+      // "randomNum": 0, // 有奖红包数
+      // "max_reward": 16, // 最多有奖红包数
+      // "checkCoupon": 0, // 点中有奖红包数  *************用于数据操作，不做配置展示*****************
       "npmversion": "",
       "npmversionArr": [],
-      "npmname": "@lego/jybdrawcard",
+      "npmname": "@lego/jybcouponrain",
       "tplid": '', //模板ID 
-      'comTplId': '38',//组件ID
+      'comTplId': '40',//组件ID
     },
-    watch: ['data.styleKey', "desfontsize","cardHeight", "backgroundcolor", "rotateType", "areaType", "paddingLeft", "paddingRight", "activeColor", "rotateList", "lotteryContent", "isShowCoupon", "isShowLottery", "lotteryContentColor", "lotteryContentFont", "lotteryNum","lotteryCmd"]
+    watch: ['data.styleKey', "desfontsize", "backgroundcolor", "bgImg", "bgTop", "bgTopHeight", "bgBottom", "bgBottomHeight", "couponImg", "duration", "durTime","maxNum", "isSeq","dialogImg", "dialogHeight","dialogBtnList","durationFs","durationColor","durationTop","durationBottom","durationLeft","durationRight","cmd","listCmd","numberCmd","dialogFailTitle", "dialogFailContent"]
   });
   _Class.prototype.showCB = function () {
     var that = this;
@@ -63,7 +80,7 @@ define(function (require, exports, module) {
     var path = pageInfo.datefolder + '/' + folderSet.sub + '/';
 
     this.obj.data.isShowNpmVersions = USER_INFOR.isAdmin;
-    moduleDataCenter.getnodeversions('@lego/jybdrawcard', path, function (json) {
+    moduleDataCenter.getnodeversions('@lego/jybcouponrain', path, function (json) {
       if(json.code == 0){
         var _data = json.data.version_list;
         that.obj.data.npmversionArr = _data;
@@ -73,7 +90,7 @@ define(function (require, exports, module) {
       }
     });
 
-    moduleDataCenter.getTplList( that.obj.data.comTplId , function (json) { // 由组件ID获取对应组件的所有模板
+    moduleDataCenter.getTplList( that.obj.data.comTplId, function (json) { // 由组件ID获取对应组件的所有模板
       if (json.code == 0) {
         that.obj.data.tplList = json.data.data;
       }
@@ -114,7 +131,6 @@ define(function (require, exports, module) {
         console.log('a is: ' + this.obj);
         Object.assign(this.oldObj.data, this.obj.data);
         console.log(this.oldObj);
-        console.log(this.obj.data.rotateList);
       },
       events: {},
       watch: {
@@ -129,68 +145,6 @@ define(function (require, exports, module) {
         }
       },
       methods: {
-        selectNpmVersion: function () { /* npm管理 */
-          require.async('./mpm.sys.basicInfo', function (module) {
-            moduleBasicInfo = module;
-          });
-          var pageInfo = moduleBasicInfo.showMePageInfo();
-          var folderSet = moduleBasicInfo.showMeFolderName();
-
-          var path = pageInfo.datefolder + "/" + folderSet.sub + "/";
-
-          moduleDataCenter.updataversion(this.obj.data.npmversion, '@lego/jybdrawcard', path, function () {
-            console.log("update ok ");
-          });
-        },
-        show: function (index) {
-          if (index == 0) {
-            this.showStyle = true;
-            this.showProperty = false;
-          } else {
-            this.showStyle = false;
-            this.showProperty = true;
-          }
-          this.$nextTick(function () {
-
-
-          })
-        },
-        addCard: function () {
-          if (this.obj.data.rotateList.length > 0) {
-            // this.obj.data.rotateList.push(this.obj.data.rotateList[0])
-            var newList = {};
-            var oldList = this.obj.data.rotateList[0];
-            for (var i in oldList) {
-              newList[i] = oldList[i];
-            }
-            this.obj.data.rotateList.push(newList);
-          } else {
-            this.obj.data.rotateList.push({
-              frontImg: '',
-              backImg: '',
-              backbgc: '',
-              backContent: '',
-              backTitleContent: '',
-              backTitleColor: '',
-              backTitlefontSize: '24',
-              backContentColor: '',
-              backContentfontSize: '24',
-              backDesc: '',
-              backDescColor: '',
-              backDescfontSize: '24',
-              rotateStatus:'0',
-              activeStatus: '0',
-              eventid: ''
-            });
-          }
-          console.log(this.obj.data.rotateList);
-        },
-        deleteCard: function (index) {
-          var deleteItem = this.obj.data.rotateList.splice(index - 0, 1);
-        },
-        addHighlight: function (index) {
-          this.obj.data.tabIndex = index;
-        },
         toConfigTree: function () {
           var moduleUtil, me = this;
           require.async('./mpm.sys.util', function (module) {
@@ -221,10 +175,55 @@ define(function (require, exports, module) {
             if (json[key]) {
               var cmds = JSON.parse(json[key]);
                 me.obj.data.cmd = cmds[0];
-                cmds.length > 1 ? (me.obj.data.lotteryCmd = cmds[1]) : '';
-                me.obj.data.actId = decodeURIComponent(_act_id);
+                cmds.length > 1 ? (me.obj.data.listCmd = cmds[1]) : '';
+                cmds.length > 2 ? (me.obj.data.numberCmd = cmds[2]) : '';
+                me.obj.data.activeid = decodeURIComponent(_act_id);
             }
           }, true);
+        },
+        selectNpmVersion: function () { /* npm管理 */
+          require.async('./mpm.sys.basicInfo', function (module) {
+            moduleBasicInfo = module;
+          });
+          var pageInfo = moduleBasicInfo.showMePageInfo();
+          var folderSet = moduleBasicInfo.showMeFolderName();
+
+          var path = pageInfo.datefolder + "/" + folderSet.sub + "/";
+
+          moduleDataCenter.updataversion(this.obj.data.npmversion, '@lego/jybcouponrain', path, function () {
+            console.log("update ok ");
+          });
+        },
+        show: function (index) {
+          if (index == 0) {
+            this.showStyle = true;
+            this.showProperty = false;
+          } else {
+            this.showStyle = false;
+            this.showProperty = true;
+          }
+          this.$nextTick(function () {
+
+
+          })
+        },
+        addbutton: function () {
+          this.obj.data.dialogBtnList.push({
+            img: '',
+            bgColor: '',//按钮背景色
+            fontSize: '', // 字体大小
+            fsColor: '', // 字体颜色
+            content: '',
+            flag: 2 ,// 1为带剩余次数。2为不带剩余次数
+            btnClick: 'reload', // reload刷新，gotoLink跳转链接，close关闭
+            link: ''
+          });
+        },
+        deleteButton: function (index) {
+          var deleteItem = this.obj.data.dialogBtnList.splice(index - 0, 1);
+        },
+        addHighlight: function (index) {
+          this.obj.data.tabIndex = index;
         }
       }
     });
