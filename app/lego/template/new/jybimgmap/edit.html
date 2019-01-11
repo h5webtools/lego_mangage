@@ -157,6 +157,13 @@
               <input type="text" v-model="item.eventid">
             </div>
           </div>
+          <div style="margin-top:30px" v-show="item.selected == 'custom'">
+            <div class="form-group">
+              <label>
+                <strong></strong>上报ID：</label>
+              <input type="text" v-model="item.eventid">
+            </div>
+          </div>
         </div>
       </form>
       <div class="text-right">
