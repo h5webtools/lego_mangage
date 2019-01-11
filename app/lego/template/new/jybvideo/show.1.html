@@ -11,8 +11,8 @@
     <commontag uid="commontag" v-bind:params="data" inline-template>
         <div class="lego-video-show1" :style="{marginLeft: (params.LRMargin/100) + 'rem', marginRight:(params.LRMargin/100) + 'rem'}">
             <video class="lego-video" preload="auto" controls :poster="params.postersrc">
-                <source v-if="params.mp4url" :src="params.mp4url" type="video/mp4">
                 <source v-if="params.oggurl" :src="params.oggurl" type="video/ogg">
+                <source v-if="params.mp4url" :src="params.mp4url" type="video/mp4">
             </video>
         </div>
     </commontag>
