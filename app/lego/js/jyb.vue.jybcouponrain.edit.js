@@ -36,6 +36,8 @@ define(function (require, exports, module) {
       "isSeq": "1", // 有奖红包
       "dialogImg": "", // 弹窗背景图
       "dialogHeight": "670", // 弹窗背景高度
+      "dialogFailTitle": "", // 弹窗未中奖标题
+      "dialogFailContent": "", // 弹窗未中奖文案
       "dialogBtnList": [], // 弹窗按钮
       "durationFs": 22, // 倒计时字体大小
       "durationColor": "", // 倒计时字体颜色
@@ -57,7 +59,7 @@ define(function (require, exports, module) {
       "tplid": '', //模板ID 
       'comTplId': '40',//组件ID
     },
-    watch: ['data.styleKey', "desfontsize", "backgroundcolor", "bgImg", "bgTop", "bgTopHeight", "bgBottom", "bgBottomHeight", "couponImg", "duration", "durTime","maxNum", "isSeq","dialogImg", "dialogHeight","dialogBtnList","durationFs","durationColor","durationTop","durationBottom","durationLeft","durationRight","cmd","listCmd","numberCmd"]
+    watch: ['data.styleKey', "desfontsize", "backgroundcolor", "bgImg", "bgTop", "bgTopHeight", "bgBottom", "bgBottomHeight", "couponImg", "duration", "durTime","maxNum", "isSeq","dialogImg", "dialogHeight","dialogBtnList","durationFs","durationColor","durationTop","durationBottom","durationLeft","durationRight","cmd","listCmd","numberCmd","dialogFailTitle", "dialogFailContent"]
   });
   _Class.prototype.showCB = function () {
     var that = this;
