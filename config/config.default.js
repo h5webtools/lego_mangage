@@ -58,6 +58,7 @@ module.exports = appInfo => {
         'userDBClient': 'dbMain'
      }
     },
+    useMiddleware: false,
     'selfSystem': {  
       'noAuth': [/\/login\/doLogin/, /^\/lego\/syncCallback/,  /^\/lego\/previewLock/],
       'hook': {

@@ -33,7 +33,6 @@ define(function (require, exports, module) {
   var jybdrawcard = require("./jyb.vue.jybdrawcard.edit");
   var jybvideo = require("./jyb.vue.jybvideo.edit");
   var jybcouponrain = require("./jyb.vue.jybcouponrain.edit");
-  
 
   
   // var jybsignin = require("./jyb.vue.jybsignin.edit");

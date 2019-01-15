@@ -69,6 +69,16 @@
             </div>
           </div>
         </form>
+        <form class="form-horizontal">
+          <div class="coupon-group">
+          <div class="form-group">
+              <label><strong></strong>模板选择：</label>
+              <select name="action"  v-model="obj.data.tplid">
+                  <option :value="item.tpl_id" v-for="item in obj.data.tplList">{{item.remark}}</option>
+              </select>
+          </div>
+          </div>
+        </form>
       <br>
       <br>
       <br>

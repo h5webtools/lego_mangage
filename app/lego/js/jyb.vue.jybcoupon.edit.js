@@ -116,6 +116,7 @@ define(function (require, exports, module) {
               desc1Color: true,
               desc2Color: true,
               desc3Color: true,
+              desc3: true,
               btnColor: true,
               btndescColor: true,
               leftBgcolor: true,
@@ -191,7 +192,12 @@ define(function (require, exports, module) {
             "btndescColor": '',
             "awarddes1":'',
             "awarddes2":'',
-            "status":2
+            "status":2,
+            "unreachType": '0',
+            "unreachbtndesc" : '',
+            "unreachdes": '',
+            "unreachhref": '',
+            "mtaunreach": '',
           });
 
           this.$nextTick(function () {
