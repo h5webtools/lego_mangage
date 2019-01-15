@@ -1128,11 +1128,12 @@ class LegoController extends Controller {
         rules: [
           {
             test: /\.js$/,
-            exclude: /(node_modules|bower_components)/,
+            exclude: /node_modules\/(?!@lego)/,
             use: {
               loader: 'babel-loader',
               options: {
-                presets: ['env']
+                presets: ['env'],
+                cacheDirectory:true
                 // presets: [require.resolve('babel-preset-env')]
               }
             }
