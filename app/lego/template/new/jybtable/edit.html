@@ -65,9 +65,20 @@
                     <input type="text" v-model="obj.data.paddingLAndR" placeholder="比如0.2">
                 </div>
                 <div class="form-group">
+                  <label><strong></strong>是否显示边框：</label>
+                  <input type="radio" id="isShowBorder1" value="true" v-model="obj.data.isShowBorder">
+                  <label for="isShowBorder1" style="text-align: left; width:120px;">显示</label>
+                  <input type="radio" id="isShowBorder2" value="false" v-model="obj.data.isShowBorder">
+                  <label for="isShowBorder2" style="text-align: left; width:150px;">不显示</label>
+                </div>
+                <div class="form-group">
                     <label><strong></strong>边框颜色：</label>
                     <input type="color" v-model="obj.data.bordercolor">
                     <input type="text" class="colorFrameInput" v-model="obj.data.bordercolor" value="">
+                </div>
+                <div class="form-group">
+                    <label><strong></strong>表格圆角：</label>
+                    <input type="text" class="colorFrameInput" v-model="obj.data.borderRadius" value="">
                 </div>
                 <div class="form-group">
                     <label><strong></strong>背景颜色：</label>
