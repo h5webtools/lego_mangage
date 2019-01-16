@@ -7,7 +7,8 @@ const childProcess = require('child_process');
 
 class NpmController extends Controller {
   /**
-   * @description 获取指定npm包的版本列表，并用最新的版本号生成package.json文件
+   * @description 1、获取指定npm包的版本列表，并用最新的版本号生成package.json文件
+   *              2、迭代--如果已经有包则不重新写入，如果是来自copy页面则使用最新的版本 
    * @param  npmName  指定的npm包名称
    * @param  actPath  活动目录名称
    */
@@ -16,6 +17,7 @@ class NpmController extends Controller {
         npmName = rawBody.npmName,
         versionList = [],
         actPath = rawBody.folder;
+    var patternsNpmV = /[0-9]{1,}.[0-9]{1,}.[0-9]{1,}/i;   
     if(!npmName || !actPath) {
       this.ctx.body = errCode.INVALID_PARAM_FORMAT;
       return;
@@ -45,7 +47,11 @@ class NpmController extends Controller {
         // 读取活动目录下的package.json文件
         let packageFile = JSON.parse(fs.readFileSync(`${actPath}package.json`, 'utf-8'));
         // 更新指定包的最新版本号
-        packageFile.dependencies[npmName] = latestVersion;
+        if(patternsNpmV.test(packageFile.dependencies[npmName])){ //已经存在npm
+          this.ctx.logger.info(`已经存在npm包${npmName}:${packageFile.dependencies[npmName]}`);
+        }else{
+          packageFile.dependencies[npmName] = latestVersion;
+        }
         // 回写package.json文件
         let writeRet = await this.writePackageFile(`${actPath}package.json`, JSON.stringify(packageFile), 1);
         if(writeRet == errCode.ACTION_SUCCESS) {
