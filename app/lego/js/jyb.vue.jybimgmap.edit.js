@@ -28,6 +28,7 @@ define(function (require, exports, module) {
       "imgUrl": "https://cdnsit.jyblife.com/act/201710/cunguan/image/banner-a3bff324.png",
       "index": 0,
       "imageMap": '',
+      "isFloat": 'false',
       "pageActId":getUrlQuery('act_id'),
       "pageId":getUrlQuery('page_id'),
       "comDesc":''
@@ -137,7 +138,7 @@ define(function (require, exports, module) {
     var dom = $(HTMLString).attr('uid', this.obj.uid);
     var html;
     var htmlTpl = '<jybimgmap uid="jybimgmap" v-bind:params="data" inline-template="">' +
-      '    <div class="hot_area" id="areaContent">' +
+      '    <div class="hot_area" id="areaContent":style="{position:params.isFloat == \'false\'? \'static\' : \'fixed\',bottom:0}">' +
       '<template v-if="true">' +
       '        <div class="" name="imageMap" id="image_map">' +
       '            <img :src="params.imgUrl" ref="imageMap" id="photo" width="100%" draggable="false">' +

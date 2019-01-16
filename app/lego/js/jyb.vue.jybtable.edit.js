@@ -21,6 +21,7 @@ define(function (require, exports, module) {
       "tableTitleArr": "",//表格标题
       "colwidthArr": "",//没列宽度
       "tableContentArr": [],//表格内容
+      "isShowBorder": 'true', // 是否展示表格边框
       "paddingLAndR": "",
       "npmversion": "",
       "npmversionArr": [],
