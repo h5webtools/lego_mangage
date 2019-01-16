@@ -26,6 +26,8 @@ define(function (require, exports, module) {
       "npmversionArr": [],
       "npmname": "@lego/jybcoupon",
       "couponBg":'',
+      "couponDialogBg":'',
+      "DialogBtnBg":'',
       "couponList":[],
       "endTime":'',
       "cuttimetype":0,
