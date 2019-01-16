@@ -39,7 +39,7 @@
 <template class="showTemplate">
     <commontag uid="uid" v-bind:params="data" inline-template>
         <div class="jyb-table-001" v-bind:style="{paddingLeft:params.paddingLAndR+'rem' , paddingRight:params.paddingLAndR+'rem'}">
-            <table class="explain-table" v-bind:style="{'border-radius':params.borderRadius+'rem',background:params.bgcolor,color:params.wordColor, border: params.isShowBorder=='true' ? '1px solid ' + params.bordercolor : 'none'}">
+            <table class="explain-table" v-bind:style="{'border-radius':params.borderRadius+'rem',background:params.bgcolor,color:params.wordColor, border: params.isShowBorder=='false' ? 'none' : '1px solid ' + params.bordercolor}">
                 <tbody> 
                 <template v-if="!params.tableTitleArr">
                 <tr><th class="left">新增资金</th> <th class="right">奖励金额</th> </tr>
@@ -48,7 +48,7 @@
                 <template v-else>
                     <tr :style="{background:params.bgTitleColor,color:params.TitleColor}">
                         <template v-for="(items ,indexs) in params.fnObj.getTableTitleList(params.tableTitleArr , params.colwidthArr)">
-                        <th v-bind:style="{width:items.wth+'rem',borderLeft:params.isShowBorder=='true' ? '1px solid ' + params.bordercolor : 'none' , borderTop: params.isShowBorder=='true' ? '1px solid ' + params.bordercolor : 'none'}" >{{items.title}}{{params.isShowBorder}}</th>
+                        <th v-bind:style="{width:items.wth+'rem',borderLeft:params.isShowBorder=='true' ? '1px solid ' + params.bordercolor : 'none' , borderTop: params.isShowBorder=='true' ? '1px solid ' + params.bordercolor : 'none'}" >{{items.title}}</th>
                         </template>
                     </tr>
                     <tr v-for="(item , index) in params.tableContentArr">
