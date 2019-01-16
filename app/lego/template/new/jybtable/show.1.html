@@ -48,7 +48,7 @@
                 <template v-else>
                     <tr :style="{background:params.bgTitleColor,color:params.TitleColor}">
                         <template v-for="(items ,indexs) in params.fnObj.getTableTitleList(params.tableTitleArr , params.colwidthArr)">
-                        <th v-bind:style="{width:items.wth+'rem',borderLeft:params.isShowBorder=='true' ? '1px solid ' + params.bordercolor : 'none' , borderTop: params.isShowBorder=='true' ? '1px solid ' + params.bordercolor : 'none'}" >{{items.title}}{{params.isShowBorder}}</th>
+                        <th v-bind:style="{width:items.wth+'rem',borderLeft:params.isShowBorder=='true' ? '1px solid ' + params.bordercolor : 'none' , borderTop: params.isShowBorder=='true' ? '1px solid ' + params.bordercolor : 'none'}" >{{items.title}}</th>
                         </template>
                     </tr>
                     <tr v-for="(item , index) in params.tableContentArr">
