@@ -99,7 +99,7 @@
 
 <template class="showTemplate">
     <jybimgmap uid="jybimgmap" v-bind:params="data" inline-template>
-        <div class="hot_area" :style="{'position':params.isFloat == 'false'?'static':'fixed','bottom':'0'}">
+        <div class="hot_area" :style="{'position':params.isFloat == 'true'?'fixed':'static','bottom':'0'}">
             <template v-if="true">
                 <div class="" name="imageMap" id="image_map">
                     <img :src="params.imgUrl" ref="imageMap" id="photo" width="100%" draggable="false" />
