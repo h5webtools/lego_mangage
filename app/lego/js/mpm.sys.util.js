@@ -239,14 +239,14 @@ define(function (require, exports, module) {
             if (data.name == 'productlist') {
               var _act_id = data.data.actId;
               var _pvEventid = $('#pvEventid').val();
-              if (_act_id && _pvEventid) {
-                //上报下
-                $.get('//bi.jyblife.com/legao/act', {
-                  actid: _act_id,
-                  metaid: _pvEventid
-                }, function(json){
-                }, 'json');
-              }
+              // if (_act_id && _pvEventid) {
+              //   //上报下
+              //   $.get('//bi.jyblife.com/legao/act', {
+              //     actid: _act_id,
+              //     metaid: _pvEventid
+              //   }, function(json){
+              //   }, 'json');
+              // }
             }
 
           }
@@ -255,17 +255,17 @@ define(function (require, exports, module) {
           console.log("上报活动ID");
         }
 
-        $.get('//bi.jyblife.com/legao/config', {
-          param:JSON.stringify({
-            pvEventId: $('#pvEventid').val(),
-            pageId:exports.getUrlQuery("page_id"),
-            pageActId:exports.getUrlQuery("act_id"),
-            pageTitle:$('#inputPageName').val()
-          }),
-          type:1
-        }, function(json){
+        // $.get('//bi.jyblife.com/legao/config', {
+        //   param:JSON.stringify({
+        //     pvEventId: $('#pvEventid').val(),
+        //     pageId:exports.getUrlQuery("page_id"),
+        //     pageActId:exports.getUrlQuery("act_id"),
+        //     pageTitle:$('#inputPageName').val()
+        //   }),
+        //   type:1
+        // }, function(json){
           
-        }, 'json');
+        // }, 'json');
         
 
 
