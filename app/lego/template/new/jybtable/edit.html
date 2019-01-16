@@ -78,15 +78,25 @@
                 </div>
                 <div class="form-group">
                     <label><strong></strong>表格圆角：</label>
-                    <input type="text" class="colorFrameInput" v-model="obj.data.borderRadius" value="">
+                    <input type="text" class="colorFrameInput" v-model="obj.data.borderRadius" value="" placeholder="比如0.1">
                 </div>
                 <div class="form-group">
-                    <label><strong></strong>背景颜色：</label>
+                    <label><strong></strong>表格标题背景颜色：</label>
+                    <input type="color" v-model="obj.data.bgTitleColor">
+                    <input type="text" class="colorFrameInput" v-model="obj.data.bgTitleColor" value="">
+                </div>
+                <div class="form-group">
+                    <label><strong></strong>表格标题字体颜色：</label>
+                    <input type="color" v-model="obj.data.TitleColor">
+                    <input type="text" class="colorFrameInput" v-model="obj.data.TitleColor" value="">
+                </div>
+                <div class="form-group">
+                    <label><strong></strong>表格背景颜色：</label>
                     <input type="color" v-model="obj.data.bgcolor">
                     <input type="text" class="colorFrameInput" v-model="obj.data.bgcolor" value="">
                 </div>
                 <div class="form-group">
-                    <label><strong></strong>字体颜色：</label>
+                    <label><strong></strong>表格字体颜色：</label>
                     <input type="color" v-model="obj.data.wordColor">
                     <input type="text" class="colorFrameInput" v-model="obj.data.wordColor" value="">
                 </div>
