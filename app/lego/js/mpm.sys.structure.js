@@ -214,8 +214,7 @@ define(function (require, exports, module) {
 
         //判断链接包含在新的或者老的
         var pageindex = 0;
-
-        moduleDataCenter.updatePageContent(pageInfo.id, content, function (num) {
+        moduleDataCenter.updatePageContent(pageInfo.id, content, pageInfo.datefolder, pageInfo.path, function (num) {
             if (type != "publish") {
                 $(document).trigger('subeditend');
             }

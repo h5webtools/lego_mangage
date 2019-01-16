@@ -160,10 +160,12 @@ define(function(require, exports, module) {
    * @param {*} content 
    * @param {*} callback 
    */
-  exports.updatePageContent = function(id, content, callback) {
+  exports.updatePageContent = function(id, content, datefolder, path, callback) {
     request('/lego/updatePageContent', {
       pageId: id,
-      content
+      content,
+      dateFolder:datefolder,
+      path
     }, callback)
   };
 
