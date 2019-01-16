@@ -76,12 +76,30 @@
     .hot_area {
         position: relative;
         font-size: 0px;
+        width: 7.5rem;
+    }
+    /* 弹框公共 */
+
+    .overlay {
+        background-color: #000;
+        filter: alpha(opacity=60);
+        opacity: 0.6;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        position: fixed;
+        z-index: 1024;
+        -webkit-backface-visibility: hidden;
+        font-size: 0.26rem;
+        line-height: 1.2;
+        color: #333;
     }
 </style>
 
 <template class="showTemplate">
     <jybimgmap uid="jybimgmap" v-bind:params="data" inline-template>
-        <div class="hot_area">
+        <div class="hot_area" :style="{'position':params.isFloat == 'false'?'static':'fixed','bottom':'0'}">
             <template v-if="true">
                 <div class="" name="imageMap" id="image_map">
                     <img :src="params.imgUrl" ref="imageMap" id="photo" width="100%" draggable="false" />
