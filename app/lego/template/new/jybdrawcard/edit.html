@@ -128,16 +128,20 @@
         <div class="form-group">
           <label><strong></strong>牌面高度：</label>
           <input type="text"  class="colorFrameInput" v-model="obj.data.cardHeight"  value="" size="10">
-          <span>单位用rem，1rem表示750大小的100px</span>  
+          <span>基于750设计稿的尺寸</span>  
+        </div>
+        <div class="form-group">
+          <label><strong></strong>牌面宽度：</label>
+          <input type="text"  class="colorFrameInput" v-model="obj.data.cardWidth"  value="" size="10">
+          <span>基于750设计稿的尺寸</span>  
         </div>
         <div class="form-group">
           <label><strong></strong>右间距：</label>
           <input type="text"  class="colorFrameInput" v-model="obj.data.paddingRight"  value="" size="10">  
         </div>
         <div class="form-group">
-          <label><strong></strong>高亮颜色：</label>
-          <input type="color" v-model="obj.data.activeColor">
-          <input type="text"  class="colorFrameInput" v-model="obj.data.activeColor"  value="" size="10">  
+          <label><strong></strong>高亮图片：</label>
+          <input type="text"  class="colorFrameInput" v-model="obj.data.activeColor"  value="">  
         </div>
         <div class="form-group">
           <label><strong></strong>剩余抽奖文案：</label>
