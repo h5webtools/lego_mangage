@@ -124,7 +124,7 @@ module.exports = appInfo => {
 
   config.legoConfig = {
     // path: '/data/www/lego/h5_lego_actpage/release/act/',
-    path: '/Users/zsl/zhaoshali/work/lego/',
+    path: 'C:/jyb/lego_develop',
     templateJs: 'index_dev.tjs',
     previewTem: 'confirm_publish.tjs',
     actJs: 'index.js',
