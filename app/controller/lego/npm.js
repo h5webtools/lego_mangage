@@ -121,8 +121,9 @@ class NpmController extends Controller {
     actFolder = this.config.legoConfig.path + actFolder;
     // 读取活动目录下的package.json文件
     let packageFile = JSON.parse(fs.readFileSync(`${actFolder}/package.json`, 'utf-8'));
-    this.ctx.logger.info(`更新${npmName}包版本`);
+    this.ctx.logger.info(`更新${npmName}包版本=${npmVersion}`);
     packageFile.dependencies[npmName] = npmVersion;
+    this.ctx.logger.info(`更新之后包的信息${JSON.stringify(packageFile)}`);
     let writeRet = await this.writePackageFile(`${actFolder}/package.json`, JSON.stringify(packageFile), 1);
     if(writeRet == errCode.ACTION_SUCCESS) {
       this.ctx.logger.info(`更新${npmName}包版本成功，准备安装包`);
@@ -135,7 +136,7 @@ class NpmController extends Controller {
         cwd: actFolder
       };
       let command = process.platform === 'win32' ? 'npm.cmd' : 'npm';
-      let install = childProcess.spawnSync(command, ['install' ,  npmName+'@'+npmVersion], installOptions);
+      let install = childProcess.spawnSync(command, ['install' ,  `${npmName}@${npmVersion}`, '-E'], installOptions);
       if(install.status == 0) {
         this.ctx.logger.info(`安装${npmName}包版本${npmVersion}成功`);
       } else {
