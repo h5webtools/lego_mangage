@@ -255,7 +255,7 @@
           <p v-else-if="item.status == 0" class="mod-c-coupon-item__btn mod-c-coupon-item__btn--disbaled">已抢光</p>
           -->
           <p v-else-if="item.status == 3" class="mod-c-coupon-item__btn mod-c-coupon-item__btn--disbaled">已结束</p>
-          <p v-else class="mod-c-coupon-item__btn" :style="{color: item.btndescColor}" :awardindex='index+1' v-on:click="toDraw">{{ item.btndesc }}</p>
+          <p v-else class="mod-c-coupon-item__btn" :style="{color: item.btndescColor}" :awardindex='index+1' v-on:click="toDraw">{{ item.drawbtndesc }}</p>
         </div>
       </div>
     </template>
