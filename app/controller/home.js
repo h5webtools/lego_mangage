@@ -109,47 +109,17 @@ class HomeController extends Controller {
     //   ]
     // });
     
-    if (this.ctx.session.passportJyb) {
-
-      const portUserId = this.ctx.session.passportJyb.user_id;
+    const passportJyb = this.ctx.session.passportJyb;
+    if (passportJyb) {
+      const portUserId = passportJyb.user_id;
       const operateUser = await this.ctx.service.portal.user.findByPortalUserId(portUserId);
       this.ctx.logger.info(operateUser,'--------------------------->operateUser');
 
-    
-    
-      const menu = await this.ctx.passportGetMenu('', '', 3, portUserId); 
-      // 自定义修改需要加入的路由
-      if (this.app.config.env == "sit" || this.app.config.env == "local") {
-        let  find = false;
-        menu.forEach((item) => {
-          if (item.menu_code == 'legoSystem'){
-            find = true;
-            item.children.push({
-                menu_name: "同步配置",
-                menu_url: "/system/sync",
-                menu_id: "501"
-              });
-          }
-        })
-
-
-        if(!find) {
-          menu.push({
-            menu_name: "系统设置",
-            icon: "iconfont icon-shezhi",
-            children: [
-              {
-                menu_name: "同步配置",
-                menu_url: "/system/sync",
-                menu_id: "501"
-              }
-            ]
-          });
-        }
-
+      const userMenuData = await this.ctx.service.portal.auth.getUserMenu(passportJyb.ticket.ticket);
+      let userMenu = [];
+      if (userMenuData.code == 0) {
+        userMenu = userMenuData.data;
       }
-
-    
 
       if(!this.ctx.session.userid) {
         this.ctx.session.userid = operateUser.user_id;
@@ -186,7 +156,7 @@ class HomeController extends Controller {
         keywords: "加油宝,乐高,管理系统",
         description: "加油宝乐高管理系统",
         title: "乐高管理系统",
-        menuList: JSON.stringify(menu),
+        menuList: JSON.stringify(userMenu),
         userInfo: JSON.stringify(userInfo),
         env: this.app.config.env
       });
