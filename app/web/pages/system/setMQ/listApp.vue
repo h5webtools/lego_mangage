@@ -32,7 +32,7 @@
         </el-pagination>
       </div>
     </div>
-    <el-dialog title="新增/编辑配置" :visible.sync="dialogVisible">
+    <el-dialog title="新增/编辑配置" :close-on-press-escape="false" :visible.sync="dialogVisible">
       <el-form v-loading="dialogLoading"  ref="systemData" label-width="150px" :rules="rules" :model="systemData">
         <el-form-item label="事件名称:" required prop="event_name">
           <el-input placeholder="请输入事件名称"  v-model="systemData.event_name"></el-input>

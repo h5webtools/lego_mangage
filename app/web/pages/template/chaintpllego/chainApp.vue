@@ -23,7 +23,7 @@
       </template>
 
     </div>
-    <el-dialog title="新增/编辑参数" :show-close="false" :close-on-click-modal="false" :visible.sync="paramEditVisible">
+    <el-dialog :close-on-press-escape="false" title="新增/编辑参数" :show-close="false" :close-on-click-modal="false" :visible.sync="paramEditVisible">
       <el-tabs :active-name="dialogData.nodeType" type="card" @tab-click="toggleTab">
         <el-tab-pane :disabled="dialogData.lock || dialogData.lockRule" label="规则" name="rule">
           <el-select style="width:100%" @change="ruleActionChange" v-model="dialogData.chainName" filterable :disabled="dialogData.lock" placeholder="请选择规则">
@@ -79,7 +79,7 @@
     </el-dialog>
 
         <!-- 展示树的json格式数据 -->
-    <el-dialog title="配置树" :visible.sync="chainsTplVisible">
+    <el-dialog :close-on-press-escape="false" title="配置树" :visible.sync="chainsTplVisible">
       <div>
         <el-row>
           <el-col :span="24">
@@ -96,7 +96,7 @@
     <!-- 展示树的json格式数据 -->
 
     <!-- 展示树的json格式数据 -->
-    <el-dialog title="配置树" :visible.sync="chainsImportTplVisible">
+    <el-dialog :close-on-press-escape="false" title="配置树" :visible.sync="chainsImportTplVisible">
       <div>
         <el-form :model="chainsTplData">
           <el-form-item>

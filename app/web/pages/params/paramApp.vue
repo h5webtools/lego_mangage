@@ -139,7 +139,7 @@
         </el-pagination>
       </div>
     </div>
-    <el-dialog title="新增规则/动作" :visible.sync="dialogVisible">
+    <el-dialog title="新增规则/动作" :close-on-press-escape="false" :visible.sync="dialogVisible">
       <el-form v-loading="dialogLoading" label-width="80px" :model="newRuleActionForm">
         <el-form-item label="逻辑名">
           <el-input placeholder="请输入逻辑名" v-model.trim="newRuleActionForm.name"></el-input>
