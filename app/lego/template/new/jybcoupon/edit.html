@@ -176,9 +176,9 @@
               <input type="text" class="colorFrameInput" v-model="item.leftBgcolor" value="">
             </div>
 
-            <div class="form-group" style="margin-right: 100px;margin-left: 34px;">
+            <div v-if="checkShowProp('drawbtndesc')" class="form-group" style="margin-right: 100px;margin-left: 34px;">
               <label><strong>*</strong>按钮文案：</label>
-              <input type="text" v-model="item.btndesc" placeholder="比如：立即抢购">
+              <input type="text" v-model="item.drawbtndesc" placeholder="比如：立即领取">
             </div>
 
             <div v-if="checkShowProp('btndescColor')" class="form-group" style="margin-right: 100px;margin-left: 34px;">
@@ -215,6 +215,10 @@
             <div class="form-group" style="margin-right: 100px;margin-left: 34px;">
                 <label><strong>*</strong>弹框跳转链接：</label>
                 <input type="text" v-model="item.awardhref" placeholder="">
+            </div>
+            <div class="form-group" style="margin-right: 100px;margin-left: 34px;">
+              <label><strong>*</strong>弹窗按钮文案：</label>
+              <input type="text" v-model="item.btndesc" placeholder="比如：立即抢购">
             </div>
             <div class="form-group" style="margin-right: 100px;margin-left: 34px;">
                 <label><strong>*</strong>立即领取埋点：</label>

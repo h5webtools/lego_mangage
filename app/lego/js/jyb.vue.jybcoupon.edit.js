@@ -123,6 +123,7 @@ define(function (require, exports, module) {
               btndescColor: true,
               leftBgcolor: true,
               msgColor: true,
+              drawbtndesc: true,
             }
           }
 
@@ -131,6 +132,7 @@ define(function (require, exports, module) {
               desc1Color: true,
               desc2Color: true,
               btndescColor: true,
+              drawbtndesc: true,
             };
           }
 
@@ -190,10 +192,11 @@ define(function (require, exports, module) {
             'drawTime':'',
             'bgcolor':'',
             "awardhref":'',
-            "btndesc":'立即抢购',
+            "drawbtndesc": "立即领取",
             "btndescColor": '',
             "awarddes1":'',
             "awarddes2":'',
+            "btndesc":'立即抢购',
             "status":2,
             "unreachType": '0',
             "unreachbtndesc" : '',
