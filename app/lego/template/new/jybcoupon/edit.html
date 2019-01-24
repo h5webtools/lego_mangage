@@ -163,7 +163,11 @@
                 <label><strong>*</strong>开抢时间：</label>
                 <input type="text" v-model="item.drawTime" placeholder="比如2018/09/11 13:00:00">
             </div>
-            <div class="form-group" style="margin-right: 100px;margin-left: 34px;">
+            <div v-if="obj.data.cuttimetype == 2 && checkShowProp('endTime')" class="form-group" style="margin-right: 100px;margin-left: 34px;" v-if="obj.data.cuttimetype == 2">
+              <label>结束时间：</label>
+              <input type="text" v-model="item.endTime" placeholder="比如2018/09/11 23:59:59">
+            </div>
+            <div v-if="checkShowProp('bgcolor')" class="form-group" style="margin-right: 100px;margin-left: 34px;">
               <label>
                 <strong>*</strong>券面填充色：</label>
               <input type="color" v-model="item.bgcolor">
@@ -174,6 +178,11 @@
                 <strong>*</strong>券封填充色：</label>
               <input type="color" v-model="item.leftBgcolor">
               <input type="text" class="colorFrameInput" v-model="item.leftBgcolor" value="">
+            </div>
+            <div v-if="checkShowProp('bgURL')" class="form-group" style="margin-right: 100px;margin-left: 34px;">
+              <label>
+                <strong>*</strong>背景图链接：</label>
+              <input type="text" v-model="item.bgURL" value=""  placeholder="例如 https://images.jyblife.com/lego/coupon_bg.png">
             </div>
 
             <div v-if="checkShowProp('drawbtndesc')" class="form-group" style="margin-right: 100px;margin-left: 34px;">
