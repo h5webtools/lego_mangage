@@ -269,7 +269,7 @@
         </div>
         <div class="mod-c-coupon-item__bottom">
           <template v-if="item.drawFlag == false">
-            <template v-if="item.times.hour==0 && item.times.minute == 0 && item.times.sec == 0">
+            <template v-if="item.times.day==0 && item.times.hour==0 && item.times.minute == 0 && item.times.sec == 0">
               <div class="mod-c-coupon-item__btn"
                 :awardindex='index+1'
                 v-bind:data-stat-id="item.mtabtn"
