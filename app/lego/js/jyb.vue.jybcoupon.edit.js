@@ -229,7 +229,7 @@ define(function (require, exports, module) {
             "unreachhref": '',
             "mtaunreach": '',
             "endTime": '',
-            "bgURL": '',
+            "bgURL": 'https://images.jyblife.com/lego/coupon_bg.png',
           });
 
           this.$nextTick(function () {
@@ -237,6 +237,7 @@ define(function (require, exports, module) {
           });
         },
         deleteExchangeItem: function (index) {
+          console.log('>>>>>>>>>', index);
           var deleteItem = this.obj.data.couponList.splice(index - 0, 1);
         },
         selectNpmVersion: function () { /* npm管理 */
