@@ -24,7 +24,7 @@ class HomeController extends Controller {
       }
 
       if(!this.ctx.session.roles) {
-        const roleList = await this.service.login.loginService.findRole(portUserId);
+        const roleList = await this.service.login.loginService.findRole(operateUser.user_id);
         if(roleList) {
           this.ctx.session.roles = roleList.map(role => {
             return role.role_id;
