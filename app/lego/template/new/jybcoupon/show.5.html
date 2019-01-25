@@ -283,7 +283,7 @@
           <template v-else>
             <p v-if="item.status == 1" class="mod-c-coupon-item__btn mod-c-coupon-item__btn--disbaled">已领取</p>
             <p v-else-if="item.status == 3" class="mod-c-coupon-item__btn mod-c-coupon-item__btn--disbaled">已过领取日期</p>
-            <p v-else-if="item.status == 0" class="mod-c-coupon-item__btn mod-c-coupon-item__btn--disbaled">已抢光</p>
+            <p v-else-if="item.left == 0" class="mod-c-coupon-item__btn mod-c-coupon-item__btn--disbaled">已抢光</p>
             <p v-else class="mod-c-coupon-item__btn" :style="{color: item.btndescColor}" :awardindex='index+1' v-on:click="toDraw">未领取</p>
           </template>
         </div>
