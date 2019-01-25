@@ -378,13 +378,13 @@
         'vuefe': 'vuefe'
       },
       map: [
-        [ /(.*?)jyb.vue(.*?)(\.js)$/i,"$1jyb.vue$2.js?v="+"20190102" ],
-        [ /(.*?)mpm.sys(.*?)(\.js)$/i,"$1mpm.sys$2.js?v="+"20190102" ]
+        [ /(.*?)jyb.vue(.*?)(\.js)$/i,"$1jyb.vue$2.js?v="+"20190115" ],
+        [ /(.*?)mpm.sys(.*?)(\.js)$/i,"$1mpm.sys$2.js?v="+"20190115" ]
   	  ]
     });
   </script>
   <script type="text/javascript">
-    seajs.use('/public/js/mpm.sys.edit.js?v=20190102', function(m) {
+    seajs.use('/public/js/mpm.sys.edit.js?v=20190115', function(m) {
       m.init()
       // 初始化自定义代码调试编辑器
       window.debugEditor = window.__debugEditor__.install('#js-debug-editor', window.Vue);

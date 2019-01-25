@@ -47,7 +47,7 @@ define(function (require, exports, module) {
     var previewURL = "https://cdnsit.jyblife.com/act/" + folderSet.datefolder + "/" + _path + "/" + _fileName + "?act_id=" + moduleUtil.getUrlQuery('act_id');
     var publishURL = "https://cdn.jyblife.com/act/" + folderSet.datefolder + "/" + _path + "/" + _fileName + "?act_id=" + moduleUtil.getUrlQuery('act_id');
     var previewHtmlURL = "https://preview.jyblife.com/act/" + folderSet.datefolder + "/" + _path + "/" + _fileName + "?act_id=" + moduleUtil.getUrlQuery('act_id') + "&visit=copy";
-    var previewSitHtmlURL = "http://previewsit.jyblife.com/act/" + folderSet.datefolder + "/" + _path + "/" + _fileName + "?act_id=" + moduleUtil.getUrlQuery('act_id') ;
+    var previewSitHtmlURL = "https://previewsit.jyblife.com/act/" + folderSet.datefolder + "/" + _path + "/" + _fileName + "?act_id=" + moduleUtil.getUrlQuery('act_id') ;
     if (publishSta == "preview") {
       des = des + "<br> 集成测试地址：" + previewURL;
     } else if (publishSta == "publish") {

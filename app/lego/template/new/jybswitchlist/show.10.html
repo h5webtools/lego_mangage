@@ -1,10 +1,10 @@
 <style>
 .show-7 {
-    width: 7.5rem;
+    {# width: 7.5rem; #}
     height: .9rem;
 }
 .show-7 .mod-tab-wrap {
-    width: 100%;
+    {# width: 100%; #}
 }
 .show-7 .tab-box {
     width: 100%;
@@ -51,12 +51,32 @@
 <template class="showTemplate">
     <jybswitchlist uid="switchlist" v-bind:params="data" inline-template>
         <div class="show-7">
-            <div class="mod-tab-wrap">
+            <div class="mod-tab-wrap" v-bind:style="{paddingLeft:params.LRPadding+'rem',paddingRight:params.LRPadding+'rem'}">
                 <div class="tab-box">
                     <div :class="{'tab-nav': true}">
-                        <template v-if="true">
-                            <a href="javascript:;" :data-stat-id="item.eventid || ''"  @click="toggleTabs(index)" v-for="(item,index) in params.tabs" :tab="index" :class="index == data.tabIndex ? 'on' : '' "
-                            :title="item.tabTitle">{{item.tabTitle}}</a>
+                        <template v-if="true" v-for="(item,index) in params.tabs" >
+                            <a href="javascript:;" 
+                            :data-stat-id="item.eventid || ''"  
+                            @click="toggleTabs(index)" 
+                            :tab="index" 
+                            :class="index == data.tabIndex ? 'on' : '' "
+                            :title="item.tabTitle"
+                            v-bind:style="{
+                            color:params.selectedcontentColor,
+                            backgroundColor:params.selectedbgcolor}" 
+                            v-if="index == data.tabIndex"
+                            >{{item.tabTitle}}</a>
+                            <a href="javascript:;" 
+                            :data-stat-id="item.eventid || ''"  
+                            @click="toggleTabs(index)" 
+                            :tab="index" 
+                            :class="index == data.tabIndex ? 'on' : '' "
+                            :title="item.tabTitle"
+                            :style="{
+                                color:params.contentColor,
+                                backgroundColor:params.bgcolor}"
+                            v-else
+                            >{{item.tabTitle}}</a>
                         </template>
                     </div>
                 </div>

@@ -81,7 +81,7 @@
       </el-col>
     </el-row>
 
-    <el-dialog title="查看/编辑候补活动" class="el-dialog__title el-dialog__title_weigth" :visible.sync="checkSubActsListVisible">
+    <el-dialog :close-on-press-escape="false" title="查看/编辑候补活动" class="el-dialog__title el-dialog__title_weigth" :visible.sync="checkSubActsListVisible">
       <el-table height="400" border style="width: 100%" :data="subActsList">
         <el-table-column prop="title" label="活动标题" width="150"></el-table-column>
         <el-table-column prop="begin_at" label="生效时间" width="150"></el-table-column>
@@ -98,7 +98,7 @@
       </el-table>
     </el-dialog>
 
-    <el-dialog title="新增/编辑候补活动" class="el-dialog__title el-dialog__title_weigth" :visible.sync="dialogAddSubActVisible">
+    <el-dialog :close-on-press-escape="false" title="新增/编辑候补活动" class="el-dialog__title el-dialog__title_weigth" :visible.sync="dialogAddSubActVisible">
       <el-form :model="addSubActForm" :SubActFormRules="SubActFormRules" ref="addSubActForm">  
         <el-form-item label="活动号：" :label-width="formLabelWidth">
           <el-input v-model="addSubActForm.act_id" auto-complete="off" style="width:70%"></el-input>

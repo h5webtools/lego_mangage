@@ -6,6 +6,7 @@
         font-size: .23rem;
         text-align: left;
         color: #fbe5cb;
+        overflow: hidden;
 
         font-family: ff-tisa-web-pro-1, ff-tisa-web-pro-2, Lucida Grande, Hiragino Sans GB, Hiragino Sans GB W3;
     }
@@ -38,21 +39,21 @@
 <template class="showTemplate">
     <commontag uid="uid" v-bind:params="data" inline-template>
         <div class="jyb-table-001" v-bind:style="{paddingLeft:params.paddingLAndR+'rem' , paddingRight:params.paddingLAndR+'rem'}">
-            <table class="explain-table" v-bind:style="{background:params.bgcolor,color:params.wordColor, border: '1px solid ' + params.bordercolor}">
+            <table class="explain-table" v-bind:style="{'border-radius':params.borderRadius+'rem',background:params.bgcolor,color:params.wordColor, border: params.isShowBorder=='false' ? 'none' : '1px solid ' + params.bordercolor}">
                 <tbody> 
                 <template v-if="!params.tableTitleArr">
                 <tr><th class="left">新增资金</th> <th class="right">奖励金额</th> </tr>
                 <tr><td class="left">5000≤X＜8000</td> <td class="right">15元现金红包</td> </tr>          
                 </template>
                 <template v-else>
-                    <tr >
+                    <tr :style="{background:params.bgTitleColor,color:params.TitleColor}">
                         <template v-for="(items ,indexs) in params.fnObj.getTableTitleList(params.tableTitleArr , params.colwidthArr)">
-                        <th v-bind:style="{width:items.wth+'rem',borderLeft: '1px solid ' + params.bordercolor , borderTop: '1px solid ' + params.bordercolor}" >{{items.title}}</th>
+                        <th v-bind:style="{width:items.wth+'rem',borderLeft:params.isShowBorder=='true' ? '1px solid ' + params.bordercolor : 'none' , borderTop: params.isShowBorder=='true' ? '1px solid ' + params.bordercolor : 'none'}" >{{items.title}}</th>
                         </template>
                     </tr>
                     <tr v-for="(item , index) in params.tableContentArr">
                         <template v-for="(itemin , indexin) in params.fnObj.getTableContentArr(item.tabContentItem , params.colwidthArr)">
-                            <td v-bind:style="{width:itemin.wth+'rem',borderLeft: '1px solid ' + params.bordercolor , borderTop: '1px solid ' + params.bordercolor}" >
+                            <td v-bind:style="{width:itemin.wth+'rem',borderLeft:params.isShowBorder=='true' ? '1px solid ' + params.bordercolor : 'none' , borderTop:params.isShowBorder=='true' ? '1px solid ' + params.bordercolor : 'none'}" >
                                 {{itemin.content}}
                             </td> 
                         </template>

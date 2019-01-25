@@ -1,10 +1,10 @@
 <style>
 .lego-jybswitchlist-show7 {
-  width: 7.5rem;
+  {# width: 7.5rem; #}
   height: .90rem;
 }
 .lego-jybswitchlist-show7 .tab-wrap {
-  width: 100%;
+  {# width: 100%; #}
   position: absolute;
   left: 0;
   bottom: 0;
@@ -36,18 +36,38 @@
 <template class="showTemplate">
   <jybswitchlist uid="switchlist" v-bind:params="data" inline-template>
     <div class="lego-jybswitchlist-show7" >
-      <div class="tab-wrap ui-p-fixed">
+      <div class="tab-wrap ui-p-fixed" v-bind:style="{paddingLeft:params.LRPadding+'rem',paddingRight:params.LRPadding+'rem'}">
         <div class="tab-box">
-          <a href="javascript:;"
+          <template v-if="true" v-for="(item,index) in params.tabs">
+            <a href="javascript:;"
             class="tab-item"
             :data-stat-id="item.eventid || ''"
             @click="toggleTabs(index)"
-            v-for="(item,index) in params.tabs"
             :tab="index"
             :class="index == data.tabIndex ? 'tab-item_active' : '' "
-            :title="item.tabTitle">
+            :title="item.tabTitle"
+            :style="{
+                width:(100/params.tabs.length)+'%' ,
+                color:params.selectedcontentColor,
+                backgroundColor:params.selectedbgcolor}"
+            v-if="index == data.tabIndex">
             {{item.tabTitle}}
-          </a>
+            </a>
+            <a href="javascript:;"
+            class="tab-item"
+            :data-stat-id="item.eventid || ''"
+            @click="toggleTabs(index)"
+            :tab="index"
+            :class="index == data.tabIndex ? 'tab-item_active' : '' "
+            :title="item.tabTitle"
+            :style="{
+                width:(100/params.tabs.length)+'%' ,
+                color:params.contentColor,
+                backgroundColor:params.bgcolor}"
+            v-else>
+            {{item.tabTitle}}
+            </a>
+          </template>
         </div>
       </div>
     </div>

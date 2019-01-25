@@ -1,0 +1,92 @@
+<div class="editBox">
+  <div class="editBox_2">
+    <h3>{{obj.componentName}} {{obj.uid}}</h3>
+    <p>头图</p>
+    <ul class="tab_hd">
+      <li v-bind:class="{ 'on': showStyle }" v-on:click="show(0)">
+        <a href="javascript:;" title="设置样式">设置样式</a>
+      </li>
+      <li v-bind:class="{ 'on': showProperty }" v-on:click="show(1)">
+        <a href="javascript:;" title="设置数据">设置数据</a>
+      </li>
+    </ul>
+
+    <div v-show="showStyle" class="styleBox">
+      <div class="editArea">
+        <form class="form-horizontal" v-for="item in obj.com_extend">
+          <div class="form-group" v-if="item.type == 'radio'">
+            <label>{{item.name}}：</label>
+            <div>
+              <label v-for="item2 in item.data">
+                <input type="radio" :name="obj.uid+'_'+item.nick" :value="item2.value" v-model="obj.data.extend[item.nick]"> {{item2.name}}</label>
+            </div>
+          </div>
+          <div class="form-group" v-if="item.type == 'input'">
+            <label style="float: left;padding-right:14px;">
+              <strong>*</strong>{{item.name}}：</label>
+            <input type="text" :class="item.class" :name="obj.uid+'_'+item.nick" v-model="obj.data.extend[item.nick]" :placeholder="item.placeholder"
+              flag="extendtime" :nick="item.nick">
+          </div>
+        </form>
+      </div>
+      <dl>
+        <dt>样式</dt>
+        <dd>
+          <ul>
+            <li v-for="item in arrStyle" v-if="item.priority != 10000">
+              <div style="display:none;">
+                {{item.com_desc}}
+                <input type="radio" :name="obj.uid" :id="obj.uid+'_'+item.id" :value="item.id" v-model="obj.data.styleKey">
+                <br/>
+              </div>
+              <label :class="item.id == obj.data.styleKey ? 'on' : ''" :for="obj.uid+'_'+item.id">
+                <img :src="item.image" alt="">
+              </label>
+              <div class="styleDesc">
+                {{item.com_desc}}
+              </div>
+            </li>
+          </ul>
+        </dd>
+      </dl>
+    </div>
+
+    <div v-show="showProperty" class="editArea">
+      <form class="form-horizontal" v-if="true">
+        <div class="coupon-group">
+          <div class="form-group">
+            <label>
+              <strong></strong>版本号：</label>
+            <select name="action" @change="selectNpmVersion" v-model="obj.data.npmversion">
+              <option :value="item.version" v-for="item in obj.data.npmversionArr">{{item.desc}}</option>
+            </select>
+          </div>
+        </div>
+      </form>
+      <form class="form-horizontal">
+        <div class="coupon-group">
+          <div class="form-group">
+            <label>
+              <strong></strong>预览图地址：</label>
+              <input type="text" name="" v-model.lazy="obj.data.postersrc" placeholder="未播放前预览地址">
+          </div>
+          <div class="form-group">
+            <label>
+              <strong></strong>pm4格式地址：</label>
+              <input type="text" placeholder="上传到腾讯云" v-model="obj.data.mp4url">
+          </div>
+          <div class="form-group">
+            <label>
+              <strong></strong>ogg格式地址：</label>
+              <input type="text" placeholder="上传到腾讯云" v-model="obj.data.oggurl">
+          </div>
+          <div class="form-group">
+            <label>
+              <strong></strong>左右间距：</label>
+              <input type="text" placeholder="像素值 不带单位" v-model="obj.data.LRMargin">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

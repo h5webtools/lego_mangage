@@ -28,6 +28,7 @@ define(function (require, exports, module) {
       "LRpadding": "",//左右边距
       "TopPadding": "",//上边距
       "DownPadding": "",//下边距
+      "exchangeTips": "", //兑换前弹窗提示文案
       "buiedcolor": "",
       "bottomdesc": "",
       "buiedsize": "",
@@ -41,7 +42,7 @@ define(function (require, exports, module) {
       'comTplId': '3',//组件ID
     },
     watch: ['data.styleKey', 'data.bgcolor', 'data.exchangeItem', 'data.TopPadding', 'data.DownPadding', "data.cmd",
-      "data.actId", "data.actType"]
+      "data.actId", "data.actType", "exchangeTips"]
   });
   _Class.prototype.showCB = function () {
     var that = this;

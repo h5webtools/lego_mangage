@@ -39,8 +39,8 @@ define(function (require, exports, module) {
       "npmversion": "",
       "npmversionArr": [],
       "npmname": "@lego/jybdrawcard",
-      "tplid": '38', //模板ID 
-      'comTplId': '',//组件ID
+      "tplid": '', //模板ID 
+      'comTplId': '38',//组件ID
     },
     watch: ['data.styleKey', "desfontsize","cardHeight", "backgroundcolor", "rotateType", "areaType", "paddingLeft", "paddingRight", "activeColor", "rotateList", "lotteryContent", "isShowCoupon", "isShowLottery", "lotteryContentColor", "lotteryContentFont", "lotteryNum","lotteryCmd"]
   });
@@ -73,7 +73,7 @@ define(function (require, exports, module) {
       }
     });
 
-    moduleDataCenter.getTplList( that.obj.data.comTplId || '38', function (json) { // 由组件ID获取对应组件的所有模板
+    moduleDataCenter.getTplList( that.obj.data.comTplId , function (json) { // 由组件ID获取对应组件的所有模板
       if (json.code == 0) {
         that.obj.data.tplList = json.data.data;
       }
@@ -114,6 +114,7 @@ define(function (require, exports, module) {
         console.log('a is: ' + this.obj);
         Object.assign(this.oldObj.data, this.obj.data);
         console.log(this.oldObj);
+        console.log(this.obj.data.rotateList);
       },
       events: {},
       watch: {
@@ -156,7 +157,13 @@ define(function (require, exports, module) {
         },
         addCard: function () {
           if (this.obj.data.rotateList.length > 0) {
-            this.obj.data.rotateList.push(this.obj.data.rotateList[0])
+            // this.obj.data.rotateList.push(this.obj.data.rotateList[0])
+            var newList = {};
+            var oldList = this.obj.data.rotateList[0];
+            for (var i in oldList) {
+              newList[i] = oldList[i];
+            }
+            this.obj.data.rotateList.push(newList);
           } else {
             this.obj.data.rotateList.push({
               frontImg: '',
@@ -165,18 +172,18 @@ define(function (require, exports, module) {
               backContent: '',
               backTitleContent: '',
               backTitleColor: '',
-              backTitlefontSize: '',
+              backTitlefontSize: '24',
               backContentColor: '',
-              backContentfontSize: '',
+              backContentfontSize: '24',
               backDesc: '',
               backDescColor: '',
-              backDescfontSize: '',
+              backDescfontSize: '24',
               rotateStatus:'0',
               activeStatus: '0',
               eventid: ''
             });
           }
-          
+          console.log(this.obj.data.rotateList);
         },
         deleteCard: function (index) {
           var deleteItem = this.obj.data.rotateList.splice(index - 0, 1);
@@ -213,9 +220,9 @@ define(function (require, exports, module) {
             var json = JSON.parse(e.data);
             if (json[key]) {
               var cmds = JSON.parse(json[key]);
-                me.obj.data.cmdid = cmds[0];
-                cmds.length > 1 ? (me.obj.data.areacmdid = cmds[1]) : '';
-                me.obj.data.activeid = decodeURIComponent(_act_id);
+                me.obj.data.cmd = cmds[0];
+                cmds.length > 1 ? (me.obj.data.lotteryCmd = cmds[1]) : '';
+                me.obj.data.actId = decodeURIComponent(_act_id);
             }
           }, true);
         }

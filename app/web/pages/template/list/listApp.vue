@@ -41,7 +41,7 @@
         </el-pagination>
       </div>
     </div>
-    <el-dialog title="新增/编辑活动模板" :visible.sync="dialogVisible">
+    <el-dialog :close-on-press-escape="false" title="新增/编辑活动模板" :visible.sync="dialogVisible">
       <el-form v-loading="dialogLoading" ref="templateData" label-width="80px" :rules="rules" :model="templateData">
         <el-form-item label="模板备注" required prop="remark">
           <el-input placeholder="请输入备注说明" v-model="templateData.remark"></el-input>

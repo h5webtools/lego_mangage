@@ -141,7 +141,13 @@ define(function (require, exports, module) {
           comConfig += "jybnews:require('@lego/jybnews'), \n "
         }  else if (_type == 'jybdrawcard' && comConfig.indexOf(".jybdrawcard") == -1) {
           comConfig += "jybdrawcard:require('@lego/jybdrawcard'), \n "
+        }  else if (_type == 'jybvideo' && comConfig.indexOf(".jybvideo") == -1) {
+          comConfig += "jybvideo:require('@lego/jybvideo'), \n "
+        }  else if (_type == 'jybcouponrain' && comConfig.indexOf(".jybcouponrain") == -1) {
+          comConfig += "jybcouponrain:require('@lego/jybcouponrain'), \n "
         }  
+
+        
 
         //获取自定义代码 
         if (_name == 'customcode') {
@@ -191,6 +197,8 @@ define(function (require, exports, module) {
           comConfig += "jybnews:require('../../../actconfig/" + devFolder + "modules/mobile/vuecomponent/jyb.vue.jybnews'), \n "
         } else if (_type == 'jybdrawcard' && comConfig.indexOf(".jybdrawcard") == -1) {
           comConfig += "jybdrawcard:require('../../../actconfig/" + devFolder + "modules/mobile/vuecomponent/jyb.vue.jybdrawcard'), \n "
+        } else if (_type == 'jybcouponrain' && comConfig.indexOf(".jybcouponrain") == -1) {
+          comConfig += "jybcouponrain:require('../../../actconfig/" + devFolder + "modules/mobile/vuecomponent/jyb.vue.jybcouponrain'), \n "
         }
         //获取自定义代码 
         if (_name == 'customcode') {

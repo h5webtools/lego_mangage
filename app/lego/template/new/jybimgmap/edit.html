@@ -79,6 +79,34 @@
           </div>
         </div>
       </form>
+      <form class="form-horizontal">
+        <div class="coupon-group">
+          <div class="form-group">
+            <label>
+              <strong>*</strong>图片是否浮底：</label>
+              <input type="radio" id="isFloat1" value="true" v-model="obj.data.isFloat">
+              <label for="isFloat1" style="text-align: left; width:120px;">悬浮底部</label>
+              <input type="radio" id="isFloat2" value="false" v-model="obj.data.isFloat">
+              <label for="isFloat2" style="text-align: left; width:150px;">不悬浮</label>
+          </div>
+        </div>
+      </form>
+      <br><br><br><strong style="font-size:16px;">弹窗颜色配置（热区方式选择有弹窗的情况） </strong><br><br><br>
+      <div class="form-group">
+          <label><strong></strong>弹窗背景色：</label>
+          <input type="color" v-model="obj.data.couponDialogBg">
+          <input type="text" class="colorFrameInput" v-model="obj.data.couponDialogBg" value="">
+      </div>
+      <div class="form-group">
+          <label><strong></strong>按钮背景色：</label>
+          <input type="color" v-model="obj.data.DialogBtnBg">
+          <input type="text" class="colorFrameInput" v-model="obj.data.DialogBtnBg" value="">
+      </div>
+      <div class="form-group">
+          <label><strong></strong>文字色：</label>
+          <input type="color" v-model="obj.data.DialogColor">
+          <input type="text" class="colorFrameInput" v-model="obj.data.DialogColor" value="">
+      </div>
       <!-- 文案描述 -->
       <br>
       <br>
@@ -107,7 +135,7 @@
             </div>
             <div class="form-group">
               <label>
-                <strong>*</strong>上报ID：</label>
+                <strong></strong>上报ID：</label>
               <input type="text" v-model="item.eventid">
             </div>
           </div>
@@ -126,7 +154,12 @@
             <div class="form-group">
               <label>
                 <strong>*</strong>奖品描述：</label>
-              <input type="text" v-model="item.couponDesc" placeholder="请输入命令字">
+              <input type="text" v-model="item.couponDesc" placeholder="请输入奖品描述">
+            </div>
+            <div class="form-group">
+              <label>
+                <strong></strong>上报ID：</label>
+              <input type="text" v-model="item.eventid">
             </div>
           </div>
 
@@ -145,6 +178,18 @@
               <label>
                 <strong></strong>扩展字段：</label>
               <input type="text" v-model="item.extra" placeholder="如使用，请找开发">
+            </div>
+            <div class="form-group">
+              <label>
+                <strong></strong>上报ID：</label>
+              <input type="text" v-model="item.eventid">
+            </div>
+          </div>
+          <div style="margin-top:30px" v-show="item.selected == 'custom'">
+            <div class="form-group">
+              <label>
+                <strong></strong>上报ID：</label>
+              <input type="text" v-model="item.eventid">
             </div>
           </div>
         </div>
