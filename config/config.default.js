@@ -53,12 +53,13 @@ module.exports = appInfo => {
   config.middleware = ['requestParam'];
 
   config.passportJyb = {
+    isLoginRelatedOperate: false,
     clients: {
       mysqlOperate: {
         'userDBClient': 'dbMain'
      }
     },
-    useMiddleware: false,
+    // useMiddleware: false,
     'selfSystem': {  
       'noAuth': [/\/login\/doLogin/, /^\/lego\/syncCallback/,  /^\/lego\/previewLock/],
       'hook': {
