@@ -269,7 +269,7 @@
         </div>
         <div class="mod-c-coupon-item__bottom">
           <template v-if="item.drawFlag == false">
-            <template v-if="item.times.hour==0 && item.times.minute == 0 && item.times.sec == 0">
+            <template v-if="item.times.day==0 && item.times.hour==0 && item.times.minute == 0 && item.times.sec == 0">
               <div class="mod-c-coupon-item__btn"
                 :awardindex='index+1'
                 v-bind:data-stat-id="item.mtabtn"
@@ -283,6 +283,7 @@
           <template v-else>
             <p v-if="item.status == 1" class="mod-c-coupon-item__btn mod-c-coupon-item__btn--disbaled">已领取</p>
             <p v-else-if="item.status == 3" class="mod-c-coupon-item__btn mod-c-coupon-item__btn--disbaled">已过领取日期</p>
+            <p v-else-if="item.userLeft == 0" class="mod-c-coupon-item__btn mod-c-coupon-item__btn--disbaled">已抢光</p>
             <p v-else class="mod-c-coupon-item__btn" :style="{color: item.btndescColor}" :awardindex='index+1' v-on:click="toDraw">未领取</p>
           </template>
         </div>
