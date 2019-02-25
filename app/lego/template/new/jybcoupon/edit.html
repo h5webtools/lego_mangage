@@ -90,6 +90,7 @@
               <label style="width:80px;"><input  style="width:16px;height:16px; " type="radio" value="0" v-model="obj.data.cuttimetype">无倒计时</label>
               <label style="width:90px;"><input  style="width:16px;height:16px" type="radio" value="1" v-model="obj.data.cuttimetype">每天某一点</label>
               <label style="width:90px;"><input  style="width:16px;height:16px; " type="radio" value="2" v-model="obj.data.cuttimetype">某一时间</label>
+              <label style="width:90px;"><input  style="width:16px;height:16px" type="radio" value="3" v-model="obj.data.cuttimetype">每天某一时间段</label>
           </div>
           <br><br><br><strong style="font-size:16px;">弹窗颜色配置</strong><br><br><br>
           <div class="form-group">
@@ -163,6 +164,16 @@
                 <label><strong>*</strong>开抢时间：</label>
                 <input type="text" v-model="item.drawTime" placeholder="比如2018/09/11 13:00:00">
             </div>
+            <template v-if="obj.data.cuttimetype == 3">
+              <div class="form-group" style="margin-right: 100px;margin-left: 34px;">
+                <label><strong>*</strong>倒计时开始时间：</label>
+                <input type="text" v-model="item.countDownStartTime" placeholder="比如：13:00:00">
+              </div>
+              <div class="form-group" style="margin-right: 100px;margin-left: 34px;">
+                <label><strong>*</strong>开抢时间：</label>
+                <input type="text" v-model="item.drawTime" placeholder="比如：13:00:00">
+              </div>
+            </template>
             <div v-if="obj.data.cuttimetype == 2 && checkShowProp('endTime')" class="form-group" style="margin-right: 100px;margin-left: 34px;" v-if="obj.data.cuttimetype == 2">
               <label>结束时间：</label>
               <input type="text" v-model="item.endTime" placeholder="比如2018/09/11 23:59:59">

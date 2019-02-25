@@ -327,7 +327,7 @@
                             <div class="c-coupon__item__btn" :awardindex='index+1' v-bind:data-stat-id="item.mtabtn" v-if="item.status == 2" v-on:click="toDraw">立即领取</div>
                             <div class="c-coupon__item__btn c-coupon__item__btn-disabled" v-if="item.status == 1">已领取</div>
                             <div class="c-coupon__item__left" v-if="item.status == 0">
-                                <template v-if="params.cuttimetype == 1">
+                                <template v-if="params.cuttimetype == 1 || params.cuttimetype == 3">
                                     明天早点来哦!
                                 </template>
                                 <template v-else="">
