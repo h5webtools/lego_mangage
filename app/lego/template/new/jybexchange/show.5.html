@@ -1,0 +1,289 @@
+<style>
+    /* 弹框公共 */
+
+    .overlay {
+        background-color: #000;
+        filter: alpha(opacity=60);
+        opacity: 0.6;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        position: fixed;
+        z-index: 1024;
+        -webkit-backface-visibility: hidden;
+        font-size: 0.26rem;
+        line-height: 1.2;
+        color: #333;
+    }
+
+    .mod-dialog {
+        border-radius: 3px;
+        width: 90%;
+        position: fixed;
+        top: 25%;
+        left: 50%;
+        -webkit-transform: translateX(-50%);
+        transform: translateX(-50%);
+        z-index: 8888;
+        overflow: hidden;
+        font-size: 0.36rem;
+        line-height: 1.2;
+        color: #333;
+    }
+
+    .ui-mb-20 {
+        margin-bottom: 0.2rem;
+    }
+
+    .mod-dialog .dialog-title {
+        background-color: #fff;
+        padding-top: 0.2rem;
+        padding-bottom: 0.2rem;
+        text-align: center;
+        position: relative;
+        border-bottom: 1px solid #e6e6e6;
+        color: #333;
+    }
+
+    .ui-bb-n {
+        border-bottom: none !important;
+    }
+
+    .mod-dialog .dialog-content {
+        box-sizing: border-box;
+        overflow: hidden;
+        background-color: #fff;
+    }
+    /* 弹框公共 */
+    /* 确认框 */
+
+    .comm-padding {
+        padding-left: 0.3rem;
+        padding-right: 0.3rem;
+    }
+
+    .ui-pb-60 {
+        padding-bottom: 0.6rem;
+    }
+
+    .ui-mt-90 {
+        margin-top: 0.9rem;
+    }
+
+    .ui-ta-c {
+        text-align: center;
+    }
+
+    .f-36 {
+        font-size: 0.36rem;
+    }
+
+    p {
+        margin: 0;
+        padding: 0;
+        font-size: 100%;
+    }
+
+    .f-54 {
+        font-size: 0.54rem;
+    }
+
+    .ui-mt-10 {
+        margin-top: 0.1rem;
+    }
+
+    .f-36 {
+        font-size: 0.36rem;
+    }
+
+    .ui-mt-10 {
+        margin-top: 0.1rem;
+    }
+
+    .mod-btn2 {
+        display: -webkit-box;
+        -webkit-box-pack: center;
+        -webkit-box-align: center;
+        -webkit-box-pack: justify;
+    }
+
+    .mod-btn2 div:nth-child(1) {
+        width: 45%;
+    }
+
+    .mod-btn2 .btn {
+        height: 0.86rem;
+        line-height: 0.86rem;
+        background: #FF6E34;
+        color: #fff;
+        margin-right: 5%;
+        border-radius: 0.05rem;
+    }
+
+    .mod-btn2 div {
+        -webkit-box-flex: 1;
+        position: relative;
+    }
+
+    .ui-mt-100 {
+        margin-top: 1rem;
+    }
+
+    .mod-btn2 .btn:last-child {
+        margin-right: 0;
+    }
+
+    .mod-btn2 div:nth-child(2) {
+        width: 45%;
+    }
+    /* 确认框 */
+    /* 结果框 */
+
+    .f-44 {
+        font-size: 0.44rem;
+    }
+
+    .ui-ta-c {
+        text-align: center;
+    }
+
+    .f-28 {
+        font-size: 0.28rem;
+    }
+
+    .ui-mt-10 {
+        margin-top: 0.1rem;
+    }
+
+    .mod-btn {
+        display: block;
+        background-color: #FF6E34;
+        text-align: center;
+        color: #fff;
+        position: relative;
+        border-radius: 3px;
+        height: 0.86rem;
+        line-height: 0.86rem;
+        width: 100%;
+    }
+
+    .ui-mt-100 {
+        margin-top: 1rem;
+    }
+    /* 结果框 */
+    .lego-jybexchange-show5 {
+        padding: .1rem .25rem;
+    }
+    .lego-jybexchange-show5 .prd-content {
+        padding: .4rem .2rem;
+        background: #e7fff3;
+        border-radius: .1rem;
+    }
+    .lego-jybexchange-show5 .prd-content .exchange-title {
+        font-size: .22rem;
+        color: #06915b;
+    }
+    .lego-jybexchange-show5 .prd-content .exchange-title .exchange-title-my {
+        width: 2.9rem;
+        height: .46rem;
+        margin: .3rem auto;
+        background: #c0f7db;
+        text-align: center;
+        line-height: .46rem;
+        border-radius: .46rem;
+    }
+    .lego-jybexchange-show5 .prd-content .mod-exchange-wrap {
+        width: 100%;
+        font-size: 0;
+    }
+    .lego-jybexchange-show5 .prd-content .mod-exchange-wrap .exchange-box {
+        display: inline-block;
+        width: 32.3%;
+        height: 3.54rem;
+        background: #fff;
+        font-size: .24rem;
+        line-height: .32rem;
+        margin-right: 1.5%;
+        margin-bottom: .1rem;
+        text-align: center;
+    }
+    .lego-jybexchange-show5 .prd-content .mod-exchange-wrap .exchange-box:nth-child(3n) {
+        margin-right: 0;
+    }
+    .lego-jybexchange-show5 .prd-content .mod-exchange-wrap .exchange-box .exchange-icon {
+        width: 100%;
+    }
+    .lego-jybexchange-show5 .prd-content .mod-exchange-wrap .exchange-box .exchange-desc {
+        font-size: .21rem;
+        line-height: .26rem;
+        color: #ff9600;
+    }
+    .lego-jybexchange-show5 .prd-content .mod-exchange-wrap .exchange-box .exchange-btn {
+        width: 1.56rem;
+        height: .4rem;
+        border-radius: .4rem;
+        line-height: .4rem;
+        background: #27b86b;
+        text-align: center;
+        font-size: .22rem;
+        color: #fff;
+        margin: .2rem auto;
+    }
+    .lego-jybexchange-show5 .prd-content .mod-exchange-wrap .exchange-box .exchange-status2 {
+        background: #86a996;
+    }
+</style>
+
+
+<template class="showTemplate">
+    <jybexchange uid="uid" v-bind:params="data" inline-template>
+        <div class="lego-jybexchange-show5" v-bind:style="{paddingLeft:params.LRpadding+'rem', paddingRight:params.LRpadding+'rem'}">
+            <template v-if="true">
+                <div class="prd-content" v-bind:style="{background:params.bgcolor}">  
+                    <div class="exchange-title">
+                        <p v-bind:style="{color:params.buiedcolor,fontSize:params.buiedsize+'px'}">{{params.bottomdesc}}</p>
+                        <p class="exchange-title-my" v-bind:style="{color:params.buiedcolor,fontSize:params.buiedsize+'px'}">{{params.buieddesc || '我的铜钱'}}:{{data.buycount || 0}}{{params.desc3 || '枚'}}</p>
+                    </div>
+                    <div class="mod-exchange-wrap">
+                        <div class="exchange-box"  v-for="(item , index) in params.exchangeItem">
+                            <div class="exchange-icon"><img :src="item.awardImg" alt="" width="100%"></div>
+                            <div>{{item.topDes}}</div>
+                            <div class="exchange-desc">{{item.exchangeDes}}</div>
+
+                            <template v-if="data.timeFlag==false">
+                                <div class="exchange-btn exchange-status2">未到兑换时间</div>
+                            </template>
+                            
+                            <template v-if="data.timeFlag==true">
+                                <div class="exchange-btn exchange-status2" :awardindex="index" :type="params.actType" :flag="index+1" v-if="item.awardFlag == 2 && data.exchangeFlag == false">立即兑换</div>
+                                <div class="exchange-btn" :awardindex="index"  :type="params.actType" :flag="index+1" :data-stat-id="item.eventid || ''" v-on:click="toexchange($event)" v-if="item.awardFlag == 2 && data.exchangeFlag == true">立即兑换</div>
+                                <div class="exchange-btn exchange-status2" :awardindex="index" :type="params.actType" :flag="index+1" v-if="item.awardFlag == 1">已兑换</div>
+                                <div class="exchange-btn" :awardindex="index" :type="params.actType" :flag="index+1" v-if="item.awardFlag == 0">未满额</div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+
+    </jybexchange>
+</template>
+
+
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExt">
+    var com_ext = {}
+
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+    var com_extend = []
+
+</script>
+
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {};
+
+</script>
