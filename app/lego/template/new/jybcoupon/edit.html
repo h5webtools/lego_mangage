@@ -164,16 +164,10 @@
                 <label><strong>*</strong>开抢时间：</label>
                 <input type="text" v-model="item.drawTime" placeholder="比如2018/09/11 13:00:00">
             </div>
-            <template v-if="obj.data.cuttimetype == 3">
-              <div class="form-group" style="margin-right: 100px;margin-left: 34px;">
-                <label><strong>*</strong>倒计时开始时间：</label>
-                <input type="text" v-model="item.countDownStartTime" placeholder="比如：13:00:00">
-              </div>
-              <div class="form-group" style="margin-right: 100px;margin-left: 34px;">
-                <label><strong>*</strong>开抢时间：</label>
-                <input type="text" v-model="item.drawTime" placeholder="比如：13:00:00">
-              </div>
-            </template>
+            <div class="form-group" style="margin-right: 100px;margin-left: 34px;" v-if="obj.data.cuttimetype == 3">
+              <label><strong>*</strong>倒计时时间段：</label>
+              <input type="text" v-model="item.countDownTime" placeholder="比如：09:00:00-10:00:00|12:00:00-14:20:00">
+            </div>
             <div v-if="obj.data.cuttimetype == 2 && checkShowProp('endTime')" class="form-group" style="margin-right: 100px;margin-left: 34px;" v-if="obj.data.cuttimetype == 2">
               <label>结束时间：</label>
               <input type="text" v-model="item.endTime" placeholder="比如2018/09/11 23:59:59">

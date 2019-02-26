@@ -217,7 +217,7 @@ define(function (require, exports, module) {
             'desc3':'',
             "desc3Color": '',
             'drawTime':'',
-            'countDownStartTime': '', // 倒计时开始时间
+            'countDownTime': '', // 倒计时时间段
             'bgcolor':'',
             "awardhref":'',
             "drawbtndesc": "立即领取",
