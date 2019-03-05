@@ -100,11 +100,11 @@
                             {# <option value='3'>分期</option> #}
                         </select>
                     </div>
-                    <div class="form-group" v-show="obj.data.showType==2">
+                    <div class="form-group" v-show="obj.data.showType=='1'">
                       <label>
                         <strong>*</strong>购买类型：</label>
                         <input type="radio" id="showType_type1" value="1" v-model="obj.data.showType_type">
-                        <label for="showType_type1" style="text-align: left; width:120px;">立即抢购</label>
+                        <label for="showType_type1" style="text-align: left; width:120px;">白拿</label>
                         <input type="radio" id="showType_type2" value="2" v-model="obj.data.showType_type">
                         <label for="showType_type2" style="text-align: left; width:150px;">即时购买+白拿</label>
                     </div>

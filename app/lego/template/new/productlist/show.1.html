@@ -126,19 +126,11 @@ h1, h2, h3 {
         <div class="list" z-component="list">
             <ul class="prd-list clearfix">
                 <template v-if="true">
-                    <li class="prd-item ui-fl-l" v-on:click="toBuy(item.free_prd_id)" v-bind:data-stat-id="getMtaId(params.eventid,index)"  :prdid="item.free_prd_id" v-for="(item,index) in data.paramList" :class="params.showType == 2&&params.showType_type == '2' ? 'prd-item2' : ''"> 
+                    <li class="prd-item ui-fl-l" v-on:click="toBuy(item.free_prd_id)" v-bind:data-stat-id="getMtaId(params.eventid,index)"  :prdid="item.free_prd_id" v-for="(item,index) in data.paramList" :class="params.showType == '1'&&params.showType_type == '2' ? 'prd-item2' : ''"> 
                         <img :lazy="item.image_url" :alt="item.prd_name"> 
                         <h2>{{item.prd_name}}</h2>
                         
                         <template v-if="params.showType == '1'">
-                            <p class="item-price">存入<span>￥{{(item.min_pur_amount).split('.')[0]}}</span>起  <span class="price-origin">￥{{(item.price).split('.')[0]}}</span></p>     
-                            <div class="item-btn" 
-                            v-bind:data-stat-para="JSON.stringify({pageActId:params.pageActId,'pageId':params.pageId,
-                            'comDesc':params.comDesc , 'itemTitle':item.prd_name,'freeId':item.free_prd_id})"
-                            v-bind:style="{backgroundColor:params.buyBtnBg,color:params.buyColor}"
-                            >立即白拿</div>
-                        </template>
-                        <template v-else="params.showType == '2'">
                             <template v-if="params.showType_type == '2'">
                                 <p class="item-price2"><span>￥<span style="font-size: 14px;">{{item._show_price | filterAmount(1)}}</span></span> <span class="price-origin">￥{{item._origin_price | filterAmount(1)}}</span><br>或存入￥{{(item.min_pur_amount).split('.')[0]}}白拿</p>    
                                 <div class="item-btn" 
@@ -148,15 +140,23 @@ h1, h2, h3 {
                                 >立即抢购</div>
                             </template>
                             <template v-else>
-                                <div class="item-price" style="line-height: 20px">抢购价
-                                    <div class="ui-fl-r"><span>￥<span style="font-size: 14px;">{{item._show_price | filterAmount(1)}}</span></span><span style="font-size: 10px;" class="price-origin">￥{{item._origin_price | filterAmount(1)}}</span></div>
-                                </div>  
+                                <p class="item-price">存入<span>￥{{(item.min_pur_amount).split('.')[0]}}</span>起  <span class="price-origin">￥{{(item.price).split('.')[0]}}</span></p>     
                                 <div class="item-btn" 
-                                v-bind:data-stat-para="JSON.stringify({'pageActId':params.pageActId,'pageId':params.pageId,
+                                v-bind:data-stat-para="JSON.stringify({pageActId:params.pageActId,'pageId':params.pageId,
                                 'comDesc':params.comDesc , 'itemTitle':item.prd_name,'freeId':item.free_prd_id})"
                                 v-bind:style="{backgroundColor:params.buyBtnBg,color:params.buyColor}"
-                                >立即抢购</div>
+                                >立即白拿</div>
                             </template>
+                        </template>
+                        <template v-else="params.showType == '2'">
+                            <div class="item-price" style="line-height: 20px">抢购价
+                                <div class="ui-fl-r"><span>￥<span style="font-size: 14px;">{{item._show_price | filterAmount(1)}}</span></span><span style="font-size: 10px;" class="price-origin">￥{{item._origin_price | filterAmount(1)}}</span></div>
+                            </div>  
+                            <div class="item-btn" 
+                            v-bind:data-stat-para="JSON.stringify({'pageActId':params.pageActId,'pageId':params.pageId,
+                            'comDesc':params.comDesc , 'itemTitle':item.prd_name,'freeId':item.free_prd_id})"
+                            v-bind:style="{backgroundColor:params.buyBtnBg,color:params.buyColor}"
+                            >立即抢购</div>
                         </template>
                     </li>
                 </template>
