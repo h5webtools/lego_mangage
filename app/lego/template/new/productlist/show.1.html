@@ -126,7 +126,7 @@ h1, h2, h3 {
         <div class="list" z-component="list">
             <ul class="prd-list clearfix">
                 <template v-if="true">
-                    <li class="prd-item ui-fl-l" v-on:click="toBuy(item.free_prd_id)" v-bind:data-stat-id="getMtaId(params.eventid,index)"  :prdid="item.free_prd_id" v-for="(item,index) in data.paramList" :class="params.showType == '4' ? 'prd-item2' : ''"> 
+                    <li class="prd-item ui-fl-l" v-on:click="toBuy(item.free_prd_id)" v-bind:data-stat-id="getMtaId(params.eventid,index)"  :prdid="item.free_prd_id" v-for="(item,index) in data.paramList" :class="params.showType == 2&&params.showType_type == '2' ? 'prd-item2' : ''"> 
                         <img :lazy="item.image_url" :alt="item.prd_name"> 
                         <h2>{{item.prd_name}}</h2>
                         
