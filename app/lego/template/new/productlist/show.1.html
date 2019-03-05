@@ -138,23 +138,25 @@ h1, h2, h3 {
                             v-bind:style="{backgroundColor:params.buyBtnBg,color:params.buyColor}"
                             >立即白拿</div>
                         </template>
-                        <template v-else-if="params.showType == '2'">
-                            <div class="item-price" style="line-height: 20px">抢购价
-                                <div class="ui-fl-r"><span>￥<span style="font-size: 14px;">{{item._show_price | filterAmount(1)}}</span></span><span style="font-size: 10px;" class="price-origin">￥{{item._origin_price | filterAmount(1)}}</span></div>
-                            </div>  
-                            <div class="item-btn" 
-                            v-bind:data-stat-para="JSON.stringify({'pageActId':params.pageActId,'pageId':params.pageId,
-                            'comDesc':params.comDesc , 'itemTitle':item.prd_name,'freeId':item.free_prd_id})"
-                            v-bind:style="{backgroundColor:params.buyBtnBg,color:params.buyColor}"
-                            >立即抢购</div>
-                        </template>
-                        <template v-else="params.showType == '4'">
-                            <p class="item-price2"><span>￥<span style="font-size: 14px;">{{item._show_price | filterAmount(1)}}</span></span> <span class="price-origin">￥{{item._origin_price | filterAmount(1)}}</span><br>或存入￥{{(item.min_pur_amount).split('.')[0]}}白拿</p>    
-                            <div class="item-btn" 
-                            v-bind:data-stat-para="JSON.stringify({'pageActId':params.pageActId,'pageId':params.pageId,
-                            'comDesc':params.comDesc , 'itemTitle':item.prd_name,'freeId':item.free_prd_id})"
-                            v-bind:style="{backgroundColor:params.buyBtnBg,color:params.buyColor}"
-                            >立即抢购</div>
+                        <template v-else="params.showType == '2'">
+                            <template v-if="params.showType_type == '2'">
+                                <p class="item-price2"><span>￥<span style="font-size: 14px;">{{item._show_price | filterAmount(1)}}</span></span> <span class="price-origin">￥{{item._origin_price | filterAmount(1)}}</span><br>或存入￥{{(item.min_pur_amount).split('.')[0]}}白拿</p>    
+                                <div class="item-btn" 
+                                v-bind:data-stat-para="JSON.stringify({'pageActId':params.pageActId,'pageId':params.pageId,
+                                'comDesc':params.comDesc , 'itemTitle':item.prd_name,'freeId':item.free_prd_id})"
+                                v-bind:style="{backgroundColor:params.buyBtnBg,color:params.buyColor}"
+                                >立即抢购</div>
+                            </template>
+                            <template v-else>
+                                <div class="item-price" style="line-height: 20px">抢购价
+                                    <div class="ui-fl-r"><span>￥<span style="font-size: 14px;">{{item._show_price | filterAmount(1)}}</span></span><span style="font-size: 10px;" class="price-origin">￥{{item._origin_price | filterAmount(1)}}</span></div>
+                                </div>  
+                                <div class="item-btn" 
+                                v-bind:data-stat-para="JSON.stringify({'pageActId':params.pageActId,'pageId':params.pageId,
+                                'comDesc':params.comDesc , 'itemTitle':item.prd_name,'freeId':item.free_prd_id})"
+                                v-bind:style="{backgroundColor:params.buyBtnBg,color:params.buyColor}"
+                                >立即抢购</div>
+                            </template>
                         </template>
                     </li>
                 </template>

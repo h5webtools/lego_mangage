@@ -28,6 +28,7 @@ define(function (require, exports, module) {
       "actId": "",
       "cmd": "",
       "showType": "1",
+      "showType_type": "1",
       "showNum": 1000,
       "isShowAll": 0,
       "listBg":'', //列表背景色
@@ -44,7 +45,7 @@ define(function (require, exports, module) {
       "pageId":getUrlQuery('page_id'),
       "comDesc":''
     },
-    watch: ['data.styleKey', 'data.showType','data.listBg']
+    watch: ['data.styleKey', 'data.showType','data.listBg','data.showType_type']
   });
 
   //编辑功能
