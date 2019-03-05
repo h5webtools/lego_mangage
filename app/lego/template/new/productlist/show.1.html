@@ -95,12 +95,10 @@ h1, h2, h3 {
 .prd-item .price-origin{
     font-size: 12px;
     color: #9f9f9f;
-    float: right;
     text-decoration: line-through;
 }
 .prd-item .item-price2 .price-origin{
     font-size: 10px;
-    float: none;
 }
 .prd-item .item-btn {
     position: absolute;
@@ -144,7 +142,7 @@ h1, h2, h3 {
                                 >立即抢购</div>
                             </template>
                             <template v-else>
-                                <p class="item-price">存入<span>￥{{(item.min_pur_amount).split('.')[0]}}</span>起  <span class="price-origin">￥{{(item.price).split('.')[0]}}</span></p>     
+                                <p class="item-price">存入<span>￥{{(item.min_pur_amount).split('.')[0]}}</span>起  <span class="price-origin ui-fl-r">￥{{(item.price).split('.')[0]}}</span></p>     
                                 <div class="item-btn" 
                                 v-bind:data-stat-para="JSON.stringify({pageActId:params.pageActId,'pageId':params.pageId,
                                 'comDesc':params.comDesc , 'itemTitle':item.prd_name,'freeId':item.free_prd_id})"
