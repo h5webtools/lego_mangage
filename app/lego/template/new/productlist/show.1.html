@@ -152,7 +152,7 @@ h1, h2, h3 {
                         </template>
                         <template v-else="params.showType == '2'">
                             <div class="item-price" style="line-height: 20px">抢购价
-                                <div class="ui-fl-r"><span>￥<span style="font-size: 14px;">{{item._show_price | filterAmount(1)}}</span></span><span style="font-size: 10px;" class="price-origin">￥{{item._origin_price | filterAmount(1)}}</span></div>
+                                <div class="ui-fl-r"><span>￥<span style="font-size: 14px;">{{(item._show_price/100).toFixed(1)}}</span></span><span style="font-size: 10px;" class="price-origin">￥{{(item._origin_price/100).toFixed(1)}}</span></div>
                             </div>  
                             <div class="item-btn" 
                             v-bind:data-stat-para="JSON.stringify({'pageActId':params.pageActId,'pageId':params.pageId,
