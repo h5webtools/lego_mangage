@@ -1831,3 +1831,13 @@ body.selectFloor .rightOperationMask{
     background: #ccc;
     display: none;
 }
+
+
+.lego-jybswitchlist-show11 .tab-desc{
+    width: 2.2rem !important;
+}
+
+.mod-fixed-button{
+    width: 7.5rem !important;
+    left: 17.8% !important;
+}

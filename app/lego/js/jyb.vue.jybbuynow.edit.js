@@ -158,6 +158,8 @@ define(function (require, exports, module) {
             title:'',
             buyTime:'',
             bgcolor:'',
+            btncolor:'',
+            btnbg:'',
             skuId:''
           });
 

@@ -1,0 +1,40 @@
+<style>
+.lego-productlist-wrap__title {
+    color: #272A34;
+    font-size: 0.32rem;
+    padding-left: 0.32rem;
+    padding-top: 0.32rem;
+    padding-bottom: 0.14rem;
+    line-height: 0.32rem;
+    height: 0.32rem;
+    font-weight: bold;
+    background: #F1F3F4;
+}
+</style>
+
+
+<template class="showTemplate">
+    <commontag uid="uid" v-bind:params="data" inline-template>
+        <div class="lego-jybtitle-show2">
+        <template v-if="true">
+            <div class="lego-productlist-wrap__title" :style="{color:params.color,backgroundColor:params.backgroundcolor}">
+                {{params.title}}
+            </div>
+        </template>
+        <div>
+    </commontag>
+</template>
+
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExt">
+    var com_ext = {}
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+    var com_extend = []
+</script>
+
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {};
+</script>

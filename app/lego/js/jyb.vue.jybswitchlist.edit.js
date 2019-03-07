@@ -34,6 +34,7 @@ define(function (require, exports, module) {
       "tabIndex": 0,//当前tabIndex
       "fold": 0,//
       "LRPadding": "",
+      "LRPaddingOrigin":'',
       "bgcolor": "",
       "contentColor": "",
       "selectedcontentColor": "",
@@ -213,6 +214,12 @@ define(function (require, exports, module) {
         this.obj.data.mpmData.currentSubTab = 0;
         this.obj.data.mpmData.currentTab = 0;
 
+      },
+      watch: {
+        'obj.data.LRPaddingOrigin': function(val) {
+          this.obj.data.LRPadding = val/100;
+          console.log(this.obj.data.LRPadding)
+        }
       },
       events: {},
       methods: {

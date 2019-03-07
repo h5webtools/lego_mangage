@@ -173,5 +173,9 @@ module.exports = appInfo => {
     'secret_key': 'fc0b088d18053c320a1733c2b8021e21',
   };
 
+  config.guideLogin = {
+    'client_id': 'lego_manage',        
+    'secret_key': 'fc0b088d18053c320a1733c2b8021e21',      
+  };
   return config;
 };

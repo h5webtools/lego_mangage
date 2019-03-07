@@ -53,11 +53,13 @@ module.exports = appInfo => {
   config.middleware = ['requestParam'];
 
   config.passportJyb = {
+    isLoginRelatedOperate: false,
     clients: {
       mysqlOperate: {
         'userDBClient': 'dbMain'
      }
     },
+    // useMiddleware: false,
     'selfSystem': {  
       'noAuth': [/\/login\/doLogin/, /^\/lego\/syncCallback/,  /^\/lego\/previewLock/],
       'hook': {
@@ -88,7 +90,7 @@ module.exports = appInfo => {
   }
 
   config.staticResource = {
-    messageApi: 'https://cdn.jyblife.com/static/js/lib/lego-code-editor-message-api/1.0.0/index.js'
+    messageApi: 'https://cdn.jyblife.com/static/js/lib/lego-code-editor-message-api/1.0.1/index.js'
   };
 
   return config;

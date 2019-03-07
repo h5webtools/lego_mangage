@@ -129,7 +129,7 @@
         <el-pagination @current-change="handleCurrentChange" :current-page.sync="queryData.page" :page-size="queryData.page_size" div="total, prev, pager, next" :total="total">
         </el-pagination>
       </div>
-      <el-dialog title="测试结果" :visible.sync="dialogTestResultVisible">
+      <el-dialog :close-on-press-escape="false" title="测试结果" :visible.sync="dialogTestResultVisible">
         <el-form :model="testResult" :rules="rules" ref="testResult">
           <el-form-item label="选择测试结果:" required prop="results">
             <el-radio-group v-model="testResult.results">

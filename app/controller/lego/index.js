@@ -172,7 +172,7 @@ class LegoController extends Controller {
     }
   
     let actPageRet = fs.writeFileSync(`${actFolder}/${_fileName}`, _content, 'utf-8');//要删除
-
+    await this.updatePackageJsonDependencies(actFolder);
     // 执行依赖安装和JS模板替换
     let templateRet = await Promise.all([this._installNpmPackages(actFolder), this._replaceJsTemplate(_comConfig, actFolder,_pveventid)]);
     // 两步动作都成功
@@ -239,6 +239,29 @@ class LegoController extends Controller {
         code: CREATE_WEBPACK_ENV_FAILED,
         msg: '创建webpack执行环境失败，请重新尝试保存，仍未成功请联系开发检查'
       }
+    }
+  }
+  /**
+   * 更新页面依赖
+   * @param {String} actPath 页面路径
+   */
+  async updatePackageJsonDependencies(actPath) {
+    const actPkgPath = `${actPath}/package.json`;
+    const isExist = await fs.pathExists(actPkgPath);
+    if (isExist) {
+      const pkg = await fs.readJson(actPkgPath);
+      const dependencies = pkg.dependencies || {};
+      const templateDependencies = packageJson.dependencies || {};
+      const newDeps = {};
+
+      for (const k in templateDependencies) {
+        if (!Object.prototype.hasOwnProperty.call(dependencies, k)) {
+          dependencies[k] = templateDependencies[k];
+          newDeps[k] = templateDependencies[k];
+        }
+      }
+      await fs.writeJson(actPkgPath, Object.assign(pkg, { dependencies }));
+      this.ctx.logger.info(`更新${actPkgPath}依赖，${JSON.stringify(newDeps)}`);
     }
   }
   /**
@@ -698,6 +721,71 @@ class LegoController extends Controller {
           msg: '更新页面配置内容失败'+ e.message
         }
       }
+
+      // 增加一个检查文件夹是否存在
+      try {
+        let pagePath = raw.path,
+            dateFolder = raw.dateFolder;
+        let actPath = `${this.config.legoConfig.path}/${dateFolder}/${pagePath}`;
+        if(!pagePath || !dateFolder){ //兼容老的请求 
+          this.ctx.logger.info('缓存原因 请求未带过来pagePath和dateFolder');
+          return;
+        }
+        fs.pathExists(actPath, (err, exists) => {
+          this.ctx.logger.info('查询结果是否出错:'+ err);
+          if(!!err) return;
+          this.ctx.logger.info('文件夹是否存在:'+ exists);
+          if(!exists){ // 不存在路径
+            try {
+              fs.ensureDirSync(actPath);
+              fs.ensureDirSync(`${actPath}/assets/js`);
+              fs.ensureDirSync(`${actPath}/assets/image`);
+            } catch(e) {
+              this.ctx.logger.error('【空文件夹】初始化活动目录失败 ' + e.message);
+              return;
+            }
+            try {
+              packageJson.name = pagePath;
+              packageJson.description = pagePath;
+              this.ctx.logger.info('【空文件夹】写入package.json文件');
+              let writeRet = fs.writeFileSync(`${actPath}/package.json`, JSON.stringify(packageJson), 'utf-8');
+              // 写文件有问题
+              if(writeRet) {
+                this.ctx.logger.error('【空文件夹】创建package.json文件失败');
+                return;
+              }
+            } catch(e) {
+              this.ctx.logger.error('【空文件夹】生成package.json文件失败 '+ e.message);
+              return;
+            }
+          }
+        });
+
+        // try {
+        //   packageJson.name = folder;
+        //   packageJson.description = actName;
+        //   this.ctx.logger.info('写入package.json文件');
+        //   let writeRet = fs.writeFileSync(`${actPath}/package.json`, JSON.stringify(packageJson), 'utf-8');
+        //   // 写文件有问题
+        //   if(writeRet) {
+        //     this.ctx.logger.error('创建package.json文件失败');
+        //     this.ctx.body = {
+        //       code: WRITE_DEPENDENCYFILE_FAILED,
+        //       msg: '创建package.json文件失败'
+        //     }
+        //     return;
+        //   }
+        // } catch(e) {
+        //   this.ctx.logger.error('生成package.json文件失败 '+ e.message);
+        //   this.ctx.body = {
+        //     code: WRITE_DEPENDENCYFILE_FAILED,
+        //     msg: e.message
+        //   }
+        //   return;
+        // }
+      } catch(e) {
+
+      }
     }
   }
   /**
@@ -1105,11 +1193,12 @@ class LegoController extends Controller {
         rules: [
           {
             test: /\.js$/,
-            exclude: /(node_modules|bower_components)/,
+            exclude: /node_modules\/(?!@lego)/,
             use: {
               loader: 'babel-loader',
               options: {
-                presets: ['env']
+                presets: ['env'],
+                cacheDirectory:true
                 // presets: [require.resolve('babel-preset-env')]
               }
             }

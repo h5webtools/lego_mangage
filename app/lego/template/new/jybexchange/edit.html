@@ -160,6 +160,27 @@
             <strong></strong>描述3：</label>
           <input type="text" v-model="obj.data.desc3" placeholder="">
         </div>
+        <div class="form-group">
+          <label>
+            <strong></strong>兑换前提示弹窗：</label>
+          <input type="text" v-model="obj.data.exchangeTips" placeholder="默认：每个产品仅有一次机会">
+        </div>
+        <br><br><br><strong style="font-size:16px;">弹窗颜色配置</strong><br><br><br>
+        <div class="form-group">
+            <label><strong></strong>弹窗背景色：</label>
+            <input type="color" v-model="obj.data.couponDialogBg">
+            <input type="text" class="colorFrameInput" v-model="obj.data.couponDialogBg" value="">
+        </div>
+        <div class="form-group">
+            <label><strong></strong>按钮背景色：</label>
+            <input type="color" v-model="obj.data.DialogBtnBg">
+            <input type="text" class="colorFrameInput" v-model="obj.data.DialogBtnBg" value="">
+        </div>
+        <div class="form-group">
+            <label><strong></strong>文字色：</label>
+            <input type="color" v-model="obj.data.DialogColor">
+            <input type="text" class="colorFrameInput" v-model="obj.data.DialogColor" value="">
+        </div>
       </form>
 
 

@@ -1,0 +1,281 @@
+<div class="editBox">
+  <div class="editBox_2">
+    <h3>{{obj.componentName}} {{obj.uid}}</h3>
+    <p>
+      翻牌组件
+    </p>
+
+    <ul class="tab_hd">
+      <li v-bind:class="{ 'on': showStyle }" v-on:click="show(0)">
+        <a href="javascript:;" title="设置样式">设置样式</a>
+      </li>
+      <li v-bind:class="{ 'on': showProperty }" v-on:click="show(1)">
+        <a href="javascript:;" title="设置数据">设置数据</a>
+      </li>
+    </ul>
+
+    <div v-show="showStyle" class="styleBox">
+      <div class="editArea">
+        <form class="form-horizontal" v-for="item in obj.com_extend">
+          <div class="form-group" v-if="item.type == 'radio'">
+            <label>{{item.name}}：</label>
+            <div>
+              <label v-for="item2 in item.data">
+                <input type="radio" :name="obj.uid+'_'+item.nick" :value="item2.value" v-model="obj.data.extend[item.nick]"> {{item2.name}}</label>
+            </div>
+          </div>
+          <div class="form-group" v-if="item.type == 'input'">
+            <label style="float: left;padding-right:14px;">
+              <strong>*</strong>{{item.name}}：</label>
+            <input type="text" :class="item.class" :name="obj.uid+'_'+item.nick" v-model="obj.data.extend[item.nick]" :placeholder="item.placeholder"
+              flag="extendtime" :nick="item.nick">
+          </div>
+        </form>
+      </div>
+      <br>
+      <br>
+      <dl>
+        <dt>样式</dt>
+        <dd>
+          <ul>
+            <li v-for="item in arrStyle" v-if="item.priority != 10000">
+              <div style="display:none;">
+                {{item.com_desc}}
+                <input type="radio" :name="obj.uid" :id="obj.uid+'_'+item.id" :value="item.id" v-model="obj.data.styleKey">
+                <br/>
+              </div>
+              <label :class="item.id == obj.data.styleKey ? 'on' : ''" :for="obj.uid+'_'+item.id">
+                <img :src="item.image" alt="">
+              </label>
+              <div class="styleDesc">
+                {{item.com_desc}}
+              </div>
+            </li>
+          </ul>
+        </dd>
+      </dl>
+    </div>
+
+    <div v-show="showProperty" class="editArea">
+      <!-- 文案描述 -->
+      <form class="form-horizontal" v-if="true">
+        <div class="coupon-group">
+            <div class="form-group">
+              <label>
+                <strong></strong>版本号：</label>
+              <select name="action" @change="selectNpmVersion" v-model="obj.data.npmversion">
+                <option :value="item.version" v-for="item in obj.data.npmversionArr">{{item.desc}}</option>
+              </select>
+            </div>
+          </div>
+      </form>
+      <form class="form-horizontal">
+        <div class="coupon-group">
+        <div class="form-group">
+            <label><strong></strong>模板选择：</label>
+            <select name="action"  v-model="obj.data.tplid">
+                <option :value="item.tpl_id" v-for="item in obj.data.tplList">{{item.remark}}</option>
+            </select>
+        </div>
+        </div>
+      </form>
+      <br>
+      <br>
+      <br>
+      <strong style="font-size:16px;">编辑卡片</strong>
+      <br>
+      <br>
+      <br>
+      <form class="form-horizontal">
+        <div class="form-group">
+          <label><strong></strong>翻转形式：</label>
+          <input type="radio" id="rotateType1" value="1" v-model="obj.data.rotateType">
+          <label for="rotateType1" style="text-align: left; width:120px;">点击一张全翻开</label>
+          <input type="radio" id="rotateType2" value="2" v-model="obj.data.rotateType">
+          <label for="rotateType2" style="text-align: left; width:150px;">点击当前翻开，其余不翻</label>
+        </div>
+        <div class="form-group">
+          <label><strong></strong>排列方式：</label>
+          <input type="radio" id="areaType1" value="1" v-model="obj.data.areaType">
+          <label for="areaType1" style="text-align: left; width:100px;">一排3个</label>
+          <input type="radio" id="areaType2" value="2" v-model="obj.data.areaType">
+          <label for="areaType2" style="text-align: left; width:100px;">一排2个</label>
+        </div>
+        <div class="form-group">
+          <label>
+            <strong>*</strong>抽奖命令字：</label>
+          <input type="text" v-model="obj.data.cmd" placeholder="">
+        </div>
+        <div class="form-group">
+          <label>
+            <strong>*</strong>活动号：</label>
+          <input type="text" v-model="obj.data.actId" placeholder="">
+        </div>
+        <div class="form-group">
+          <label>
+            <strong>*</strong>配置参数：</label>
+          <button type="button" @click="toConfigTree" class="jc-btn btn-primary">去配置</button>
+        </div>
+        <div class="form-group">
+          <label><strong></strong>背景色：</label>
+          <input type="color" v-model="obj.data.backgroundcolor">
+          <input type="text"  class="colorFrameInput" v-model="obj.data.backgroundcolor"  value="" size="10">  
+        </div>
+        <div class="form-group">
+          <label><strong></strong>左间距：</label>
+          <input type="text"  class="colorFrameInput" v-model="obj.data.paddingLeft"  value="" size="10">  
+        </div>
+        <div class="form-group">
+          <label><strong></strong>牌面高度：</label>
+          <input type="text"  class="colorFrameInput" v-model="obj.data.cardHeight"  value="" size="10">
+          <span>基于750设计稿的尺寸</span>  
+        </div>
+        <div class="form-group">
+          <label><strong></strong>牌面宽度：</label>
+          <input type="text"  class="colorFrameInput" v-model="obj.data.cardWidth"  value="" size="10">
+          <span>基于750设计稿的尺寸</span>  
+        </div>
+        <div class="form-group">
+          <label><strong></strong>右间距：</label>
+          <input type="text"  class="colorFrameInput" v-model="obj.data.paddingRight"  value="" size="10">  
+        </div>
+        <div class="form-group">
+          <label><strong></strong>高亮图片：</label>
+          <input type="text"  class="colorFrameInput" v-model="obj.data.activeColor"  value="">  
+        </div>
+        <div class="form-group">
+          <label><strong></strong>剩余抽奖文案：</label>
+          <input type="text" v-model="obj.data.lotteryContent"  value="">  
+        </div>
+        <div class="form-group">
+          <label><strong></strong>文案字体颜色：</label>
+          <input type="color" v-model="obj.data.lotteryContentColor">
+          <input type="text" v-model="obj.data.lotteryContentColor"  value="" size="10">  
+        </div>
+        <div class="form-group">
+          <label><strong></strong>文案字体大小：</label>
+          <input type="text" v-model="obj.data.lotteryContentFont"  value="" size="10">  
+        </div>
+        <div class="form-group">
+          <label><strong></strong>抽奖次数：</label>
+          <input type="radio" id="isShowLottery1" value="1" v-model="obj.data.isShowLottery">
+          <label for="isShowLottery1" style="text-align: left; width:100px;">展示</label>
+          <input type="radio" id="isShowLottery2" value="0" v-model="obj.data.isShowLottery">
+          <label for="isShowLottery2" style="text-align: left; width:100px;">不展示</label>
+        </div>
+        <div class="form-group">
+          <label>
+            <strong>*</strong>抽奖次数命令字：</label>
+          <input type="text" v-model="obj.data.lotteryCmd" placeholder="">
+        </div>
+        <div class="form-group">
+          <label><strong></strong>查看红包：</label>
+          <input type="radio" id="isShowCoupon1" value="1" v-model="obj.data.isShowCoupon">
+          <label for="isShowCoupon1" style="text-align: left; width:100px;">展示</label>
+          <input type="radio" id="isShowCoupon2" value="0" v-model="obj.data.isShowCoupon">
+          <label for="isShowCoupon2" style="text-align: left; width:100px;">不展示</label>
+        </div>
+        <br>
+        <div class="text-right">
+          <button type="button" class="jc-btn btn-primary" @click="addCard()">添加卡片</button>
+        </div>
+        <br>
+        <br>
+        <br>
+        <!--配置各条新闻数据-->
+        <div><img src="https://images.jyblife.com/lego/newsList/drawcard.jpg?t=123" alt=""></div>
+        <br>
+        <br>
+        <br>
+        <div class="coupon-group" v-for="(item,index) in obj.data.rotateList" @click="addHighlight(index)" :class="index == obj.data.tabIndex ? 'coupon-group-on' : '' "
+          style="overflow:hidden;">
+          <h4>第{{index + 1}}张</h4>
+          <button type="button" class="jc-btn btn-primary delBtn" @click="deleteCard(index)">删除</button>
+          <div style="margin-top:30px">
+            <div class="form-group">
+              <label>
+                <strong>*</strong>背面图片：</label>
+              <input type="text" v-model="item.frontImg">
+            </div>
+            <div class="form-group">
+              <label>
+                <strong>*</strong>正面图片：</label>
+              <input type="text" v-model="item.backImg">
+            </div>
+            <div class="form-group">
+              <label>
+                正面背景色：</label>
+              <input type="color" v-model="item.backbgc">
+              <input type="text" v-model="item.backbgc">
+            </div>
+            <div class="form-group">
+              <label>
+                <strong>*</strong>上报ID：</label>
+              <input type="text" v-model="item.eventid">
+            </div>
+          </div>
+          <div style="margin-top:30px">
+            <h4 style="padding-left: 120px; font-weight: bold;">牌面正面奖品描述样式配置，仅做配置展示用，不影响结果</h4>
+            <div class="form-group">
+              <label>
+                <strong>*</strong>标题文案：</label>
+              <input type="text" v-model="item.backTitleContent">
+            </div>
+            <div class="form-group">
+              <label>
+                <strong>*</strong>标题字体颜色：</label>
+              <input type="color" v-model="item.backTitleColor">
+              <input type="text" v-model="item.backTitleColor">
+            </div>
+            <div class="form-group">
+              <label>
+                <strong>*</strong>标题字体大小：</label>
+              <input type="text" v-model="item.backTitlefontSize">
+            </div>
+            <div class="form-group">
+              <label>
+                <strong>*</strong>奖品文案：</label>
+              <input type="text" v-model="item.backContent">
+            </div>
+            <div class="form-group">
+              <label>
+                <strong>*</strong>奖品字体颜色：</label>
+              <input type="color" v-model="item.backContentColor">
+              <input type="text" v-model="item.backContentColor">
+            </div>
+            <div class="form-group">
+              <label>
+                <strong>*</strong>奖品字体大小：</label>
+              <input type="text" v-model="item.backContentfontSize">
+            </div>
+            <div class="form-group">
+              <label>
+                <strong>*</strong>描述文案：</label>
+              <input type="text" v-model="item.backDesc">
+            </div>
+            <div class="form-group">
+              <label>
+                <strong>*</strong>描述字体颜色：</label>
+              <input type="color" v-model="item.backDescColor">
+              <input type="text" v-model="item.backDescColor">
+            </div>
+            <div class="form-group">
+              <label>
+                <strong>*</strong>描述字体大小：</label>
+              <input type="text" v-model="item.backDescfontSize">
+            </div>
+            <div class="form-group">
+                <label><strong></strong>是否翻转：</label>
+                <input type="radio" id="rotateStatus1" value="0" v-model="item.rotateStatus">
+                <label for="rotateStatus1" style="text-align: left; width:100px;">不翻转</label>
+                <input type="radio" id="rotateStatus2" value="1" v-model="item.rotateStatus">
+                <label for="rotateStatus2" style="text-align: left; width:100px;">翻转</label>
+            </div>
+          </div>
+        </div>
+      </form>
+
+    </div>
+
+  </div>
+</div>

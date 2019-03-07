@@ -31,7 +31,7 @@
   </script>
 </head>
 <script type="text/javascript">
-
+  {{{globalConfig}}};
   {{{pageConfig}}};
   {{{extendJS}}};
   {{{shareInfo}}}
@@ -76,7 +76,6 @@
   <script type="text/javascript" src="{{{previewRoot}}}/static/js/lib/jsapi.js"></script>
   <script src="{{{previewRoot}}}/static/js/lib/vue.min.js"></script>
   <script src="{{{previewRoot}}}/static/js/lib/zepto-1.2.0-all-min.js"></script>
-  <script src="https://cdn.jyblife.com/static/js/lib/lego-util/1.0.0/index.js"></script>
   <script src="assets/js/index.bundle.js?{{{timestamp}}}"></script>
 
   <script>

@@ -6,8 +6,9 @@
   "author": "lego",
   "license": "ISC",
   "dependencies": {
+    "@jyb/lego-util": "^1.0.1",
     "@jyb/lib-bimta": "^1.1.4",
     "@jyb/lib-tracker": "^1.0.3",
-    "@lego/timecutdown": "^1.0.2"
+    "@lego/timecutdown": "^1.0.3"
   }
 }

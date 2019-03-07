@@ -28,3 +28,7 @@ exports.passportJyb = {
   enable: true,
   package: '@node/egg-passport-jyb'
 };
+exports.guideLogin = {
+  enable: false,
+  package: '@node/egg-guide-login',
+};

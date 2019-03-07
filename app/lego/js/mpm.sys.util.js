@@ -28,6 +28,11 @@ define(function (require, exports, module) {
   var jybcoupon = require("./jyb.vue.jybcoupon.edit");
   var jybslider = require("./jyb.vue.jybslider.edit");
   var jybbuynow = require("./jyb.vue.jybbuynow.edit");
+  var jybnews = require("./jyb.vue.jybnews.edit");
+  var jybsignin = require("./jyb.vue.jybsignin.edit");
+  var jybdrawcard = require("./jyb.vue.jybdrawcard.edit");
+  var jybvideo = require("./jyb.vue.jybvideo.edit");
+  var jybcouponrain = require("./jyb.vue.jybcouponrain.edit");
 
   
   // var jybsignin = require("./jyb.vue.jybsignin.edit");
@@ -71,7 +76,12 @@ define(function (require, exports, module) {
     'jybfloating': jybfloating,
     'jybcoupon':jybcoupon,
     'jybslider':jybslider,
-    'jybbuynow':jybbuynow
+    'jybbuynow':jybbuynow,
+    'jybnews': jybnews,
+    'jybsignin':jybsignin,
+    'jybdrawcard':jybdrawcard,
+    'jybvideo':jybvideo,
+    'jybcouponrain':jybcouponrain
   };
 
   exports.ckeckIsLogin = function () {
@@ -229,14 +239,14 @@ define(function (require, exports, module) {
             if (data.name == 'productlist') {
               var _act_id = data.data.actId;
               var _pvEventid = $('#pvEventid').val();
-              if (_act_id && _pvEventid) {
-                //上报下
-                $.get('//bi.jyblife.com/legao/act', {
-                  actid: _act_id,
-                  metaid: _pvEventid
-                }, function(json){
-                }, 'json');
-              }
+              // if (_act_id && _pvEventid) {
+              //   //上报下
+              //   $.get('//bi.jyblife.com/legao/act', {
+              //     actid: _act_id,
+              //     metaid: _pvEventid
+              //   }, function(json){
+              //   }, 'json');
+              // }
             }
 
           }
@@ -245,17 +255,17 @@ define(function (require, exports, module) {
           console.log("上报活动ID");
         }
 
-        $.get('//bi.jyblife.com/legao/config', {
-          param:JSON.stringify({
-            pvEventId: $('#pvEventid').val(),
-            pageId:exports.getUrlQuery("page_id"),
-            pageActId:exports.getUrlQuery("act_id"),
-            pageTitle:$('#inputPageName').val()
-          }),
-          type:1
-        }, function(json){
+        // $.get('//bi.jyblife.com/legao/config', {
+        //   param:JSON.stringify({
+        //     pvEventId: $('#pvEventid').val(),
+        //     pageId:exports.getUrlQuery("page_id"),
+        //     pageActId:exports.getUrlQuery("act_id"),
+        //     pageTitle:$('#inputPageName').val()
+        //   }),
+        //   type:1
+        // }, function(json){
           
-        }, 'json');
+        // }, 'json');
         
 
 

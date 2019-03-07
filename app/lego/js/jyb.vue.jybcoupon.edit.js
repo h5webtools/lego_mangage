@@ -8,6 +8,7 @@ define(function (require, exports, module) {
   var moduleDataCenter = "";
   /* npm管理 */
 
+  exports.getComponent = function (config, callback) {
   var _Class = Factory.getClass({
     vueComponent: vueComponent,
     defaultTplEdit: defaultTplEdit,
@@ -25,10 +26,12 @@ define(function (require, exports, module) {
       "npmversionArr": [],
       "npmname": "@lego/jybcoupon",
       "couponBg":'',
+      "couponDialogBg":'',
+      "DialogBtnBg":'',
       "couponList":[],
       "endTime":'',
       "cuttimetype":0,
-      "tplid": '', //模板ID 
+      "tplid": '', //模板ID
       'comTplId': '',//组件ID
     },
     watch: ['data.styleKey', "data.headmapsrc"]
@@ -98,6 +101,71 @@ define(function (require, exports, module) {
         Object.assign(this.oldObj.data, this.obj.data);
       },
       events: {},
+      computed: {
+        currentStyle() {
+          var that = this;
+          return this.arrStyle.find(function(i) {
+            return i.id == that.obj.data.styleKey;
+          });
+        },
+        extraProps() {
+          if (!this.currentStyle) {
+            return {};
+          }
+
+          if (this.currentStyle.tpl_url.indexOf('show.1.html') > -1) {
+            return {
+              bgcolor: true,
+              desc3: true
+            }
+          }
+
+          if (this.currentStyle.tpl_url.indexOf('show.2.html') > -1) {
+            return {
+              bgcolor: true,
+              desc3: true
+            }
+          }
+
+          if (this.currentStyle.tpl_url.indexOf('show.4.html') > -1) {
+            return {
+              bgcolor: true,
+              desc1Color: true,
+              desc2Color: true,
+              desc3Color: true,
+              desc3: true,
+              btnColor: true,
+              btndescColor: true,
+              leftBgcolor: true,
+              msgColor: true,
+              drawbtndesc: true,
+            }
+          }
+
+          if (this.currentStyle.tpl_url.indexOf('show.3.html') > -1) {
+            return {
+              bgcolor: true,
+              desc1Color: true,
+              desc2Color: true,
+              btndescColor: true,
+              drawbtndesc: true,
+            };
+          }
+
+          if (this.currentStyle.tpl_url.indexOf('show.5.html') > -1) {
+            return {
+              desc1Color: true,
+              desc2Color: true,
+              btndescColor: true,
+              drawbtndesc: true,
+              endTime: true,
+              bgURL: true,
+            };
+          }
+
+          return {};
+        }
+      },
       watch: {
         'obj.data.styleKey': {
           handler: function (val, oldVal) {
@@ -108,6 +176,9 @@ define(function (require, exports, module) {
         }
       },
       methods: {
+        checkShowProp: function (propName) {
+          return this.extraProps[propName];
+        },
         change: function () { //点击保存
           for (var i = 0; i < that.__config.watch.length; i++) {
             var arr = that.__config.watch[i].split('.');
@@ -140,15 +211,28 @@ define(function (require, exports, module) {
         addExchangeItem: function () {
           this.obj.data.couponList.push({
             "desc1":'',
+            "desc1Color": '',
             'desc2':'',
+            "desc2Color": '',
             'desc3':'',
+            "desc3Color": '',
             'drawTime':'',
+            'countDownTime': '', // 倒计时时间段
             'bgcolor':'',
             "awardhref":'',
-            "btndesc":'立即抢购',
+            "drawbtndesc": "立即领取",
+            "btndescColor": '',
             "awarddes1":'',
             "awarddes2":'',
-            "status":2
+            "btndesc":'立即抢购',
+            "status":2,
+            "unreachType": '0',
+            "unreachbtndesc" : '',
+            "unreachdes": '',
+            "unreachhref": '',
+            "mtaunreach": '',
+            "endTime": '',
+            "bgURL": 'https://images.jyblife.com/lego/coupon_bg.png',
           });
 
           this.$nextTick(function () {
@@ -156,6 +240,7 @@ define(function (require, exports, module) {
           });
         },
         deleteExchangeItem: function (index) {
+          console.log('>>>>>>>>>', index);
           var deleteItem = this.obj.data.couponList.splice(index - 0, 1);
         },
         selectNpmVersion: function () { /* npm管理 */
@@ -167,7 +252,7 @@ define(function (require, exports, module) {
           var folderSet = moduleBasicInfo.showMeFolderName();
           var path = pageInfo.datefolder + "/" + folderSet.sub + "/";
           moduleDataCenter.updataversion(this.obj.data.npmversion, '@lego/jybcoupon', path, function () {
-            
+
           });
         }
       }
@@ -175,7 +260,6 @@ define(function (require, exports, module) {
     $(that.domEdit.$el).attr('id', 'editbox_' + that.obj.uid);
   };
 
-  exports.getComponent = function (config, callback) {
     var component = new _Class(config, callback);
     if (!component.config.obj.data.headmapsrc) {
       component.config.obj.data.headmapsrc = "https://cdn.jyblife.com/static/style/act/publish/img/txauto0804/banner_txvideo.png";

@@ -1,0 +1,181 @@
+<style>
+* {
+    padding: 0;
+    margin: 0;
+}
+.mod-c-signin {
+    position: relative;
+    padding-left: .3rem;
+    padding-right: .3rem;
+    min-height: 3.78rem;
+}
+
+.c-signin__bg {
+    width: 100%;
+    vertical-align: top;
+}
+
+.mod-c-signin .c-signin__info {
+    position: absolute;
+    top: 0.7rem;
+    left: 0.96rem;
+    line-height: 0.42rem;
+}
+.mod-c-signin .c-signin__info .signin-info__count {
+    color: #fff;
+    font-size: 0.32rem;
+}
+.mod-c-signin .c-signin__info .signin-info__desc {
+    color: #f5b4b5;
+    font-size: 0.22rem;
+}
+
+.mod-signin-btn {
+    width: 2.1rem;
+    height: 0.65rem;
+    text-align: center;
+    border-radius: .65rem;
+    position: absolute;
+    top: .8rem;
+    right: 1rem;
+    font-size: .32rem;
+    line-height: .65rem;
+    background-color: #ffee88;
+}
+
+.mod-signin-btn--disabled {
+    background-color: #a6a6a6;
+    color: #fff;
+}
+
+.mod-signin-reward-box {
+    width: 80%;
+    height: 2.2rem;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0;
+    display: -webkit-box;
+}
+
+.mod-signin-reward-box__item {
+    -webkit-box-flex: 1;
+    width: 25%;
+    text-align: center;
+    height: 90%;
+    position: relative;
+    color: #303030;
+}
+
+.mod-signin-reward-box__item__reward-name {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: .8rem;
+}
+
+.mod-signin-reward-box__item__reward-image {
+    max-width: 1rem;
+    position: relative;
+    top: .2rem;
+}
+
+.mod-signin-reward-box__item__days {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.f-20 {
+    font-size: .20rem;
+}
+
+.f-24 {
+    font-size: .24rem;
+}
+
+.mod-c-signin .c-signin__progress {
+    width: 76%;
+    height: 0.2rem;
+    border-radius: 0.1rem;
+    -webkit-box-shadow: 0 0 4px 0px #ddd inset;
+    box-shadow: 0 0 4px 0px #ddd inset;
+    position: absolute;
+    bottom: 20%;
+    left: 50%;
+    background-color: #ffffff;
+    transform: translateX(-50%);
+}
+
+.mod-c-signin .c-signin__progress .signin-progress__value {
+    display: block;
+    width: 70%;
+    height: 100%;
+    background-color: #f16e7a;
+    background-size: 60px 30px;
+    position: relative;
+    border-radius: 0.1rem;
+    max-width: 100%;
+}
+
+.mod-signin-progress__dot {
+    position: absolute;
+    width: .35rem;
+    height: .35rem;
+    border-radius: 50%;
+    box-sizing: border-box;
+    background-color: #fff;
+    border: 3px solid #f16e7a;
+    right: -3px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+</style>
+
+
+<template class="showTemplate">
+    <jybsignin uid="jybsignin" v-bind:params="data" inline-template="">
+        <div class="mod-c-signin" :style="{'padding-left': params.paddingRem+'rem', 'padding-right': params.paddingRem+'rem'}">
+            <template v-if="true">
+                <img class="c-signin__bg" :src="params.backgroundImage">
+                <div class="c-signin__info">
+                    <div class="signin-info__count">已累计签到{{data.signInSum}}天 </div>
+                    <div class="signin-info__desc">每日签到领惊喜</div>
+                </div>
+                <div class="mod-signin-btn" @click="doSignIn" :style="{'background-color': params.btnBackColor}" :class="{'mod-signin-btn--disabled': data.isSignIn == 1}">
+                    <span v-if="data.isSignIn == 0">立即签到</span>
+                    <span v-else>已签到</span>
+                </div>
+                <div class="mod-signin-reward-box">
+                    <div class="mod-signin-reward-box__item" v-for="(reward, index) in params.rewardList">
+                        <img v-if="reward.reward_image" class="mod-signin-reward-box__item__reward-image" :src="reward.reward_image"/>
+                        <p class="f-20 mod-signin-reward-box__item__reward-name" :style="{color: reward.desc_color}">{{reward.reward_desc}}</p>
+                        <div class="f-24 mod-signin-reward-box__item__days">{{reward.reward_days}}</div>
+                    </div>
+                </div>
+                <div class="c-signin__progress" :style="{'background-color': params.progressBarBgColor}">
+                    <div class="signin-progress__value" :style="{'background-color': params.progressBgColor, width: data.signInPercent+'%'}">
+                        <div class="mod-signin-progress__dot" :style="{'background-color': params.progressBarBgColor, 'border-color': params.progressBgColor}"></div>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </jybsignin>
+</template>
+
+
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExt">
+    var com_ext = {}
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+    var com_extend = []
+</script>
+
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {};
+</script>

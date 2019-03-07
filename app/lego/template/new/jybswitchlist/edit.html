@@ -37,19 +37,22 @@
           <dt>样式</dt>
           <dd>
             <ul>
-              <li v-for="item in arrStyle">
-                <div style="display:none;">
-                  {{item.com_desc}}
-                  <input type="radio" :name="obj.uid" :id="obj.uid+'_'+item.id" :value="item.id" v-model="obj.data.styleKey">
-                  <br/>
-                </div>
-                <label :class="item.id == obj.data.styleKey ? 'on' : ''" :for="obj.uid+'_'+item.id">
-                  <img :src="item.image" alt="">
-                </label>
-                <div class="styleDesc">
-                  {{item.com_desc}}
-                </div>
-              </li>
+              <template v-for="item in arrStyle"  v-if="item.priority != 10000">
+                <li >
+                    <div style="display:none;">
+                        {{item.com_desc}}
+                        <input type="radio" :name="obj.uid" :id="obj.uid+'_'+item.id" :value="item.id"
+                            v-model="obj.data.styleKey">
+                        <br/>
+                    </div>
+                    <label :class="item.id == obj.data.styleKey ? 'on' : ''" :for="obj.uid+'_'+item.id" >
+                        <img :src="item.image" alt="">
+                    </label>
+                    <div class="styleDesc">
+                        {{item.com_desc}}
+                    </div>
+                </li>
+              </template>
             </ul>
           </dd>
         </dl>
@@ -98,7 +101,7 @@
           <div class="form-group">
             <label>
               <strong></strong>左右边距：</label>
-            <input type="text" v-model="obj.data.LRPadding" placeholder="">
+            <input type="text" v-model="obj.data.LRPaddingOrigin" placeholder="像素值，不要单位">
           </div>
           <div class="form-group">
             <label><strong></strong>tab类型：</label>
@@ -125,7 +128,7 @@
               <th v-if="obj.data.tabType == 'anchorlist'">锚点</th>
               <th v-if="obj.data.tabType == 'hreflist'">跳转</th>
               <th>&nbsp;</th>
-              <th>&</th>
+              <th>Tab副标题</th>
               <th>其他操作</th>
             </tr>
           </thead>
@@ -146,7 +149,7 @@
                 <input type="text" v-model.trim="item.anchorUrl" style="width:120px;" placeholder="跳转地址" />
               </td>
               <td>&nbsp;</td>
-              <td>&nbsp;</td>
+              <td><input type="text" v-model.trim="item.tabVicTitle" placeholder="tab副标题"></td>
               <td>
                 <a href="javascript:;" @click="up(index)">前移</a>
                 <a href="javascript:;" @click="down(index)">后移</a>

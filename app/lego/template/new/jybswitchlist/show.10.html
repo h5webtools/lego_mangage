@@ -1,0 +1,122 @@
+<style>
+.show-7 {
+    {# width: 7.5rem; #}
+    height: .9rem;
+}
+.show-7 .mod-tab-wrap {
+    {# width: 100%; #}
+}
+.show-7 .tab-box {
+    width: 100%;
+    height: 100%;
+}
+.show-7 .tab-nav {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    height: 100%;
+    background: #FFFFFF;
+    -webkit-box-shadow: inset 0 -1px 0 0 #E6E8EA;
+    box-shadow: inset 0 -1px 0 0 #E6E8EA;
+    font-weight: bold;
+}
+.show-7 .tab-nav a {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    font-size: .32rem;
+    display: block;
+    height: .9rem;
+    line-height: .9rem;
+    color: #BEC0CA;
+    text-align: center;
+}
+.show-7 .tab-nav .on {
+    color: #FF6E34;
+    position: relative;
+}
+.show-7 .tab-nav .on::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: .04rem;
+    background: #FF6E34;
+    bottom: 0;
+    left: 0;
+}
+</style>
+
+
+<!-- 一行最多5个 -->
+<template class="showTemplate">
+    <jybswitchlist uid="switchlist" v-bind:params="data" inline-template>
+        <div class="show-7">
+            <div class="mod-tab-wrap" v-bind:style="{paddingLeft:params.LRPadding+'rem',paddingRight:params.LRPadding+'rem'}">
+                <div class="tab-box">
+                    <div :class="{'tab-nav': true}">
+                        <template v-if="true" v-for="(item,index) in params.tabs" >
+                            <a href="javascript:;" 
+                            :data-stat-id="item.eventid || ''"  
+                            @click="toggleTabs(index)" 
+                            :tab="index" 
+                            :class="index == data.tabIndex ? 'on' : '' "
+                            :title="item.tabTitle"
+                            v-bind:style="{
+                            color:params.selectedcontentColor,
+                            backgroundColor:params.selectedbgcolor}" 
+                            v-if="index == data.tabIndex"
+                            >{{item.tabTitle}}</a>
+                            <a href="javascript:;" 
+                            :data-stat-id="item.eventid || ''"  
+                            @click="toggleTabs(index)" 
+                            :tab="index" 
+                            :class="index == data.tabIndex ? 'on' : '' "
+                            :title="item.tabTitle"
+                            :style="{
+                                color:params.contentColor,
+                                backgroundColor:params.bgcolor}"
+                            v-else
+                            >{{item.tabTitle}}</a>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </jybswitchlist>
+
+    <div class="childBox">
+    </div>
+
+</template>
+
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExt">
+    var com_ext = {}
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+    var com_extend =  []
+</script>
+<!-- <script class="forMPMExtend">
+    var com_extend =  [{
+            "name": "导航位置",
+            "nick": "position",
+            "type": "radio",
+            "data": [
+                {
+                    "name": "不吸顶",
+                    "value": "0"
+                },
+                {
+                    "name": "滚动吸顶",
+                    "value": "1"
+                }
+            ]
+        }]
+</script> -->
+
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+    var com_js = {};
+</script>

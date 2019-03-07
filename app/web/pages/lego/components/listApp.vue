@@ -43,7 +43,7 @@
         </el-pagination>
       </div>
     </div>
-    <el-dialog lock-scroll :close-on-click-modal="false" title="新增/编辑组件" :visible.sync="dialogVisible">
+    <el-dialog lock-scroll  :close-on-click-modal="false"  :close-on-press-escape="false" title="新增/编辑组件" :visible.sync="dialogVisible">
       <el-form v-loading="dialogLoading" v-if="dialogVisible" ref="templateData" label-width="80px" :rules="rules" :model="templateData">
         <el-form-item label="名称" required prop="modname">
           <el-input placeholder="建议中文字符"  v-model.trim="templateData.modname"></el-input>

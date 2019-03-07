@@ -28,7 +28,7 @@
         </el-pagination>
       </div>
     </div>
-    <el-dialog title="新增/编辑命令字" :visible.sync="dialogVisible">
+    <el-dialog :close-on-press-escape="false" title="新增/编辑命令字" :visible.sync="dialogVisible">
       <el-form v-loading="dialogLoading" v-if="dialogVisible" ref="commandData" label-width="80px" :rules="rules" :model="commandData">
         <el-form-item label="命令字号" required prop="command">
           <el-input placeholder="数字、介于40020201于40020299之间"  v-model="commandData.command"></el-input>

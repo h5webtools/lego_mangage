@@ -1,4 +1,14 @@
 
+<style>
+#previewBtn{
+  position: fixed;
+    top: 100px;
+    right: 0px;
+    background: #fff;
+    width: 60px;
+    height: 30px;
+}
+</style>
 <script>
     var previewBtn = document.getElementById('previewBtn');
     if (!previewBtn) {

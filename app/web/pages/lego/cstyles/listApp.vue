@@ -23,7 +23,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-dialog lock-scroll :close-on-click-modal="false" title="新增/编辑组件样式" :visible.sync="dialogVisible">
+    <el-dialog lock-scroll :close-on-press-escape="false" :close-on-click-modal="false" title="新增/编辑组件样式" :visible.sync="dialogVisible">
       <el-form v-loading="dialogLoading" v-if="dialogVisible" ref="templateData" label-width="130px" :rules="rules" :model="templateData">
         <el-form-item label="模板地址" required prop="tpl_url">
           <el-input placeholder="/template/new/组件key/show.1.html"  v-model="templateData.tpl_url"></el-input>

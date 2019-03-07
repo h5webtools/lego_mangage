@@ -17,7 +17,9 @@ define(function (require, exports, module) {
       "didFinish": false,//生成页面的时候，这里为False
       "lazyLoad": false,
       "isShowNpmVersions": USER_INFOR.isAdmin,
-      "code": "",//
+      "code": "", // html代码
+      "styleCode": "", // css代码
+      "scriptCode": "", // js代码
       "npmversion": "",
       "npmversionArr": [],
       "npmname": "@lego/commontag"
@@ -88,31 +90,21 @@ define(function (require, exports, module) {
           });
         },
         showEditDebugPanel: function() {
+          var that = this;
           // 显示调试编辑器
           window.debugEditor.show({
-            codeStyleString: this.getStyleContent(),
-            codeScriptString: this.getScriptContent(),
+            codeHtmlString: that.obj.data.code,
+            codeStyleString: that.obj.data.styleCode,
+            codeScriptString: that.obj.data.scriptCode,
             // 这里引入mpm.sys.preview模块有循环依赖问题，先这样处理了
             frameUrl: window.LegoEditor.preview.getPreviewURL()
           });
-          window.debugEditor.on('save', (code) => {
-            this.obj.data.code = [
-              '<style>\n' + code.style + '\n</style>\n',
-              '<script>\n' + code.script + '\n</script>\n'
-            ].join('\n');
+          window.debugEditor.off('save').on('save', function (code) {
+            console.log(code);
+            that.obj.data.code = code.html;
+            that.obj.data.styleCode = code.style;
+            that.obj.data.scriptCode = code.script;
           });
-        },
-        getStyleContent() {
-          var code = this.obj.data.code;
-          var startTag = '<style>';
-          var endTag = '</style>';
-          return code.substring(code.indexOf(startTag) + startTag.length, code.indexOf(endTag)).trim();
-        },
-        getScriptContent() {
-          var code = this.obj.data.code;
-          var startTag = '<script>';
-          var endTag = '</script>';
-          return code.substring(code.indexOf(startTag) + startTag.length, code.indexOf(endTag)).trim();
         }
       }
     });
@@ -160,6 +152,8 @@ define(function (require, exports, module) {
   exports.getComponent = function (config) {
     var component = new _Class(config);
     config.obj.data.code = (config.obj.data.code || '').replace('! --', '!--');
+    config.obj.data.styleCode = config.obj.data.styleCode || '';
+    config.obj.data.scriptCode = config.obj.data.scriptCode || '';
 
     return component;
   };

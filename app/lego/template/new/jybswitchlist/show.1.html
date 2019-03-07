@@ -1,13 +1,11 @@
 <style>
     .pf_160501_7 .o2_tab_wp {
         min-height: 40px;
-        width: 7.5rem;
         /* margin-bottom: 0.5rem; */
     }
     
     .pf_160501_7 .o2_tab_wp .o2_column_nav_wp,
     .pf_160501_7 .o2_tab_wp .o2_cate_nav_wp {
-        width: 7.5rem;
         overflow: hidden;
         background: #fff;
     }
@@ -323,12 +321,34 @@
 <template class="showTemplate">
     <jybswitchlist uid="switchlist" v-bind:params="data" inline-template>
         <div class="pf_160501_7">
-            <div class="o2_tab_wp">
+            <div class="o2_tab_wp" v-bind:style="{paddingLeft:params.LRPadding+'rem',paddingRight:params.LRPadding+'rem'}">
                 <div class="o2_column_nav_wp">
-                    <div :class="{ 'o2_column_nav': true }">
-                        <template v-if="true">
-                            <a href="javascript:;" :data-stat-id="item.eventid || ''" @click="toggleTabs(index)" v-for="(item,index) in params.tabs" :tab="index" :class="index == data.tabIndex ? 'o2_on' : '' "
-                                :title="item.tabTitle">{{item.tabTitle}}</a>
+                    <div class="o2_column_nav">
+                        <template v-if="true" v-for="(item,index) in params.tabs">
+                            <a href="javascript:;" 
+                                :data-stat-id="item.eventid || ''" 
+                                @click="toggleTabs(index)" 
+                                :tab="index" 
+                                :class="index == data.tabIndex ? 'o2_on' : '' "
+                                :title="item.tabTitle"
+                                :style="{
+                                    color:params.selectedcontentColor,
+                                    backgroundColor:params.selectedbgcolor}"  
+                                v-if="index == data.tabIndex">
+                                {{item.tabTitle}}
+                            </a>
+                            <a href="javascript:;" 
+                                :data-stat-id="item.eventid || ''" 
+                                @click="toggleTabs(index)" 
+                                :tab="index" 
+                                :class="index == data.tabIndex ? 'o2_on' : '' "
+                                :title="item.tabTitle" 
+                                :style="{
+                                    color:params.contentColor,
+                                    backgroundColor:params.bgcolor}"
+                                v-else>
+                                {{item.tabTitle}}
+                            </a>
                         </template>
                     </div>
                 </div>
