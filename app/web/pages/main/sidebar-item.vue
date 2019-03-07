@@ -17,11 +17,9 @@
         <template v-for="child in item.children">
           <sidebar-item v-if="child.children && child.children.length > 0" :menusList='child.children'></sidebar-item>
             <!-- <router-link v-else class="menu-indent" :to="child.path"> -->
-          <el-menu-item v-else :index="child.menu_url">
+          <el-menu-item v-else :index="child.menu_url" @click="$router.push(child.menu_url)">
             <span slot="title">
-              <router-link class="menu-link" :to="child.menu_url">
                 <span style="font-size: 12px;">&#8226;</span> {{child.menu_name}}
-              </router-link>
             </span>
           </el-menu-item>
             <!-- </router-link> -->

@@ -81,7 +81,7 @@ module.exports = appInfo => {
     deleteEntrancePlan: [{
       ip: 'http://10.23.50.153:12066',
       jmf: 'com.jyblife.complex.h5.act_console.DeleteEntrancePlan'
-    }], 
+    }],
     getEntranceDetail: [{
       ip: 'http://10.23.50.153:12066',
       jmf: 'com.jyblife.complex.h5.act_console.GetEntranceDetail'
@@ -93,7 +93,7 @@ module.exports = appInfo => {
     putEntrancePlan: [{
       ip: 'http://10.23.50.153:12066',
       jmf: 'com.jyblife.complex.h5.act_console.PutEntrancePlan'
-      
+
     }],
     getEntrancePlanList: [{
       ip: 'http://10.23.50.153:12066',
@@ -106,6 +106,26 @@ module.exports = appInfo => {
     getIconEntranceDetail: [{
       ip: 'http://10.23.50.153:12066',
       jmf: 'com.jyblife.complex.h5.act_console.GetIconEntranceDetail'
+    }],
+    GetSingleFiles: [{
+      ip: 'http://10.23.50.153:12066',
+      jmf: 'com.jyblife.complex.h5.act_console.GetSingleFiles'
+    }],
+    PutSingleFiles: [{
+      ip: 'http://10.23.50.153:12066',
+      jmf: 'com.jyblife.complex.h5.act_console.PutSingleFiles'
+    }],
+    GetSingleParams: [{
+      ip: 'http://10.23.50.153:12066',
+      jmf: 'com.jyblife.complex.h5.act_console.GetSingleParams'
+    }],
+    PutSingleParams: [{
+      ip: 'http://10.23.50.153:12066',
+      jmf: 'com.jyblife.complex.h5.act_console.PutSingleParams'
+    }],
+    GetActSingleConfig: [{
+      ip: 'http://10.23.50.153:12066',
+      jmf: 'com.jyblife.complex.h5.act_console.GetActSingleConfig'
     }]
   }
 
@@ -149,8 +169,8 @@ module.exports = appInfo => {
 
   config.passportJyb = {
     'menu_code': 'lego_manage',
-    'client_id': 'lego_manage',        
-    'secret_key': 'fc0b088d18053c320a1733c2b8021e21',      
+    'client_id': 'lego_manage',
+    'secret_key': 'fc0b088d18053c320a1733c2b8021e21',
   };
 
   return config;

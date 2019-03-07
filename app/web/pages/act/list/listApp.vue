@@ -88,10 +88,13 @@
               </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item>
-                  <router-link :to="{name:'actEdit', params: {act_id:props.row.act_id, status:props.row.status}}">编辑活动</router-link>
+                  <div @click="$router.push({name:'actEdit', params:{act_id:props.row.act_id, status:props.row.status}})">编辑活动</div>
                 </el-dropdown-item>
                 <el-dropdown-item divided>
-                  <router-link :to="{name:'chainEdit', params: {act_id:props.row.act_id, status:props.row.status,is_draft:1}}">规则配置</router-link>
+                  <div @click="$router.push({name:'chainEdit', params:{act_id:props.row.act_id, status:props.row.status,is_draft:1}})">规则配置</div>
+                </el-dropdown-item>
+                <el-dropdown-item v-if="props.row.single_file || props.row.draft_single_file" divided>
+                  <div @click="$router.push({name:'singleEdit', params:{act_id:props.row.act_id}})">单文件配置</div>
                 </el-dropdown-item>
                 <el-dropdown-item v-if="deploy" divided>
                   <div @click="manual(props.row)">同步配置</div>
@@ -180,7 +183,6 @@ export default {
           { required: true, message: '请选择测试结果', trigger: 'change' }
         ]
       },
-      showSubRoute: false,
       statusMapNew: { //测试以及发布状态
         0: '待测试',
         1: '测试中',
@@ -201,13 +203,19 @@ export default {
       total: 0
     }
   },
+  computed: {
+    showSubRoute:function () {
+      return this.$route.name !== 'actList';
+    }
+  },
   watch: {
-    '$route': function(val) {
-      this.showSubRoute = val.name != 'actList';
+    showSubRoute:function (val) {
+      if (!val) {
+        this.queryFilterList(true);
+      }
     }
   },
   created() {
-    this.showSubRoute = this.$route.name != 'actList';
     if(!this.showSubRoute) {
       this.queryFilterList(true);
     }
