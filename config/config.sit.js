@@ -86,6 +86,10 @@ module.exports = appInfo => {
     PutSingleParams: [{
       ip: 'http://10.4.45.71:12066',
       jmf: 'com.jyblife.complex.h5.act_console.PutSingleParams'
+    }],
+    GetActSingleConfig: [{
+      ip: 'http://10.4.45.71:12066',
+      jmf: 'com.jyblife.complex.h5.act_console.GetActSingleConfig'
     }]
   }
   config.actEntryConfig = {
@@ -129,10 +133,6 @@ module.exports = appInfo => {
     getIconEntranceDetail: [{
       ip: 'http://10.4.45.71:12066',
       jmf: 'com.jyblife.complex.h5.act_console.GetIconEntranceDetail'
-    }],
-    GetActSingleConfig: [{
-      ip: 'http://10.4.45.71:12066',
-      jmf: 'com.jyblife.complex.h5.act_console.GetActSingleConfig'
     }]
   }
 
