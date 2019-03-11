@@ -20,6 +20,33 @@ class ActDetailController extends Controller {
     let channelRet = await this.service.act.detailService.aisleService(this.ctx.request.url, this.ctx.request.rawBody);
     this.ctx.body = channelRet;
   }
+  async getSingles() {
+    this.ctx.body = await this.service.act.detailService.legoMicroService(this.ctx.request.rawBody, 'GetSingleFiles');
+  }
+
+  async PutSingles() {
+    if(this.ctx.request.rawBody instanceof Object){
+      this.ctx.request.rawBody.creator = this.ctx.session.userid;
+    }
+    this.ctx.body = await this.service.act.detailService.legoMicroService(this.ctx.request.rawBody, 'PutSingleFiles');
+  }
+
+  async GetSingleParams() {
+  this.ctx.body = await this.service.act.detailService.legoMicroService(this.ctx.request.rawBody, 'GetSingleParams');
+  }
+
+  async PutSingleParams() {
+      this.ctx.body = await this.service.act.detailService.legoMicroService(this.ctx.request.rawBody, 'PutSingleParams');
+  }
+
+  async GetActSingleConfig() {
+      this.ctx.body = await this.service.act.detailService.legoMicroService(this.ctx.request.rawBody, 'GetActSingleConfig');
+  }
+
+  async PostSingleConf() {
+      this.ctx.body = await this.service.act.detailService.aisleService(this.ctx.request.url, this.ctx.request.rawBody);
+  }
+
   async saveActChannel() {
     let saveRet = await this.service.act.detailService.aisleService(this.ctx.request.url, this.ctx.request.rawBody);
     this.ctx.body = saveRet;
