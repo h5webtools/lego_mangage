@@ -63,6 +63,26 @@ module.exports = appInfo => {
     GetActEvent: [{
       ip: 'http://10.23.50.153:12066',
       jmf: 'com.jyblife.complex.h5.act_console.GetActEvent'
+    }],
+    GetSingleFiles: [{
+      ip: 'http://10.23.50.153:12066',
+      jmf: 'com.jyblife.complex.h5.act_console.GetSingleFiles'
+    }],
+    PutSingleFiles: [{
+      ip: 'http://10.23.50.153:12066',
+      jmf: 'com.jyblife.complex.h5.act_console.PutSingleFiles'
+    }],
+    GetSingleParams: [{
+      ip: 'http://10.23.50.153:12066',
+      jmf: 'com.jyblife.complex.h5.act_console.GetSingleParams'
+    }],
+    PutSingleParams: [{
+      ip: 'http://10.23.50.153:12066',
+      jmf: 'com.jyblife.complex.h5.act_console.PutSingleParams'
+    }],
+    GetActSingleConfig: [{
+      ip: 'http://10.23.50.153:12066',
+      jmf: 'com.jyblife.complex.h5.act_console.GetActSingleConfig'
     }]
   }
   config.actEntryConfig = {
@@ -106,26 +126,6 @@ module.exports = appInfo => {
     getIconEntranceDetail: [{
       ip: 'http://10.23.50.153:12066',
       jmf: 'com.jyblife.complex.h5.act_console.GetIconEntranceDetail'
-    }],
-    GetSingleFiles: [{
-      ip: 'http://10.23.50.153:12066',
-      jmf: 'com.jyblife.complex.h5.act_console.GetSingleFiles'
-    }],
-    PutSingleFiles: [{
-      ip: 'http://10.23.50.153:12066',
-      jmf: 'com.jyblife.complex.h5.act_console.PutSingleFiles'
-    }],
-    GetSingleParams: [{
-      ip: 'http://10.23.50.153:12066',
-      jmf: 'com.jyblife.complex.h5.act_console.GetSingleParams'
-    }],
-    PutSingleParams: [{
-      ip: 'http://10.23.50.153:12066',
-      jmf: 'com.jyblife.complex.h5.act_console.PutSingleParams'
-    }],
-    GetActSingleConfig: [{
-      ip: 'http://10.23.50.153:12066',
-      jmf: 'com.jyblife.complex.h5.act_console.GetActSingleConfig'
     }]
   }
 
