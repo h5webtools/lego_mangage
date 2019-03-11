@@ -12,6 +12,18 @@ module.exports = app => {
   app.router.post('/act/postAct', app.controller.act.detail.index.saveActDetail);
   // 获取活动渠道列表
   app.router.post('/act/GetChannels', app.controller.act.detail.index.getActChannels);
+  // 获取活动单文件列表
+  app.router.post('/act/GetSingles', app.controller.act.detail.index.getSingles);
+  // 新增/修改活动单文件
+  app.router.post('/act/PutSingles', app.controller.act.detail.index.PutSingles);
+  // 获取活动单文件属性列表
+  app.router.post('/act/GetSingleParams', app.controller.act.detail.index.GetSingleParams);
+  // 获取活动单文件列表编辑
+  app.router.post('/act/PutSingleParams', app.controller.act.detail.index.PutSingleParams);
+  // 获取活动单文件配置
+  app.router.post('/act/GetActSingleConfig', app.controller.act.detail.index.GetActSingleConfig);
+  // 获取更新活动的单文件配置
+  app.router.post('/act/postSingleConf', app.controller.act.detail.index.PostSingleConf);
   // 保存新增的活动渠道
   app.router.post('/act/PostChannel', app.controller.act.detail.index.saveActChannel);
   // 手动触发同步

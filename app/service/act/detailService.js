@@ -14,6 +14,11 @@ class ActDetailService extends Service {
     let result = await this.ctx.helper.sendRequest(env, param);
     return result;
   }
+
+  async legoMicroService(param, serviceName){
+      let env = await this.ctx.helper.envHelper('actLegoConfig', serviceName);
+      return await this.ctx.helper.sendRequest(env, param);
+  }
 }
 
 module.exports = ActDetailService;
