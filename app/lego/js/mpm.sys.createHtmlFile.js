@@ -145,11 +145,11 @@ define(function (require, exports, module) {
           comConfig += "jybvideo:require('@lego/jybvideo'), \n "
         }  else if (_type == 'jybcouponrain' && comConfig.indexOf(".jybcouponrain") == -1) {
           comConfig += "jybcouponrain:require('@lego/jybcouponrain'), \n "
-        }  
+        }
 
-        
 
-        //获取自定义代码 
+
+        //获取自定义代码
         if (_name == 'customcode') {
           if (_data.data.code) {
             customCodeSource += _data.data.code + "\n";
@@ -162,11 +162,18 @@ define(function (require, exports, module) {
           }
         }
 
+        // 添加默认打开加油宝app代码
+        if (_name == 'jybappscheme') {
+          if (_data.data.code) {
+            customCodeSource += _data.data.code + "\n";
+          }
+        }
+
       }
       //是否引入分享模块
       var _shareModule = "shareConfig:require('@lego/jybshare')";
       (templateIndex == 2) ? (comConfig += _shareModule) : "";
-      
+
       comConfig += "};";
     } else {
       for (var key in mpmData) {
@@ -200,7 +207,7 @@ define(function (require, exports, module) {
         } else if (_type == 'jybcouponrain' && comConfig.indexOf(".jybcouponrain") == -1) {
           comConfig += "jybcouponrain:require('../../../actconfig/" + devFolder + "modules/mobile/vuecomponent/jyb.vue.jybcouponrain'), \n "
         }
-        //获取自定义代码 
+        //获取自定义代码
         if (_name == 'customcode') {
           if (_data.data.code) {
             customCodeSource += _data.data.code + "\n";
@@ -210,6 +217,13 @@ define(function (require, exports, module) {
           }
           if (_data.data.styleCode) {
             customStyleCodeSource += _data.data.styleCode + "\n";
+          }
+        }
+
+        // 添加默认打开加油宝app代码
+        if (_name == 'jybappscheme') {
+          if (_data.data.code) {
+            customCodeSource += _data.data.code + "\n";
           }
         }
         //是否引入分享模块
