@@ -9,7 +9,7 @@ define(function (require, exports, module) {
   var pageID = commonUtil.getUrlQuery('page_id');
 
   var scriptTemplate = function scriptTemplate(appid, linkType, url) {
-    return ";(function() {\n\t  \n    var link = ".concat(linkType, " == 1 ? \"jiayoubao://web?url=\" + encodeURIComponent(location.href) : \"").concat(url, "\";\n    // do something\n    var meta = document.createElement(\"meta\");\n      meta.name = \"apple-itunes-app\";\n      meta.content = \"app-id=").concat(appid, ",app-argument=\" + link + \";\n      document.getElementsByTagName('head')[0].appendChild(meta);\n\n    location.href = link;\n  })()");
+    return ";(function() {\n\t if (navigator.userAgent.toLowerCase().indexOf('jiayoubao') == -1) {\n    var link = '';\n    if (".concat(!url, ") {\n\t\tlink = \"jiayoubao://web?url=\" + encodeURIComponent(location.href); \n    } else {\n\t\tif (").concat(linkType == 1, ") {\n\t\t\tlink = \"jiayoubao://web?url=").concat(encodeURIComponent(url), "\"; \n      } else {\n        link = \"").concat(url, "\";\n      }\n    }\n    // do something\n    var meta = document.createElement(\"meta\");\n      meta.name = \"apple-itunes-app\";\n      meta.content = \"app-id=").concat(appid, ",app-argument=\" + link;\n      document.getElementsByTagName('head')[0].appendChild(meta);\n\n    location.href = link;\n}\n  })()");
   };
 
   var _Class = Factory.getClass({
@@ -25,7 +25,8 @@ define(function (require, exports, module) {
       "appid": "909606737", // 加油宝appid
       "linkType": "1",
       "code": "",
-      "externalLink": "jiayoubao://jtjr.jiayoubao/openwith", // app首页
+      "webURL": "",
+      "appURL": "jiayoubao://jtjr.jiayoubao/openwith", // app首页
       "npmversion": "",
       "npmversionArr": [],
       "npmname": "@lego/commontag"
@@ -75,7 +76,10 @@ define(function (require, exports, module) {
         'obj.data.linkType': function () {
           this.getScriptCode();
         },
-        'obj.data.externalLink': function () {
+        'obj.data.webURL': function () {
+          this.getScriptCode();
+        },
+        'obj.data.appURL': function () {
           this.getScriptCode();
         },
       },
@@ -92,7 +96,8 @@ define(function (require, exports, module) {
         selectNpmVersion: function () { /* npm管理 */
         },
         getScriptCode() {
-          this.obj.data.code = scriptTemplate(this.obj.data.appid, this.obj.data.linkType, this.obj.data.externalLink);
+          var link = this.obj.data.linkType == 1 ? this.obj.data.webURL : this.obj.data.appURL;
+          this.obj.data.code = scriptTemplate(this.obj.data.appid, this.obj.data.linkType, link);
         }
       }
     });
