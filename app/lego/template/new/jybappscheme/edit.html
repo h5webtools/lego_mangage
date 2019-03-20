@@ -42,18 +42,26 @@
                       </div>
                   </form>
           <div class="form-horizontal">
+              <!--
               <div class="form-group">
                   <label>appid：</label>
                   <input type="text" v-model="obj.data.appid"></input>
               </div>
-              <div class="form-group">
+              -->
+            <div class="form-group">
                 <label>跳转链接：</label>
-                <input type="radio" value="1" v-model="obj.data.linkType">
-                <label for="isSeq1" style="text-align: left; width:100px;" placeholder="appstore应用id，加油宝为909606737">当前页面链接</label>
-                <input type="radio" value="2" v-model="obj.data.linkType">
-                <label for="isSeq2" style="text-align: left; width:100px;">自定义</label>
-                <input type="text" v-if="obj.data.linkType == 2" v-model="obj.data.externalLink"></input>
-              </div>
+                <div>
+                    <input type="radio" value="1" v-model="obj.data.linkType">
+                    <label for="isSeq2" style="text-align: left; width:50px;">h5链接</label>
+                    <input type="radio" value="2" v-model="obj.data.linkType">
+                    <label for="isSeq2" style="text-align: left; width:50px;">app链接</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label></label>
+                <input type="text" v-if="obj.data.linkType == 1" v-model="obj.data.webURL" placeholder="为空则为当前页面，例如https://cdn.jyblife.com/product/flashsale/index.html" style="width:300px;"></input>
+                <input type="text" v-if="obj.data.linkType == 2" v-model="obj.data.appURL" placeholder="为空则为当前页面，例如jiayoubao://jtjr.jiayoubao/openwith" style="width:300px;"></input>
+            </div>
           </div>
       </div>
   </div>
