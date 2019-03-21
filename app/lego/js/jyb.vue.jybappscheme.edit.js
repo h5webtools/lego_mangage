@@ -9,7 +9,7 @@ define(function (require, exports, module) {
   var pageID = commonUtil.getUrlQuery('page_id');
 
   var scriptTemplate = function scriptTemplate(appid, linkType, url) {
-    return ";(function() {\n\t if (navigator.userAgent.toLowerCase().indexOf('jiayoubao') == -1) {\n    var link = '';\n    if (".concat(!url, ") {\n\t\tlink = \"jiayoubao://web?url=\" + encodeURIComponent(location.href); \n    } else {\n\t\tif (").concat(linkType == 1, ") {\n\t\t\tlink = \"jiayoubao://web?url=").concat(encodeURIComponent(url), "\"; \n      } else {\n        link = \"").concat(url, "\";\n      }\n    }\n    // do something\n    var meta = document.createElement(\"meta\");\n      meta.name = \"apple-itunes-app\";\n      meta.content = \"app-id=").concat(appid, ",app-argument=\" + link;\n      document.getElementsByTagName('head')[0].appendChild(meta);\n\n    location.href = link;\n}\n  })()");
+    return ";(function() {\n\t if (navigator.userAgent.toLowerCase().indexOf('jiayoubao') == -1) {\n    var link = '';\n    if (".concat(!url, ") {\n\t\tlink = \"jiayoubao://web?url=\" + encodeURIComponent(location.href); \n    } else {\n\t\tif (").concat(linkType == 1, ") {\n\t\t\tlink = \"jiayoubao://web?url=").concat(encodeURIComponent(url), "\"; \n      } else {\n        link = \"").concat(url, "\";\n      }\n    }\n    // do something\n    var meta = document.createElement(\"meta\");\n      meta.name = \"apple-itunes-app\";\n      meta.content = \"app-id=").concat(appid, ",app-argument=\" + link;\n      document.getElementsByTagName('head')[0].appendChild(meta);\n\n  setTimeout(function() { location.href = link; }); \n}\n  })()");
   };
 
   var _Class = Factory.getClass({
