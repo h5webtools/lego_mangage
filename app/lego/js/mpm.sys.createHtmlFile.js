@@ -165,7 +165,13 @@ define(function (require, exports, module) {
         // 添加默认打开加油宝app代码
         if (_name == 'jybappscheme') {
           if (_data.data.code) {
-            customScriptCodeSource += _data.data.code + "\n";
+            customCodeSource += _data.data.code + "\n";
+          }
+          if (_data.data.scriptCode) {
+            customScriptCodeSource += _data.data.scriptCode + "\n";
+          }
+          if (_data.data.styleCode) {
+            customStyleCodeSource += _data.data.styleCode + "\n";
           }
         }
 
@@ -223,7 +229,13 @@ define(function (require, exports, module) {
         // 添加默认打开加油宝app代码
         if (_name == 'jybappscheme') {
           if (_data.data.code) {
-            customScriptCodeSource += _data.data.code + "\n";
+            customCodeSource += _data.data.code + "\n";
+          }
+          if (_data.data.scriptCode) {
+            customScriptCodeSource += _data.data.scriptCode + "\n";
+          }
+          if (_data.data.styleCode) {
+            customStyleCodeSource += _data.data.styleCode + "\n";
           }
         }
         //是否引入分享模块

@@ -9,8 +9,21 @@ define(function (require, exports, module) {
   var pageID = commonUtil.getUrlQuery('page_id');
 
   var scriptTemplate = function scriptTemplate(appid, linkType, url) {
-    return ";(function() {\n\t if (navigator.userAgent.toLowerCase().indexOf('jiayoubao') == -1) {\n    var link = '';\n    if (".concat(!url, ") {\n\t\tlink = \"jiayoubao://web?url=\" + encodeURIComponent(location.href); \n    } else {\n\t\tif (").concat(linkType == 1, ") {\n\t\t\tlink = \"jiayoubao://web?url=").concat(encodeURIComponent(url), "\"; \n      } else {\n        link = \"").concat(url, "\";\n      }\n    }\n    // do something\n    var meta = document.createElement(\"meta\");\n      meta.name = \"apple-itunes-app\";\n      meta.content = \"app-id=").concat(appid, ",app-argument=\" + link;\n      document.getElementsByTagName('head')[0].appendChild(meta);\n\n  setTimeout(function() { location.href = link; }); \n}\n  })()");
+    return ";(function() {\n    var ua = navigator.userAgent.toLowerCase();\n    var isJyb = ua.indexOf('jiayoubao') != -1;\n\n\t if (!isJyb) {\n    var link = '';\n    if (".concat(!url, ") {\n\t\tlink = \"jiayoubao://web?url=\" + encodeURIComponent(location.href); \n    } else {\n\t\tif (").concat(linkType == 1, ") {\n\t\t\tlink = \"jiayoubao://web?url=").concat(encodeURIComponent(url), "\"; \n      } else {\n        link = \"").concat(url, "\";\n      }\n    }\t  \n\n    var el = document.getElementsByClassName('smartbanner-wrapper')[0];\n    el.style.display = 'block';\n    el.addEventListener('click', function () {\n       invokeOnApp();\n    });\n\n    setTimeout(function () {\n      location.href = link;\t\t \n    }, 0);\n\n\t function invokeOnApp() {\n      setTimeout(function () {\n        location.href = link;\t\t \n      }, 0);\n\n      setTimeout(function() {\n        location.href = 'https://jyb.jyblife.com/d'\n      }, 300)\n    }    \n   }  \n  })()");
   };
+
+  var code = '<div class="smartbanner-wrapper"></div>'
+  var styleCode = '.smartbanner-wrapper {'
+      + 'display: none;'
+      + 'position: fixed;'
+      + 'z-index: 1000;'
+      + 'right: 10px;'
+      + 'bottom: 150px;'
+      + 'width: .96rem;'
+      + 'height: 1.28rem;'
+      + 'background-size: contain;'
+      + 'background-position: center;'
+    + '};';
 
   var _Class = Factory.getClass({
     vueComponent: vueComponent,
@@ -24,7 +37,9 @@ define(function (require, exports, module) {
       "isShowNpmVersions": USER_INFOR.isAdmin,
       "appid": "909606737", // 加油宝appid
       "linkType": "1",
-      "code": "",
+      "code": code,
+      "scriptCode": "",
+      "styleCode": styleCode,
       "webURL": "",
       "appURL": "jiayoubao://jtjr.jiayoubao/openwith", // app首页
       "npmversion": "",
@@ -97,7 +112,7 @@ define(function (require, exports, module) {
         },
         getScriptCode() {
           var link = this.obj.data.linkType == 1 ? this.obj.data.webURL : this.obj.data.appURL;
-          this.obj.data.code = scriptTemplate(this.obj.data.appid, this.obj.data.linkType, link);
+          this.obj.data.scriptCode = scriptTemplate(this.obj.data.appid, this.obj.data.linkType, link);
         }
       }
     });
@@ -144,6 +159,8 @@ define(function (require, exports, module) {
   exports.getComponent = function (config) {
     var component = new _Class(config);
     config.obj.data.code = (config.obj.data.code || '').replace('! --', '!--');
+    config.obj.data.styleCode = config.obj.data.styleCode || '';
+    config.obj.data.scriptCode = config.obj.data.scriptCode || '';
 
     return component;
   };
