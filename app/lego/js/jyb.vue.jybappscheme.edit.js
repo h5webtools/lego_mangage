@@ -9,7 +9,7 @@ define(function (require, exports, module) {
   var pageID = commonUtil.getUrlQuery('page_id');
 
   var scriptTemplate = function scriptTemplate(appid, linkType, url) {
-    return ";(function() {\n    var ua = navigator.userAgent.toLowerCase();\n    var isJyb = ua.indexOf('jiayoubao') != -1;\n\n\t if (!isJyb) {\n    var link = '';\n    if (".concat(!url, ") {\n\t\tlink = \"jiayoubao://web?url=\" + encodeURIComponent(location.href); \n    } else {\n\t\tif (").concat(linkType == 1, ") {\n\t\t\tlink = \"jiayoubao://web?url=").concat(encodeURIComponent(url), "\"; \n      } else {\n        link = \"").concat(url, "\";\n      }\n    }\t  \n\n    var el = document.getElementsByClassName('smartbanner-wrapper')[0];\n    el.style.display = 'block';\n    el.addEventListener('click', function () {\n       invokeOnApp();\n    });\n\n    setTimeout(function () {\n      location.href = link;\t\t \n    }, 0);\n\n\t function invokeOnApp() {\n      setTimeout(function () {\n        location.href = link;\t\t \n      }, 0);\n\n      setTimeout(function() {\n        location.href = 'https://jyb.jyblife.com/d'\n      }, 300)\n    }    \n   }  \n  })()");
+    return ";(function() {\n    var ua = navigator.userAgent.toLowerCase();\n    var isJyb = ua.indexOf('jiayoubao') != -1;\n\n\t if (!isJyb) {\n    var link = '';\n    if (".concat(!url, ") {\n\t\tlink = \"jiayoubao://web?url=\" + encodeURIComponent(location.href); \n    } else {\n\t\tif (").concat(linkType == 1, ") {\n\t\t\tlink = \"jiayoubao://web?url=").concat(encodeURIComponent(url), "\"; \n      } else {\n        link = \"").concat(url, "\";\n      }\n    }\t  \n\n    var el = document.getElementsByClassName('smartbanner-wrapper')[0];\n    el.style.display = 'block';\n    el.addEventListener('click', function () {\n       invokeOnApp();\n    });\n\n    setTimeout(function () {\n      location.href = link;\t\t \n    }, 0);\n\t \n    var tid = null;\n\t function invokeOnApp() {\n      setTimeout(function () {\n        location.href = link;\n        tid = setTimeout(function() {\n          location.href = 'https://jyb.jyblife.com/d'\n        }, 300)\n      }, 0);\n    }\n\n  window.addEventListener(\"blur\", function () {\n    clearTimeout(tid);\n  });\n\n  document.addEventListener(\"visibilitychange\", function() {\n    if (document.hidden) {\n      clearTimeout(tid);\n      tid = null;\n    }\n  });\n   }  \n\n  })()");
   };
 
   var code = '<div class="smartbanner-wrapper"></div>'
@@ -21,6 +21,7 @@ define(function (require, exports, module) {
       + 'bottom: 150px;'
       + 'width: .96rem;'
       + 'height: 1.28rem;'
+      + 'background-image: url("https://images.jyblife.com/lego/app/download.png");'
       + 'background-size: contain;'
       + 'background-position: center;'
     + '};';
