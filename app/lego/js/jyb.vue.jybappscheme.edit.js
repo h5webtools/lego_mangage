@@ -9,22 +9,22 @@ define(function (require, exports, module) {
   var pageID = commonUtil.getUrlQuery('page_id');
 
   var scriptTemplate = function scriptTemplate(appid, linkType, url) {
-    return ";(function() {\n    var ua = navigator.userAgent.toLowerCase();\n    var isJyb = ua.indexOf('jiayoubao') != -1;\n\n\t if (!isJyb) {\n    var link = '';\n    if (".concat(!url, ") {\n\t\tlink = \"jiayoubao://web?url=\" + encodeURIComponent(location.href); \n    } else {\n\t\tif (").concat(linkType == 1, ") {\n\t\t\tlink = \"jiayoubao://web?url=").concat(encodeURIComponent(url), "\"; \n      } else {\n        link = \"").concat(url, "\";\n      }\n    }\t  \n\n    var el = document.getElementsByClassName('smartbanner-wrapper')[0];\n    el.style.display = 'block';\n    el.addEventListener('click', function () {\n       invokeOnApp();\n    });\n\n    setTimeout(function () {\n      location.href = link;\t\t \n    }, 0);\n\t \n    var tid = null;\n\t function invokeOnApp() {\n      setTimeout(function () {\n        location.href = link;\n        tid = setTimeout(function() {\n          location.href = 'https://jyb.jyblife.com/d'\n        }, 300)\n      }, 0);\n    }\n\n  window.addEventListener(\"blur\", function () {\n    clearTimeout(tid);\n  });\n\n  document.addEventListener(\"visibilitychange\", function() {\n    if (document.hidden) {\n      clearTimeout(tid);\n      tid = null;\n    }\n  });\n   }  \n\n  })()");
+    return ";(function() {\n    var ua = navigator.userAgent.toLowerCase();\n    var isJyb = ua.indexOf('jiayoubao') != -1;\n\n\t if (!isJyb) {\n    var link = '';\n    if (".concat(!url, ") {\n\t\tlink = \"jiayoubao://web?url=\" + encodeURIComponent(location.href); \n    } else {\n\t\tif (").concat(linkType == 1, ") {\n\t\t\tlink = \"jiayoubao://web?url=").concat(encodeURIComponent(url), "\"; \n      } else {\n        link = \"").concat(url, "\";\n      }\n    }\t  \n\n    var el = document.getElementsByClassName('smartbanner-wrapper')[0];\n    el.style.display = 'block';\n    el.addEventListener('click', function () {\n       invokeOnApp();\n    });\n\n    setTimeout(function () {\n      location.href = link;\t\t \n    }, 300);\n\t \n    var tid = null;\n\t function invokeOnApp() {\n      setTimeout(function () {\n        location.href = link;\n        tid = setTimeout(function() {\n          location.href = 'https://jyb.jyblife.com/d'\n        }, 300)\n      }, 0);\n    }\n\n  window.addEventListener(\"blur\", function () {\n    clearTimeout(tid);\n  });\n\n  document.addEventListener(\"visibilitychange\", function() {\n    if (document.hidden) {\n      clearTimeout(tid);\n      tid = null;\n    }\n  });\n   }  \n\n  })()");
   };
 
-  var code = '<div class="smartbanner-wrapper"></div>'
-  var styleCode = '.smartbanner-wrapper {'
-      + 'display: none;'
-      + 'position: fixed;'
-      + 'z-index: 1000;'
-      + 'right: 10px;'
-      + 'bottom: 150px;'
-      + 'width: .96rem;'
-      + 'height: 1.28rem;'
-      + 'background-image: url("https://images.jyblife.com/lego/app/download.png");'
-      + 'background-size: contain;'
-      + 'background-position: center;'
-    + '};';
+  // var code = '<div class="smartbanner-wrapper" data-stat-id=></div>'
+  // var styleCode = '.smartbanner-wrapper {'
+  //     + 'display: none;'
+  //     + 'position: fixed;'
+  //     + 'z-index: 1000;'
+  //     + 'right: 10px;'
+  //     + 'bottom: 150px;'
+  //     + 'width: .96rem;'
+  //     + 'height: 1.28rem;'
+  //     + 'background-image: url("https://images.jyblife.com/lego/app/download.png");'
+  //     + 'background-size: contain;'
+  //     + 'background-position: center;'
+  //   + '};';
 
   var _Class = Factory.getClass({
     vueComponent: vueComponent,
@@ -38,11 +38,15 @@ define(function (require, exports, module) {
       "isShowNpmVersions": USER_INFOR.isAdmin,
       "appid": "909606737", // 加油宝appid
       "linkType": "1",
-      "code": code,
+      "code": "",
       "scriptCode": "",
-      "styleCode": styleCode,
+      "styleCode": "",
       "webURL": "",
       "appURL": "jiayoubao://jtjr.jiayoubao/openwith", // app首页
+      "mtaId": "",
+      "imageURL": "https://images.jyblife.com/lego/app/download.png",
+      "width": ".96rem",
+      "height": "1.28rem",
       "npmversion": "",
       "npmversionArr": [],
       "npmname": "@lego/commontag"
@@ -84,6 +88,8 @@ define(function (require, exports, module) {
         // `this` 指向 vm 实例
         Object.assign(this.oldObj.data, this.obj.data);
         this.getScriptCode();
+        this.getCode();
+        this.getStyleCode();
       },
       watch: {
         'obj.data.appid': function (val) {
@@ -98,6 +104,18 @@ define(function (require, exports, module) {
         'obj.data.appURL': function () {
           this.getScriptCode();
         },
+        'obj.data.mtaId': function () {
+          this.getCode();
+        },
+        'obj.data.imageURL': function () {
+          this.getStyleCode();
+        },
+        'obj.data.width': function () {
+          this.getStyleCode();
+        },
+        'obj.data.height': function () {
+          this.getStyleCode();
+        }
       },
       methods: {
         show: function (index) {
@@ -114,6 +132,23 @@ define(function (require, exports, module) {
         getScriptCode() {
           var link = this.obj.data.linkType == 1 ? this.obj.data.webURL : this.obj.data.appURL;
           this.obj.data.scriptCode = scriptTemplate(this.obj.data.appid, this.obj.data.linkType, link);
+        },
+        getCode() {
+          this.obj.data.code = '<div class="smartbanner-wrapper" data-stat-id="' + this.obj.data.mtaId + '"></div>';
+        },
+        getStyleCode() {
+          this.obj.data.styleCode = '.smartbanner-wrapper {'
+            + 'display: none;'
+            + 'position: fixed;'
+            + 'z-index: 1000;'
+            + 'right: 10px;'
+            + 'bottom: 150px;'
+            + 'width: ' + this.obj.data.width + ';'
+            + 'height: ' + this.obj.data.height + ';'
+            + 'background-image: url("' + this.obj.data.imageURL + '");'
+            + 'background-size: contain;'
+            + 'background-position: center;'
+          + '};';
         }
       }
     });
