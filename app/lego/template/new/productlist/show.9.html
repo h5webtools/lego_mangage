@@ -1,0 +1,129 @@
+<style>
+.lego-productlist-show9 {
+  display: -webkit-box;
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
+}
+
+.lego-productlist-show9__list {
+  width: 7.04rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.lego-productlist-show9__item {
+  width: 2.34rem;
+  box-sizing: border-box;
+  padding-top: .24rem;
+  padding-bottom: .14rem;
+  background-color: #fff;
+  list-style: none;
+  font-size: 0;
+  border-right: 1px solid #ccd2dc;
+}
+
+.lego-productlist-show9__item:nth-child(3n) {
+  border-right: 0;
+}
+
+.lego-productlist-show9__item-img {
+  display: block;
+  width: 1.86rem;
+  height: 1.72rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: .1rem;
+}
+
+.lego-productlist-show9__item-tips {
+  display: inline-block;
+  padding: .02rem .22rem;
+  margin-bottom: .06rem;
+  font-size: .2rem;
+  color: #f85fa0;
+  border: 1px solid #f86aa6;
+  border-left: 0;
+  border-top-right-radius: .3rem;
+  border-bottom-right-radius: .3rem;
+}
+
+.lego-productlist-show9__item-title {
+  padding-left: .22rem;
+  padding-right: .22rem;
+  margin-bottom: .08rem;
+  font-size: .24rem;
+  color: #333;
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  white-space: nowrap;
+}
+
+.lego-productlist-show9__item-price {
+  margin-bottom: .12rem;
+  padding-left: .22rem;
+  padding-right: .22rem;
+  line-height: .30rem;
+}
+
+.lego-productlist-show9__item-price > span {
+  font-size: .32rem;
+  color: #f14989;
+}
+
+.lego-productlist-show9__item-price > del {
+  font-size: .23rem;
+  color: #a6a9ad;
+}
+
+.lego-productlist-show9__item-btn {
+  width: 1.9rem;
+  height: .56rem;
+  line-height: .56rem;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  font-size: .22rem;
+  color: #fff;
+  border-radius: .28rem;
+}  
+</style>
+
+<template class="showTemplate">
+  <productlist uid="com_1018" v-bind:params="data" inline-template>
+    <div class="lego-productlist-show9" z-component="list">
+      <ul class="lego-productlist-show9__list clearfix">
+        <template v-if="true">
+          <li class="lego-productlist-show9__item ui-fl-l" v-on:click="toBuy(item.free_prd_id)" v-bind:data-stat-id="getMtaId(params.eventid,index)" :prdid="item.free_prd_id" v-for="(item,index) in data.paramList"> 
+            <img class="lego-productlist-show9__item-img" :lazy="item.image_url" :alt="item.prd_name"> 
+            <div class="lego-productlist-show9__item-tips">新人专享</div>
+            <h2 class="lego-productlist-show9__item-title">{{item.prd_name}}</h2>
+            <div class="lego-productlist-show9__item-price">
+              <span class="f-30 comm-color">¥{{item.show_price.replace('.00', '')}}</span>
+              <del class="ui-fl-r f-20 color-999" v-if="item.show_price != item.origin_price">原价￥{{item.origin_price.replace('.00', '')}}</del> 
+            </div>  
+            <div class="lego-productlist-show9__item-btn" v-bind:data-stat-para="JSON.stringify({'pageActId':params.pageActId,'pageId':params.pageId,
+            'comDesc':params.comDesc , 'itemTitle':item.prd_name,'freeId':item.free_prd_id})" v-bind:style="{backgroundColor:params.buyBtnBg,color:params.buyColor}">立即抢购&gt;</div>
+          </li>
+        </template>
+      </ul>
+    </div>
+  </productlist>
+</template>
+<!-- 下面的属性控制MPM中编辑界面 -->
+
+<script class="forMPMExt">
+	var com_ext = {}
+
+</script>
+<!-- 下面的属性控制MPM中编辑界面 -->
+<script class="forMPMExtend">
+	var com_extend = [{
+
+	}]
+
+</script>
+<!-- 下面的对象会扩展到线上的_componentConfig[0].data.fnObj中，行首和行尾不要有任何多余字符 -->
+<script class="forIDCExtend">
+	var com_js = {
+    };
+</script>
