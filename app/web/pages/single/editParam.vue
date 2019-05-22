@@ -109,6 +109,7 @@
                 let schema = this.$refs.paramsSchemaForm.getValue().param_schema;
                 let jsonSchema = this.getJsonSchema(schema);
                 this.$set(this, 'previewSchema', jsonSchema);
+                this.$set(this, 'previewValue', schemaUtil.mock(jsonSchema))
             },
             handleChange: function (data) {
                 this.value = data;

@@ -10405,6 +10405,7 @@ function getSchema(events) {
             var schema = this.$refs.paramsSchemaForm.getValue().param_schema;
             var jsonSchema = this.getJsonSchema(schema);
             this.$set(this, 'previewSchema', jsonSchema);
+            this.$set(this, 'previewValue', __WEBPACK_IMPORTED_MODULE_0__jyb_boxes_schema_util___default.a.mock(jsonSchema));
         },
         handleChange: function handleChange(data) {
             this.value = data;
