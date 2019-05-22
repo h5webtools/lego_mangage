@@ -6,6 +6,7 @@ import Layout from '../pages/main/layout.vue';
 const actList = () => import(/* webpackChunkName: "actList" */ '../pages/act/list/listApp.vue');
 const actEdit = () => import(/* webpackChunkName: "actEdit" */ '../pages/act/edit/editApp.vue');
 const singleList = () => import(/* webpackChunkName: "actEdit" */ '../pages/single/singleListApp.vue');
+const testVue = () => import(/* webpackChunkName: "actEdit" */ '../pages/welcome/test.vue');
 const singleEditParam = () => import(/* webpackChunkName: "actEdit" */ '../pages/single/editParam.vue');
 const singleApp = () => import(/* webpackChunkName: "actEdit" */ '../pages/single/singleApp.vue');
 const cmdList = () => import(/* webpackChunkName: "cmdList" */ '../pages/cmd/list/cmdListApp.vue');
@@ -92,6 +93,11 @@ const routes = [
               name: 'singleParamEdit',
               title: '编辑单文件参数'
           }]
+        },{
+          path: '/test',
+          component: testVue,
+          name: 'test',
+          title: '单文件测试'
         }
       ]
     },
