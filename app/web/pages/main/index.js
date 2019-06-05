@@ -6,8 +6,9 @@ import App from './app.vue';
 import router from 'routes';
 import NProgress from 'nprogress'; // Progress 进度条
 
-
 Vue.use(ElementUI, { size: 'small' });
+
+Vue.use(window.BoxesSchemaEditor.default);
 
 router.beforeEach((to, from, next) => {
   NProgress.start(); // 开启Progress

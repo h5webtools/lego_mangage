@@ -23,7 +23,9 @@
   "author": "kardel.chen@jyblife.com",
   "license": "ISC",
   "dependencies": {
+    "@jyb/boxes-schema-util": "^0.1.5",
     "@jyb/lego-util": "^1.0.1",
+    "@jyb/lib-extend": "^0.1.9",
     "@jyb/vue-common-menu": "0.0.2",
     "axios": "^0.15.3",
     "clipboard": "^1.7.1",

@@ -293,6 +293,10 @@ export default {
           key:'v2',
           value:'2'
         },
+        {
+          key: 'v3',
+          value: '3'
+        }
       ],
       channelList: [],
       singleList: [],

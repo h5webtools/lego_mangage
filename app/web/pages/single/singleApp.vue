@@ -1,18 +1,75 @@
 <template>
     <div class="martop20">
-        <el-button type="primary" @click="draftDataDialog.visible = true">副本数据</el-button>
-        <el-button type="primary" @click="dataDialog.visible = true">正式数据</el-button>
-
-        <el-form class="single-form" ref="form" :model="form" label-width="25%">
-            <el-form-item v-for="param in params" :label="param.label + '（' + param.keyword + '）：'" :key="param.key"
-                          :prop="param.keyword">
-                <el-input size="medium" v-model="form[param.keyword]"></el-input>
-            </el-form-item>
-            <el-form-item>
+        <el-row>
+            <el-col :span="10">
+                <el-button type="primary" @click="draftDataDialog.visible = true">副本数据</el-button>
+                <el-button type="primary" @click="dataDialog.visible = true">正式数据</el-button>
+            </el-col>
+        </el-row>
+        <el-row class="martop20" :gutter="40">
+            <el-col :span="10">
+                <schema-editor
+                        v-if="showSchemaEditor"
+                        ref="paramsSchemaForm"
+                        :schema="schema"
+                        :value="value"
+                        :onChange="handleChange"
+                >
+                </schema-editor>
                 <el-button size="medium" @click="postSingleConf()">保存</el-button>
-            </el-form-item>
-        </el-form>
-
+            </el-col>
+            <el-col :span="10">
+                <el-tabs v-model="activeName" type="border-card">
+                    <el-tab-pane label="活动参数" name="previewValue">
+                        <div class="text">
+                            {{this.remark || this.code}}
+                        </div>
+                        <div class="code-data">
+                            <pre><code>{{ JSON.stringify(value, null, 4) }}</code></pre>
+                        </div>
+                    </el-tab-pane>
+                    <el-tab-pane label="接口表">
+                        <div v-for="(item,index) in cmd_map" :key="index" class="text item">
+                            <div>
+                                命令字：{{item.cmd }}
+                            </div>
+                            <div>
+                                方法：{{ item.method}}
+                            </div>
+                            <div>
+                                描述：{{item.description}}
+                            </div>
+                            <div v-if="item.events">
+                                监听事件：
+                                <ul class="event-ul">
+                                    <li v-for="(event,event_index) in item.events" :key="event_index">
+                                        {{event.event_name}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </el-tab-pane>
+                    <el-tab-pane label="参数编辑">
+                        <el-form :model="configValue" ref="valueEditForm">
+                            <el-form-item label="配置" porp="configStr">
+                                <el-input
+                                        type="textarea"
+                                        :autosize="{ minRows: 10, maxRows: 15}"
+                                        placeholder="请输入内容"
+                                        v-model="configValue.configStr"
+                                        @change="editValueChange"
+                                        autocomplete="off"
+                                >
+                                </el-input>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-button type="primary" @click="uploadValueConfig">保存</el-button>
+                            </el-form-item>
+                        </el-form>
+                    </el-tab-pane>
+                </el-tabs>
+            </el-col>
+        </el-row>
         <el-dialog title="单文件副本数据" :visible.sync="draftDataDialog.visible">
             <el-row class="data-row">
                 <el-col class="data-label" :span="5">使用的单文件：</el-col>
@@ -46,7 +103,8 @@
 
 <script>
     import * as actQuery from 'api/api_act_edit'
-    import {clone} from 'assets/js/util'
+    import schemaUtil from '@jyb/boxes-schema-util';
+    import extend from '@jyb/lib-extend'
 
     function SingleConfig(code, params, remark) {
         this.code = code || null;
@@ -62,6 +120,12 @@
         },
         data: function () {
             return {
+                showSchemaEditor: false,
+                schema: {},
+                value: {},
+                code: '',
+                remark: '',
+                cmd_map: [],
                 singleDraftConfig: new SingleConfig(),
                 singleConfig: new SingleConfig(),
                 dataDialog: {
@@ -70,8 +134,10 @@
                 draftDataDialog: {
                     visible: false,
                 },
-                params: [],
-                form: {}
+                activeName: 'previewValue',
+                configValue: {
+                    configStr: ''
+                }
             }
         },
         watch: {
@@ -83,37 +149,45 @@
                             this.$message.error(json.msg);
                             return;
                         }
-                        app.params = json.data.params;
-                        for (let index in app.params) {
-                            if (app.singleDraftConfig.params.hasOwnProperty(app.params[index].keyword)) {
-                                let param_value = app.singleDraftConfig.params[app.params[index].keyword];
-                                if (param_value instanceof Object) {
-                                    param_value = JSON.stringify(param_value);
-                                } else if (typeof param_value === 'string' || param_value instanceof String) {
-                                    // param_value = JSON.stringify(param_value).replace(/^"(.*)"$/g, '$1')
-                                }
-                                app.$set(app.form, app.params[index].keyword, param_value)
-                            }
-                        }
+                        app.schema = schemaUtil.parse(json.data.param_schema);
+                        app.cmd_map = json.data.cmd_map;
+                        app.code = json.data.code;
+                        app.remark = json.data.remark;
+
+                        app.value = schemaUtil.mock(app.schema);
+                        extend(true, app.value, newValue.params);
+                        app.configValue.configStr = JSON.stringify(newValue.params, null, 4);
+                        app.showSchemaEditor = true;
                     });
                 }
             }
         },
         methods: {
-            postSingleConf: function () {
-                let app = this;
-                let config = clone(this.form);
-                for (let i in config) {
-                    if(config.hasOwnProperty(i)){
-                        try {
-                            config[i] = JSON.parse(config[i]);
-                        } catch (e) {
-                        }
-                    }
+            uploadValueConfig: function () {
+                let config;
+                try {
+                    config = JSON.parse(this.configValue.configStr);
+                } catch (e) {
+                    this.$message.error('编辑的参数格式非json格式');
+                    return;
                 }
+                if (!(config instanceof Object)) {
+                    this.$message.error('编辑的参数格式非json格式');
+                    return;
+                }
+                this.postSingleConf(config);
+            },
+            handleChange: function (data) {
+                this.value = data;
+                this.configValue.configStr = JSON.stringify(this.value, null, 4);
+            },
+            postSingleConf: function (configValue) {
+                let config = configValue || this.$refs.paramsSchemaForm.getValue();
+                let app = this;
                 actQuery.postSingleConf({
                     config: config,
-                    act_id: this.$route.params['act_id']
+                    act_id: this.$route.params['act_id'],
+                    code: this.code
                 }).then(function (json) {
                     if (json.code === '0') {
                         app.$message.success('保存成功')
@@ -121,6 +195,15 @@
                         app.$message.error(json.msg)
                     }
                 });
+            },
+            editValueChange: function (newValue) {
+                try {
+                    let value = JSON.parse(newValue);
+                    if (value instanceof Object) {
+                        this.value = value;
+                    }
+                } catch (e) {
+                }
             },
             getSingleFile: function (isDraft) {
                 let app = this;
@@ -141,8 +224,21 @@
 </script>
 
 <style lang="scss">
+    .event-ul {
+        padding-left: 25px;
+        list-style-type: disc;
+    }
+
     .single-form {
         margin-top: 25px;
+    }
+
+    .text {
+        font-size: 14px;
+    }
+
+    .item {
+        margin-bottom: 18px;
     }
 
     .code-data {

@@ -12,6 +12,7 @@
   <meta name="description" content="{{description}}" />
   {{ helper.requireStatic("css/main.css") }}
   {{ helper.requireStatic("css/main.vue.css") }}
+  <link rel="stylesheet" href="https://images.jyblife.com/common-lib/schema-editor/boxes-schema-editor.css">
 </head>
 <body>
   <div id="app"></div>
@@ -20,6 +21,7 @@
     var userInfo = {{ userInfo | safe }};
     var currentEnv = '{{ env }}';
   </script>
+  <script src="https://images.jyblife.com/common-lib/schema-editor/boxes-schema-editor.js"></script>
   {{ helper.requireStatic("js/main.js") }}
 </body>
 </html>
