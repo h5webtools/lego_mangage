@@ -5,6 +5,10 @@ import Layout from '../pages/main/layout.vue';
 
 const actList = () => import(/* webpackChunkName: "actList" */ '../pages/act/list/listApp.vue');
 const actEdit = () => import(/* webpackChunkName: "actEdit" */ '../pages/act/edit/editApp.vue');
+const singleList = () => import(/* webpackChunkName: "actEdit" */ '../pages/single/singleListApp.vue');
+const testVue = () => import(/* webpackChunkName: "actEdit" */ '../pages/welcome/test.vue');
+const singleEditParam = () => import(/* webpackChunkName: "actEdit" */ '../pages/single/editParam.vue');
+const singleApp = () => import(/* webpackChunkName: "actEdit" */ '../pages/single/singleApp.vue');
 const cmdList = () => import(/* webpackChunkName: "cmdList" */ '../pages/cmd/list/cmdListApp.vue');
 const paramsList = () => import(/* webpackChunkName: "paramsList" */ '../pages/params/paramApp.vue');
 const actChainConfig = () => import(/* webpackChunkName: "actChainConfig" */ '../pages/chain/chainApp.vue');
@@ -57,6 +61,11 @@ const routes = [
             component: actChainConfig,
             name: 'chainEdit',
             title: '编辑配置树'
+          },{
+              path: '/act/singleEdit/:act_id',
+              component: singleApp,
+              name: 'singleEdit',
+              title: '单文件配置'
           }]
         }, {
           path: '/act/edit',
@@ -73,6 +82,22 @@ const routes = [
           component: paramsList,
           title: '规则/动作列表',
           name: 'filterList'
+        }, {
+          path: '/act/singleList',
+          component: singleList,
+          title: '单文件列表',
+          name: 'singleList',
+          children:[{
+              path: '/act/singleParamEdit/:singleCode',
+              component: singleEditParam,
+              name: 'singleParamEdit',
+              title: '编辑单文件参数'
+          }]
+        },{
+          path: '/test',
+          component: testVue,
+          name: 'test',
+          title: '单文件测试'
         }
       ]
     },

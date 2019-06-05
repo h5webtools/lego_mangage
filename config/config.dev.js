@@ -64,6 +64,26 @@ module.exports = appInfo => {
     GetActEvent: [{
       ip: 'http://172.16.1.35:12053',
       jmf: 'com.jyblife.complex.h5.act_console.GetActEvent'
+    }],
+    GetSingleFiles: [{
+      ip: 'http://172.16.1.35:12053',
+      jmf: 'com.jyblife.complex.h5.act_console.GetSingleFiles'
+    }],
+    PutSingleFiles: [{
+      ip: 'http://172.16.1.35:12053',
+      jmf: 'com.jyblife.complex.h5.act_console.PutSingleFiles'
+    }],
+    GetSingleParams: [{
+      ip: 'http://172.16.1.35:12053',
+      jmf: 'com.jyblife.complex.h5.act_console.GetSingleParams'
+    }],
+    PutSingleParams: [{
+      ip: 'http://172.16.1.35:12053',
+      jmf: 'com.jyblife.complex.h5.act_console.PutSingleParams'
+    }],
+    GetActSingleConfig: [{
+      ip: 'http://172.16.1.35:12053',
+      jmf: 'com.jyblife.complex.h5.act_console.GetActSingleConfig'
     }]
   }
   config.actEntryConfig = {
@@ -123,8 +143,7 @@ module.exports = appInfo => {
   }
 
   config.legoConfig = {
-    // path: '/data/www/h5_dev/canye/h5_lego_actpage/release/act/',
-    path: 'C:/jyb/lego_develop',
+    path: '/data/www/h5_dev/canye/h5_lego_actpage/release/act/',
     templateJs: 'index_dev.tjs',
     previewTem: 'confirm_publish.tjs',
     actJs: 'index.js',
@@ -148,13 +167,13 @@ module.exports = appInfo => {
 
   config.passportJyb = {
     'menu_code': 'lego_manage',
-    'client_id': 'lego_manage',        
-    'secret_key': 'fc0b088d18053c320a1733c2b8021e21',      
+    'client_id': 'lego_manage',
+    'secret_key': 'fc0b088d18053c320a1733c2b8021e21',
   };
   config.guideLogin = {
-    'client_id': 'lego_manage',        
-    'secret_key': 'fc0b088d18053c320a1733c2b8021e21',      
+    'client_id': 'lego_manage',
+    'secret_key': 'fc0b088d18053c320a1733c2b8021e21',
   };
-  
+
   return config;
 };

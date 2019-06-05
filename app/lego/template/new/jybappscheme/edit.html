@@ -1,0 +1,84 @@
+<div class="editBox">
+  <div class="editBox_2">
+      <h3>{{obj.componentName}} {{obj.uid}}</h3>
+      <p>
+          app跳转
+      </p>
+
+      <ul class="tab_hd">
+          <li v-bind:class="{ 'on': showStyle }" v-on:click="show(0)"><a href="javascript:;" title="设置样式">设置样式</a></li>
+          <li v-bind:class="{ 'on': showProperty }" v-on:click="show(1)"><a href="javascript:;" title="设置数据">设置数据</a></li>
+      </ul>
+
+      <div v-show="showStyle" class="styleBox">
+          <dl>
+              <dt>样式</dt>
+              <dd>
+                  <ul>
+                      <li v-for="item in arrStyle">
+                          <div style="display:none;">
+                              {{item.com_desc}}<input type="radio" :name="obj.uid" :id="obj.uid+'_'+item.id" :value="item.id"
+                                  v-model="obj.data.styleKey"><br/>
+                          </div>
+                          <label :class="item.id == obj.data.styleKey ? 'on' : ''" :for="obj.uid+'_'+item.id"><img :src="item.image" alt=""></label>
+                          <div class="styleDesc">
+                              {{item.com_desc}}
+                          </div>
+                      </li>
+                  </ul>
+              </dd>
+          </dl>
+      </div>
+
+      <div v-show="showProperty" class="editArea">
+              <form class="form-horizontal"  v-if="true">
+                      <div class="coupon-group">
+                      <div class="form-group">
+                          <label><strong></strong>版本号：</label>
+                          <select name="action" @change="selectNpmVersion" v-model="obj.data.npmversion">
+                              <option :value="item.version" v-for="item in obj.data.npmversionArr">{{item.desc}}</option>
+                          </select>
+                      </div>
+                      </div>
+                  </form>
+          <div class="form-horizontal">
+              <!--
+              <div class="form-group">
+                  <label>appid：</label>
+                  <input type="text" v-model="obj.data.appid"></input>
+              </div>
+              -->
+            <div class="form-group">
+                <label>跳转链接：</label>
+                <div>
+                    <input type="radio" value="1" v-model="obj.data.linkType">
+                    <label for="isSeq2" style="text-align: left; width:50px;">h5链接</label>
+                    <input type="radio" value="2" v-model="obj.data.linkType">
+                    <label for="isSeq2" style="text-align: left; width:50px;">app链接</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label></label>
+                <input type="text" v-if="obj.data.linkType == 1" v-model="obj.data.webURL" placeholder="为空则为当前页面，例如https://cdn.jyblife.com/product/flashsale/index.html" style="width:300px;"></input>
+                <input type="text" v-if="obj.data.linkType == 2" v-model="obj.data.appURL" placeholder="为空则为当前页面，例如jiayoubao://jtjr.jiayoubao/openwith" style="width:300px;"></input>
+            </div>
+            <div class="form-group">
+                <label>图片链接：</label>
+                <input type="text" v-model="obj.data.imageURL" placeholder="图片链接地址，比如：https://images.jyblife.com/lego/app/download.png" style="width:300px;"></input>
+            </div>
+            <div class="form-group">
+                <label>图片宽度：</label>
+                <input type="text" v-model="obj.data.width" placeholder="图片宽，比如：.96rem" style="width:100px;"></input>
+            </div>
+            <div class="form-group">
+                <label>图片高度：</label>
+                <input type="text" v-model="obj.data.height" placeholder="图片高，比如：1.28rem" style="width:100px;"></input>
+            </div>
+            <div class="form-group">
+                <label>点击埋点：</label>
+                <input type="text" v-model="obj.data.mtaId" placeholder="比如30012.2.1" style="width:100px;"></input>
+            </div>
+          </div>
+      </div>
+  </div>
+</div>

@@ -34,6 +34,17 @@
         </el-form-item>
       </el-form>
       <div class="tree">
+        <template>
+          <el-form class="form-lock-custom">
+            <el-form-item label="是否加锁">
+              <el-radio-group v-model="cmdData.lock">
+                <el-radio :label="false">否</el-radio>
+                <el-radio :label="true" class="radio-lable-custom">是</el-radio>
+              </el-radio-group>
+            </el-form-item>
+          </el-form>
+          
+        </template>
         <ul>
           <li>
             <div class="node start" @click="addTopNode">
@@ -165,6 +176,7 @@ export default {
   },
   data() {
     return {
+      isLock: '1',
       act_id: this.$route.params.act_id,
       user_stauts: this.$route.params.status,
       is_draft: (this.$route.params.is_draft === '0' ? 0 : 1),
@@ -191,7 +203,8 @@ export default {
       cmdData: {
         cmd: '',
         configData: [],
-        isEdit: false
+        isEdit: false,
+        lock: false
       },
       dialogData: {
         lockRule: false,  // 锁定规则不允许点击
@@ -266,6 +279,7 @@ export default {
         cmd: this.cmdData.cmd,
         act_id: this.act_id,
         event_id: this.mqData.event_id,
+        lock: this.cmdData.lock,
         chains: data
       }).then(json => {
         this.chainLoading = false;
@@ -411,10 +425,12 @@ export default {
       if (this.cmdData.cmd == this.cmdData.lastCmd) {
         return;
       }
+      let tempChainConfigObj = JSON.parse(this.tempChainConfig)[cmd];
       if (this.cmdData.isEdit) {
         this.$confirm('确定要切换命令字？当前编辑内容尚未保存，切换后无法恢复！', '提示').then(() => {
           this.cmdData.lastCmd = cmd;
           this.cmdData.configData = this.chainConfig[cmd] || [];
+          this.cmdData.lock = (tempChainConfigObj && tempChainConfigObj.lock) || false;
           this.mqData.event_id = [];
           this.mqDataCopy.forEach((item) => {
             if(item.cmd == this.cmdData.cmd){
@@ -427,6 +443,7 @@ export default {
       } else {
         this.cmdData.lastCmd = cmd;
         this.cmdData.configData = this.chainConfig[cmd] || [];
+        this.cmdData.lock = (tempChainConfigObj && tempChainConfigObj.lock) || false;
         this.mqData.event_id = [];
         this.mqDataCopy.forEach((item) => {
           if(item.cmd == this.cmdData.cmd){
@@ -682,6 +699,23 @@ export default {
     },
     getChainConfig() {
       chainQuery.getActTrees({ act_id: this.act_id, is_draft: this.is_draft }).then(json => {
+        // json = {"code":"0","data":{
+        //   "40020202":{
+        //      lock:true,
+        //     chains:[{"ruleChain":[{"params":{"bought":"1","etm":"2019/01/23 00:00:00","stm":"2019/01/31 00:00:00","prdId":"1111",
+        //   "onlyBought":"0","min_price":"111"},"editParams":null,"contentDesc":null,"paramsFixed":null,"is":1,
+        //   "passRule":0,"key":"HadBought","type":"object"}],"actionChain":[{"params":[],"editParams":null,
+        //   "contentDesc":null,"paramsFixed":null,"is":"","passRule":null,"key":"ShowLottery","type":"object"}]}],
+        //   },
+        //   "40020203":{
+        //     lock:true,
+        //     chains:[{"ruleChain":[{"params":[],"editParams":null,"contentDesc":null,"paramsFixed":null,"is":1,"passRule":0,
+        //   "key":"ImgCode","type":"object"}],"actionChain":[{"params":{"flag_map":"1"},"editParams":null,
+        // "contentDesc":null,"paramsFixed":null,"is":"","passRule":null,"key":"ShowCustCoupon","type":"object"}]}]
+        
+        //   }
+        // },"msg":null}
+   
         if (json.code == 0) {
           this.chainConfig = json.data;
           this.tempChainConfig = JSON.stringify(json.data);
@@ -717,7 +751,7 @@ export default {
       console.log(this.chainConfig,'this.chainConfig-------------');
       console.log(this.chainsTplData.configData,'----------cmdData.configData');
       for (let cmd in this.chainConfig) {
-        let cmdItem = this.chainConfig[cmd],
+        let cmdItem = this.chainConfig[cmd] && this.chainConfig[cmd].chains,
           editChainIdData = [],
           editChainIdObj = {},
           len = cmdItem.length;
@@ -829,6 +863,7 @@ export default {
       this.cmdData.cmd = defaultCmd;
       this.cmdData.lastCmd = defaultCmd;
       this.cmdData.configData = this.chainConfig[defaultCmd];
+      this.cmdData.lock = JSON.parse(this.tempChainConfig)[defaultCmd].lock || false;
     },
     /**
      * 查找根节点
@@ -1043,4 +1078,16 @@ export default {
 .key-type {
   color: red;
 }
+
+.form-lock-custom{
+  padding-left: 10px;
+  .el-radio__label{
+    padding-left: 5px !important;
+  }
+
+  .radio-lable-custom{
+    margin-left: 20px !important;
+  }
+}
+
 </style>

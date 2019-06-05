@@ -33,8 +33,9 @@ define(function (require, exports, module) {
   var jybdrawcard = require("./jyb.vue.jybdrawcard.edit");
   var jybvideo = require("./jyb.vue.jybvideo.edit");
   var jybcouponrain = require("./jyb.vue.jybcouponrain.edit");
+  var jybappscheme = require("./jyb.vue.jybappscheme.edit");
 
-  
+
   // var jybsignin = require("./jyb.vue.jybsignin.edit");
   // var jybtasks = require("./jyb.vue.jybtasks.edit");
 
@@ -81,11 +82,12 @@ define(function (require, exports, module) {
     'jybsignin':jybsignin,
     'jybdrawcard':jybdrawcard,
     'jybvideo':jybvideo,
-    'jybcouponrain':jybcouponrain
+    'jybcouponrain':jybcouponrain,
+    'jybappscheme': jybappscheme,
   };
 
   exports.ckeckIsLogin = function () {
-    
+
   }
 
   exports.component = (function () {
@@ -101,7 +103,6 @@ define(function (require, exports, module) {
           return;
         }
         var name = obj.path_key || obj.name;
-
         if (!components[name]) {
           exports.alert('no ' + obj.name + ' component');
           return;
@@ -264,9 +265,9 @@ define(function (require, exports, module) {
         //   }),
         //   type:1
         // }, function(json){
-          
+
         // }, 'json');
-        
+
 
 
         for (var o in allComponents) {
@@ -341,7 +342,7 @@ define(function (require, exports, module) {
           }
 
           if (url) {
-           
+
           } else {
             existUrl[url] = '';
           }
@@ -409,7 +410,7 @@ define(function (require, exports, module) {
           callback(list);
         }
       })
-     
+
     };
   })();
 

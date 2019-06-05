@@ -113,8 +113,23 @@ define(function (require, exports, module) {
             return {};
           }
 
+          if (this.currentStyle.tpl_url.indexOf('show.1.html') > -1) {
+            return {
+              bgcolor: true,
+              desc3: true
+            }
+          }
+
+          if (this.currentStyle.tpl_url.indexOf('show.2.html') > -1) {
+            return {
+              bgcolor: true,
+              desc3: true
+            }
+          }
+
           if (this.currentStyle.tpl_url.indexOf('show.4.html') > -1) {
             return {
+              bgcolor: true,
               desc1Color: true,
               desc2Color: true,
               desc3Color: true,
@@ -129,10 +144,22 @@ define(function (require, exports, module) {
 
           if (this.currentStyle.tpl_url.indexOf('show.3.html') > -1) {
             return {
+              bgcolor: true,
               desc1Color: true,
               desc2Color: true,
               btndescColor: true,
               drawbtndesc: true,
+            };
+          }
+
+          if (this.currentStyle.tpl_url.indexOf('show.5.html') > -1) {
+            return {
+              desc1Color: true,
+              desc2Color: true,
+              btndescColor: true,
+              drawbtndesc: true,
+              endTime: true,
+              bgURL: true,
             };
           }
 
@@ -190,6 +217,7 @@ define(function (require, exports, module) {
             'desc3':'',
             "desc3Color": '',
             'drawTime':'',
+            'countDownTime': '', // 倒计时时间段
             'bgcolor':'',
             "awardhref":'',
             "drawbtndesc": "立即领取",
@@ -203,6 +231,8 @@ define(function (require, exports, module) {
             "unreachdes": '',
             "unreachhref": '',
             "mtaunreach": '',
+            "endTime": '',
+            "bgURL": 'https://images.jyblife.com/lego/coupon_bg.png',
           });
 
           this.$nextTick(function () {
@@ -210,6 +240,7 @@ define(function (require, exports, module) {
           });
         },
         deleteExchangeItem: function (index) {
+          console.log('>>>>>>>>>', index);
           var deleteItem = this.obj.data.couponList.splice(index - 0, 1);
         },
         selectNpmVersion: function () { /* npm管理 */

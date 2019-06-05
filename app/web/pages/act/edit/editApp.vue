@@ -69,6 +69,14 @@
               </el-select>
             <span class="copy-content" v-if="actInfo.old_status == 4 && act_id &&  (requireActInfo.version != actCopyInfo.version || requireActInfo.version != actInfo.version)">正式内容：{{requireActInfo.version | verText(versionList)}}</span>
             </el-form-item>
+          <el-form-item label="选择单文件：">
+            <el-select v-model="actInfo.single_file" filterable placeholder="请选择使用的单文件" class="full-form-item form-width">
+              <el-option v-for="item in singleList" :key="item.code" :value="item.code" :label="item.remark">
+              </el-option>
+            </el-select>
+              <span class="copy-content"
+                    v-if="actInfo.old_status == 4 && act_id &&  (requireActInfo.single_file != actCopyInfo.single_file || requireActInfo.single_file != actInfo.single_file)">正式内容：{{ getSingleNameByCode() || requireActInfo.single_file || '未使用单文件'}}</span>
+          </el-form-item>
           <el-form-item label="测试负责人：">
             <el-select v-model="actInfo.tests" multiple filterable placeholder="请选择该活动的测试人员,默认别少,可选多人" class="full-form-item form-width">
               <el-option
@@ -285,8 +293,13 @@ export default {
           key:'v2',
           value:'2'
         },
+        {
+          key: 'v3',
+          value: '3'
+        }
       ],
       channelList: [],
+      singleList: [],
       editLoading: false,
       relatedCoupons: [], // 关联红包列表
       enableEditUsers: [], // 可编辑人员列表
@@ -304,6 +317,7 @@ export default {
         act_title: '', // 活动名
         effect_time: '', // 上线时间
         expire_time: '', // 过期时间
+        single_file:'',
         end_time:'', //活动结束时间
         code_type: '', // 活动校验类型
         act_url: '', // 活动链接
@@ -326,6 +340,7 @@ export default {
         is_lego: '', //是否是乐高搭建
         version: '1',//版本号
         act_title: '', // 活动名
+        single_file: '',
         effect_time: '', // 上线时间
         expire_time: '', // 过期时间
         end_time:'', //活动结束时间
@@ -349,6 +364,7 @@ export default {
         is_inner: '1', // 活动类型（是否是内部活动）
         is_lego: '', //是否是乐高搭建
         version: '1',//版本号
+        single_file : '', //单文件
         act_title: '', // 活动名
         effect_time: '', // 上线时间
         expire_time: '', // 过期时间
@@ -427,7 +443,8 @@ export default {
     this.getCouponList()
       .getUserList()
       .getChannelList()
-      .getTestEngineer();
+      .getTestEngineer()
+      .getSingleFile();
   },
   mounted() {
     this.editor = new E("#editorElem");
@@ -462,6 +479,16 @@ export default {
     }
   },
   methods: {
+  getSingleNameByCode() {
+    let app = this;
+    let name = this.singleList.find(function(element) {
+      return element.code === app.requireActInfo.single_file;
+    });
+    if (!name || !name.hasOwnProperty('remark')){
+      return;
+    }
+    return name['remark'];
+  },
     md5,
     // 获取活动详情
     getActDetail(act_id) {
@@ -475,7 +502,7 @@ export default {
           if (json.code == 0) {
             this.actInfo = json.data;
             this.requireActInfo = {...json.data};
-            console.log(this.requireActInfo,'this.requireActInfo---------------------')
+
             this.actInfo.pageids = json.data.page_ids && json.data.page_ids.join("-");
             if (json.data.rule_description == null) {
               this.actInfo.rule_description = "";
@@ -505,6 +532,7 @@ export default {
             this.actInfo.effect_time = this.actCopyInfo.effect_time;
             this.actInfo.end_time = this.actCopyInfo.end_time;
             this.actInfo.expire_time = this.actCopyInfo.expire_time;
+            this.actInfo.single_file = this.actCopyInfo.single_file;
             if (json.data.rule_description == null) {
               this.actCopyInfo.rule_description = "";
             }
@@ -565,6 +593,16 @@ export default {
       actQuery.getChannelList().then(json => {
         if (json.code == 0) {
           this.channelList = json.data;
+        } else {
+          this.$message.error(json.msg);
+        }
+      });
+      return this;
+    },
+    getSingleFile() {
+      actQuery.getSingleFile().then(json => {
+        if (json.code == 0) {
+          this.singleList = json.data.single_data;
         } else {
           this.$message.error(json.msg);
         }
